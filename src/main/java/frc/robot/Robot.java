@@ -18,8 +18,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
-import edu.wpi.first.wpilibj.CameraServer;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -32,7 +30,6 @@ public class Robot extends TimedRobot {
 
     Command autonomousCommand;
     Command disabledCommand;
-    SendableChooser<Command> chooser = new SendableChooser<>();
     
 	public static DriverStation.Alliance alliance;
 	public static String allianceColorVal = "";
@@ -45,8 +42,6 @@ public class Robot extends TimedRobot {
 //    public static ArduinoInterface arduinoLEDInterface;
 //    public static ArduinoInterface arduinoCameraInterface;
     
-    public static RobotMap.AutoPlay myPlay = RobotMap.AutoPlay.ONE;
-	public static RobotMap.AutoPosition myPosition = RobotMap.AutoPosition.A;
 
 
     /**
@@ -68,13 +63,6 @@ public class Robot extends TimedRobot {
         // pointers. Bad news. Don't move it.
         oi = new OI();
         
-        CameraServer camera = CameraServer.getInstance();
-        camera.startAutomaticCapture("cam0", 50);
-        camera.startAutomaticCapture();
-        
-        SmartDashboard.putData("Auto mode", chooser);
-        
-        //Camera stuff
         
     }
 
@@ -92,29 +80,6 @@ public class Robot extends TimedRobot {
 
     @Override
     public void autonomousInit() {
-
-    	/* Once we have a working 2nd Arduino + LED System
-    	//send correct alliance data to arduino
-		alliance = DriverStation.getInstance().getAlliance();
-    	
-    	if(alliance.toString().equalsIgnoreCase("blue")){
-    		allianceColorVal = "bluelight";
-    		arduinoLEDInterface.writeStringData(allianceColorVal);
-   		}else if(alliance.toString().equalsIgnoreCase("red")){
-   			allianceColorVal = "redlight";
-   			arduinoLEDInterface.writeStringData(allianceColorVal);
-    	}else{
-    		allianceColorVal = "purplelight";
-    		arduinoLEDInterface.writeStringData(allianceColorVal);
-    	}
-    	SmartDashboard.putString("Alliance", allianceColorVal);
-    	*/
-        
-//        driveTrain.robotDrive.setSafetyEnabled(true);
-//        driveTrain.robotDrive.setExpiration(1);
-//        driveTrain.robotDrive.setMaxOutput(1.0);
-    	
-    	teamSwitchSide = DriverStation.getInstance().getGameSpecificMessage().substring(1, 1);
         
         if (disabledCommand != null) disabledCommand.cancel();
 
