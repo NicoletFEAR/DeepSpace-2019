@@ -10,18 +10,19 @@
 
 package frc.robot.subsystems;
 
-import frc.robot.*;
-import frc.robot.commands.*;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.SensorCollection;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Robot;
+import frc.robot.RobotMap;
+import frc.robot.commands.OpenLoopDrive;
 
 /**
  *
@@ -95,13 +96,9 @@ public class DriveTrain extends Subsystem {
 		RobotMap.left1.set(ControlMode.PercentOutput, left.getY());
 		RobotMap.left2.follow(RobotMap.left1);
 		RobotMap.left2.setInverted(InvertType.FollowMaster);
-		RobotMap.left3.follow(RobotMap.left1);
-		RobotMap.left3.setInverted(InvertType.FollowMaster);
 		RobotMap.right1.set(ControlMode.PercentOutput, right.getY());
 		RobotMap.right2.follow(RobotMap.right1);
 		RobotMap.right2.setInverted(InvertType.FollowMaster);
-		RobotMap.right3.follow(RobotMap.right1);
-		RobotMap.right3.setInverted(InvertType.FollowMaster);
 	}
 
 	public void takeStickInputValues(double leftStickV, double rightStickV) { // arcade drive
@@ -158,8 +155,6 @@ public class DriveTrain extends Subsystem {
 		double averageVelocity = (Math.abs(sensorRight.getQuadratureVelocity()) + Math.abs(sensorLeft.getQuadratureVelocity()))/2;
 
 		SmartDashboard.putNumber("averageVelocity", averageVelocity);
-		
-		
 		
 	}
 	
