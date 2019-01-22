@@ -164,9 +164,11 @@ public class VisionServer extends CrashTrackingRunnable {
      * @see VisionUpdate
      */
     public void addVisionUpdateReceiver(VisionUpdateReceiver receiver) {
+        System.out.print("start of addVisionUpdateReceiver");
         if (!receivers.contains(receiver)) {
             receivers.add(receiver);
         }
+        System.out.print("end of addVisionUpdateReceiver");
     }
 
     public void removeVisionUpdateReceiver(VisionUpdateReceiver receiver) {

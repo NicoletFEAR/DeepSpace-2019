@@ -10,33 +10,32 @@
 
 package frc.robot;
 
+import java.util.List;
+
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.*;
-import frc.robot.subsystems.*;
-
+import frc.robot.loops.VisionProcessor;
+import frc.robot.subsystems.DriveTrain;
 import frc.robot.vision.VisionServer;
-import frc.robot.vision.VisionServerTest;
+import frc.robot.vision.TargetInfo;
 import se.vidstige.jadb.JadbConnection;
 import se.vidstige.jadb.JadbDevice;
-import java.util.List;
 
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the TimedRobot
  * documentation. If you change the name of this class or the package after
- * creating this project, you must also update the build.properties file in 
- * the project.
+ * creating this project, you must also update the build.properties file in the
+ * project.
  */
 public class Robot extends TimedRobot {
 
     Command autonomousCommand;
     Command disabledCommand;
-    
+
 	public static DriverStation.Alliance alliance;
 	public static String allianceColorVal = "";
 	public static String teamSwitchSide = "";
@@ -53,8 +52,7 @@ private static List<JadbDevice> m_devices = null;
 private static JadbDevice m_currentDevice = null;
 private static int m_nextLocalHostPort = 3800;
 
-private VisionServerTest mVisionServer;
-
+private VisionServer mVisionServer = VisionServer.getInstance();
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -64,8 +62,11 @@ private VisionServerTest mVisionServer;
         RobotMap.init();
 
         driveTrain = new DriveTrain();
-        String[] args = {};
-        mVisionServer.main(args);
+        //String[] args = {};
+        //mVisionServer.main(args);
+
+        mVisionServer.addVisionUpdateReceiver(VisionProcessor.getInstance());
+
         //arduinoLEDInterface = new ArduinoInterface(7);
         //arduinoCameraInterface = new ArduinoInterface(6);
         
@@ -86,6 +87,10 @@ private VisionServerTest mVisionServer;
     @Override
     public void disabledPeriodic() {
         Scheduler.getInstance().run();
+        // for (int i = 0; i < update.getTargets().size(); i++) {
+        //     TargetInfo target = update.getTargets().get(i);
+        //     System.out.println("Target: " + target.getY() + ", " + target.getZ());
+        // }
     }
 
     @Override
