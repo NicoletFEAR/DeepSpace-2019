@@ -20,7 +20,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.loops.VisionProcessor;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.vision.VisionServer;
-import frc.robot.vision.TargetInfo;
+import frc.robot.vision.VisionUpdate;
 import se.vidstige.jadb.JadbConnection;
 import se.vidstige.jadb.JadbDevice;
 
@@ -91,6 +91,10 @@ private VisionServer mVisionServer = VisionServer.getInstance();
         //     TargetInfo target = update.getTargets().get(i);
         //     System.out.println("Target: " + target.getY() + ", " + target.getZ());
         // }
+
+        VisionUpdate update = new VisionUpdate();
+        System.out.print(update.getTargets());
+
     }
 
     @Override

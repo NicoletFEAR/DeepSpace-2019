@@ -40,7 +40,7 @@ public class VisionProcessor implements Loop, VisionUpdateReceiver {
         }
 
         // robot_state_.addVisionUpdate(update.getCapturedAtTimestamp(), update.getTargets());
-        System.out.print(update.getTargets());
+        //System.out.print(update.getTargets());
     }
 
     @Override
