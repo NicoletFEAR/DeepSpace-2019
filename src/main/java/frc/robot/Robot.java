@@ -19,6 +19,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 
+import frc.robot.vision.VisionServer;
+import frc.robot.vision.VisionServerTest;
+import se.vidstige.jadb.JadbConnection;
+import se.vidstige.jadb.JadbDevice;
+import java.util.List;
+
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the TimedRobot
@@ -42,7 +48,12 @@ public class Robot extends TimedRobot {
 //    public static ArduinoInterface arduinoLEDInterface;
 //    public static ArduinoInterface arduinoCameraInterface;
     
+private static JadbConnection m_jadb = null;
+private static List<JadbDevice> m_devices = null;
+private static JadbDevice m_currentDevice = null;
+private static int m_nextLocalHostPort = 3800;
 
+private VisionServerTest mVisionServer;
 
     /**
      * This function is run when the robot is first started up and should be
@@ -53,7 +64,8 @@ public class Robot extends TimedRobot {
         RobotMap.init();
 
         driveTrain = new DriveTrain();
-
+        String[] args = {};
+        mVisionServer.main(args);
         //arduinoLEDInterface = new ArduinoInterface(7);
         //arduinoCameraInterface = new ArduinoInterface(6);
         
@@ -62,9 +74,7 @@ public class Robot extends TimedRobot {
         // constructed yet. Thus, their requires() statements may grab null
         // pointers. Bad news. Don't move it.
         oi = new OI();
-        
-        
-    }
+        }
 
     /**
      * This function is called when the disabled button is hit.
