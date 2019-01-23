@@ -10,14 +10,14 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.InvertType;
+
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.*;
-import frc.robot.subsystems.*;
+import frc.robot.subsystems.DriveTrain;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -76,6 +76,7 @@ public class Robot extends TimedRobot {
     @Override
     public void disabledPeriodic() {
         Scheduler.getInstance().run();
+      
     }
 
     @Override
@@ -91,7 +92,10 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopInit()
     {
-        
+        RobotMap.right2.follow(RobotMap.right1);
+		RobotMap.right2.setInverted(InvertType.FollowMaster);
+		RobotMap.left2.follow(RobotMap.left1);
+		RobotMap.left2.setInverted(InvertType.FollowMaster);
         double velocityRight = Robot.driveTrain.getRightEncoderVelocity();
         double velocityLeft = Robot.driveTrain.getLeftEncoderVelocity();
 		SmartDashboard.putNumber("velR", velocityRight);
@@ -114,6 +118,10 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("velL", velocityLeft);
 		
 		SmartDashboard.putNumber("Left Encoder: ", Robot.driveTrain.getLeftEncoderPosition());
-		SmartDashboard.putNumber("Right Encoder: ", Robot.driveTrain.getRightEncoderPosition());
+        SmartDashboard.putNumber("Right Encoder: ", Robot.driveTrain.getRightEncoderPosition());
+        double scaling = 5.0/1024;
+        double range = (RobotMap.ultra.getVoltage() / 2);
+       SmartDashboard.putNumber("Ultrasonic reading (mm):", range);
+    //    SmartDashboard.putNumber("Inches", RobotMap.ultrasonic.getRangeInches());
     }
 }
