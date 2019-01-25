@@ -60,8 +60,8 @@ public class VisionUpdate {
             update.capturedAtTimestamp = current_time - capturedAgoMs / 1000.0;
             JSONArray targets = (JSONArray) j.get("targets");
             ArrayList<TargetInfo> targetInfos = new ArrayList<>(targets.size());
-            System.out.println("targets");
-            System.out.println(targets);
+            // System.out.println("targets");
+            // System.out.println(targets);
             for (Object targetObj : targets) {
                 JSONObject target = (JSONObject) targetObj;
                 Optional<Double> y = parseDouble(target, "y");

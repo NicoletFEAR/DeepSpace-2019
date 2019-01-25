@@ -30,7 +30,7 @@ public class VisionServer extends CrashTrackingRunnable {
     private ServerSocket m_server_socket;
     private boolean m_running = true;
     private int m_port;
-    private ArrayList<VisionUpdateReceiver> receivers = new ArrayList<>();
+    public ArrayList<VisionUpdateReceiver> receivers = new ArrayList<>();
     AdbBridge adb = new AdbBridge();
     double lastMessageReceivedTime = 0;
     private boolean m_use_java_time = false;

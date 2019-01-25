@@ -11,7 +11,7 @@
 package frc.robot;
 
 import frc.robot.commands.SwitchFront;
-
+import frc.robot.commands.VisionTurn;
 //import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -118,6 +118,7 @@ public class OI {
          //xbox1ButtonX.whenPressed(new Shift());
          xbox1LeftStick.whenPressed(new SwitchFront());
          xbox1RightStick.whenPressed(new SwitchFront());
+         xbox1ButtonX.whenPressed(new VisionTurn());
 
         
         // SmartDashboard Buttons

@@ -1,7 +1,7 @@
 package frc.robot.loops;
 
 //
-// import frc.robot.vision.RobotState;
+import frc.robot.vision.RobotState;
 import frc.robot.vision.VisionUpdate;
 import frc.robot.vision.VisionUpdateReceiver;
 
@@ -15,7 +15,7 @@ import frc.robot.vision.VisionUpdateReceiver;
 public class VisionProcessor implements Loop, VisionUpdateReceiver {
     static VisionProcessor instance_ = new VisionProcessor();
     VisionUpdate update_ = null;
-    //RobotState robot_state_ = RobotState.getInstance();
+    RobotState robot_state_ = RobotState.getInstance();
 
     public static VisionProcessor getInstance() {
         return instance_;
@@ -39,7 +39,7 @@ public class VisionProcessor implements Loop, VisionUpdateReceiver {
             update_ = null;
         }
 
-        // robot_state_.addVisionUpdate(update.getCapturedAtTimestamp(), update.getTargets());
+        robot_state_.addVisionUpdate(update.getCapturedAtTimestamp(), update.getTargets());
         //System.out.print(update.getTargets());
     }
 

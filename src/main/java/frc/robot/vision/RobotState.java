@@ -1,5 +1,6 @@
 package frc.robot.vision;
 
+import frc.robot.Robot;
 //import com.team254.frc2017.GoalTracker.TrackReport;
 import frc.robot.vision.TargetInfo;
 //import frc.robot.lib.util.*;
@@ -138,9 +139,14 @@ public class RobotState {
 
                 // Compensate for camera yaw
                 double xyaw = target.getX(); // * camera_yaw_correction_.cos() + ydeadband * camera_yaw_correction_.sin();
-                double yyaw = target.getX();//ydeadband * camera_yaw_correction_.cos() - target.getX() * camera_yaw_correction_.sin();
+                double yyaw = target.getY();//ydeadband * camera_yaw_correction_.cos() - target.getX() * camera_yaw_correction_.sin();
                 double zyaw = target.getZ();
-                System.out.print(xyaw);
+
+                Robot.y_val_target = target.getY();
+                Robot.z_val_target = target.getZ();
+
+                System.out.println("test print inside RobotState addVisionUpdate");
+                System.out.println(xyaw);
                 // // Compensate for camera pitch
                 // double xr = zyaw * camera_pitch_correction_.sin() + xyaw * camera_pitch_correction_.cos();
                 // double yr = yyaw;

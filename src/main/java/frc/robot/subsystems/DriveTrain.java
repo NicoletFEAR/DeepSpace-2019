@@ -134,10 +134,10 @@ public class DriveTrain extends Subsystem {
 		if (!reversed) {
 
 			SmartDashboard.putNumber("turnamount", turnAmount);
-			RobotMap.left1.set(ControlMode.PercentOutput, (-robotOutput*.984187) - turnAmount);
+			RobotMap.left1.set(ControlMode.PercentOutput, (-robotOutput) - turnAmount);
 			RobotMap.right1.set(ControlMode.PercentOutput, robotOutput - turnAmount);
 		} else {
-			RobotMap.left1.set(ControlMode.PercentOutput, (robotOutput*.984187) + turnAmount);
+			RobotMap.left1.set(ControlMode.PercentOutput, (robotOutput) + turnAmount);
 			RobotMap.right1.set(ControlMode.PercentOutput, -robotOutput + turnAmount);
 		}
 
