@@ -10,6 +10,7 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.InvertType;
 
 import edu.wpi.first.wpilibj.DriverStation;
@@ -83,12 +84,27 @@ public class Robot extends TimedRobot {
     public void autonomousInit() {
         
         if (disabledCommand != null) disabledCommand.cancel();
-
-
+     
 		
         if (autonomousCommand != null) autonomousCommand.start();
     }
     
+    @Override
+    
+    public void autonomousPeriodic() {
+        Scheduler.getInstance().run();
+      //  Robot.driveTrain.go(.3);
+        double distance = RobotMap.ultra.getAverageVoltage()*300/293*1000/25.4;
+        SmartDashboard.putNumber("Distance from ultrasonic (inches)", distance);
+        if (distance<=20){
+            Robot.driveTrain.stop();
+        }else if(distance<=60){
+            Robot.driveTrain.go(distance*2.5-50);
+        }else {
+            Robot.driveTrain.go(1);
+        }
+     
+    }
     @Override
     public void teleopInit()
     {

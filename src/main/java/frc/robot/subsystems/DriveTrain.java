@@ -313,6 +313,14 @@ public class DriveTrain extends Subsystem {
 		RobotMap.right2.set(ControlMode.PercentOutput, 0);
 	}
 
+	public void go(double speed) {
+
+		RobotMap.left1.set(ControlMode.PercentOutput, speed);
+		RobotMap.right1.set(ControlMode.PercentOutput,-speed);
+		RobotMap.left2.follow(RobotMap.left1);
+		RobotMap.right2.follow(RobotMap.right1);
+	}
+
 	public boolean isReversed() {
 		return reversed;
 	}
