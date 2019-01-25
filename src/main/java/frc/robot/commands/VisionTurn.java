@@ -28,15 +28,24 @@ public class VisionTurn extends Command {
   @Override
   protected void execute() {
 
-    
-    Robot.driveTrain.ArcadeDrive(0,-2*(Robot.y_val_target));
+    if (Robot.isTargetNull) {
+      Robot.driveTrain.stop();
+    } else {
+      Robot.driveTrain.ArcadeDrive(0,2*(Robot.y_val_target));
+    }
 
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    
+    if (Robot.z_val_target > 0.28) {
+      return true;
+    } else {
+      return false;
+    }
+    
   }
 
   // Called once after isFinished returns true
