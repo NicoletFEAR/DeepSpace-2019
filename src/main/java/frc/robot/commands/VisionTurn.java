@@ -13,15 +13,20 @@ import frc.robot.Robot;
 
 
 public class VisionTurn extends Command {
+  boolean isFin;
   public VisionTurn() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     requires(Robot.driveTrain);
+
+    
+
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    isFin = false;
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -31,7 +36,13 @@ public class VisionTurn extends Command {
     if (Robot.isTargetNull) {
       Robot.driveTrain.stop();
     } else {
-      Robot.driveTrain.ArcadeDrive(0,2*(Robot.y_val_target));
+      Robot.driveTrain.ArcadeDrive(-0.5*(0.7-Robot.z_val_target),2*(Robot.y_val_target));
+    }
+
+    if (Robot.z_val_target > 0.28) {
+      isFin = true;
+    } else {
+      isFin = false;
     }
 
   }
@@ -40,7 +51,7 @@ public class VisionTurn extends Command {
   @Override
   protected boolean isFinished() {
     
-    if (Robot.z_val_target > 0.28) {
+    if (isFin) {
       return true;
     } else {
       return false;
@@ -57,5 +68,6 @@ public class VisionTurn extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    isFin = true;
   }
 }

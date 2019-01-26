@@ -147,7 +147,6 @@ public class RobotState {
                 Robot.z_val_target = target.getZ();
 
                 System.out.println("test print inside RobotState addVisionUpdate");
-                System.out.println(xyaw);
                 // // Compensate for camera pitch
                 // double xr = zyaw * camera_pitch_correction_.sin() + xyaw * camera_pitch_correction_.cos();
                 // double yr = yyaw;

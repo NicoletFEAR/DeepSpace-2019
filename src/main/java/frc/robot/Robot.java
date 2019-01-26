@@ -94,8 +94,8 @@ private VisionServer mVisionServer;
         Scheduler.getInstance().run();
         VisionProcessor processor = (VisionProcessor) mVisionServer.receivers.get(0);
         processor.onLoop(System.currentTimeMillis());
-        System.out.println("y_val_target: " + y_val_target);
-        System.out.println("z_val_target: " + z_val_target);
+        SmartDashboard.putNumber("y_val_target: ", y_val_target); 
+        SmartDashboard.putNumber("z_val_target: ", z_val_target);
         // for (int i = 0; i < update.getTargets().size(); i++) {
         //     TargetInfo target = update.getTargets().get(i);
         //     System.out.println("Target: " + target.getY() + ", " + target.getZ());
@@ -170,8 +170,9 @@ private VisionServer mVisionServer;
         VisionProcessor processor = (VisionProcessor) mVisionServer.receivers.get(0);
 
         processor.onLoop(System.currentTimeMillis());
-        System.out.println("y_val_target: " + y_val_target);
-        System.out.println("z_val_target: " + z_val_target);
+        SmartDashboard.putNumber("y_val_target: ", y_val_target); 
+        SmartDashboard.putNumber("z_val_target: ", z_val_target);
+        SmartDashboard.putBoolean("Vision On: ", OI.visionOn);
     
     }
 }
