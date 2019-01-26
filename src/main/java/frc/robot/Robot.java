@@ -82,29 +82,27 @@ public class Robot extends TimedRobot {
 
     @Override
     public void autonomousInit() {
-        
-        if (disabledCommand != null) disabledCommand.cancel();
+        // if (disabledCommand != null) disabledCommand.cancel();
      
 		
-        if (autonomousCommand != null) autonomousCommand.start();
+        // if (autonomousCommand != null) autonomousCommand.start();
+      
     }
     
     @Override
     
     public void autonomousPeriodic() {
-        Scheduler.getInstance().run();
-      //  Robot.driveTrain.go(.3);
+        // Scheduler.getInstance().run();
+        // Robot.driveTrain.go(.3);
+        double speed = 0.0;
         double distance = RobotMap.ultra.getAverageVoltage()*300/293*1000/25.4;
         SmartDashboard.putNumber("Distance from ultrasonic (inches)", distance);
-        if (distance<=20){
-            Robot.driveTrain.stop();
-        }else if(distance<=60){
-            Robot.driveTrain.go(distance*2.5-50);
-        }else {
-            Robot.driveTrain.go(1);
-        }
-     
-    }
+      //  speed = Math.pow(distance, 2)/1400.0-.2857;
+        speed = 1-1/(distance/100.0 +.8);
+        Robot.driveTrain.go(speed);
+       SmartDashboard.putNumber("Speed", speed );
+   }
+    
     @Override
     public void teleopInit()
     {
