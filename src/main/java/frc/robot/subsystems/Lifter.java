@@ -8,24 +8,24 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  *
  */
-public class Piston extends Subsystem {
-	private final  DoubleSolenoid panelShooter = new DoubleSolenoid(RobotMap.aForwardChannel,RobotMap.aReverseChannel);
+public class Lifter extends Subsystem {
+	private final  DoubleSolenoid liftingMech = new DoubleSolenoid(RobotMap.aForwardChannel,RobotMap.aReverseChannel);
 	
-	public void shootOut() {
-		panelShooter.set(DoubleSolenoid.Value.kForward);
+	public void liftUp() {
+		liftingMech.set(DoubleSolenoid.Value.kForward);
 	
 	}
 	
-	public void takeIn(){
-		panelShooter.set(DoubleSolenoid.Value.kReverse);
+	public void liftDown(){
+		liftingMech.set(DoubleSolenoid.Value.kReverse);
 	
 	}
 	// shift the gearbox to the opposite state
-	public void shoot(){
-		if (panelShooter.get()==DoubleSolenoid.Value.kForward){
-			takeIn();
+	public void lift(){
+		if (liftingMech.get()==DoubleSolenoid.Value.kForward){
+			liftDown();
 		}else {
-			shootOut();
+			liftUp();
 		}
 	}
 
@@ -33,7 +33,7 @@ public class Piston extends Subsystem {
     // here. Call these from Commands.
 	// make sure the pistons are closed at first
     public void initDefaultCommand() {
-    	shootOut();
+    	liftDown();
  
     }
 }

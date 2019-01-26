@@ -10,8 +10,9 @@
 
 package frc.robot;
 
-import frc.robot.commands.SwitchFront;
 
+import frc.robot.commands.*;
+import frc.robot.subsystems.Lifter;
 //import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -66,8 +67,11 @@ public class OI {
 	public XboxController xbox1; // the drive controller
 	private Button xbox1LeftStick;
 	private Button xbox1RightStick;
-    private Button xbox1ButtonX;
     private Button xbox1Start;
+    private Button xbox1X;
+    private Button xbox1Y;
+    private Button xbox1B;
+    private Button xbox1A;
     
     private XboxController xbox2; // the game mech controller
     private Button xbox2Start;
@@ -98,10 +102,15 @@ public class OI {
     	 // create our buttons
          xbox1 = new XboxController(0);
          
-         xbox1ButtonX = new JoystickButton(xbox1, 3);
+         
          xbox1LeftStick = new JoystickButton(xbox1, 9);
          xbox1RightStick = new JoystickButton(xbox1, 10);
          xbox1Start = new JoystickButton(xbox1, 8);
+
+         xbox1X = new JoystickButton(xbox1, 3);
+         xbox1Y = new JoystickButton(xbox1, 4);
+         xbox1B = new JoystickButton(xbox1, 2);
+         xbox1A = new JoystickButton(xbox1, 1);
          
          xbox2 = new XboxController(1);
          
@@ -118,7 +127,8 @@ public class OI {
          //xbox1ButtonX.whenPressed(new Shift());
          xbox1LeftStick.whenPressed(new SwitchFront());
          xbox1RightStick.whenPressed(new SwitchFront());
-
+         xbox1X.whenPressed(new Shooting());
+         xbox1Y.whenPressed(new Lifting());
         
         // SmartDashboard Buttons
         SmartDashboard.putData("SwitchFront", new SwitchFront());
