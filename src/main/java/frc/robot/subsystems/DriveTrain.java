@@ -94,14 +94,12 @@ public class DriveTrain extends Subsystem {
 	public void takeJoystickInputs(Joystick left, Joystick right) { // tank drive
 		RobotMap.left1.set(ControlMode.PercentOutput, left.getY());
 		RobotMap.left2.follow(RobotMap.left1);
-		RobotMap.left2.setInverted(InvertType.FollowMaster);
 		RobotMap.left3.follow(RobotMap.left1);
-		RobotMap.left3.setInverted(InvertType.FollowMaster);
+		RobotMap.left4.follow(RobotMap.left1);
 		RobotMap.right1.set(ControlMode.PercentOutput, right.getY());
 		RobotMap.right2.follow(RobotMap.right1);
-		RobotMap.right2.setInverted(InvertType.FollowMaster);
 		RobotMap.right3.follow(RobotMap.right1);
-		RobotMap.right3.setInverted(InvertType.FollowMaster);
+		RobotMap.right4.follow(RobotMap.right1);
 	}
 
 	public void takeStickInputValues(double leftStickV, double rightStickV) { // arcade drive
