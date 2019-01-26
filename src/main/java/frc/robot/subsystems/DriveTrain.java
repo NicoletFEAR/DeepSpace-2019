@@ -93,15 +93,8 @@ public class DriveTrain extends Subsystem {
 
 	public void takeJoystickInputs(Joystick left, Joystick right) { // tank drive
 		RobotMap.left1.set(ControlMode.PercentOutput, left.getY());
-		RobotMap.left2.follow(RobotMap.left1);
-		RobotMap.left2.setInverted(InvertType.FollowMaster);
-		RobotMap.left3.follow(RobotMap.left1);
-		RobotMap.left3.setInverted(InvertType.FollowMaster);
 		RobotMap.right1.set(ControlMode.PercentOutput, right.getY());
-		RobotMap.right2.follow(RobotMap.right1);
-		RobotMap.right2.setInverted(InvertType.FollowMaster);
-		RobotMap.right3.follow(RobotMap.right1);
-		RobotMap.right3.setInverted(InvertType.FollowMaster);
+	
 	}
 
 	public void takeStickInputValues(double leftStickV, double rightStickV) { // arcade drive
@@ -314,8 +307,6 @@ public class DriveTrain extends Subsystem {
 
 		RobotMap.left1.set(ControlMode.PercentOutput, 0);
 		RobotMap.right1.set(ControlMode.PercentOutput, 0);
-		RobotMap.left2.set(ControlMode.PercentOutput, 0);
-		RobotMap.right2.set(ControlMode.PercentOutput, 0);
 	}
 
 	public boolean isReversed() {
@@ -338,14 +329,4 @@ public class DriveTrain extends Subsystem {
 		RobotMap.right1.setSelectedSensorPosition(0, 0, 10);
 	}
 
-	public void setInvertsFollower() {
-		RobotMap.left2.follow(RobotMap.left1);
-		RobotMap.left2.setInverted(InvertType.FollowMaster);
-		RobotMap.left3.follow(RobotMap.left1);
-		RobotMap.left3.setInverted(InvertType.FollowMaster);
-		RobotMap.right2.follow(RobotMap.right1);
-		RobotMap.right2.setInverted(InvertType.FollowMaster);
-		RobotMap.right3.follow(RobotMap.right1);
-		RobotMap.right3.setInverted(InvertType.FollowMaster);
-	}
 }
