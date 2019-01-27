@@ -38,9 +38,9 @@ public class VisionServer extends CrashTrackingRunnable {
     private ArrayList<ServerThread> serverThreads = new ArrayList<>();
     private volatile boolean mWantsAppRestart = false;
 
-    public static VisionServer getInstance() {
+    public static VisionServer getInstance(int port) {
         if (s_instance == null) {
-            s_instance = new VisionServer(8254);
+            s_instance = new VisionServer(port);
         }
         return s_instance;
     }
