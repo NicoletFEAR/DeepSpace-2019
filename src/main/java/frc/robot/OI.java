@@ -137,6 +137,7 @@ public class OI {
          xbox1X.whenPressed(new Shooting());
          xbox1Y.whenPressed(new Lifting());
         
+         xbox2A.whenPressed(new GameMechShift());
         // SmartDashboard Buttons
         SmartDashboard.putData("SwitchFront", new SwitchFront());
         //SmartDashboard.putData("Lift Ramp", new NTableValueSet());

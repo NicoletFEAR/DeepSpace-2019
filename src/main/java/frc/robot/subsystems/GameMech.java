@@ -23,14 +23,14 @@ public class GameMech extends Subsystem {
 		panelShooter.set(DoubleSolenoid.Value.kForward);
 	}
 	
-	public void takeIn(){
+	public void pull(){
 		panelShooter.set(DoubleSolenoid.Value.kReverse);
 	
 	}
 	// shift the gearbox to the opposite state
 	public void shoot(){
 		if (panelShooter.get()==DoubleSolenoid.Value.kForward){
-			takeIn();
+			pull();
 		}else {
 			shootOut();
 		}
