@@ -4,6 +4,7 @@ import  frc.robot.commands.*;
 import  frc.robot.RobotMap;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -56,8 +57,10 @@ public class Lifter extends Subsystem {
 	
 
 	public void controllingLifters(){
+		SmartDashboard.putNumber("Count: ", count);
 		if(count==0){
-			liftBoth();
+			liftFrontUp();
+			liftBackUp();
 		}else if (count==1){
 			liftFrontDown();
 		}else if (count==2){

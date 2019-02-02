@@ -67,16 +67,16 @@ public class RobotMap {
 	public  static int aReverseChannel = 2;
 	
 	public  static int bModuleNumber = 0;
-	public  static int bForwardChannel = 3;
-	public  static int bReverseChannel = 4;
+	public  static int bForwardChannel = 5;
+	public  static int bReverseChannel = 0;
 	
 	public  static int cModuleNumber = 0;
-	public  static int cForwardChannel = 5;
+	public  static int cForwardChannel = 3;
 	public  static int cReverseChannel = 6;
 	
 	public  static int dModuleNumber = 0;
 	public  static int dForwardChannel = 7;
-	public  static int dReverseChannel = 8;
+	public  static int dReverseChannel = 4;
 	
 	public  static int compressormodule =0;
 	
