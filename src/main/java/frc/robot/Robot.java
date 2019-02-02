@@ -41,6 +41,8 @@ public class Robot extends TimedRobot {
     public static GameMech gameMech;
     public static Lifter lifter;
     public static Arm arm;
+    public static PressureSensor pressureSensor;
+    public static Shifter shifter;
 //    public static ArduinoInterface arduinoLEDInterface;
 //    public static ArduinoInterface arduinoCameraInterface;
     
@@ -58,6 +60,8 @@ public class Robot extends TimedRobot {
         gameMech = new GameMech();
         lifter = new Lifter();
         arm = new Arm();
+        pressureSensor = new PressureSensor();
+        shifter = new Shifter();
         //arduinoLEDInterface = new ArduinoInterface(7);
         //arduinoCameraInterface = new ArduinoInterface(6);
         

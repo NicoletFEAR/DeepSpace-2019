@@ -48,20 +48,23 @@ public class Lifter extends Subsystem {
 		}
 	}
 
-	private void liftFrontBackUp(){
-		liftFrontUp();
-		liftBackUp();
+	private void liftBoth(){
+		liftFront();
+		liftBack();
 	}
+
+	
 
 	public void controllingLifters(){
 		if(count==0){
-			liftFrontBackUp();
+			liftBoth();
 		}else if (count==1){
-			liftFrontUp();
-		}else if (count== 2){
-			liftBackUp();
+			liftFrontDown();
+		}else if (count==2){
+			liftBackDown();
 		}
 		count++;
+		count = count%3;
 	}
 
     // Put methods for controlling this subsystem
