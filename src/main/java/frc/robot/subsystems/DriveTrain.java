@@ -22,6 +22,7 @@ import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 /**
  *
@@ -144,6 +145,24 @@ public class DriveTrain extends Subsystem {
 		double averageVelocity = (Math.abs(sensorRight.getQuadratureVelocity()) + Math.abs(sensorLeft.getQuadratureVelocity()))/2;
 
 		SmartDashboard.putNumber("averageVelocity", averageVelocity);		
+
+		if (!(Robot.oi.xbox1.getStartButton())) {
+			if (averageVelocity < 2000) { // if not in low, switch to low
+				if (Robot.shifter.shifty.get() != DoubleSolenoid.Value.kForward) {
+					Robot.shifter.shiftdown();
+				}
+			} else if (averageVelocity < 2300) {
+				//DO NOTHING
+			} else { // if in low, switch to high
+				if (Robot.shifter.shifty.get() == DoubleSolenoid.Value.kForward) {
+					Robot.shifter.shiftup();
+				}
+			}
+		} else {
+			if (Robot.shifter.shifty.get() != DoubleSolenoid.Value.kForward) {
+				Robot.shifter.shiftdown();
+			}
+		}
 	}
 	
 
