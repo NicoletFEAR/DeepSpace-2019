@@ -82,10 +82,18 @@ public class RobotMap {
 		midLeft = new TalonSRX(16);
 		backLeft = new TalonSRX(18);
 
+		frontLeft.setInverted(false);
+		midLeft.follow(frontLeft);
+		backLeft.follow(frontLeft);
+
 		frontRight = new TalonSRX(13);
 		midRight = new TalonSRX(15);
 		backRight = new TalonSRX(17);
 
+		frontRight.setInverted(true);
+		midRight.follow(frontRight);
+		backRight.follow(frontRight);
+		
 		flywheel1 = new TalonSRX(18);
 		flywheel2 = new TalonSRX(19);
 

@@ -40,6 +40,7 @@ public class Robot extends TimedRobot {
     public static DriveTrain driveTrain;
     public static GameMech gameMech;
     public static Lifter lifter;
+    public static Arm arm;
 //    public static ArduinoInterface arduinoLEDInterface;
 //    public static ArduinoInterface arduinoCameraInterface;
     
@@ -56,7 +57,7 @@ public class Robot extends TimedRobot {
         driveTrain = new DriveTrain();
         gameMech = new GameMech();
         lifter = new Lifter();
-
+        arm = new Arm();
         //arduinoLEDInterface = new ArduinoInterface(7);
         //arduinoCameraInterface = new ArduinoInterface(6);
         
