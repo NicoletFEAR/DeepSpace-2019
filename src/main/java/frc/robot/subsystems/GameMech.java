@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  *
  */
-public class Piston extends Subsystem {
+public class GameMech extends Subsystem {
 	private final  DoubleSolenoid panelShooter = new DoubleSolenoid(RobotMap.aForwardChannel,RobotMap.aReverseChannel);
 	
 	public void shootOut() {
