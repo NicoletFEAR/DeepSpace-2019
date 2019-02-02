@@ -63,7 +63,6 @@ public class RobotMap {
 	// Pneumatics
 	public 	static AirCompressor airCompressor;
     public  static int aModuleNumber = 0;
-<<<<<<< HEAD
 	public  static int aForwardChannel = 2;
 	public  static int aReverseChannel = 1;
 	
@@ -78,22 +77,6 @@ public class RobotMap {
 	public  static int dModuleNumber = 0;
 	public  static int dForwardChannel = 7;
 	public  static int dReverseChannel = 4;
-=======
-	public  static int aForwardChannel = 0;
-	public  static int aReverseChannel = 1;
-	
-	public  static int bModuleNumber = 0;
-	public  static int bForwardChannel = 2;
-	public  static int bReverseChannel = 3;
-	
-	public  static int cModuleNumber = 0;
-	public  static int cForwardChannel = 4;
-	public  static int cReverseChannel = 7;
-	
-	public  static int dModuleNumber = 0;
-	public  static int dForwardChannel = 5;
-	public  static int dReverseChannel = 6;
->>>>>>> aec3042625010f3884b458a6aada6e3fa0ebd19f
 	
 	public  static int compressormodule =0;
 	
