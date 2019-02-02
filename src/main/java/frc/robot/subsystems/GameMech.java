@@ -2,6 +2,9 @@
 package frc.robot.subsystems;
 import  frc.robot.commands.*;
 import  frc.robot.RobotMap;
+
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -11,9 +14,13 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class GameMech extends Subsystem {
 	private final  DoubleSolenoid panelShooter = new DoubleSolenoid(RobotMap.cForwardChannel,RobotMap.cReverseChannel);
 	
+	public void initDefaultCommand() {
+		setDefaultCommand(new FlyWheelDrive());
+		shootOut();
+	}
+
 	public void shootOut() {
 		panelShooter.set(DoubleSolenoid.Value.kForward);
-	
 	}
 	
 	public void takeIn(){
@@ -29,11 +36,11 @@ public class GameMech extends Subsystem {
 		}
 	}
 
+	public void spinFlyWheels(double speed){
+		RobotMap.flywheel1.set(ControlMode.PercentOutput, speed);
+		RobotMap.flywheel2.set(ControlMode.PercentOutput, -speed);
+	}
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 	// make sure the pistons are closed at first
-    public void initDefaultCommand() {
-    	shootOut();
- 
-    }
 }
