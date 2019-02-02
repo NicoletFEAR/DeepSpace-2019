@@ -63,12 +63,12 @@ public class RobotMap {
 	// Pneumatics
 	public 	static AirCompressor airCompressor;
     public  static int aModuleNumber = 0;
-	public  static int aForwardChannel = 2;
-	public  static int aReverseChannel = 1;
+	public  static int aForwardChannel = 1;
+	public  static int aReverseChannel = 2;
 	
 	public  static int bModuleNumber = 0;
-	public  static int bForwardChannel = 5;
-	public  static int bReverseChannel = 0;
+	public  static int bForwardChannel = 0;
+	public  static int bReverseChannel = 5;
 	
 	public  static int cModuleNumber = 0;
 	public  static int cForwardChannel = 3;

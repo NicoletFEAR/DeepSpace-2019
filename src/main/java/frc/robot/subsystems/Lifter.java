@@ -14,27 +14,27 @@ public class Lifter extends Subsystem {
 	private final  DoubleSolenoid liftingMechBack  =  new DoubleSolenoid(RobotMap.bForwardChannel,RobotMap.bReverseChannel);
 	private static int count = 0;
 	private void liftFrontUp() {
-		liftingMechFront.set(DoubleSolenoid.Value.kForward);
+		liftingMechFront.set(DoubleSolenoid.Value.kReverse);
 	
 	}
 	
 	private void liftFrontDown(){
-		liftingMechFront.set(DoubleSolenoid.Value.kReverse);
+		liftingMechFront.set(DoubleSolenoid.Value.kForward);
 	
 	}
 
 	private void liftBackUp() {
-		liftingMechBack.set(DoubleSolenoid.Value.kForward);
-	
-	}
-	
-	private void liftBackDown(){
 		liftingMechBack.set(DoubleSolenoid.Value.kReverse);
 	
 	}
 	
+	private void liftBackDown(){
+		liftingMechBack.set(DoubleSolenoid.Value.kForward);
+	
+	}
+	
 	private void liftFront(){
-		if (liftingMechFront.get()==DoubleSolenoid.Value.kForward){
+		if (liftingMechFront.get()==DoubleSolenoid.Value.kReverse){
 			liftFrontDown();
 		}else {
 			liftFrontUp();
@@ -42,7 +42,7 @@ public class Lifter extends Subsystem {
 	}
 
 	private void liftBack(){
-		if (liftingMechBack.get()==DoubleSolenoid.Value.kForward){
+		if (liftingMechBack.get()==DoubleSolenoid.Value.kReverse){
 			liftBackDown();
 		}else {
 			liftBackUp();
@@ -57,24 +57,25 @@ public class Lifter extends Subsystem {
 	
 
 	public void controllingLifters(){
-		SmartDashboard.putNumber("Count: ", count);
+		//liftBack();
 		if(count==0){
 			liftFrontUp();
 			liftBackUp();
 		}else if (count==1){
-			liftFrontDown();
+			liftFront();
 		}else if (count==2){
-			liftBackDown();
+			liftBack();
 		}
 		count++;
 		count = count%3;
+		SmartDashboard.putNumber("Count: ", count);
 	}
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 	// make sure the pistons are closed at first
     public void initDefaultCommand() {
-    	liftFrontDown();
-		liftBackDown();
+		liftingMechFront.set(DoubleSolenoid.Value.kReverse);
+		liftingMechBack.set(DoubleSolenoid.Value.kReverse);
     }
 }
