@@ -21,18 +21,18 @@ public class Shooting extends Command {
 
     public Shooting() {
         // Use requires() here to declare subsystem dependencies
-       requires(Robot.piston);
+       requires(Robot.gameMech);
        this.setInterruptible(false);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.piston.initDefaultCommand();
+    	Robot.gameMech.initDefaultCommand();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {	
-        Robot.piston.shoot();
+        Robot.gameMech.shoot();
     }
 
     // Make this return true when this Command no longer needs to run execute()
