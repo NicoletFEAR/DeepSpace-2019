@@ -132,8 +132,8 @@ public class DriveTrain extends Subsystem {
 		// SmartDashboard.putNumber("Left Side", leftSide.get());
 		// SmartDashboard.putNumber("Right Side", rightSide.get());
 
-		SensorCollection sensorLeft = RobotMap.frontLeft.getSensorCollection();
-		SensorCollection sensorRight = RobotMap.frontRight.getSensorCollection();
+		SensorCollection sensorLeft = RobotMap.midLeft.getSensorCollection();
+		SensorCollection sensorRight = RobotMap.midRight.getSensorCollection();
 
 		SmartDashboard.putNumber("sensor analogin", sensorRight.getAnalogIn());
 		SmartDashboard.putNumber("sensor analoginraw", sensorRight.getAnalogInRaw());
@@ -141,17 +141,18 @@ public class DriveTrain extends Subsystem {
 		SmartDashboard.putNumber("sensor widthpos", sensorRight.getPulseWidthPosition());
 		SmartDashboard.putNumber("sensor velocity", sensorRight.getQuadratureVelocity());
 		
+
 		// shifting
-		double averageVelocity = (Math.abs(sensorRight.getQuadratureVelocity()) + Math.abs(sensorLeft.getQuadratureVelocity()))/2;
+		double averageVelocity = (Math.abs(sensorLeft.getQuadratureVelocity()) + Math.abs(sensorRight.getQuadratureVelocity()))/2;
 
 		SmartDashboard.putNumber("averageVelocity", averageVelocity);		
 
 		if (!(Robot.oi.xbox1.getStartButton())) {
-			if (averageVelocity < 2000) { // if not in low, switch to low
+			if (averageVelocity < 650) { // if not in low, switch to low
 				if (Robot.shifter.shifty.get() != DoubleSolenoid.Value.kForward) {
 					Robot.shifter.shiftdown();
 				}
-			} else if (averageVelocity < 2300) {
+			} else if (averageVelocity < 700) {
 				//DO NOTHING
 			} else { // if in low, switch to high
 				if (Robot.shifter.shifty.get() == DoubleSolenoid.Value.kForward) {
@@ -288,23 +289,23 @@ public class DriveTrain extends Subsystem {
 	}
 
 	public double getLeftEncoderPosition() {
-		return -(RobotMap.frontLeft.getSelectedSensorPosition(0));
+		return -(RobotMap.midLeft.getSelectedSensorPosition(0));
 	}
 
 	public double getRightEncoderPosition() {
 		// Make sure graph isn't upside down (The stocks are going into the
 		// toilet!!)
-		return (RobotMap.frontRight.getSelectedSensorPosition(0));
+		return (RobotMap.midRight.getSelectedSensorPosition(0));
 	}
 
 	public double getLeftEncoderVelocity() {
-		return RobotMap.frontLeft.getSelectedSensorVelocity(0);
+		return RobotMap.midLeft.getSelectedSensorVelocity(0);
 	}
 
 	public double getRightEncoderVelocity() {
 		// Make sure graph isn't upside down (The stocks are going into the
 		// toilet!!)
-		return -(RobotMap.frontRight.getSelectedSensorVelocity(0));
+		return -(RobotMap.midRight.getSelectedSensorVelocity(0));
 	}
 
 	@Override
