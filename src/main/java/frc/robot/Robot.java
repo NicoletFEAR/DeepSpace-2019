@@ -56,8 +56,7 @@ private static List<JadbDevice> m_devices = null;
 private static JadbDevice m_currentDevice = null;
 private static int m_nextLocalHostPort = 3800;
 
-public static VisionServer mVisionServer;
-public static String deviceNumber = "ZY22387SPX";
+private VisionServer mVisionServer;
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -65,10 +64,7 @@ public static String deviceNumber = "ZY22387SPX";
     @Override
     public void robotInit() {
         RobotMap.init();
-        mVisionServer = VisionServer.getInstance(8254);
-        VisionServer.adb.reversePortForward(8254, 8254, "ZY22387SPX");
-        VisionServer.adb.reversePortForward(8111, 8111, "ba8ed155");
-
+        mVisionServer = VisionServer.getInstance(8111);
 
         driveTrain = new DriveTrain();
         //String[] args = {};
@@ -152,11 +148,12 @@ public static String deviceNumber = "ZY22387SPX";
     @Override
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
-        SmartDashboard.putString("Phone ID: ", deviceNumber);
+        
         double velocityRight = Robot.driveTrain.getRightEncoderVelocity();
         double velocityLeft = Robot.driveTrain.getLeftEncoderVelocity();
 		SmartDashboard.putNumber("velR", velocityRight);
 		SmartDashboard.putNumber("velL", velocityLeft);
+		
 		SmartDashboard.putNumber("Left Encoder: ", Robot.driveTrain.getLeftEncoderPosition());
 		SmartDashboard.putNumber("Right Encoder: ", Robot.driveTrain.getRightEncoderPosition());
     /*

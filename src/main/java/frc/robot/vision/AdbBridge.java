@@ -3,7 +3,6 @@ package frc.robot.vision;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import frc.robot.Robot;
 
 /**
  * AdbBridge interfaces to an Android Debug Bridge (adb) binary, which is needed to communicate to Android devices over
@@ -68,12 +67,12 @@ public class AdbBridge {
         start();
     }
 
-    public void portForward(int local_port, int remote_port, String deviceNumber) {
-        runCommand("-s "+ deviceNumber + " forward tcp:" + local_port + " tcp:" + remote_port);
+    public void portForward(int local_port, int remote_port) {
+        runCommand("forward tcp:" + local_port + " tcp:" + remote_port);
     }
 
-    public void reversePortForward(int remote_port, int local_port, String deviceNumber) {
-        runCommand("-s "+ deviceNumber + " reverse tcp:" + remote_port + " tcp:" + local_port);
+    public void reversePortForward(int remote_port, int local_port) {
+        runCommand("reverse tcp:" + remote_port + " tcp:" + local_port);
     }
 
     public void restartApp() {

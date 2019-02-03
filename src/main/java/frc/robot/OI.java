@@ -10,17 +10,19 @@
 
 package frc.robot;
 
+import frc.robot.commands.SwitchFront;
+import frc.robot.commands.VisionTurn;
+import frc.robot.commands.InstantOverride;
 //import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.robot.commands.InstantOverride;
-import frc.robot.commands.SwitchFront;
-import frc.robot.commands.SwitchPhones;
-import frc.robot.commands.VisionTurn;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+//import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 
 //import org.usfirst.frc4786.RobotBuilderTest1.subsystems.*;
 //import org.usfirst.frc4786.RobotBuilderTest1.subsystems.DriveTrain;
+
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -117,9 +119,7 @@ public class OI {
          // tie commands to buttons
          //xbox1ButtonX.whenPressed(new Shift());
          xbox1LeftStick.whenPressed(new SwitchFront());
-         xbox1LeftStick.whenPressed(new SwitchPhones());
          xbox1RightStick.whenPressed(new SwitchFront());
-         xbox1RightStick.whenPressed(new SwitchPhones());
          visionOn = false;
          if (!visionOn) {
             xbox1ButtonX.whenPressed(new VisionTurn());
@@ -128,6 +128,9 @@ public class OI {
             xbox1ButtonX.whenPressed(new InstantOverride());
          }
 
+        
+        // SmartDashboard Buttons
+        SmartDashboard.putData("SwitchFront", new SwitchFront());
         //SmartDashboard.putData("Lift Ramp", new NTableValueSet());
         //SmartDashboard.putData("Lift Ramp", new CubeStuff());
 
