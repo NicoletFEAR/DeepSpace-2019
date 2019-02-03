@@ -64,7 +64,7 @@ private VisionServer mVisionServer;
     @Override
     public void robotInit() {
         RobotMap.init();
-        mVisionServer = VisionServer.getInstance(8111);
+        mVisionServer = VisionServer.getInstance();
 
         driveTrain = new DriveTrain();
         //String[] args = {};
