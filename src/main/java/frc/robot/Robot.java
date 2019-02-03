@@ -69,7 +69,10 @@ public class Robot extends TimedRobot {
         //(which it very likely will), subsystems are not guaranteed to be
         // constructed yet. Thus, their requires() statements may grab null
         // pointers. Bad news. Don't move it.
+        lifter.initDefaultCommand();
+      
         oi = new OI();
+
         
         
     }
@@ -101,7 +104,7 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("velL", velocityLeft);
 		SmartDashboard.putNumber("Left Encoder: ", Robot.driveTrain.getLeftEncoderPosition());
         SmartDashboard.putNumber("Right Encoder: ", Robot.driveTrain.getRightEncoderPosition());
-       
+        lifter.initDefaultCommand();
     }
     
     /**
