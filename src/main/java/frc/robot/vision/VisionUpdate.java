@@ -5,6 +5,8 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import frc.robot.vision.messages.VisionMessage;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -98,6 +100,10 @@ public class VisionUpdate {
 
     public double getCapturedAtTimestamp() {
         return capturedAtTimestamp;
+    }
+
+    public void getVisionModeMessage() {
+        
     }
 
 }

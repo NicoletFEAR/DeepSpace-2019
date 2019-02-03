@@ -5,7 +5,7 @@ import frc.robot.CrashTrackingRunnable;
 import frc.robot.vision.messages.HeartbeatMessage;
 import frc.robot.vision.messages.OffWireMessage;
 import frc.robot.vision.messages.VisionMessage;
-
+import frc.robot.vision.messages.SetCameraModeMessage;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -87,6 +87,11 @@ public class VisionServer extends CrashTrackingRunnable {
             if ("heartbeat".equals(message.getType())) {
                 send(HeartbeatMessage.getInstance());
             }
+            if ("camera_mode".equals(message.getType()) && "back".equals(message.getMessage())){
+                send(SetCameraModeMessage.getBackCameraMessage());
+            } else if ("camera_mode".equals(message.getType()) && "front".equals(message.getMessage())){
+                send(SetCameraModeMessage.getFrontCameraMessage());
+            }
         }
 
         public boolean isAlive() {
@@ -107,6 +112,10 @@ public class VisionServer extends CrashTrackingRunnable {
                     lastMessageReceivedTime = timestamp;
                     String messageRaw = new String(buffer, 0, read);
                     String[] messages = messageRaw.split("\n");
+
+                    SetCameraModeMessage cameraMode = new SetCameraModeMessage("back");
+                    handleMessage(cameraMode, timestamp);
+
                     for (String message : messages) {
                         OffWireMessage parsedMessage = new OffWireMessage(message);
                         if (parsedMessage.isValid()) {

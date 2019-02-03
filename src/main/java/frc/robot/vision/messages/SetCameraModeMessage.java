@@ -5,21 +5,21 @@ package frc.robot.vision.messages;
  */
 public class SetCameraModeMessage extends VisionMessage {
 
-    private static final String K_VISION_MODE = "vision";
-    private static final String K_INTAKE_MODE = "intake";
+    private static final String K_FRONT_CAMERA = "front";
+    private static final String K_BACK_CAMERA = "back";
 
-    private String mMessage = K_VISION_MODE;
+    private String mMessage = K_FRONT_CAMERA;
 
-    private SetCameraModeMessage(String message) {
+    public SetCameraModeMessage(String message) {
         mMessage = message;
     }
 
-    public static SetCameraModeMessage getVisionModeMessage() {
-        return new SetCameraModeMessage(K_VISION_MODE);
+    public static SetCameraModeMessage getFrontCameraMessage() {
+        return new SetCameraModeMessage(K_FRONT_CAMERA);
     }
 
-    public static SetCameraModeMessage getIntakeModeMessage() {
-        return new SetCameraModeMessage(K_INTAKE_MODE);
+    public static SetCameraModeMessage getBackCameraMessage() {
+        return new SetCameraModeMessage(K_BACK_CAMERA);
     }
 
     @Override
