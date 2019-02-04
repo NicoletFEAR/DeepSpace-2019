@@ -96,17 +96,17 @@ private VisionServer mVisionServer;
         processor.onLoop(System.currentTimeMillis());
         SmartDashboard.putNumber("y_val_target: ", y_val_target); 
         SmartDashboard.putNumber("z_val_target: ", z_val_target);
+
+        // VisionUpdate update = new VisionUpdate();
         // for (int i = 0; i < update.getTargets().size(); i++) {
         //     TargetInfo target = update.getTargets().get(i);
         //     System.out.println("Target: " + target.getY() + ", " + target.getZ());
         // }
-
-        //VisionUpdate update = new VisionUpdate();
         
         //System.out.print(update.getTargets());
         //update.targets; // PROBLEM HERE !!!!!!!!!!!!!!
         //boolean b = (targets_list != null);
-  //System.out.println(b);
+        //System.out.println(b);
         /*
         if (update.targets != null) {
           //TargetInfo target_Info = targets_list.get(0);
@@ -116,23 +116,20 @@ private VisionServer mVisionServer;
         }
         */
         
-        
     }
 
     @Override
     public void autonomousInit() {
-        
+        mVisionServer.frontCamera();
         if (disabledCommand != null) disabledCommand.cancel();
 
-
-		
         if (autonomousCommand != null) autonomousCommand.start();
     }
     
     @Override
     public void teleopInit()
     {
-        
+        mVisionServer.backCamera();
         double velocityRight = Robot.driveTrain.getRightEncoderVelocity();
         double velocityLeft = Robot.driveTrain.getLeftEncoderVelocity();
 		SmartDashboard.putNumber("velR", velocityRight);
@@ -165,7 +162,7 @@ private VisionServer mVisionServer;
             Double Y_val = targets_list.get(0).getY();
             System.out.println(Y_val);  
         }
-*/
+    */
 
         VisionProcessor processor = (VisionProcessor) mVisionServer.receivers.get(0);
 

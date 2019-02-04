@@ -112,10 +112,7 @@ public class VisionServer extends CrashTrackingRunnable {
                     lastMessageReceivedTime = timestamp;
                     String messageRaw = new String(buffer, 0, read);
                     String[] messages = messageRaw.split("\n");
-
-                    SetCameraModeMessage cameraMode = new SetCameraModeMessage("back");
-                    handleMessage(cameraMode, timestamp);
-
+                    
                     for (String message : messages) {
                         OffWireMessage parsedMessage = new OffWireMessage(message);
                         if (parsedMessage.isValid()) {
@@ -183,6 +180,20 @@ public class VisionServer extends CrashTrackingRunnable {
     public void removeVisionUpdateReceiver(VisionUpdateReceiver receiver) {
         if (receivers.contains(receiver)) {
             receivers.remove(receiver);
+        }
+    }
+
+    public void frontCamera(){
+        for (int counter = 0; counter < serverThreads.size(); counter++) {
+            ServerThread s = serverThreads.get(counter);
+            s.send(SetCameraModeMessage.getFrontCameraMessage());
+        }
+    }
+
+    public void backCamera(){
+        for (int counter = 0; counter < serverThreads.size(); counter++) {
+            ServerThread s = serverThreads.get(counter);
+            s.send(SetCameraModeMessage.getBackCameraMessage());
         }
     }
 
