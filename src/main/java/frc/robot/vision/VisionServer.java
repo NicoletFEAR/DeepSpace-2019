@@ -26,10 +26,12 @@ import java.util.Collections;
 
 public class VisionServer extends CrashTrackingRunnable {
 
-    private static VisionServer s_instance = null;
+    private static VisionServer a_instance = null;
+    private static VisionServer b_instance = null;
     private ServerSocket m_server_socket;
     private boolean m_running = true;
-    private int m_port;
+    private int local_port;
+    private int remote_port;
     public ArrayList<VisionUpdateReceiver> receivers = new ArrayList<>();
     AdbBridge adb = new AdbBridge();
     double lastMessageReceivedTime = 0;
@@ -38,12 +40,20 @@ public class VisionServer extends CrashTrackingRunnable {
     private ArrayList<ServerThread> serverThreads = new ArrayList<>();
     private volatile boolean mWantsAppRestart = false;
 
-    public static VisionServer getInstance() {
-        if (s_instance == null) {
-            s_instance = new VisionServer(8254);
+    public static VisionServer getLeftInstance() {
+        if (a_instance == null) {
+            a_instance = new VisionServer(8254);
         }
-        return s_instance;
+        return a_instance;
     }
+
+    public static VisionServer getRightInstance() {
+        if (b_instance == null) {
+            b_instance = new VisionServer(8253);
+        }
+        return b_instance;
+    }
+
 
     private boolean mIsConnect = false;
 
@@ -112,7 +122,7 @@ public class VisionServer extends CrashTrackingRunnable {
                     lastMessageReceivedTime = timestamp;
                     String messageRaw = new String(buffer, 0, read);
                     String[] messages = messageRaw.split("\n");
-                    
+
                     for (String message : messages) {
                         OffWireMessage parsedMessage = new OffWireMessage(message);
                         if (parsedMessage.isValid()) {
@@ -142,10 +152,14 @@ public class VisionServer extends CrashTrackingRunnable {
     private VisionServer(int port) {
         try {
             adb = new AdbBridge();
-            m_port = port;
-            m_server_socket = new ServerSocket(port);
+            local_port = port;
+            remote_port = port;
+            if (local_port == 8253){
+                remote_port = 8254;
+            }
+            m_server_socket = new ServerSocket(local_port);
             adb.start();
-            adb.reversePortForward(port, port);
+            adb.reversePortForward(remote_port, local_port);
             try {
                 String useJavaTime = System.getenv("USE_JAVA_TIME");
                 m_use_java_time = "true".equals(useJavaTime);
@@ -161,7 +175,7 @@ public class VisionServer extends CrashTrackingRunnable {
 
     public void restartAdb() {
         adb.restartAdb();
-        adb.reversePortForward(m_port, m_port);
+        adb.reversePortForward(remote_port, local_port);
     }
 
     /**
@@ -223,7 +237,7 @@ public class VisionServer extends CrashTrackingRunnable {
             while (true) {
                 if (getTimestamp() - lastMessageReceivedTime > .1) {
                     // camera disconnected
-                    adb.reversePortForward(m_port, m_port);
+                    adb.reversePortForward(remote_port, local_port);
                     mIsConnect = false;
                 } else {
                     mIsConnect = true;

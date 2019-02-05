@@ -5,6 +5,11 @@ package frc.robot.vision;
  */
 public class VisionServerTest {
     public static class TestReceiver implements VisionUpdateReceiver {
+
+        public static void TestReceiver(String which) {
+            
+        }
+
         @Override
         public void gotUpdate(VisionUpdate update) {
             System.out.println("num targets: " + update.getTargets().size());
@@ -16,11 +21,13 @@ public class VisionServerTest {
     }
 
     public static void main(String[] args) {
-        VisionServer visionServer = VisionServer.getInstance();
-        visionServer.addVisionUpdateReceiver(new TestReceiver());
+        VisionServer rightVisionServer = VisionServer.getLeftInstance();
+        VisionServer leftVisionServer = VisionServer.getRightInstance();
+        rightVisionServer.addVisionUpdateReceiver(new TestReceiver());
+        leftVisionServer.addVisionUpdateReceiver(new TestReceiver());
         while (true) {
             try {
-                Thread.sleep(100);
+                Thread.sleep(2000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

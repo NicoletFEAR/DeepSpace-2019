@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.loops.VisionProcessor;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.vision.VisionServer;
+import frc.robot.vision.VisionServerTest;
 import frc.robot.vision.TargetInfo;
 import frc.robot.vision.VisionUpdate;
 import se.vidstige.jadb.JadbConnection;
@@ -57,6 +58,7 @@ private static JadbDevice m_currentDevice = null;
 private static int m_nextLocalHostPort = 3800;
 
 private VisionServer mVisionServer;
+private VisionServerTest mVisionServerTest;
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -64,7 +66,10 @@ private VisionServer mVisionServer;
     @Override
     public void robotInit() {
         RobotMap.init();
-        mVisionServer = VisionServer.getInstance();
+        // mVisionServer = VisionServer.getInstance();
+
+        String[] args = {};
+        mVisionServerTest.main(args);
 
         driveTrain = new DriveTrain();
         //String[] args = {};

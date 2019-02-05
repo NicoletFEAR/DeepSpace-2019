@@ -12,6 +12,7 @@ import java.nio.file.Paths;
  */
 public class AdbBridge {
     Path bin_location_;
+    String deviceId;
     public final static Path DEFAULT_LOCATION = Paths.get("/usr/bin/adb");
 
     public AdbBridge() {
@@ -72,7 +73,13 @@ public class AdbBridge {
     }
 
     public void reversePortForward(int remote_port, int local_port) {
-        runCommand("reverse tcp:" + remote_port + " tcp:" + local_port);
+        if (local_port == 8253) {
+            deviceId = "ZY22387SPX";
+        }
+        if (local_port == 8254) {
+            deviceId = "92012128b0c5c44a";
+        }
+        runCommand("-s " + deviceId + " reverse tcp:" + remote_port + " tcp:" + local_port);
     }
 
     public void restartApp() {
