@@ -23,6 +23,7 @@ public class Arm extends Subsystem {
     double integral = 0;
     double previousError = 0;
     double previousDesiredEncoderValue = -10;
+    double offset=0;
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
@@ -38,8 +39,10 @@ public class Arm extends Subsystem {
             integral=0;
             previousError=0;
             previousDesiredEncoderValue = desiredEncoderValue;
-            RobotMap.armMotor1.setSelectedSensorPosition(0,0,10);
+            // RobotMap.armMotor1.setSelectedSensorPosition(0,0,10);
+            offset=0;
         }
+        desiredEncoderValue+=offset;
         //reflecting it across the center of the robot if it's reversed
         if(Robot.driveTrain.isReversed()){
             // desiredEncoderValue+= 2*(RobotMap.ARM_MAX_TICK_VAL/2-desiredEncoderValue);
@@ -55,6 +58,9 @@ public class Arm extends Subsystem {
         double speed = p*error + i*integral + d*derivative;
         RobotMap.armMotor1.set(ControlMode.PercentOutput, speed);
         RobotMap.armMotor2.set(ControlMode.PercentOutput, -speed);
-        return (0!=Robot.oi.getXbox1().getTriggerAxis(Hand.kLeft)) || (0!=Robot.oi.getXbox1().getTriggerAxis(Hand.kRight));
+        if(Robot.oi.getXbox2().getBumper(Hand.kLeft)) offset-=1;
+        if(Robot.oi.getXbox2().getBumper(Hand.kRight)) offset+=1;
+        return false;
+        // return (0!=Robot.oi.getXbox1().getTriggerAxis(Hand.kLeft)) || (0!=Robot.oi.getXbox1().getTriggerAxis(Hand.kRight));
     }
 }
