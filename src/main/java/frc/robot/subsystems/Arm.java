@@ -16,8 +16,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *and for extending/retracting the arm
  */
 public class Arm extends Subsystem {
-    double p=.001;
-    double i=0;
+    double p=.00099;
+    double i=.00;
     double d=0;
     double integral = 0;
     double previousError = 0;
@@ -29,7 +29,7 @@ public class Arm extends Subsystem {
 	// make sure the pistons are closed at first
     public void initDefaultCommand() {
         // RobotMap.armMotor1.setSelectedSensorPosition(0,0,10);
-        offset=0;
+        setDefaultCommand(new Levels());
     }
 
     public int rotateToPosition(int desiredEncoderValue){
@@ -39,10 +39,9 @@ public class Arm extends Subsystem {
             integral=0;
             previousError=0;
             previousDesiredEncoderValue = desiredEncoderValue;
-            // RobotMap.armMotor1.setSelectedSensorPosition(0,0,10);
-            offset=0;
         }
-        desiredEncoderValue+=offset;
+
+        desiredEncoderValue+=RobotMap.offset;
         //reflecting it across the center of the robot if it's reversed
         if(Robot.driveTrain.isReversed()){
             // desiredEncoderValue+= 2*(RobotMap.ARM_MAX_TICK_VAL/2-desiredEncoderValue);
