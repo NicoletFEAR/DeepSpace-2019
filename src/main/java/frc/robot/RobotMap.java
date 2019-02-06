@@ -102,8 +102,8 @@ public class RobotMap {
 		flywheel1 = new TalonSRX(19);
 		flywheel2 = new TalonSRX(20);
 
-		armMotor1 = new TalonSRX(21);
-		armMotor2 = new TalonSRX(22);
+		armMotor1 = new TalonSRX(13);
+		armMotor2 = new TalonSRX(14);
 
 		supportWheel1 = new TalonSRX(23);
 		supportWheel2 = new TalonSRX(24);	

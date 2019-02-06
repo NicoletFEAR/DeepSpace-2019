@@ -7,7 +7,6 @@ import  frc.robot.RobotMap;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.SensorCollection;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -23,16 +22,17 @@ public class Arm extends Subsystem {
     double integral = 0;
     double previousError = 0;
     double previousDesiredEncoderValue = -10;
-    double offset=0;
+    int offset=0;
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 	// make sure the pistons are closed at first
     public void initDefaultCommand() {
- 
+        // RobotMap.armMotor1.setSelectedSensorPosition(0,0,10);
+        offset=0;
     }
 
-    public boolean rotateToPosition(int desiredEncoderValue){
+    public int rotateToPosition(int desiredEncoderValue){
         //checks if the target has changed
         //if it has changed, reset the base variables to 0;
         if(desiredEncoderValue!=previousDesiredEncoderValue){
@@ -56,11 +56,15 @@ public class Arm extends Subsystem {
         integral += error*.02;
         double derivative = (error-previousError)/.02;
         double speed = p*error + i*integral + d*derivative;
+
         RobotMap.armMotor1.set(ControlMode.PercentOutput, speed);
         RobotMap.armMotor2.set(ControlMode.PercentOutput, -speed);
-        if(Robot.oi.getXbox2().getBumper(Hand.kLeft)) offset-=1;
-        if(Robot.oi.getXbox2().getBumper(Hand.kRight)) offset+=1;
-        return false;
+
+        // if(Robot.oi.getXbox2().getYButton()) RobotMap.armMotor1.setSelectedSensorPosition(0,0,10);
+        if(Robot.oi.getXbox2().getBumper(Hand.kLeft)) offset-=100;
+        if(Robot.oi.getXbox2().getBumper(Hand.kRight)) offset+=100;
+
+        return offset;
         // return (0!=Robot.oi.getXbox1().getTriggerAxis(Hand.kLeft)) || (0!=Robot.oi.getXbox1().getTriggerAxis(Hand.kRight));
     }
 }

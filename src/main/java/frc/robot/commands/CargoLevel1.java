@@ -19,7 +19,6 @@ import frc.robot.Robot;
  */
 public class CargoLevel1 extends Command {
 
-    private boolean error;
     public CargoLevel1() {
         // Use requires() here to declare subsystem dependencies
        requires(Robot.arm);
@@ -28,17 +27,17 @@ public class CargoLevel1 extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.arm.initDefaultCommand();
+        Robot.arm.initDefaultCommand();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {	
-        error = Robot.arm.rotateToPosition(3000);
+        Robot.arm.rotateToPosition(3000);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return error;
+        return false;
     }
 
     // Called once after isFinished returns true
