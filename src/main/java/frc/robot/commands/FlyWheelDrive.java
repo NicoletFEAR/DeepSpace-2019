@@ -11,14 +11,14 @@
 package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import frc.robot.RobotMap;
-import frc.robot.subsystems.DriveTrain;
+// import frc.robot.RobotMap;
+// import frc.robot.subsystems.DriveTrain;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
+// import com.ctre.phoenix.motorcontrol.ControlMode;
 
-import frc.robot.OI;
+// import frc.robot.OI;
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.GenericHID.Hand;
+// import edu.wpi.first.wpilibj.GenericHID.Hand;
 /**
  *
  */
@@ -35,7 +35,7 @@ public class FlyWheelDrive extends Command {
     @Override
     protected void execute() {
     	//for joy sticks
- //   	Robot .driveTrain.takeJoystickInputs(Robot.oi.getLeftJoystick() , Robot.oi.getRightJoystick());
+ //   	Robot.driveTrain.takeJoystickInputs(Robot.oi.getLeftJoystick() , Robot.oi.getRightJoystick());
 
     	// for xbox controller     
 //    	double rightStickValue = Robot.oi.getXbox1().getY(GenericHID.Hand.kRight);   	
@@ -52,7 +52,6 @@ public class FlyWheelDrive extends Command {
     	double robotOutput = forwardValue - reverseValue;
     	
     	Robot.gameMech.spinFlyWheels(robotOutput);
-    	
      }
 
     // Make this return true when this Command no longer needs to run execute()

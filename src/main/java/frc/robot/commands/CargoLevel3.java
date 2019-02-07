@@ -22,15 +22,16 @@ import frc.robot.RobotMap;
 public class CargoLevel3 extends InstantCommand {
 
     public CargoLevel3() {
+        super();
         // Use requires() here to declare subsystem dependencies
        requires(Robot.arm);
-       this.setInterruptible(true);
+    //    this.setInterruptible(true);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
         RobotMap.encoderValue=(5000);
-        RobotMap.offset = 0;
+        // RobotMap.offset = 0;
     }
 }
 

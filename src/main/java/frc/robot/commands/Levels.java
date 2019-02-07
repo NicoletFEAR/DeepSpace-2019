@@ -35,12 +35,19 @@ public class Levels extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {	  
-        if(Robot.oi.getXbox2().getBumper(Hand.kLeft)){
+        /*if(Robot.oi.getXbox2().getBumper(Hand.kLeft)){
             RobotMap.offset-=100;
         }
         if(Robot.oi.getXbox2().getBumper(Hand.kRight)){
             RobotMap.offset+=100;
-        }
+        }*/
+        RobotMap.encoderValue = RobotMap.encoderValue+(int)(100*Robot.oi.getXbox2().getY(Hand.kLeft));
+
+        //Not sure if the limit switch needs to be inverted, as in !limitSwitch1.get()
+        
+        // if(RobotMap.limitSwitch1.get()){
+        //     RobotMap.encoderValue=0;
+        // }
 
         Robot.arm.rotateToPosition(RobotMap.encoderValue);
     }

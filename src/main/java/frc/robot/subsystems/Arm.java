@@ -7,7 +7,7 @@ import  frc.robot.RobotMap;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.SensorCollection;
 
-import edu.wpi.first.wpilibj.GenericHID.Hand;
+// import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -22,7 +22,7 @@ public class Arm extends Subsystem {
     double integral = 0;
     double previousError = 0;
     double previousDesiredEncoderValue = -10;
-    int offset=0;
+    // int offset=0;
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
@@ -32,7 +32,7 @@ public class Arm extends Subsystem {
         setDefaultCommand(new Levels());
     }
 
-    public int rotateToPosition(int desiredEncoderValue){
+    public void rotateToPosition(int desiredEncoderValue){
         //checks if the target has changed
         //if it has changed, reset the base variables to 0;
         if(desiredEncoderValue!=previousDesiredEncoderValue){
@@ -41,7 +41,8 @@ public class Arm extends Subsystem {
             previousDesiredEncoderValue = desiredEncoderValue;
         }
 
-        desiredEncoderValue+=RobotMap.offset;
+        // desiredEncoderValue+=RobotMap.offset;
+
         //reflecting it across the center of the robot if it's reversed
         if(Robot.driveTrain.isReversed()){
             // desiredEncoderValue+= 2*(RobotMap.ARM_MAX_TICK_VAL/2-desiredEncoderValue);
@@ -60,10 +61,10 @@ public class Arm extends Subsystem {
         RobotMap.armMotor2.set(ControlMode.PercentOutput, -speed);
 
         // if(Robot.oi.getXbox2().getYButton()) RobotMap.armMotor1.setSelectedSensorPosition(0,0,10);
-        if(Robot.oi.getXbox2().getBumper(Hand.kLeft)) offset-=100;
-        if(Robot.oi.getXbox2().getBumper(Hand.kRight)) offset+=100;
+        // if(Robot.oi.getXbox2().getBumper(Hand.kLeft)) offset-=100;
+        // if(Robot.oi.getXbox2().getBumper(Hand.kRight)) offset+=100;
 
-        return offset;
+        // return offset;
         // return (0!=Robot.oi.getXbox1().getTriggerAxis(Hand.kLeft)) || (0!=Robot.oi.getXbox1().getTriggerAxis(Hand.kRight));
     }
 }
