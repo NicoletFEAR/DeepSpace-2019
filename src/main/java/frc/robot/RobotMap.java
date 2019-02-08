@@ -27,6 +27,7 @@ import frc.robot.subsystems.AirCompressor;
  */
 public class RobotMap {
 
+
 	//Talons for Drive Base
     public static TalonSRX frontLeft;
 	public static TalonSRX midLeft;
@@ -67,6 +68,9 @@ public class RobotMap {
 	public static AnalogPotentiometer playKnob;
 	public static AnalogPotentiometer positionKnob;
 
+	// VISION CONSTANTS:
+	public static double angleConstant = 50;
+	public static double distanceConstant = 1.5;
 	public static DigitalInput limitSwitch1;
 	public static DigitalInput limitSwitch2;
 	// ultrasonic sensors
