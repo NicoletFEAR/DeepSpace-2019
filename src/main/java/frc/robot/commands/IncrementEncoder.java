@@ -29,7 +29,7 @@ public class IncrementEncoder extends InstantCommand {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        RobotMap.encoderValue=RobotMap.encoderValue+100;
+        RobotMap.encoderValue=RobotMap.encoderValue+1000;
         // RobotMap.offset = 0;
     }
 }

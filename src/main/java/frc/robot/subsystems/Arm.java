@@ -16,9 +16,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *and for extending/retracting the arm
  */
 public class Arm extends Subsystem {
-    double p=.00099;
-    double i=.00;
-    double d=0;
+    double p=.0005;
+    double i=0.00001;
+    double d=0.00000003;
     double integral = 0;
     double previousError = 0;
     double previousDesiredEncoderValue = -10;
