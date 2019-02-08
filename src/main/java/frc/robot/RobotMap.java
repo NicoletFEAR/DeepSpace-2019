@@ -68,6 +68,7 @@ public class RobotMap {
 	public static AnalogPotentiometer positionKnob;
 
 	public static DigitalInput limitSwitch1;
+	public static DigitalInput limitSwitch2;
 	// ultrasonic sensors
 	public static AnalogInput ultraLeft;
 	public static AnalogInput ultraRight;
@@ -123,6 +124,7 @@ public class RobotMap {
 		airCompressor= new AirCompressor(compressormodule);
 
 		limitSwitch1 = new DigitalInput(0);
+		limitSwitch2 = new DigitalInput(1);
 
 		ultraRight= new AnalogInput(3);
 		ultraLeft = new AnalogInput(2);

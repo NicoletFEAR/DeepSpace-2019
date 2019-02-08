@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 // import frc.robot.commands.*;
 import frc.robot.subsystems.*;
+import edu.wpi.cscore.UsbCamera;
 // import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.cameraserver.CameraServer;
 /**
@@ -74,8 +75,12 @@ public class Robot extends TimedRobot {
 
         CameraServer camera0 = CameraServer.getInstance();
         CameraServer camera1 = CameraServer.getInstance();
+        
+        
+        
         camera0.startAutomaticCapture("cam0", 50);
         camera0.startAutomaticCapture();
+        
         camera1.startAutomaticCapture("cam1", 50);
         camera1.startAutomaticCapture(1);
         lifter.initDefaultCommand();

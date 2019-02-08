@@ -44,9 +44,12 @@ public class Levels extends Command {
         RobotMap.encoderValue = RobotMap.encoderValue+(int)(100*Robot.oi.getXbox2().getY(Hand.kLeft));
 
         //Not sure if the limit switch needs to be inverted, as in !limitSwitch1.get()
-        
+
         // if(RobotMap.limitSwitch1.get()){
         //     RobotMap.encoderValue=0;
+        // }
+        // if(RobotMap.limitSwitch2.get()){
+        //     RobotMap.encoderValue=0
         // }
 
         Robot.arm.rotateToPosition(RobotMap.encoderValue);
