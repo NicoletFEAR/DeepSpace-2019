@@ -135,11 +135,14 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void teleopPeriodic() {
+        pressureSensor.getPressure();
         Scheduler.getInstance().run();
         double velocityRight = Robot.driveTrain.getRightEncoderVelocity();
         double velocityLeft = Robot.driveTrain.getLeftEncoderVelocity();
 		SmartDashboard.putNumber("velR", velocityRight);
-		SmartDashboard.putNumber("velL", velocityLeft);
+        SmartDashboard.putNumber("velL", velocityLeft);
+        
+        SmartDashboard.putNumber("Target", RobotMap.encoderValue);
 		
 		SmartDashboard.putNumber("Left Encoder: ", Robot.driveTrain.getLeftEncoderPosition());
         SmartDashboard.putNumber("Right Encoder: ", Robot.driveTrain.getRightEncoderPosition());

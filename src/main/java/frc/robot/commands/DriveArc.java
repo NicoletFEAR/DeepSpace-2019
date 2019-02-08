@@ -73,9 +73,6 @@ public class DriveArc extends Command {
         double speed = p*error + i*integral + d*derivative;
         talon.set(ControlMode.PercentOutput, speed);
         
-        // RobotMap.armMotor1.set(ControlMode.PercentOutput, speed);
-        // RobotMap.armMotor2.set(ControlMode.PercentOutput, -speed);
-
         if(error == 0 ) return true;
 		return false;
     }
@@ -102,17 +99,14 @@ public class DriveArc extends Command {
             rLeft = r0 - (1/2)*w;
         }
         
-
         cRight = rRight*Math.PI*2;
         cLeft = rLeft*Math.PI*2;
 
         circR = cRight*(theta/360);
         circL = cLeft*(theta/360);
 
-
         completeL=false;
-        completeR=false;
-        
+        completeR=false;        
     }
 
     @Override

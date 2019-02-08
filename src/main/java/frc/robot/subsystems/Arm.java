@@ -17,8 +17,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Arm extends Subsystem {
     double p=.0005;
-    double i=0.00001;
-    double d=0.00000003;
+    double i=0.0000;
+    double d=0.0000000;
     double integral = 0;
     double previousError = 0;
     double previousDesiredEncoderValue = -10;
@@ -49,7 +49,7 @@ public class Arm extends Subsystem {
             desiredEncoderValue = (int)RobotMap.ARM_MAX_TICK_VAL-desiredEncoderValue;
         }
         //SensorCollection sensor = RobotMap.armMotor1.getSensorCollection(); // Old encoder code
-        double encoderPosition = RobotMap.armMotor1.getSelectedSensorPosition();
+        double encoderPosition = -RobotMap.armMotor1.getSelectedSensorPosition();
 
         SmartDashboard.putNumber("Arm Encoder Value", encoderPosition);
 
@@ -59,7 +59,7 @@ public class Arm extends Subsystem {
         double speed = p*error + i*integral + d*derivative;
 
         RobotMap.armMotor1.set(ControlMode.PercentOutput, speed);
-        RobotMap.armMotor2.set(ControlMode.PercentOutput, -speed);
+        RobotMap.armMotor2.set(ControlMode.PercentOutput, speed);
 
         // if(Robot.oi.getXbox2().getYButton()) RobotMap.armMotor1.setSelectedSensorPosition(0,0,10);
         // if(Robot.oi.getXbox2().getBumper(Hand.kLeft)) offset-=100;
@@ -68,4 +68,17 @@ public class Arm extends Subsystem {
         // return offset;
         // return (0!=Robot.oi.getXbox1().getTriggerAxis(Hand.kLeft)) || (0!=Robot.oi.getXbox1().getTriggerAxis(Hand.kRight));
     }
+
+    public void slamToEnd() {
+        RobotMap.armMotor1.set(ControlMode.PercentOutput, 1); 
+        RobotMap.armMotor2.set(ControlMode.PercentOutput, 1);
+    }
+
+    public void EncoderResetAtEnd() {
+        RobotMap.armMotor1.set(ControlMode.PercentOutput, 0); 
+        RobotMap.armMotor2.set(ControlMode.PercentOutput, 0);
+		RobotMap.armMotor1.setSelectedSensorPosition(0, 0, 10); // 1st value is the value to reset to
+    }
+    
+
 }
