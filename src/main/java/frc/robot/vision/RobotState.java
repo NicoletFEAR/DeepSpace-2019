@@ -139,14 +139,17 @@ public class RobotState {
             //            && target.getY() < Constants.kCameraDeadband) ? 0.0 : target.getY();
 
                 // Compensate for camera yaw
-                double xyaw = target.getX(); // * camera_yaw_correction_.cos() + ydeadband * camera_yaw_correction_.sin();
-                double yyaw = target.getY();//ydeadband * camera_yaw_correction_.cos() - target.getX() * camera_yaw_correction_.sin();
-                double zyaw = target.getZ();
+                // double xyaw = target.getX(); // * camera_yaw_correction_.cos() + ydeadband * camera_yaw_correction_.sin();
+                // double yyaw = target.getY(); //ydeadband * camera_yaw_correction_.cos() - target.getX() * camera_yaw_correction_.sin();
+                // double zyaw = target.getZ();
 
                 Robot.y_val_target = target.getY();
                 Robot.z_val_target = target.getZ();
+                Robot.x_val_target = target.getX();
+                Robot.angle_val_target = target.getAngle();
 
-                System.out.println("test print inside RobotState addVisionUpdate");
+
+
                 // // Compensate for camera pitch
                 // double xr = zyaw * camera_pitch_correction_.sin() + xyaw * camera_pitch_correction_.cos();
                 // double yr = yyaw;

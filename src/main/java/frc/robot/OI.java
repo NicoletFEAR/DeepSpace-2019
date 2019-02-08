@@ -10,15 +10,16 @@
 
 package frc.robot;
 
-import frc.robot.commands.SwitchFront;
-import frc.robot.commands.VisionTurn;
-import frc.robot.commands.InstantOverride;
 //import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //import edu.wpi.first.wpilibj.interfaces.Potentiometer;
+import frc.robot.commands.InstantOverride;
+import frc.robot.commands.SwitchCamera;
+import frc.robot.commands.SwitchFront;
+import frc.robot.commands.VisionTurn;
 
 //import org.usfirst.frc4786.RobotBuilderTest1.subsystems.*;
 //import org.usfirst.frc4786.RobotBuilderTest1.subsystems.DriveTrain;
@@ -119,7 +120,9 @@ public class OI {
          // tie commands to buttons
          //xbox1ButtonX.whenPressed(new Shift());
          xbox1LeftStick.whenPressed(new SwitchFront());
+         xbox1LeftStick.whenPressed(new SwitchCamera());
          xbox1RightStick.whenPressed(new SwitchFront());
+         xbox1RightStick.whenPressed(new SwitchCamera());
          visionOn = false;
          if (!visionOn) {
             xbox1ButtonX.whenPressed(new VisionTurn());

@@ -1,19 +1,20 @@
 package frc.robot.vision;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import frc.robot.vision.messages.VisionMessage;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import frc.robot.RobotMap;
+import frc.robot.Robot;
 
 /**
- * VisionUpdate contains the various attributes outputted by the vision system, namely a list of targets and the
- * timestamp at which it was captured.
+ * VisionUpdate contains the various attributes outputted by the vision system,
+ * namely a list of targets and the timestamp at which it was captured.
  */
 public class VisionUpdate {
     protected boolean valid = false;
@@ -68,11 +69,16 @@ public class VisionUpdate {
                 JSONObject target = (JSONObject) targetObj;
                 Optional<Double> y = parseDouble(target, "y");
                 Optional<Double> z = parseDouble(target, "z");
-                if (!(y.isPresent() && z.isPresent())) {
+                Optional<Double> x = parseDouble(target, "x");
+                Optional<Double> angle = parseDouble(target, "angle");
+  
+               
+
+                if (!(y.isPresent() && z.isPresent() && x.isPresent() && angle.isPresent())) {
                     update.valid = false;
                     return update;
                 }
-                targetInfos.add(new TargetInfo(y.get(), z.get()));
+                targetInfos.add(new TargetInfo(y.get() * RobotMap.distanceConstant, z.get() * RobotMap.distanceConstant, x.get(), angle.get() * RobotMap.angleConstant));
             }
             update.targets = targetInfos;
             update.valid = true;

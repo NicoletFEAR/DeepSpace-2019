@@ -20,8 +20,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.loops.VisionProcessor;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.vision.VisionServer;
-import frc.robot.vision.TargetInfo;
-import frc.robot.vision.VisionUpdate;
 import se.vidstige.jadb.JadbConnection;
 import se.vidstige.jadb.JadbDevice;
 
@@ -42,6 +40,8 @@ public class Robot extends TimedRobot {
     public static String teamSwitchSide = "";
     public static double y_val_target = 0.0;
     public static double z_val_target = 0.0;
+    public static double x_val_target = 0.0;
+    public static double angle_val_target = 0.0;
     public static boolean isTargetNull = true;
 
     public static OI oi;
@@ -56,7 +56,10 @@ private static List<JadbDevice> m_devices = null;
 private static JadbDevice m_currentDevice = null;
 private static int m_nextLocalHostPort = 3800;
 
-private VisionServer mVisionServer;
+public static String cameraMode = "back";
+
+public static VisionServer mVisionServer;
+
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -94,8 +97,6 @@ private VisionServer mVisionServer;
         Scheduler.getInstance().run();
         VisionProcessor processor = (VisionProcessor) mVisionServer.receivers.get(0);
         processor.onLoop(System.currentTimeMillis());
-        SmartDashboard.putNumber("y_val_target: ", y_val_target); 
-        SmartDashboard.putNumber("z_val_target: ", z_val_target);
 
         // VisionUpdate update = new VisionUpdate();
         // for (int i = 0; i < update.getTargets().size(); i++) {
@@ -120,7 +121,6 @@ private VisionServer mVisionServer;
 
     @Override
     public void autonomousInit() {
-        mVisionServer.frontCamera();
         if (disabledCommand != null) disabledCommand.cancel();
 
         if (autonomousCommand != null) autonomousCommand.start();
@@ -129,7 +129,6 @@ private VisionServer mVisionServer;
     @Override
     public void teleopInit()
     {
-        mVisionServer.backCamera();
         double velocityRight = Robot.driveTrain.getRightEncoderVelocity();
         double velocityLeft = Robot.driveTrain.getLeftEncoderVelocity();
 		SmartDashboard.putNumber("velR", velocityRight);
@@ -169,7 +168,10 @@ private VisionServer mVisionServer;
         processor.onLoop(System.currentTimeMillis());
         SmartDashboard.putNumber("y_val_target: ", y_val_target); 
         SmartDashboard.putNumber("z_val_target: ", z_val_target);
-        SmartDashboard.putBoolean("Vision On: ", OI.visionOn);
+        SmartDashboard.putNumber("x_val_target: ", x_val_target);
+        SmartDashboard.putNumber("angle_val_target: ", angle_val_target);
+        SmartDashboard.putBoolean("Target found: ", !isTargetNull);
+        SmartDashboard.putString("Camera Mode: ", cameraMode);
     
     }
 }
