@@ -48,11 +48,12 @@ public class Arm extends Subsystem {
             // desiredEncoderValue+= 2*(RobotMap.ARM_MAX_TICK_VAL/2-desiredEncoderValue);
             desiredEncoderValue = (int)RobotMap.ARM_MAX_TICK_VAL-desiredEncoderValue;
         }
-        SensorCollection sensor = RobotMap.armMotor1.getSensorCollection();
+        //SensorCollection sensor = RobotMap.armMotor1.getSensorCollection(); // Old encoder code
+        double encoderPosition = RobotMap.armMotor1.getSelectedSensorPosition();
 
-        SmartDashboard.putNumber("Arm Encoder Value", sensor.getQuadraturePosition());
+        SmartDashboard.putNumber("Arm Encoder Value", encoderPosition);
 
-        double error = desiredEncoderValue + sensor.getQuadraturePosition();
+        double error = desiredEncoderValue - encoderPosition;
         integral += error*.02;
         double derivative = (error-previousError)/.02;
         double speed = p*error + i*integral + d*derivative;

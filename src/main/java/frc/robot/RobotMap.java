@@ -11,6 +11,8 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.AnalogInput;
@@ -116,6 +118,8 @@ public class RobotMap {
 		//next 2 need to be switched back to 21/22, 
 		//using them for PID testing
 		armMotor1 = new TalonSRX(13);
+		armMotor1.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 10); // new frame ever X miliseconds
+		armMotor1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
 		armMotor2 = new TalonSRX(14);
 
 		supportWheel1 = new TalonSRX(23);
