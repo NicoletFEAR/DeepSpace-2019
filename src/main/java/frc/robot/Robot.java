@@ -10,6 +10,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -18,6 +19,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 // import frc.robot.commands.*;
 import frc.robot.subsystems.*;
+import edu.wpi.cscore.UsbCamera;
 // import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.cameraserver.CameraServer;
 /**
@@ -48,7 +50,6 @@ public class Robot extends TimedRobot {
 //    public static ArduinoInterface arduinoCameraInterface;
     
 
-
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -63,6 +64,7 @@ public class Robot extends TimedRobot {
         arm = new Arm();
         pressureSensor = new PressureSensor();
         shifter = new Shifter();
+      
         //arduinoLEDInterface = new ArduinoInterface(7);
         //arduinoCameraInterface = new ArduinoInterface(6);
         
@@ -73,8 +75,12 @@ public class Robot extends TimedRobot {
 
         CameraServer camera0 = CameraServer.getInstance();
         CameraServer camera1 = CameraServer.getInstance();
+        
+        
+        
         camera0.startAutomaticCapture("cam0", 50);
         camera0.startAutomaticCapture();
+        
         camera1.startAutomaticCapture("cam1", 50);
         camera1.startAutomaticCapture(1);
         lifter.initDefaultCommand();
@@ -100,6 +106,15 @@ public class Robot extends TimedRobot {
     public void autonomousInit() {
         if (disabledCommand != null) disabledCommand.cancel();
         if (autonomousCommand != null) autonomousCommand.start();
+    }
+
+    @Override
+    
+    public void autonomousPeriodic() {
+        double distanceLeft = RobotMap.ultraLeft.getAverageVoltage()*300/293*1000/25.4;
+        SmartDashboard.putNumber("Distance from left ultrasonic (inches)", distanceLeft);
+        double distanceRight = RobotMap.ultraRight.getAverageVoltage()*300/293*1000/25.4;
+        SmartDashboard.putNumber("Distance from right ultrasonic (inches)", distanceRight);
     }
     
     @Override
@@ -127,6 +142,11 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("velL", velocityLeft);
 		
 		SmartDashboard.putNumber("Left Encoder: ", Robot.driveTrain.getLeftEncoderPosition());
-		SmartDashboard.putNumber("Right Encoder: ", Robot.driveTrain.getRightEncoderPosition());
+        SmartDashboard.putNumber("Right Encoder: ", Robot.driveTrain.getRightEncoderPosition());
+        
+        double distanceLeft = RobotMap.ultraLeft.getAverageVoltage()*300/293*1000/25.4;
+        SmartDashboard.putNumber("Distance from left ultrasonic (inches)", distanceLeft);
+        double distanceRight = RobotMap.ultraRight.getAverageVoltage()*300/293*1000/25.4;
+        SmartDashboard.putNumber("Distance from right ultrasonic (inches)", distanceRight);
     }
 }
