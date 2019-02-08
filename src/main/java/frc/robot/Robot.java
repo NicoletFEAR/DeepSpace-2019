@@ -10,6 +10,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -48,7 +49,6 @@ public class Robot extends TimedRobot {
 //    public static ArduinoInterface arduinoCameraInterface;
     
 
-
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -63,6 +63,7 @@ public class Robot extends TimedRobot {
         arm = new Arm();
         pressureSensor = new PressureSensor();
         shifter = new Shifter();
+      
         //arduinoLEDInterface = new ArduinoInterface(7);
         //arduinoCameraInterface = new ArduinoInterface(6);
         
@@ -101,6 +102,15 @@ public class Robot extends TimedRobot {
         if (disabledCommand != null) disabledCommand.cancel();
         if (autonomousCommand != null) autonomousCommand.start();
     }
+
+    @Override
+    
+    public void autonomousPeriodic() {
+        double distanceLeft = RobotMap.ultraLeft.getAverageVoltage()*300/293*1000/25.4;
+        SmartDashboard.putNumber("Distance from left ultrasonic (inches)", distanceLeft);
+        double distanceRight = RobotMap.ultraRight.getAverageVoltage()*300/293*1000/25.4;
+        SmartDashboard.putNumber("Distance from right ultrasonic (inches)", distanceRight);
+    }
     
     @Override
     public void teleopInit()
@@ -127,6 +137,11 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("velL", velocityLeft);
 		
 		SmartDashboard.putNumber("Left Encoder: ", Robot.driveTrain.getLeftEncoderPosition());
-		SmartDashboard.putNumber("Right Encoder: ", Robot.driveTrain.getRightEncoderPosition());
+        SmartDashboard.putNumber("Right Encoder: ", Robot.driveTrain.getRightEncoderPosition());
+        
+        double distanceLeft = RobotMap.ultraLeft.getAverageVoltage()*300/293*1000/25.4;
+        SmartDashboard.putNumber("Distance from left ultrasonic (inches)", distanceLeft);
+        double distanceRight = RobotMap.ultraRight.getAverageVoltage()*300/293*1000/25.4;
+        SmartDashboard.putNumber("Distance from right ultrasonic (inches)", distanceRight);
     }
 }
