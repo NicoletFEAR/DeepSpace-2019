@@ -41,10 +41,10 @@ public class Arm extends Subsystem {
         // desiredtargetEncoderValue+=RobotMap.offset;
 
         //reflecting it across the center of the robot if it's reversed
-        if(Robot.driveTrain.isReversed()){
-            // desiredtargetEncoderValue+= 2*(RobotMap.ARM_MAX_TICK_VAL/2-desiredtargetEncoderValue);
-            desiredtargetEncoderValue = (int)RobotMap.ARM_MAX_TICK_VAL-desiredtargetEncoderValue;
-        }
+        // if(Robot.driveTrain.isReversed()){
+        //     // desiredtargetEncoderValue+= 2*(RobotMap.ARM_MAX_TICK_VAL/2-desiredtargetEncoderValue);
+        //     desiredtargetEncoderValue = (int)RobotMap.ARM_MAX_TICK_VAL-desiredtargetEncoderValue;
+        // }
         //SensorCollection sensor = RobotMap.armMotor1.getSensorCollection(); // Old encoder code
         double encoderPosition = -RobotMap.armMotor1.getSelectedSensorPosition();
 

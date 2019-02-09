@@ -51,9 +51,14 @@ public class Levels extends Command {
         // if(RobotMap.limitSwitch2.get()){
         //     RobotMap.targetEncoderValue=0
         // }
-        if((RobotMap.targetEncoderValue)>RobotMap.ARM_MAX_TICK_VAL)RobotMap.targetEncoderValue = (int)RobotMap.ARM_MAX_TICK_VAL;
-        if(RobotMap.targetEncoderValue<0)RobotMap.targetEncoderValue=0;
-        Robot.arm.rotateToPosition(RobotMap.targetEncoderValue);
+        if(Math.abs(RobotMap.targetEncoderValue)>RobotMap.ARM_MAX_TICK_VAL){
+            if(RobotMap.targetEncoderValue>0) RobotMap.targetEncoderValue = (int)RobotMap.ARM_MAX_TICK_VAL;
+            else RobotMap.targetEncoderValue = -(int)RobotMap.ARM_MAX_TICK_VAL;
+        }
+        if(Robot.driveTrain.isReversed()) Robot.arm.rotateToPosition(-RobotMap.targetEncoderValue);
+        else Robot.arm.rotateToPosition(RobotMap.targetEncoderValue);
+        // if(RobotMap.targetEncoderValue<0)RobotMap.targetEncoderValue=0;
+        
     }
 
     // Make this return true when this Command no longer needs to run execute()
