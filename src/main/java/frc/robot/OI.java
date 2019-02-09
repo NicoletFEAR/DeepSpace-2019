@@ -142,8 +142,8 @@ public class OI {
         xbox2Y.whenPressed(new HatchLevel1());
         xbox2X.whenPressed(new CargoLevel1());
         xbox2A.whenPressed(new GameMechShift());
-        xbox2RTrig.whenPressed(new IncrementEncoder());
-        xbox2LTrig.whenPressed(new DecrementEncoder());
+        xbox2RTrig.whenPressed(new IncrementCap());
+        xbox2LTrig.whenPressed(new DecrementCap());
         // SmartDashboard Buttons
         SmartDashboard.putData("SwitchFront", new SwitchFront());
         //SmartDashboard.putData("Lift Ramp", new NTableValueSet());

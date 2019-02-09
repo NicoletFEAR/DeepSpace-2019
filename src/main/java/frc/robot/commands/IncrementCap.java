@@ -18,9 +18,9 @@ import frc.robot.RobotMap;
 /**
  *
  */
-public class DecrementEncoder extends InstantCommand {
+public class IncrementCap extends InstantCommand {
 
-    public DecrementEncoder() {
+    public IncrementCap() {
         super();
         // Use requires() here to declare subsystem dependencies
        requires(Robot.arm);
@@ -29,7 +29,7 @@ public class DecrementEncoder extends InstantCommand {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        RobotMap.targetEncoderValue=RobotMap.targetEncoderValue-1000;
+        RobotMap.targetEncoderValue=RobotMap.targetEncoderValue+1000;
         // RobotMap.offset = 0;
     }
 }
