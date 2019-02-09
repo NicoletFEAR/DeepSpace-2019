@@ -69,28 +69,31 @@ public class DriveArc extends Command {
 
     //Arc length should be in inches
     public boolean arcDrive(double arcLength, TalonSRX talon){
-        //System.out.println("arcDrive()");
         // SmartDashboard.putNumber("", );  
         double error; 
         double derivative;
         double integral;
+        double speed;
         if(count%2==0){
-            error = arcLength - RevolutionsToInches(TicksToRevolution(Robot.driveTrain.getLeftEncoderPosition()));
+            error = arcLength - RevolutionsToInches(TicksToRevolution(-Robot.driveTrain.getLeftEncoderPosition()));
             integralL+=error*.02;
             integral = integralL;
             derivative =  (error-previousErrorL)/.02;
             previousErrorL=error;
+            speed = RobotMap.DRIVE_kP*error + RobotMap.DRIVE_kI*integral + RobotMap.DRIVE_kD*derivative;
+            speed *=-1;
         }else{
             error = arcLength - RevolutionsToInches(TicksToRevolution(Robot.driveTrain.getRightEncoderPosition()));
             integralR+=error*.02;
             integral = integralR;
             derivative =  (error-previousErrorR)/.02;
             previousErrorR=error;
+            speed = RobotMap.DRIVE_kP*error + RobotMap.DRIVE_kI*integral + RobotMap.DRIVE_kD*derivative;
         }
-        count++;
-        double speed = RobotMap.DRIVE_kP*error + RobotMap.DRIVE_kI*integral + RobotMap.DRIVE_kD*derivative;
+
         talon.set(ControlMode.PercentOutput, speed);
         
+        count++;
         if(error == 0) return true;
 		return false;
     }
@@ -132,7 +135,8 @@ public class DriveArc extends Command {
     protected void execute() {	
         // //System.out.println("execute()");
         if(!completeL) completeL = arcDrive(circL, RobotMap.left1);
-        if(!completeR) completeR = arcDrive(circR, RobotMap.left2);
+        if(!completeR) completeR = arcDrive(circR, RobotMap.right1);
+        
         // completeL = Robot.driveTrain.DriveArc(circL, RobotMap.left1);
         // completeR = Robot.driveTrain.DriveArc(circR, RobotMap.left2);
     }
