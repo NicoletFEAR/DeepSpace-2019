@@ -248,4 +248,20 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("V_flywheel1", RobotMap.flywheel1.getMotorOutputVoltage());
 
     }
+
+    @Override public void testInit() {
+        for (int i = 0; i < SubsystemTestBase.subsystemCount; i++)
+        {
+            
+        }
+
+        System.out.println("Testing: " + driveTrain);
+        System.out.println("Test succesful?: " + driveTrain.subsystemTest(true));
+
+        System.out.println("Testing: " + shifter);
+        System.out.println("Test succesful?: " + shifter.subsystemTest(true));
+
+        System.out.println("Testing: " + pressureSensor);
+        System.out.println("Test succesful?: " + pressureSensor.subsystemTest(true));
+    }
 }

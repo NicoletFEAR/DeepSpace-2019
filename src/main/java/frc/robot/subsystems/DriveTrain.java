@@ -28,7 +28,8 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 /**
  * Subsystem representing the robot drivetrain and all ways it can be controlled
  */
-public class DriveTrain extends Subsystem {
+
+public class DriveTrain extends SubsystemTestBase {
 	// Global Varibles
 	public static final double MAX_LOW_SPEED = 1900.0;
 	public static final double MIN_HIGH_SPEED = 2100.0;
@@ -37,6 +38,7 @@ public class DriveTrain extends Subsystem {
 	public static final double TURN_ERROR_SCALING = 0.02;
 
 	// Class Variables
+
 	private boolean reversed;
 
 	// SpeedControllerGroup leftSide = new
@@ -428,5 +430,9 @@ public class DriveTrain extends Subsystem {
 	public void resetEncoders() {
 		RobotMap.left1.setSelectedSensorPosition(0, 0, SENSOR_POSITION_TIMEOUT);
 		RobotMap.right1.setSelectedSensorPosition(0, 0, SENSOR_POSITION_TIMEOUT);
+	}
+
+	public boolean subsystemTest(boolean advanced) {
+		return true;
 	}
 }
