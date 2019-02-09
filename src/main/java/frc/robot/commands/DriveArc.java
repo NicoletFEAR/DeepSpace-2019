@@ -11,11 +11,12 @@
 package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 // import frc.robot.RobotMap;
-// import frc.robot.subsystems.DriveTrain;
+// import frc.robot.sub//Systems.DriveTrain;
 import frc.robot.RobotMap;
 
 // import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -43,26 +44,44 @@ public class DriveArc extends Command {
     
 
     public DriveArc() {
-        requires(Robot.driveTrain);
+        // requires(Robot.driveTrain);
+        this(48,48,45);
     }
 
     public DriveArc(double x, double y, double theta){
+        requires(Robot.driveTrain);
         this.x=x;
         this.y=y;
         this.theta=theta;
-        
     }
 
+    public double TicksToRevolution(double numberOfTicks){
+        //System.out.println("TicksToRevolution()");
+        double PercentRotation = numberOfTicks / RobotMap.WHEEL_TICKS_PER_REVOLUTION;
+        return PercentRotation;
+    } 
+
+    public double RevolutionsToInches(double PercentRotation){
+        //System.out.println("RevolutionToInches()");
+        double DistanceTraveled = (2 * Math.PI * RobotMap.WHEEL_RADIUS) * PercentRotation;
+        return DistanceTraveled;
+    } 
+
+    //Arc length should be in inches
     public boolean arcDrive(double arcLength, TalonSRX talon){
-        double error = arcLength - talon.getSelectedSensorPosition();
+        //System.out.println("arcDrive()");
+        // SmartDashboard.putNumber("", );  
+        double error; 
         double derivative;
         double integral;
         if(count%2==0){
+            error = arcLength - RevolutionsToInches(TicksToRevolution(Robot.driveTrain.getLeftEncoderPosition()));
             integralL+=error*.02;
             integral = integralL;
             derivative =  (error-previousErrorL)/.02;
             previousErrorL=error;
         }else{
+            error = arcLength - RevolutionsToInches(TicksToRevolution(Robot.driveTrain.getRightEncoderPosition()));
             integralR+=error*.02;
             integral = integralR;
             derivative =  (error-previousErrorR)/.02;
@@ -78,7 +97,8 @@ public class DriveArc extends Command {
     
     @Override
     protected void initialize() {
-        count=0;
+        // System.out.println(" initialize()");
+        count = 0;
         Robot.driveTrain.resetEncoders();
         //calculate the distance that the different sides of 
         //the robot have to travel during the arc.
@@ -88,7 +108,7 @@ public class DriveArc extends Command {
         double cRight = 0;
         double rLeft = 0;
         double rRight = 0;
-        //this is saying that you are turnin right
+        //this is saying that you are turning right
         //cricR is the radius of the inner circl
         if (x > 0){
             rRight = r0 - (1/2)*w;
@@ -110,6 +130,7 @@ public class DriveArc extends Command {
 
     @Override
     protected void execute() {	
+        // //System.out.println("execute()");
         if(!completeL) completeL = arcDrive(circL, RobotMap.frontLeft);
         if(!completeR) completeR = arcDrive(circR, RobotMap.frontRight);
         // completeL = Robot.driveTrain.DriveArc(circL, RobotMap.frontLeft);
@@ -127,7 +148,7 @@ public class DriveArc extends Command {
     }
 
     // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
+    // sub//Systems is scheduled to run
     @Override
     protected void interrupted() {
     	end();

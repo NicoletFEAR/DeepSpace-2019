@@ -136,7 +136,7 @@ public class OI {
          xbox1RightStick.whenPressed(new SwitchFront());
          xbox1X.whenPressed(new Shooting());
          xbox1Y.whenPressed(new Lifting());
-        //  xbox1B.whenPressed(new HatchLevel1());
+         xbox1B.whenPressed(new DriveArc());
         //  xbox1A.whenPressed(new CargoLevel1());
         
         xbox2Y.whenPressed(new HatchLevel1());

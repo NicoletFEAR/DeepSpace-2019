@@ -290,23 +290,23 @@ public class DriveTrain extends Subsystem {
 	}
 
 	public double getLeftEncoderPosition() {
-		return -(RobotMap.midLeft.getSelectedSensorPosition(0));
+		return (RobotMap.frontLeft.getSelectedSensorPosition(0));
 	}
 
 	public double getRightEncoderPosition() {
 		// Make sure graph isn't upside down (The stocks are going into the
 		// toilet!!)
-		return (RobotMap.midRight.getSelectedSensorPosition(0));
+		return -(RobotMap.frontRight.getSelectedSensorPosition(0));
 	}
 
 	public double getLeftEncoderVelocity() {
-		return RobotMap.midLeft.getSelectedSensorVelocity(0);
+		return RobotMap.frontLeft.getSelectedSensorVelocity(0);
 	}
 
 	public double getRightEncoderVelocity() {
 		// Make sure graph isn't upside down (The stocks are going into the
 		// toilet!!)
-		return -(RobotMap.midRight.getSelectedSensorVelocity(0));
+		return (RobotMap.frontRight.getSelectedSensorVelocity(0));
 	}
 
 	@Override
