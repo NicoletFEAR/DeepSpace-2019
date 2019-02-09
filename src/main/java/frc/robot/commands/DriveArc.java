@@ -33,14 +33,11 @@ public class DriveArc extends Command {
     double theta;
     double circR;
     double circL;
-    double p = 0.0005;
-    double i = 0.00001;
-    double d = 0.00000003;
     double integralL = 0;
     double integralR = 0;
     double previousErrorL = 0;
     double previousErrorR = 0;
-    double previousDesiredEncoderValue = -10;
+    double previousDesiredtargetEncoderValue = -10;
     boolean completeL;
     boolean completeR;
     
@@ -61,19 +58,21 @@ public class DriveArc extends Command {
         double derivative;
         double integral;
         if(count%2==0){
+            integralL+=error*.02;
             integral = integralL;
             derivative =  (error-previousErrorL)/.02;
             previousErrorL=error;
         }else{
+            integralR+=error*.02;
             integral = integralR;
             derivative =  (error-previousErrorR)/.02;
             previousErrorR=error;
         }
         count++;
-        double speed = p*error + i*integral + d*derivative;
+        double speed = RobotMap.DRIVE_kP*error + RobotMap.DRIVE_kI*integral + RobotMap.DRIVE_kD*derivative;
         talon.set(ControlMode.PercentOutput, speed);
         
-        if(error == 0 ) return true;
+        if(error == 0) return true;
 		return false;
     }
     

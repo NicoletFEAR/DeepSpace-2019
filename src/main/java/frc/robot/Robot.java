@@ -10,7 +10,7 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.AnalogInput;
+// import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -19,7 +19,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 // import frc.robot.commands.*;
 import frc.robot.subsystems.*;
-import edu.wpi.cscore.UsbCamera;
+// import edu.wpi.cscore.UsbCamera;
 // import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.cameraserver.CameraServer;
 /**
@@ -142,7 +142,7 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("velR", velocityRight);
         SmartDashboard.putNumber("velL", velocityLeft);
         
-        SmartDashboard.putNumber("Target", RobotMap.encoderValue);
+        SmartDashboard.putNumber("Target", RobotMap.targetEncoderValue);
 		
 		SmartDashboard.putNumber("Left Encoder: ", Robot.driveTrain.getLeftEncoderPosition());
         SmartDashboard.putNumber("Right Encoder: ", Robot.driveTrain.getRightEncoderPosition());
