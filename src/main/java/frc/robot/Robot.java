@@ -106,14 +106,17 @@ public static VisionServer mVisionServer;
         // constructed yet. Thus, their requires() statements may grab null
         // pointers. Bad news. Don't move it.
 
-        camera = CameraServer.getInstance();
-        front=camera.startAutomaticCapture("FRONT", 0);
-        back =camera.startAutomaticCapture("BACK", 1);
-        front.setConnectionStrategy(edu.wpi.cscore.VideoSource.ConnectionStrategy.kKeepOpen);
-        back.setConnectionStrategy(edu.wpi.cscore.VideoSource.ConnectionStrategy.kKeepOpen);
+       // camera = CameraServer.getInstance();
+        front=CameraServer.getInstance().startAutomaticCapture("FRONT", 1);
+        back =CameraServer.getInstance().startAutomaticCapture("BACK", 0);
+       
         lifter.initDefaultCommand();
         serverFront=CameraServer.getInstance().getServer();
         serverBack=CameraServer.getInstance().getServer();
+        front.setConnectionStrategy(edu.wpi.cscore.VideoSource.ConnectionStrategy.kKeepOpen);
+        back.setConnectionStrategy(edu.wpi.cscore.VideoSource.ConnectionStrategy.kKeepOpen);
+        // serverFront.setSource(front);
+        // serverBack.setSource(back);
         oi = new OI();
         
     }
@@ -223,50 +226,8 @@ public static VisionServer mVisionServer;
         SmartDashboard.putNumber("Distance from right ultrasonic (inches)", distanceRight);
 
        
-        if(Robot.driveTrain.isReversed()){ 
-            // camera.removeCamera("FRONT");
-            // camera.removeCamera("BACK");
-            // camera.removeServer("FRONT");
-            // camera.removeServer("BACK");
-            
-            // front.close();
-            // back.close();
-            // front.free();
-            // back.free();
-            // front=camera.startAutomaticCapture("FRONT", 1);
-            // back= camera.startAutomaticCapture("BACK", 0);
-            // serverBack.close();
-            // serverFront.close();
-            
-            serverFront.setSource(back);
-            serverBack.setSource(front);
-            // camera.startAutomaticCapture("FRONT", 1);
-            // camera.startAutomaticCapture("BACK", 0);
-            
-        }else{
-            // camera.removeCamera("FRONT");
-            // camera.removeCamera("BACK");
-            // camera.removeServer("FRONT");
-            // camera.removeServer("BACK");
-            
-            // front.close();
-            // back.close();
-            // front.free();
-            // back.free();
-            // camera.
-            // front=camera.startAutomaticCapture("FRONT", 0);
-            // back=camera.startAutomaticCapture("BACK", 1);
-        //    serverBack.close();
-        //    serverFront.close();
-            serverFront.setSource(back);
-            serverBack.setSource(front);
-            
-            // camera.startAutomaticCapture("FRONT", 0);
-            // camera.startAutomaticCapture("BACK", 1);
-            
-        }
-        // camera.removeCamera(name);
-        // camera.removeServer(name);
+        
+      
        
     }
 }

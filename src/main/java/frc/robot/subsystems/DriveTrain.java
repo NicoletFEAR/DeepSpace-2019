@@ -331,6 +331,7 @@ public class DriveTrain extends Subsystem {
 //		RobotMap.right2.setInverted(!RobotMap.right2.getInverted());
 //		RobotMap.right3.setInverted(!RobotMap.right3.getInverted());
 		reversed = !reversed;
+		
 	}
 	
 	public void resetEncoders()

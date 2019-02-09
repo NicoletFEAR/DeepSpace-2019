@@ -20,6 +20,7 @@ public class SwitchFront extends InstantCommand {
     	//Flip direction of travel
     	Robot.driveTrain.switchFront();
     	//Flip left and right
-    	//Robot.oi.switchJoystickIDs();
+        //Robot.oi.switchJoystickIDs();
+    
     }
 }
