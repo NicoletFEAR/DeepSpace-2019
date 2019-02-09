@@ -126,7 +126,7 @@ public class RobotMap {
 		midRight = new TalonSRX(16);
 		backRight = new TalonSRX(18);
 
-		frontRight.setInverted(true);
+		frontRight.setInverted(false);
 		midRight.follow(frontRight);
 		backRight.follow(frontRight);
 		
