@@ -237,6 +237,7 @@ public static VisionServer mVisionServer;
             // back= camera.startAutomaticCapture("BACK", 0);
             // serverBack.close();
             // serverFront.close();
+            
             serverFront.setSource(back);
             serverBack.setSource(front);
             // camera.startAutomaticCapture("FRONT", 1);
