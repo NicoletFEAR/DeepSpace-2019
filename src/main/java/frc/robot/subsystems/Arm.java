@@ -5,7 +5,7 @@ import frc.robot.Robot;
 import  frc.robot.RobotMap;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.SensorCollection;
+// import com.ctre.phoenix.motorcontrol.SensorCollection;
 
 // import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -16,12 +16,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *and for extending/retracting the arm
  */
 public class Arm extends Subsystem {
-    double p=.00099;
-    double i=.00;
-    double d=0;
     double integral = 0;
     double previousError = 0;
-    double previousDesiredEncoderValue = -10;
+    double previousDesiredtargetEncoderValue = 0;
     // int offset=0;
 
     // Put methods for controlling this subsystem
@@ -32,39 +29,46 @@ public class Arm extends Subsystem {
         setDefaultCommand(new Levels());
     }
 
-    public void rotateToPosition(int desiredEncoderValue){
+    public void rotateToPosition(int desiredtargetEncoderValue){
         //checks if the target has changed
         //if it has changed, reset the base variables to 0;
-        if(desiredEncoderValue!=previousDesiredEncoderValue){
+        if(desiredtargetEncoderValue!=previousDesiredtargetEncoderValue){
             integral=0;
             previousError=0;
-            previousDesiredEncoderValue = desiredEncoderValue;
+            previousDesiredtargetEncoderValue = desiredtargetEncoderValue;
         }
 
-        // desiredEncoderValue+=RobotMap.offset;
+        // desiredtargetEncoderValue+=RobotMap.offset;
 
         //reflecting it across the center of the robot if it's reversed
-        if(Robot.driveTrain.isReversed()){
-            // desiredEncoderValue+= 2*(RobotMap.ARM_MAX_TICK_VAL/2-desiredEncoderValue);
-            desiredEncoderValue = (int)RobotMap.ARM_MAX_TICK_VAL-desiredEncoderValue;
-        }
-        SensorCollection sensor = RobotMap.armMotor1.getSensorCollection();
+        // if(Robot.driveTrain.isReversed()){
+        //     // desiredtargetEncoderValue+= 2*(RobotMap.ARM_MAX_TICK_VAL/2-desiredtargetEncoderValue);
+        //     desiredtargetEncoderValue = (int)RobotMap.ARM_MAX_TICK_VAL-desiredtargetEncoderValue;
+        // }
+        //SensorCollection sensor = RobotMap.armMotor1.getSensorCollection(); // Old encoder code
+        double encoderPosition = -RobotMap.armMotor1.getSelectedSensorPosition();
 
-        SmartDashboard.putNumber("Arm Encoder Value", sensor.getQuadraturePosition());
+        SmartDashboard.putNumber("Arm Encoder Value", encoderPosition);
 
-        double error = desiredEncoderValue + sensor.getQuadraturePosition();
+        double error = desiredtargetEncoderValue - encoderPosition;
         integral += error*.02;
         double derivative = (error-previousError)/.02;
-        double speed = p*error + i*integral + d*derivative;
+        double speed = RobotMap.ARM_kP*error + RobotMap.ARM_kI*integral + RobotMap.ARM_kD*derivative;
 
         RobotMap.armMotor1.set(ControlMode.PercentOutput, speed);
-        RobotMap.armMotor2.set(ControlMode.PercentOutput, -speed);
-
-        // if(Robot.oi.getXbox2().getYButton()) RobotMap.armMotor1.setSelectedSensorPosition(0,0,10);
-        // if(Robot.oi.getXbox2().getBumper(Hand.kLeft)) offset-=100;
-        // if(Robot.oi.getXbox2().getBumper(Hand.kRight)) offset+=100;
-
-        // return offset;
-        // return (0!=Robot.oi.getXbox1().getTriggerAxis(Hand.kLeft)) || (0!=Robot.oi.getXbox1().getTriggerAxis(Hand.kRight));
+        RobotMap.armMotor2.set(ControlMode.PercentOutput, speed);
     }
+
+    public void slamToEnd() {
+        RobotMap.armMotor1.set(ControlMode.PercentOutput, 1); 
+        RobotMap.armMotor2.set(ControlMode.PercentOutput, 1);
+    }
+
+    public void EncoderResetAtEnd() {
+        RobotMap.armMotor1.set(ControlMode.PercentOutput, 0); 
+        RobotMap.armMotor2.set(ControlMode.PercentOutput, 0);
+		RobotMap.armMotor1.setSelectedSensorPosition(0, 0, 10); // 1st value is the value to reset to
+    }
+    
+
 }

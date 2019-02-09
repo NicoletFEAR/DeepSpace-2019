@@ -10,7 +10,7 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
+// import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
@@ -30,7 +30,7 @@ public class CargoLevel1 extends InstantCommand {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        RobotMap.encoderValue=(3000);
+        RobotMap.targetEncoderValue=RobotMap.CargoLevel1TargetValue;
         // RobotMap.offset = 0;
     }
 

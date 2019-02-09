@@ -35,24 +35,14 @@ public class Levels extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {	  
-        /*if(Robot.oi.getXbox2().getBumper(Hand.kLeft)){
-            RobotMap.offset-=100;
-        }
-        if(Robot.oi.getXbox2().getBumper(Hand.kRight)){
-            RobotMap.offset+=100;
-        }*/
-        RobotMap.encoderValue = RobotMap.encoderValue+(int)(100*Robot.oi.getXbox2().getY(Hand.kLeft));
+        RobotMap.targetEncoderValue = RobotMap.targetEncoderValue+(int)(100*Robot.oi.getXbox2().getX(Hand.kLeft));
 
-        //Not sure if the limit switch needs to be inverted, as in !limitSwitch1.get()
-
-        // if(RobotMap.limitSwitch1.get()){
-        //     RobotMap.encoderValue=0;
+        // if(RobotMap.targetEncoderValue<RobotMap.ARM_MAX_TICK_VAL || RobotMap.targetEncoderValue>RobotMap.ARM_MIN_TICK_VAL){
+        //     if(RobotMap.targetEncoderValue>(RobotMap.ARM_MAX_TICK_VAL+RobotMap.ARM_MIN_TICK_VAL)/2) RobotMap.targetEncoderValue = (int)RobotMap.ARM_MAX_TICK_VAL;
+        //     else RobotMap.targetEncoderValue = (int)RobotMap.ARM_MIN_TICK_VAL;
         // }
-        // if(RobotMap.limitSwitch2.get()){
-        //     RobotMap.encoderValue=0
-        // }
-
-        Robot.arm.rotateToPosition(RobotMap.encoderValue);
+        if(Robot.driveTrain.isReversed()) Robot.arm.rotateToPosition(-RobotMap.targetEncoderValue);
+        else Robot.arm.rotateToPosition(RobotMap.targetEncoderValue);        
     }
 
     // Make this return true when this Command no longer needs to run execute()

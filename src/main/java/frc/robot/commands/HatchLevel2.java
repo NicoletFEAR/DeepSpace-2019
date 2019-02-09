@@ -30,7 +30,7 @@ public class HatchLevel2 extends InstantCommand {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        RobotMap.encoderValue=(500);
+        RobotMap.targetEncoderValue=RobotMap.HatchLevel2TargetValue;
         // RobotMap.offset = 0;
     }
 }

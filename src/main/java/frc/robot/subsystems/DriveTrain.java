@@ -18,6 +18,7 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.SensorCollection;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -289,23 +290,23 @@ public class DriveTrain extends Subsystem {
 	}
 
 	public double getLeftEncoderPosition() {
-		return -(RobotMap.left2.getSelectedSensorPosition(0));
+		return (RobotMap.left1.getSelectedSensorPosition(0));
 	}
 
 	public double getRightEncoderPosition() {
 		// Make sure graph isn't upside down (The stocks are going into the
 		// toilet!!)
-		return (RobotMap.right2.getSelectedSensorPosition(0));
+		return -(RobotMap.right1.getSelectedSensorPosition(0));
 	}
 
 	public double getLeftEncoderVelocity() {
-		return RobotMap.left2.getSelectedSensorVelocity(0);
+		return RobotMap.left1.getSelectedSensorVelocity(0);
 	}
 
 	public double getRightEncoderVelocity() {
 		// Make sure graph isn't upside down (The stocks are going into the
 		// toilet!!)
-		return -(RobotMap.right2.getSelectedSensorVelocity(0));
+		return (RobotMap.right1.getSelectedSensorVelocity(0));
 	}
 
 	@Override
@@ -337,5 +338,4 @@ public class DriveTrain extends Subsystem {
 		RobotMap.left1.setSelectedSensorPosition(0, 0, 10);
 		RobotMap.right1.setSelectedSensorPosition(0, 0, 10);
 	}
-
 }

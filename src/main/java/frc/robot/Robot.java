@@ -29,6 +29,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 // import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 import edu.wpi.cscore.UsbCamera;
+import edu.wpi.cscore.VideoSink;
 // import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.cameraserver.CameraServer;
 /**
@@ -60,6 +61,10 @@ public class Robot extends TimedRobot {
     public static Arm arm;
     public static PressureSensor pressureSensor;
     public static Shifter shifter;
+    public static CameraServer camera;
+    public static UsbCamera front;
+    public static UsbCamera back;
+    public static VideoSink serverFront, serverBack;
 //    public static ArduinoInterface arduinoLEDInterface;
 //    public static ArduinoInterface arduinoCameraInterface;
     
@@ -101,18 +106,14 @@ public static VisionServer mVisionServer;
         // constructed yet. Thus, their requires() statements may grab null
         // pointers. Bad news. Don't move it.
 
-        CameraServer camera0 = CameraServer.getInstance();
-        CameraServer camera1 = CameraServer.getInstance();
-        
-        
-        
-        camera0.startAutomaticCapture("cam0", 50);
-        camera0.startAutomaticCapture();
-        
-        camera1.startAutomaticCapture("cam1", 50);
-        camera1.startAutomaticCapture(1);
+        camera = CameraServer.getInstance();
+        front=camera.startAutomaticCapture("FRONT", 0);
+        back =camera.startAutomaticCapture("BACK", 1);
+        front.setConnectionStrategy(edu.wpi.cscore.VideoSource.ConnectionStrategy.kKeepOpen);
+        back.setConnectionStrategy(edu.wpi.cscore.VideoSource.ConnectionStrategy.kKeepOpen);
         lifter.initDefaultCommand();
-      
+        serverFront=CameraServer.getInstance().getServer();
+        serverBack=CameraServer.getInstance().getServer();
         oi = new OI();
         
     }
@@ -183,11 +184,14 @@ public static VisionServer mVisionServer;
      */
     @Override
     public void teleopPeriodic() {
+        pressureSensor.getPressure();
         Scheduler.getInstance().run();
         double velocityRight = Robot.driveTrain.getRightEncoderVelocity();
         double velocityLeft = Robot.driveTrain.getLeftEncoderVelocity();
 		SmartDashboard.putNumber("velR", velocityRight);
-		SmartDashboard.putNumber("velL", velocityLeft);
+        SmartDashboard.putNumber("velL", velocityLeft);
+        
+        SmartDashboard.putNumber("Target", RobotMap.targetEncoderValue);
 		
 		SmartDashboard.putNumber("Left Encoder: ", Robot.driveTrain.getLeftEncoderPosition());
     /*
@@ -212,10 +216,56 @@ public static VisionServer mVisionServer;
         SmartDashboard.putString("Camera Mode: ", cameraMode);
     
         SmartDashboard.putNumber("Right Encoder: ", Robot.driveTrain.getRightEncoderPosition());
-        
+        SmartDashboard.putBoolean("Switch Front", Robot.driveTrain.isReversed());
         double distanceLeft = RobotMap.ultraLeft.getAverageVoltage()*300/293*1000/25.4;
         SmartDashboard.putNumber("Distance from left ultrasonic (inches)", distanceLeft);
         double distanceRight = RobotMap.ultraRight.getAverageVoltage()*300/293*1000/25.4;
         SmartDashboard.putNumber("Distance from right ultrasonic (inches)", distanceRight);
+
+       
+        if(Robot.driveTrain.isReversed()){ 
+            // camera.removeCamera("FRONT");
+            // camera.removeCamera("BACK");
+            // camera.removeServer("FRONT");
+            // camera.removeServer("BACK");
+            
+            // front.close();
+            // back.close();
+            // front.free();
+            // back.free();
+            // front=camera.startAutomaticCapture("FRONT", 1);
+            // back= camera.startAutomaticCapture("BACK", 0);
+            // serverBack.close();
+            // serverFront.close();
+            serverFront.setSource(back);
+            serverBack.setSource(front);
+            // camera.startAutomaticCapture("FRONT", 1);
+            // camera.startAutomaticCapture("BACK", 0);
+            
+        }else{
+            // camera.removeCamera("FRONT");
+            // camera.removeCamera("BACK");
+            // camera.removeServer("FRONT");
+            // camera.removeServer("BACK");
+            
+            // front.close();
+            // back.close();
+            // front.free();
+            // back.free();
+            // camera.
+            // front=camera.startAutomaticCapture("FRONT", 0);
+            // back=camera.startAutomaticCapture("BACK", 1);
+        //    serverBack.close();
+        //    serverFront.close();
+            serverFront.setSource(back);
+            serverBack.setSource(front);
+            
+            // camera.startAutomaticCapture("FRONT", 0);
+            // camera.startAutomaticCapture("BACK", 1);
+            
+        }
+        // camera.removeCamera(name);
+        // camera.removeServer(name);
+       
     }
 }

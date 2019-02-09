@@ -12,7 +12,7 @@ package frc.robot;
 
 
 import frc.robot.commands.*;
-import frc.robot.subsystems.Lifter;
+// import frc.robot.subsystems.Lifter;
 //import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -146,14 +146,14 @@ public class OI {
 
          xbox1X.whenPressed(new Shooting());
          xbox1Y.whenPressed(new Lifting());
-        //  xbox1B.whenPressed(new HatchLevel1());
+         xbox1B.whenPressed(new DriveArc());
         //  xbox1A.whenPressed(new CargoLevel1());
         
         xbox2Y.whenPressed(new HatchLevel1());
         xbox2X.whenPressed(new CargoLevel1());
         xbox2A.whenPressed(new GameMechShift());
-        xbox2RTrig.whenPressed(new IncrementEncoder());
-        xbox2LTrig.whenPressed(new DecrementEncoder());
+        xbox2RTrig.whenPressed(new IncrementCap());
+        xbox2LTrig.whenPressed(new DecrementCap());
         // SmartDashboard Buttons
         SmartDashboard.putData("SwitchFront", new SwitchFront());
         //SmartDashboard.putData("Lift Ramp", new NTableValueSet());

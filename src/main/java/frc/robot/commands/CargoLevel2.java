@@ -30,7 +30,7 @@ public class CargoLevel2 extends InstantCommand {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        RobotMap.encoderValue=(2000);
+        RobotMap.targetEncoderValue=RobotMap.CargoLevel2TargetValue;
         // RobotMap.offset = 0;
     }
 }

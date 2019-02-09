@@ -38,7 +38,7 @@ public class GameMech extends Subsystem {
 
 	public void spinFlyWheels(double speed){
 		RobotMap.flywheel1.set(ControlMode.PercentOutput, speed);
-		RobotMap.flywheel2.set(ControlMode.PercentOutput, -speed);
+		RobotMap.flywheel2.set(ControlMode.PercentOutput, speed);
 	}
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
