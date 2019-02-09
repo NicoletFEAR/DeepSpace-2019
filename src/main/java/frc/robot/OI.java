@@ -19,6 +19,10 @@ import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //import edu.wpi.first.wpilibj.interfaces.Potentiometer;
+import frc.robot.commands.InstantOverride;
+import frc.robot.commands.SwitchCamera;
+import frc.robot.commands.SwitchFront;
+import frc.robot.commands.VisionTurn;
 
 //import org.usfirst.frc4786.RobotBuilderTest1.subsystems.*;
 //import org.usfirst.frc4786.RobotBuilderTest1.subsystems.DriveTrain;
@@ -85,6 +89,8 @@ public class OI {
     private Button xbox2A;
     private Button xbox2LTrig;
     private Button xbox2RTrig;
+    public static boolean visionOn;
+    
     private Button xbox2LeftStick;
     private Button xbox2RightStick;
     
@@ -133,7 +139,11 @@ public class OI {
          // tie commands to buttons
          //xbox1ButtonX.whenPressed(new Shift());
          xbox1LeftStick.whenPressed(new SwitchFront());
+         xbox1LeftStick.whenPressed(new SwitchCamera());
          xbox1RightStick.whenPressed(new SwitchFront());
+         xbox1RightStick.whenPressed(new SwitchCamera());
+         visionOn = false;
+
          xbox1X.whenPressed(new Shooting());
          xbox1Y.whenPressed(new Lifting());
          xbox1B.whenPressed(new DriveArc());
