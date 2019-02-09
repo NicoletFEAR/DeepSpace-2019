@@ -44,6 +44,10 @@ public class DriveTrain extends Subsystem {
 
 	public double leftSideSwitchSide;
 	public double rightSideSwitchSide;
+	public double integral = 0;
+	public double previousError = 0;
+	public double previousDesiredAngle = 0;
+	public double previousDesiredDistance = 0;
 
 	// Setup our timed drive
 	double currentTime = 0.0;
@@ -186,39 +190,7 @@ public class DriveTrain extends Subsystem {
 		stop();
 	}
 
-	public void driveToPositionInit(double distanceToDrive) {
-		// Change Talon modes to "position" just in case
-		// they were in another mode before
-		RobotMap.left1.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 1, 10);
-		RobotMap.left1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
 
-		RobotMap.right1.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 1, 10);
-		RobotMap.right1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
-
-		// Set our encoders' positions to 0, we haven't moved yet!
-		RobotMap.left1.setSelectedSensorPosition(0, 0, 10);
-		RobotMap.right1.setSelectedSensorPosition(0, 0, 10);
-
-		// Run convertToRotations function
-		double rot = convertToRotations(distanceToDrive);
-
-		// Make motors drive number of rotations
-		// calculated before by convertToRotations()
-		RobotMap.left1.set(ControlMode.Position, rot);
-		RobotMap.right1.set(ControlMode.Position, rot);
-		try {
-			Thread.sleep(10);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		// Make sure we inverse this right side,
-		// otherwise, you have a spinning robot on your hands
-		RobotMap.left1.set(ControlMode.Position, rot);
-		RobotMap.right1.set(ControlMode.Position, rot);
-
-		SmartDashboard.putNumber("Rotations Calculated", rot);
-		this.driveToPositionIsFinished();
-	}
 
 	public void driveArcInit(double horizontalDist, double theta) {
 		// Set Encoder Position to 0
@@ -278,15 +250,66 @@ public class DriveTrain extends Subsystem {
 	// Some special isFinished() command stuff to not stop before the robot has
 	// even moved
 
-	public boolean driveToPositionIsFinished() {
-//		return Math.abs(RobotMap.left1.getClosedLoopError(0)) <= RobotMap.ALLOWABLE_ERROR_CONSTANT_LEFT
-//				&& Math.abs(RobotMap.right1.getClosedLoopError(10)) <= RobotMap.ALLOWABLE_ERROR_CONSTANT_RIGHT;
-		return true;
+	public double ticksToRot(double ticks) {
+		return ticks / 7610;
+	}
+	
+	public double ticksToIn(double ticks) {
+		double circumf = Math.PI * 7.5;
+		return ticksToRot(ticks) * circumf;
+	}
+
+	public boolean driveToPosition(double desiredDistance) {
+		//checks if the target has changed
+		//if it has changed, reset the base variables to 0;
+		if(desiredDistance!=previousDesiredDistance){
+			integral=0;
+			previousError=0;
+			previousDesiredDistance = desiredDistance;
+		}
+		double currentDistance = ticksToIn(RobotMap.left1.getSelectedSensorPosition());
+
+		double error = desiredDistance - currentDistance;
+		integral += error*.02;
+		double derivative = (error-previousError)/.02;
+		double speed = RobotMap.DRIVE_kP*error + RobotMap.DRIVE_kI*integral + RobotMap.DRIVE_kD*derivative;
+
+		RobotMap.armMotor1.set(ControlMode.PercentOutput, speed);
+		RobotMap.armMotor2.set(ControlMode.PercentOutput, speed);
+	
+		if (error < RobotMap.DRIVE_ERROR_CONSTANT && error > -RobotMap.DRIVE_ERROR_CONSTANT) {
+			return true;
+		}
+		return false;
 	}
 
 	public void driveToPositionEnd() {
 		RobotMap.left1.setSelectedSensorPosition(0, 0, 10);
 		RobotMap.right1.setSelectedSensorPosition(0, 0, 10);
+	}
+
+	public boolean turnToAngle(double desiredAngle) {
+		//checks if the target has changed
+		//if it has changed, reset the base variables to 0;
+		if(desiredAngle!=previousDesiredAngle){
+			integral=0;
+			previousError=0;
+			previousDesiredAngle = desiredAngle;
+		}
+		double currentAngle = Robot.navX.getAngle();
+
+		double error = desiredAngle - currentAngle;
+		integral += error*.02;
+		double derivative = (error-previousError)/.02;
+		double speed = RobotMap.TURN_kP*error + RobotMap.TURN_kI*integral + RobotMap.TURN_kD*derivative;
+
+		RobotMap.armMotor1.set(ControlMode.PercentOutput, speed);
+		RobotMap.armMotor2.set(ControlMode.PercentOutput, speed);
+	
+		if (error < RobotMap.TURN_ERROR_CONSTANT && error > -RobotMap.TURN_ERROR_CONSTANT) {
+			return true;
+		}
+		return false;
 	}
 
 	public double getLeftEncoderPosition() {
