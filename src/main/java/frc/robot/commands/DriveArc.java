@@ -97,6 +97,7 @@ public class DriveArc extends Command {
     
     @Override
     protected void initialize() {
+        Robot.driveArc = true;
         // System.out.println(" initialize()");
         count = 0;
         Robot.driveTrain.resetEncoders();
@@ -139,6 +140,7 @@ public class DriveArc extends Command {
 
     @Override
     protected boolean isFinished() {
+        if (completeL && completeR) { Robot.driveArc = false; }
         return completeL && completeR;
     }
     // Called once after isFinished returns true
