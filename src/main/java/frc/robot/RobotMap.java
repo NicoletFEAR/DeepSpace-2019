@@ -35,18 +35,6 @@ public class RobotMap {
 	public static TalonSRX right4;
     
     public static DifferentialDrive robotDrive;
-    
-    public static int module0 = 0;
-	public static int aForwardChannel = 0;
-	public static int aReverseChannel = 1;
-	public static int bForwardChannel = 2;
-	public static int bReverseChannel = 3;
-	public static int cForwardChannel = 4;
-	public static int cReverseChannel = 5;
-	
-	public static int module1 = 1;
-	
-	public static int compressormodule = 0;
 	
 	//PID Constants
 	public static double ERROR_CONSTANT_LEFT = 0.0;

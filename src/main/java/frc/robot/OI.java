@@ -68,6 +68,7 @@ public class OI {
 	private Button xbox1RightStick;
     private Button xbox1ButtonX;
     private Button xbox1Start;
+    private Button xbox1Back;
     
     private XboxController xbox2; // the game mech controller
     private Button xbox2Start;
@@ -102,6 +103,7 @@ public class OI {
          xbox1LeftStick = new JoystickButton(xbox1, 9);
          xbox1RightStick = new JoystickButton(xbox1, 10);
          xbox1Start = new JoystickButton(xbox1, 8);
+         xbox1Back = new JoystickButton(xbox1, 7);
          
          xbox2 = new XboxController(1);
          
@@ -116,8 +118,8 @@ public class OI {
          
          // tie commands to buttons
          //xbox1ButtonX.whenPressed(new Shift());
-         xbox1LeftStick.whenPressed(new SwitchFront());
-         xbox1RightStick.whenPressed(new SwitchFront());
+         xbox1Start.whenPressed(new SwitchFront());
+         xbox1Back.whenPressed(new SwitchFront());
 
         
         // SmartDashboard Buttons
