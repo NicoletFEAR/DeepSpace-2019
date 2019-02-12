@@ -274,8 +274,8 @@ public class DriveTrain extends Subsystem {
 		double derivative = (error-previousError)/.02;
 		double speed = RobotMap.DRIVE_kP*error + RobotMap.DRIVE_kI*integral + RobotMap.DRIVE_kD*derivative;
 
-		RobotMap.armMotor1.set(ControlMode.PercentOutput, speed);
-		RobotMap.armMotor2.set(ControlMode.PercentOutput, speed);
+		RobotMap.left1.set(ControlMode.PercentOutput, speed);
+		RobotMap.right1.set(ControlMode.PercentOutput, speed);
 	
 		if (error < RobotMap.DRIVE_ERROR_CONSTANT && error > -RobotMap.DRIVE_ERROR_CONSTANT) {
 			return true;
@@ -303,8 +303,13 @@ public class DriveTrain extends Subsystem {
 		double derivative = (error-previousError)/.02;
 		double speed = RobotMap.TURN_kP*error + RobotMap.TURN_kI*integral + RobotMap.TURN_kD*derivative;
 
-		RobotMap.armMotor1.set(ControlMode.PercentOutput, speed);
-		RobotMap.armMotor2.set(ControlMode.PercentOutput, speed);
+		if (desiredAngle > 0) {
+			RobotMap.right1.set(ControlMode.PercentOutput, speed);
+			RobotMap.left1.set(ControlMode.PercentOutput, -speed);
+		} else {
+			RobotMap.right1.set(ControlMode.PercentOutput, -speed);
+			RobotMap.left1.set(ControlMode.PercentOutput, speed);
+		}
 	
 		if (error < RobotMap.TURN_ERROR_CONSTANT && error > -RobotMap.TURN_ERROR_CONSTANT) {
 			return true;
