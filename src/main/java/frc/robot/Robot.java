@@ -12,26 +12,30 @@ package frc.robot;
 
 import java.util.List;
 
-import edu.wpi.first.wpilibj.AnalogInput;
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.loops.VisionProcessor;
-import frc.robot.subsystems.DriveTrain;
-import frc.robot.vision.VisionServer;
-import se.vidstige.jadb.JadbConnection;
-import se.vidstige.jadb.JadbDevice;
+import com.kauailabs.navx.frc.AHRS;
 
-// import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-// import frc.robot.commands.*;
-import frc.robot.subsystems.*;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.cscore.VideoSink;
 // import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.SPI.Port;
+import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.loops.VisionProcessor;
+// import frc.robot.commands.*;
+import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.GameMech;
+import frc.robot.subsystems.Lifter;
+import frc.robot.subsystems.PressureSensor;
+import frc.robot.subsystems.Shifter;
+import frc.robot.vision.VisionServer;
+import se.vidstige.jadb.JadbConnection;
+import se.vidstige.jadb.JadbDevice;
+
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the TimedRobot
@@ -44,8 +48,8 @@ public class Robot extends TimedRobot {
     Command autonomousCommand;
     Command disabledCommand;
 
-	public static DriverStation.Alliance alliance;
-	public static String allianceColorVal = "";
+    public static DriverStation.Alliance alliance;
+    public static String allianceColorVal = "";
     public static String teamSwitchSide = "";
     public static double y_val_target = 0.0;
     public static double z_val_target = 0.0;
@@ -65,6 +69,7 @@ public class Robot extends TimedRobot {
     public static UsbCamera front;
     public static UsbCamera back;
     public static VideoSink serverFront, serverBack;
+    public static AHRS navX;
 //    public static ArduinoInterface arduinoLEDInterface;
 //    public static ArduinoInterface arduinoCameraInterface;
     
@@ -97,7 +102,7 @@ public static VisionServer mVisionServer;
         arm = new Arm();
         pressureSensor = new PressureSensor();
         shifter = new Shifter();
-      
+        navX = new AHRS(Port.kMXP);
         //arduinoLEDInterface = new ArduinoInterface(7);
         //arduinoCameraInterface = new ArduinoInterface(6);
         
@@ -192,7 +197,7 @@ public static VisionServer mVisionServer;
         SmartDashboard.putNumber("velL", velocityLeft);
         
         SmartDashboard.putNumber("Target", RobotMap.targetEncoderValue);
-		
+		SmartDashboard.putNumber("NavX",navX.getAngle());
 		SmartDashboard.putNumber("Left Encoder: ", Robot.driveTrain.getLeftEncoderPosition());
     /*
         VisionUpdate update = new VisionUpdate();

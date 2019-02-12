@@ -58,12 +58,16 @@ public class RobotMap {
 	public static double ERROR_CONSTANT_RIGHT = 0.0;
 	public static double WHEEL_RADIUS = 3.125; //Inches
 	public static double WHEEL_SEPARATION = 5.0; //Inches
+	public static double DISTANCE_BETWEEN_TRACKS = 20.5; //Inches
 	public static double fudgeFactor = 1.0;
 	public static double WHEEL_TICKS_PER_REVOLUTION = 7610;
     public static final double DRIVE_kP = 0.005;
     public static final double DRIVE_kI = 0.0001;
     public static final double DRIVE_kD = 0.00000003;
 	
+	public static final double TURN_kP = 0.02;
+	public static final double TURN_kI = 0.0001;
+	public static final double PERFECT_ARC_RANGE = 2;
 	
 	//variables for arm movement
 	public static int maxChangeAmt = 100;
@@ -142,12 +146,12 @@ public class RobotMap {
 
 		//next 2 need to be switched back to 21/22, 
 		//using them for PID testing
-		armMotor1 = new TalonSRX(23);
+		armMotor1 = new TalonSRX(24);
 		armMotor1.setInverted(false);
 		armMotor1.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 10); // new frame ever X miliseconds
 		armMotor1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
 		armMotor1.setSelectedSensorPosition(0);
-		armMotor2 = new TalonSRX(24);
+		armMotor2 = new TalonSRX(23);
 		armMotor2.setInverted(true);
 		// armMotor2.setInverted(InvertType.FollowMaster);
 		// armMotor2.setInverted(false);
