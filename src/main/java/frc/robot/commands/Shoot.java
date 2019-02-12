@@ -17,17 +17,17 @@ import frc.robot.Robot;
 /**
  *
  */
-public class GameMechShift extends Command {
+public class Shoot extends Command {
 
-    public GameMechShift() {
+    public Shoot() {
         // Use requires() here to declare subsystem dependencies
-       requires(Robot.lifter);
+       requires(Robot.gameMech);
        this.setInterruptible(false);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	
+    	Robot.gameMech.initDefaultCommand();
     }
 
     // Called repeatedly when this Command is scheduled to run

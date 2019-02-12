@@ -144,14 +144,13 @@ public class OI {
          xbox1RightStick.whenPressed(new SwitchCamera());
          visionOn = false;
 
-         xbox1X.whenPressed(new Shooting());
+         xbox1X.whenPressed(new Shoot());
          xbox1Y.whenPressed(new Lifting());
          xbox1B.whenPressed(new DriveArc());
         //  xbox1A.whenPressed(new CargoLevel1());
         
         xbox2Y.whenPressed(new HatchLevel1());
         xbox2X.whenPressed(new CargoLevel1());
-        xbox2A.whenPressed(new GameMechShift());
         xbox2RTrig.whenPressed(new IncrementCap());
         xbox2LTrig.whenPressed(new DecrementCap());
         // SmartDashboard Buttons
