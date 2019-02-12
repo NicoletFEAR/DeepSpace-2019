@@ -135,6 +135,7 @@ public static VisionServer mVisionServer;
         Scheduler.getInstance().run();
         VisionProcessor processor = (VisionProcessor) mVisionServer.receivers.get(0);
         processor.onLoop(System.currentTimeMillis());
+        SmartDashboard.putNumber("NavX Angle: ", navX.getAngle());
 
         // VisionUpdate update = new VisionUpdate();
         // for (int i = 0; i < update.getTargets().size(); i++) {
@@ -197,6 +198,7 @@ public static VisionServer mVisionServer;
         SmartDashboard.putNumber("velL", velocityLeft);
         
         SmartDashboard.putNumber("Target", RobotMap.targetEncoderValue);
+		
 		SmartDashboard.putNumber("NavX",navX.getAngle());
 		SmartDashboard.putNumber("Left Encoder: ", Robot.driveTrain.getLeftEncoderPosition());
     /*

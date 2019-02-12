@@ -61,9 +61,14 @@ public class RobotMap {
 	public static double DISTANCE_BETWEEN_TRACKS = 20.5; //Inches
 	public static double fudgeFactor = 1.0;
 	public static double WHEEL_TICKS_PER_REVOLUTION = 7610;
-    public static final double DRIVE_kP = 0.005;
-    public static final double DRIVE_kI = 0.0001;
-    public static final double DRIVE_kD = 0.00000003;
+    public static final double DRIVE_kP = 0;
+    public static final double DRIVE_kI = 0;
+	public static final double DRIVE_kD = 0;
+	public static final double DRIVE_ERROR_CONSTANT = 0;
+	public static final double TURN_kP = 0;
+	public static final double TURN_kI = 0;
+	public static final double TURN_kD = 0;
+	public static final double TURN_ERROR_CONSTANT = 0;
 	
 	public static final double TURN_kP = 0.02;
 	public static final double TURN_kI = 0.0001;
