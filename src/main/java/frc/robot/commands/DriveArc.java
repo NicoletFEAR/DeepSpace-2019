@@ -28,24 +28,25 @@ import frc.robot.RobotMap;
  *
  */
 public class DriveArc extends Command {
-    int count;
     double x;
     double y;
     double theta;
+
+    double z;
+    double r;
+
     double circR;
     double circL;
-    double integralL = 0;
-    double integralR = 0;
-    double previousErrorL = 0;
-    double previousErrorR = 0;
-    double previousDesiredtargetEncoderValue = -10;
-    boolean completeL;
-    boolean completeR;
     
+    double speed;
+    double integral;
+    double previousError;
+
+    boolean complete;
 
     public DriveArc() {
         // requires(Robot.driveTrain);
-        this(48,48,45);
+        this(24,24,45);
     }
 
     public DriveArc(double x, double y, double theta){
@@ -69,78 +70,106 @@ public class DriveArc extends Command {
 
     //Arc length should be in inches
     public boolean arcDrive(double arcLength, TalonSRX talon){
-        //System.out.println("arcDrive()");
         // SmartDashboard.putNumber("", );  
         double error; 
         double derivative;
-        double integral;
-        if(count%2==0){
-            error = arcLength - RevolutionsToInches(TicksToRevolution(Robot.driveTrain.getLeftEncoderPosition()));
-            integralL+=error*.02;
-            integral = integralL;
-            derivative =  (error-previousErrorL)/.02;
-            previousErrorL=error;
-        }else{
-            error = arcLength - RevolutionsToInches(TicksToRevolution(Robot.driveTrain.getRightEncoderPosition()));
-            integralR+=error*.02;
-            integral = integralR;
-            derivative =  (error-previousErrorR)/.02;
-            previousErrorR=error;
-        }
-        count++;
-        double speed = RobotMap.DRIVE_kP*error + RobotMap.DRIVE_kI*integral + RobotMap.DRIVE_kD*derivative;
+        double speed;
+        double currentLocation = RevolutionsToInches(TicksToRevolution(talon.getSelectedSensorPosition()));
+
+        // SmartDashboard.putNumber("Target", arcLength);
+        // SmartDashboard.putNumber("currentDistance", currentLocation);
+        if(currentLocation>arcLength) return true;
+        error = arcLength - currentLocation;
+        integral+=error*.02;
+        derivative =  (error-previousError)/.02;
+        previousError=error;
+        speed = RobotMap.DRIVE_kP*error + RobotMap.DRIVE_kI*integral + RobotMap.DRIVE_kD*derivative;
+        speed = -speed;
         talon.set(ControlMode.PercentOutput, speed);
         
-        if(error == 0) return true;
 		return false;
     }
     
+    protected void rotateDegrees(double degrees){
+        double error;
+        //
+        // SmartDashboard.putNumber("original angle", degrees);
+        degrees = degrees<0?(degrees%360):-(degrees%360);
+        // SmartDashboard.putNumber("Desired angle", degrees);
+        do{
+            error = degrees-Robot.navX.getAngle();
+            double speed = RobotMap.TURN_kP*error;
+            RobotMap.left1.set(ControlMode.PercentOutput, -speed);
+            RobotMap.right1.set(ControlMode.PercentOutput, -speed);
+            // SmartDashboard.putNumber("CurrentAngle", Robot.navX.getAngle());
+        }while(error<-RobotMap.PERFECT_ARC_RANGE || error>RobotMap.PERFECT_ARC_RANGE);
+    }
+
     @Override
     protected void initialize() {
-        // System.out.println(" initialize()");
-        count = 0;
-        Robot.driveTrain.resetEncoders();
-        //calculate the distance that the different sides of 
-        //the robot have to travel during the arc.
-        double w = 20.5;
-        double r0 = y/Math.sin(theta);
-        double cLeft = 0;
-        double cRight = 0;
-        double rLeft = 0;
-        double rRight = 0;
-        //this is saying that you are turning right
-        //cricR is the radius of the inner circl
-        if (x > 0){
-            rRight = r0 - (1/2)*w;
-            rLeft = r0 + (1/2)*w;
-        }else{
-            rRight = r0 + (1/2)*w;
-            rLeft = r0 - (1/2)*w;
+        complete = false;
+        Robot.navX.reset();
+        double copyOfX = x;
+        if(x<0){
+            x=-x;
         }
-        
-        cRight = rRight*Math.PI*2;
-        cLeft = rLeft*Math.PI*2;
+        double prefferedLength = y/Math.cos(Math.toRadians(theta));
+        double currentLength = Math.sqrt(x*x+y*y);
+        /*double radius1 = y/Math.sin(Math.toRadians(theta));
+        double radius2 = x+y/Math.tan(Math.toRadians(theta));
+        if(radius1>radius2-RobotMap.PERFECT_ARC_RANGE && radius1<radius2+RobotMap.PERFECT_ARC_RANGE){
+            //already in position
+            //execute already perfect arc
 
-        circR = cRight*(theta/360);
-        circL = cLeft*(theta/360);
+        }else */if(currentLength>prefferedLength){
+            //rotate to the right, arcing to the left
+            z = -2*(Math.tanh(x/y)-theta);
+            double degreesToRotate = theta+z;
+            rotateDegrees(degreesToRotate);
+            
+            double radius = (1.0/2*Math.sqrt(x*x+y*y))/(Math.sin(.5*z));
+            double leftRadius = radius-1.0/2*RobotMap.DISTANCE_BETWEEN_TRACKS;
+            double rightRadius = radius+1.0/2*RobotMap.DISTANCE_BETWEEN_TRACKS;
 
-        completeL=false;
-        completeR=false;        
+            circL = leftRadius*2*Math.PI*z/360;
+            circR = rightRadius*2*Math.PI*z/360;
+        }else {
+            //rotate to the left, arcing to the right
+            z = 2*(theta-Math.tanh(x/y));
+            double degreesToRotate = theta-z;
+            rotateDegrees(degreesToRotate);
+            
+            double radius = (1.0/2*Math.sqrt(x*x+y*y))/(Math.sin(.5*z));
+            double leftRadius = radius+1.0/2*RobotMap.DISTANCE_BETWEEN_TRACKS;
+            double rightRadius = radius-1.0/2*RobotMap.DISTANCE_BETWEEN_TRACKS;
+
+            circL = leftRadius*2*Math.PI*z/360;
+            circR = rightRadius*2*Math.PI*z/360;
+        }      
+        if(copyOfX!=x){
+            double tmp = circL;
+            circL = circR;
+            circR = tmp;
+        }
     }
 
     @Override
     protected void execute() {	
         // //System.out.println("execute()");
-        if(!completeL) completeL = arcDrive(circL, RobotMap.left1);
-        if(!completeR) completeR = arcDrive(circR, RobotMap.right1);
-        // completeL = Robot.driveTrain.DriveArc(circL, RobotMap.left1);
-        // completeR = Robot.driveTrain.DriveArc(circR, RobotMap.right1);
+        if(circL>circR){
+            complete = arcDrive(circL, RobotMap.left1);
+            RobotMap.right1.set(ControlMode.PercentOutput, speed);
+        } else {
+            complete = arcDrive(circR, RobotMap.right1);
+            RobotMap.left1.set(ControlMode.PercentOutput, speed);
+        }
     }
 
     @Override
     protected boolean isFinished() {
-        return completeL && completeR;
+        return complete;
     }
+
     // Called once after isFinished returns true
     @Override
     protected void end() {
