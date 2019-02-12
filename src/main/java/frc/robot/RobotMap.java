@@ -147,12 +147,12 @@ public class RobotMap {
 
 		//next 2 need to be switched back to 21/22, 
 		//using them for PID testing
-		armMotor1 = new TalonSRX(23);
+		armMotor1 = new TalonSRX(24);
 		armMotor1.setInverted(false);
 		armMotor1.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 10); // new frame ever X miliseconds
 		armMotor1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
 		armMotor1.setSelectedSensorPosition(0);
-		armMotor2 = new TalonSRX(24);
+		armMotor2 = new TalonSRX(23);
 		armMotor2.setInverted(true);
 		// armMotor2.setInverted(InvertType.FollowMaster);
 		// armMotor2.setInverted(false);
