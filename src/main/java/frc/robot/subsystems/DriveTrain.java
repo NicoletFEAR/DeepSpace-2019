@@ -18,10 +18,12 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.SensorCollection;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 /**
  *
@@ -32,16 +34,20 @@ public class DriveTrain extends Subsystem {
 
 	// SpeedControllerGroup leftSide = new
 	// SpeedControllerGroup(RobotMap.left1, RobotMap.left2,
-	// RobotMap.backLeft);
+	// RobotMap.left3);
 	// SpeedControllerGroup rightSide = new
 	// SpeedControllerGroup(RobotMap.right1, RobotMap.right2,
-	// RobotMap.backRight);
+	// RobotMap.right3);
 	//
 	// public DifferentialDrive robotDrive = new DifferentialDrive(leftSide,
 	// rightSide);
 
 	public double leftSideSwitchSide;
 	public double rightSideSwitchSide;
+	public double integral = 0;
+	public double previousError = 0;
+	public double previousDesiredAngle = 0;
+	public double previousDesiredDistance = 0;
 
 	// Setup our timed drive
 	double currentTime = 0.0;
@@ -49,14 +55,12 @@ public class DriveTrain extends Subsystem {
 
 
 	public void testCommand() {
-
 	}
 
 	@Override
 	public void initDefaultCommand() {
-
 		setDefaultCommand(new OpenLoopDrive());
-		initPID();
+		// initPID();
 	}
 
 	public void initPID() {
@@ -93,15 +97,7 @@ public class DriveTrain extends Subsystem {
 
 	public void takeJoystickInputs(Joystick left, Joystick right) { // tank drive
 		RobotMap.left1.set(ControlMode.PercentOutput, left.getY());
-		RobotMap.left2.follow(RobotMap.left1);
-		RobotMap.left2.setInverted(InvertType.FollowMaster);
-		RobotMap.left3.follow(RobotMap.left1);
-		RobotMap.left3.setInverted(InvertType.FollowMaster);
 		RobotMap.right1.set(ControlMode.PercentOutput, right.getY());
-		RobotMap.right2.follow(RobotMap.right1);
-		RobotMap.right2.setInverted(InvertType.FollowMaster);
-		RobotMap.right3.follow(RobotMap.right1);
-		RobotMap.right3.setInverted(InvertType.FollowMaster);
 	}
 
 	public void takeStickInputValues(double leftStickV, double rightStickV) { // arcade drive
@@ -123,30 +119,26 @@ public class DriveTrain extends Subsystem {
 		SmartDashboard.putNumber("sensor analoginraw", sensor.getAnalogInRaw());
 		SmartDashboard.putNumber("sensor analongvel", sensor.getAnalogInVel());
 		SmartDashboard.putNumber("sensor widthpos", sensor.getPulseWidthPosition());
-		SmartDashboard.putNumber("sensor velocity", sensor.getQuadratureVelocity());
-		
-		
-		
+		SmartDashboard.putNumber("sensor velocity", sensor.getQuadratureVelocity());		
 	}
 	
 	
 	public void ArcadeDrive(double robotOutput, double turnAmount) {
 		if (!reversed) {
-
 			SmartDashboard.putNumber("turnamount", turnAmount);
 			RobotMap.left1.set(ControlMode.PercentOutput, (-robotOutput*.984187) - turnAmount);
 			RobotMap.right1.set(ControlMode.PercentOutput, robotOutput - turnAmount);
 		} else {
-			RobotMap.left1.set(ControlMode.PercentOutput, (robotOutput*.984187) + turnAmount);
-			RobotMap.right1.set(ControlMode.PercentOutput, -robotOutput + turnAmount);
+			RobotMap.left1.set(ControlMode.PercentOutput, (robotOutput*.984187) - turnAmount);
+			RobotMap.right1.set(ControlMode.PercentOutput, -robotOutput - turnAmount);
 		}
 
 		// SmartDashboard.putData("Drive Train", robotDrive);
 		// SmartDashboard.putNumber("Left Side", leftSide.get());
 		// SmartDashboard.putNumber("Right Side", rightSide.get());
 
-		SensorCollection sensorRight = RobotMap.right1.getSensorCollection();
-		SensorCollection sensorLeft = RobotMap.left1.getSensorCollection();
+		SensorCollection sensorLeft = RobotMap.left2.getSensorCollection();
+		SensorCollection sensorRight = RobotMap.right2.getSensorCollection();
 
 		SmartDashboard.putNumber("sensor analogin", sensorRight.getAnalogIn());
 		SmartDashboard.putNumber("sensor analoginraw", sensorRight.getAnalogInRaw());
@@ -154,13 +146,29 @@ public class DriveTrain extends Subsystem {
 		SmartDashboard.putNumber("sensor widthpos", sensorRight.getPulseWidthPosition());
 		SmartDashboard.putNumber("sensor velocity", sensorRight.getQuadratureVelocity());
 		
-		// shifting
-		double averageVelocity = (Math.abs(sensorRight.getQuadratureVelocity()) + Math.abs(sensorLeft.getQuadratureVelocity()))/2;
 
-		SmartDashboard.putNumber("averageVelocity", averageVelocity);
-		
-		
-		
+		// shifting
+		double averageVelocity = (Math.abs(sensorLeft.getQuadratureVelocity()) + Math.abs(sensorRight.getQuadratureVelocity()))/2;
+
+		SmartDashboard.putNumber("averageVelocity", averageVelocity);		
+
+		if (!(Robot.oi.xbox1.getStartButton())) {
+			if (averageVelocity < 650) { // if not in low, switch to low
+				if (Robot.shifter.shifty.get() != DoubleSolenoid.Value.kForward) {
+					Robot.shifter.shiftdown();
+				}
+			} else if (averageVelocity < 700) {
+				//DO NOTHING
+			} else { // if in low, switch to high
+				if (Robot.shifter.shifty.get() == DoubleSolenoid.Value.kForward) {
+					Robot.shifter.shiftup();
+				}
+			}
+		} else {
+			if (Robot.shifter.shifty.get() != DoubleSolenoid.Value.kForward) {
+				Robot.shifter.shiftdown();
+			}
+		}
 	}
 	
 
@@ -182,39 +190,7 @@ public class DriveTrain extends Subsystem {
 		stop();
 	}
 
-	public void driveToPositionInit(double distanceToDrive) {
-		// Change Talon modes to "position" just in case
-		// they were in another mode before
-		RobotMap.left1.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 1, 10);
-		RobotMap.left1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
 
-		RobotMap.right1.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 1, 10);
-		RobotMap.right1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
-
-		// Set our encoders' positions to 0, we haven't moved yet!
-		RobotMap.left1.setSelectedSensorPosition(0, 0, 10);
-		RobotMap.right1.setSelectedSensorPosition(0, 0, 10);
-
-		// Run convertToRotations function
-		double rot = convertToRotations(distanceToDrive);
-
-		// Make motors drive number of rotations
-		// calculated before by convertToRotations()
-		RobotMap.left1.set(ControlMode.Position, rot);
-		RobotMap.right1.set(ControlMode.Position, rot);
-		try {
-			Thread.sleep(10);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		// Make sure we inverse this right side,
-		// otherwise, you have a spinning robot on your hands
-		RobotMap.left1.set(ControlMode.Position, rot);
-		RobotMap.right1.set(ControlMode.Position, rot);
-
-		SmartDashboard.putNumber("Rotations Calculated", rot);
-		this.driveToPositionIsFinished();
-	}
 
 	public void driveArcInit(double horizontalDist, double theta) {
 		// Set Encoder Position to 0
@@ -274,10 +250,37 @@ public class DriveTrain extends Subsystem {
 	// Some special isFinished() command stuff to not stop before the robot has
 	// even moved
 
-	public boolean driveToPositionIsFinished() {
-//		return Math.abs(RobotMap.left1.getClosedLoopError(0)) <= RobotMap.ALLOWABLE_ERROR_CONSTANT_LEFT
-//				&& Math.abs(RobotMap.right1.getClosedLoopError(10)) <= RobotMap.ALLOWABLE_ERROR_CONSTANT_RIGHT;
-		return true;
+	public double ticksToRot(double ticks) {
+		return ticks / 7610;
+	}
+	
+	public double ticksToIn(double ticks) {
+		double circumf = Math.PI * 7.5;
+		return ticksToRot(ticks) * circumf;
+	}
+
+	public boolean driveToPosition(double desiredDistance) {
+		//checks if the target has changed
+		//if it has changed, reset the base variables to 0;
+		if(desiredDistance!=previousDesiredDistance){
+			integral=0;
+			previousError=0;
+			previousDesiredDistance = desiredDistance;
+		}
+		double currentDistance = ticksToIn(RobotMap.left1.getSelectedSensorPosition());
+
+		double error = desiredDistance - currentDistance;
+		integral += error*.02;
+		double derivative = (error-previousError)/.02;
+		double speed = RobotMap.DRIVE_kP*error + RobotMap.DRIVE_kI*integral + RobotMap.DRIVE_kD*derivative;
+
+		RobotMap.left1.set(ControlMode.PercentOutput, speed);
+		RobotMap.right1.set(ControlMode.PercentOutput, speed);
+	
+		if (error < RobotMap.DRIVE_ERROR_CONSTANT && error > -RobotMap.DRIVE_ERROR_CONSTANT) {
+			return true;
+		}
+		return false;
 	}
 
 	public void driveToPositionEnd() {
@@ -285,8 +288,37 @@ public class DriveTrain extends Subsystem {
 		RobotMap.right1.setSelectedSensorPosition(0, 0, 10);
 	}
 
+	public boolean turnToAngle(double desiredAngle) {
+		//checks if the target has changed
+		//if it has changed, reset the base variables to 0
+		if(desiredAngle!=previousDesiredAngle){
+			integral=0;
+			previousError=0;
+			previousDesiredAngle = desiredAngle;
+		}
+		double currentAngle = Robot.navX.getAngle();
+
+		double error = desiredAngle - currentAngle;
+		integral += error*.02;
+		double derivative = (error-previousError)/.02;
+		double speed = RobotMap.TURN_kP*error + RobotMap.TURN_kI*integral + RobotMap.TURN_kD*derivative;
+
+		if (desiredAngle > 0) {
+			RobotMap.right1.set(ControlMode.PercentOutput, speed);
+			RobotMap.left1.set(ControlMode.PercentOutput, -speed);
+		} else {
+			RobotMap.right1.set(ControlMode.PercentOutput, -speed);
+			RobotMap.left1.set(ControlMode.PercentOutput, speed);
+		}
+	
+		if (error < RobotMap.TURN_ERROR_CONSTANT && error > -RobotMap.TURN_ERROR_CONSTANT) {
+			return true;
+		}
+		return false;
+	}
+
 	public double getLeftEncoderPosition() {
-		return -(RobotMap.left1.getSelectedSensorPosition(0));
+		return (RobotMap.left1.getSelectedSensorPosition(0));
 	}
 
 	public double getRightEncoderPosition() {
@@ -296,13 +328,13 @@ public class DriveTrain extends Subsystem {
 	}
 
 	public double getLeftEncoderVelocity() {
-		return RobotMap.left1.getSelectedSensorVelocity(0);
+		return -RobotMap.left1.getSelectedSensorVelocity(0);
 	}
 
 	public double getRightEncoderVelocity() {
 		// Make sure graph isn't upside down (The stocks are going into the
 		// toilet!!)
-		return -(RobotMap.right1.getSelectedSensorVelocity(0));
+		return (RobotMap.right1.getSelectedSensorVelocity(0));
 	}
 
 	@Override
@@ -311,11 +343,8 @@ public class DriveTrain extends Subsystem {
 	}
 
 	public void stop() {
-
 		RobotMap.left1.set(ControlMode.PercentOutput, 0);
 		RobotMap.right1.set(ControlMode.PercentOutput, 0);
-		RobotMap.left2.set(ControlMode.PercentOutput, 0);
-		RobotMap.right2.set(ControlMode.PercentOutput, 0);
 	}
 
 	public boolean isReversed() {
@@ -325,27 +354,17 @@ public class DriveTrain extends Subsystem {
 	public void switchFront() {
 //		RobotMap.left1.setInverted(!RobotMap.left1.getInverted());
 //		RobotMap.left2.setInverted(!RobotMap.left2.getInverted());
-//		RobotMap.backLeft.setInverted(!RobotMap.backLeft.getInverted());
+//		RobotMap.left3.setInverted(!RobotMap.left3.getInverted());
 //		RobotMap.right1.setInverted(!RobotMap.right1.getInverted());
 //		RobotMap.right2.setInverted(!RobotMap.right2.getInverted());
-//		RobotMap.backRight.setInverted(!RobotMap.backRight.getInverted());
+//		RobotMap.right3.setInverted(!RobotMap.right3.getInverted());
 		reversed = !reversed;
+		
 	}
 	
 	public void resetEncoders()
 	{
 		RobotMap.left1.setSelectedSensorPosition(0, 0, 10);
 		RobotMap.right1.setSelectedSensorPosition(0, 0, 10);
-	}
-
-	public void setInvertsFollower() {
-		RobotMap.left2.follow(RobotMap.left1);
-		RobotMap.left2.setInverted(InvertType.FollowMaster);
-		RobotMap.left3.follow(RobotMap.left1);
-		RobotMap.left3.setInverted(InvertType.FollowMaster);
-		RobotMap.right2.follow(RobotMap.right1);
-		RobotMap.right2.setInverted(InvertType.FollowMaster);
-		RobotMap.right3.follow(RobotMap.right1);
-		RobotMap.right3.setInverted(InvertType.FollowMaster);
 	}
 }

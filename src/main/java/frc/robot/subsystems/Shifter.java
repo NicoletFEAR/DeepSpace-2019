@@ -1,7 +1,6 @@
 package frc.robot.subsystems;
-
-import frc.robot.Robot;
-import frc.robot.RobotMap;
+// import  frc.robot.commands.*;
+import  frc.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -11,8 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *
  */
 public class Shifter extends Subsystem {
-	public final DoubleSolenoid shifty = new DoubleSolenoid(RobotMap.module0, RobotMap.aForwardChannel,
-			RobotMap.aReverseChannel);
+	public final DoubleSolenoid shifty = new DoubleSolenoid(RobotMap.dForwardChannel, RobotMap.dReverseChannel);
 	public static boolean nomatterwhat = false;
 
 	public void shiftup() {
@@ -42,7 +40,7 @@ public class Shifter extends Subsystem {
 
 	public void setNoMatterWhat() {
 		nomatterwhat = !nomatterwhat;
-		SmartDashboard.putBoolean("Start button hit", Robot.shifter.getNoMatterWhat());
+		SmartDashboard.putBoolean("Start button hit", getNoMatterWhat());
 	}
 
 	// Put methods for controlling this subsystem
