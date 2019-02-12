@@ -129,8 +129,8 @@ public class DriveTrain extends Subsystem {
 			RobotMap.left1.set(ControlMode.PercentOutput, (-robotOutput*.984187) - turnAmount);
 			RobotMap.right1.set(ControlMode.PercentOutput, robotOutput - turnAmount);
 		} else {
-			RobotMap.left1.set(ControlMode.PercentOutput, (robotOutput*.984187) + turnAmount);
-			RobotMap.right1.set(ControlMode.PercentOutput, -robotOutput + turnAmount);
+			RobotMap.left1.set(ControlMode.PercentOutput, (robotOutput*.984187) - turnAmount);
+			RobotMap.right1.set(ControlMode.PercentOutput, -robotOutput - turnAmount);
 		}
 
 		// SmartDashboard.putData("Drive Train", robotDrive);
@@ -324,11 +324,11 @@ public class DriveTrain extends Subsystem {
 	public double getRightEncoderPosition() {
 		// Make sure graph isn't upside down (The stocks are going into the
 		// toilet!!)
-		return -(RobotMap.right1.getSelectedSensorPosition(0));
+		return (RobotMap.right1.getSelectedSensorPosition(0));
 	}
 
 	public double getLeftEncoderVelocity() {
-		return RobotMap.left1.getSelectedSensorVelocity(0);
+		return -RobotMap.left1.getSelectedSensorVelocity(0);
 	}
 
 	public double getRightEncoderVelocity() {

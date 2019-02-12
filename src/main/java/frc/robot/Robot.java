@@ -103,7 +103,6 @@ public static VisionServer mVisionServer;
         pressureSensor = new PressureSensor();
         shifter = new Shifter();
         navX = new AHRS(Port.kMXP);
-      
         //arduinoLEDInterface = new ArduinoInterface(7);
         //arduinoCameraInterface = new ArduinoInterface(6);
         
@@ -200,8 +199,8 @@ public static VisionServer mVisionServer;
         
         SmartDashboard.putNumber("Target", RobotMap.targetEncoderValue);
 		
-        SmartDashboard.putNumber("Left Encoder: ", Robot.driveTrain.getLeftEncoderPosition());
-        SmartDashboard.putNumber("NavX Angle: ", navX.getAngle());
+		SmartDashboard.putNumber("NavX",navX.getAngle());
+		SmartDashboard.putNumber("Left Encoder: ", Robot.driveTrain.getLeftEncoderPosition());
     /*
         VisionUpdate update = new VisionUpdate();
         //System.out.print(update.getTargets());
