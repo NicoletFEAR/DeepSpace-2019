@@ -156,12 +156,6 @@ public class DriveArc extends Command {
     @Override
     protected void execute() {	
         // //System.out.println("execute()");
-        // if(!completeL) completeL = arcDrive(circL, RobotMap.left1);
-        // if(!completeR) completeR = arcDrive(circR, RobotMap.right1);
-        
-        // completeL = Robot.driveTrain.DriveArc(circL, RobotMap.left1);
-        // completeR = Robot.driveTrain.DriveArc(circR, RobotMap.left2);
-        // SmartDashboard.putNumber(target)
         if(circL>circR){
             complete = arcDrive(circL, RobotMap.left1);
             RobotMap.right1.set(ControlMode.PercentOutput, speed);
