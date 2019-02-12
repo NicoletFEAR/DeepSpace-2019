@@ -290,7 +290,7 @@ public class DriveTrain extends Subsystem {
 
 	public boolean turnToAngle(double desiredAngle) {
 		//checks if the target has changed
-		//if it has changed, reset the base variables to 0;
+		//if it has changed, reset the base variables to 0
 		if(desiredAngle!=previousDesiredAngle){
 			integral=0;
 			previousError=0;

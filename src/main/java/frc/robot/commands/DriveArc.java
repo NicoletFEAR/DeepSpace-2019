@@ -90,20 +90,20 @@ public class DriveArc extends Command {
 		return false;
     }
     
-    protected void rotateDegrees(double degrees){
-        double error;
-        //
-        // SmartDashboard.putNumber("original angle", degrees);
-        degrees = degrees<0?(degrees%360):-(degrees%360);
-        // SmartDashboard.putNumber("Desired angle", degrees);
-        do{
-            error = degrees-Robot.navX.getAngle();
-            double speed = RobotMap.TURN_kP*error;
-            RobotMap.left1.set(ControlMode.PercentOutput, -speed);
-            RobotMap.right1.set(ControlMode.PercentOutput, -speed);
-            // SmartDashboard.putNumber("CurrentAngle", Robot.navX.getAngle());
-        }while(error<-RobotMap.PERFECT_ARC_RANGE || error>RobotMap.PERFECT_ARC_RANGE);
-    }
+    // protected void rotateDegrees(double degrees){
+    //     double error;
+    //     //
+    //     // SmartDashboard.putNumber("original angle", degrees);
+    //     degrees = degrees<0?(degrees%360):-(degrees%360);
+    //     // SmartDashboard.putNumber("Desired angle", degrees);
+    //     do{
+    //         error = degrees-Robot.navX.getAngle();
+    //         double speed = RobotMap.TURN_kP*error;
+    //         RobotMap.left1.set(ControlMode.PercentOutput, -speed);
+    //         RobotMap.right1.set(ControlMode.PercentOutput, -speed);
+    //         // SmartDashboard.putNumber("CurrentAngle", Robot.navX.getAngle());
+    //     }while(error<-RobotMap.PERFECT_ARC_RANGE || error>RobotMap.PERFECT_ARC_RANGE);
+    // }
 
     @Override
     protected void initialize() {
@@ -120,12 +120,16 @@ public class DriveArc extends Command {
         if(radius1>radius2-RobotMap.PERFECT_ARC_RANGE && radius1<radius2+RobotMap.PERFECT_ARC_RANGE){
             //already in position
             //execute already perfect arc
-
-        }else */if(currentLength>prefferedLength){
+        
+        }else */
+        boolean turnBool = true;
+        if(currentLength>prefferedLength){
             //rotate to the right, arcing to the left
             z = -2*(Math.tanh(x/y)-theta);
             double degreesToRotate = theta+z;
-            rotateDegrees(degreesToRotate);
+            while (turnBool) {
+                turnBool = Robot.driveTrain.turnToAngle(degreesToRotate);
+            }
             
             double radius = (1.0/2*Math.sqrt(x*x+y*y))/(Math.sin(.5*z));
             double leftRadius = radius-1.0/2*RobotMap.DISTANCE_BETWEEN_TRACKS;
@@ -137,7 +141,9 @@ public class DriveArc extends Command {
             //rotate to the left, arcing to the right
             z = 2*(theta-Math.tanh(x/y));
             double degreesToRotate = theta-z;
-            rotateDegrees(degreesToRotate);
+            while (turnBool) {
+                turnBool = Robot.driveTrain.turnToAngle(degreesToRotate);
+            }
             
             double radius = (1.0/2*Math.sqrt(x*x+y*y))/(Math.sin(.5*z));
             double leftRadius = radius+1.0/2*RobotMap.DISTANCE_BETWEEN_TRACKS;
