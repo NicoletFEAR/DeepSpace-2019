@@ -131,7 +131,7 @@ public class DriveArc extends Command {
     @Override
     protected void execute() {	
         // //System.out.println("execute()");
-        if(!completeL) completeL = arcDrive(circL, RobotMap.left2);
+        if(!completeL) completeL = arcDrive(circL, RobotMap.left1);
         if(!completeR) completeR = arcDrive(circR, RobotMap.right1);
         // completeL = Robot.driveTrain.DriveArc(circL, RobotMap.frontLeft);
         // completeR = Robot.driveTrain.DriveArc(circR, RobotMap.frontRight);
