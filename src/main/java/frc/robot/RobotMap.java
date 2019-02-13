@@ -127,7 +127,9 @@ public class RobotMap {
 		left3 = new TalonSRX(17);
 		left3.setNeutralMode(NeutralMode.Brake);
 
-		left1.setInverted(false);
+		left1.setInverted(true);
+		left2.setInverted(true);
+		left3.setInverted(true);
 		left2.follow(left1);
 		left3.follow(left1);
 
@@ -138,7 +140,9 @@ public class RobotMap {
 		right3 = new TalonSRX(18);
 		right3.setNeutralMode(NeutralMode.Brake);
 
-		right1.setInverted(false);
+		right1.setInverted(true);
+		right2.setInverted(true);
+		right3.setInverted(true);
 		right2.follow(right1);
 		right3.follow(right1);
 

@@ -38,7 +38,7 @@ public class Arm extends Subsystem {
             previousError = 0;
             previousDesiredtargetEncoderValue = desiredtargetEncoderValue;
         }
-
+        SmartDashboard.putNumber("armTarget", desiredtargetEncoderValue);
         double encoderPosition = getArmEncoder();
 
         double error = desiredtargetEncoderValue - encoderPosition;
@@ -51,7 +51,7 @@ public class Arm extends Subsystem {
     }
 
     public double getArmEncoder() {
-        return -RobotMap.armMotor1.getSelectedSensorPosition(); // negative because enoder happens to be the poother way
+        return RobotMap.armMotor1.getSelectedSensorPosition(); // negative because enoder happens to be the poother way
     }
 
 }

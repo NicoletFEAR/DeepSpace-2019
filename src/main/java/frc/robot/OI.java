@@ -172,6 +172,8 @@ public class OI {
 
         xbox2RTrig.whenPressed(new IncrementCap());
         xbox2LTrig.whenPressed(new DecrementCap());
+        xbox2B.whenPressed(new MoveToLevel(1));
+        xbox2A.whenPressed(new MoveToLevel(4));
         
         CargoLevel1.whenPressed(new MoveToLevel(1));
         CargoLevel2.whenPressed(new MoveToLevel(2));

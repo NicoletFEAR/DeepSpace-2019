@@ -174,10 +174,10 @@ public class DriveArc extends Command {
         // Needs to be configured for switch front
         if (circL > circR) {
             complete = arcDrive(circL, RobotMap.left1);
-            RobotMap.right1.set(ControlMode.PercentOutput, speed * circR / circL);
+            RobotMap.right1.set(ControlMode.PercentOutput, -speed * circR / circL);
         } else {
             complete = arcDrive(circR, RobotMap.right1);
-            RobotMap.left1.set(ControlMode.PercentOutput, speed* circL / circR);
+            RobotMap.left1.set(ControlMode.PercentOutput, -speed* circL / circR);
         }
     }
 

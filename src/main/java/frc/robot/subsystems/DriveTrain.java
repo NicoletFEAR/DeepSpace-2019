@@ -126,11 +126,11 @@ public class DriveTrain extends Subsystem {
 	public void ArcadeDrive(double robotOutput, double turnAmount) {
 		if (!reversed) {
 			SmartDashboard.putNumber("turnamount", turnAmount);
-			RobotMap.left1.set(ControlMode.PercentOutput, (-robotOutput) - turnAmount);
-			RobotMap.right1.set(ControlMode.PercentOutput, robotOutput - turnAmount);
+			RobotMap.left1.set(ControlMode.PercentOutput, (-robotOutput) + turnAmount);
+			RobotMap.right1.set(ControlMode.PercentOutput, robotOutput + turnAmount);
 		} else {
-			RobotMap.left1.set(ControlMode.PercentOutput, (robotOutput) - turnAmount);
-			RobotMap.right1.set(ControlMode.PercentOutput, -robotOutput - turnAmount);
+			RobotMap.left1.set(ControlMode.PercentOutput, (robotOutput) + turnAmount);
+			RobotMap.right1.set(ControlMode.PercentOutput, -robotOutput + turnAmount);
 		}
 
 		// SmartDashboard.putData("Drive Train", robotDrive);
@@ -153,11 +153,11 @@ public class DriveTrain extends Subsystem {
 		SmartDashboard.putNumber("averageVelocity", averageVelocity);		
 
 		if (!(Robot.oi.xbox1.getStartButton())) {
-			if (averageVelocity < 650) { // if not in low, switch to low
+			if (averageVelocity < 1900) { // if not in low, switch to low
 				if (Robot.shifter.shifty.get() != DoubleSolenoid.Value.kForward) {
 					Robot.shifter.shiftdown();
 				}
-			} else if (averageVelocity < 700) {
+			} else if (averageVelocity < 2100) {
 				//DO NOTHING
 			} else { // if in low, switch to high
 				if (Robot.shifter.shifty.get() == DoubleSolenoid.Value.kForward) {
