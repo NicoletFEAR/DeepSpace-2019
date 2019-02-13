@@ -1,16 +1,14 @@
 
 package frc.robot.subsystems;
 
-import frc.robot.commands.*;
-import frc.robot.Robot;
-import frc.robot.RobotMap;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
 // import com.ctre.phoenix.motorcontrol.SensorCollection;
 
 // import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.RobotMap;
+import frc.robot.commands.Levels;
 
 /**
  * This subsystem is used for precise positioning of the arm of the robot, and
@@ -43,6 +41,9 @@ public class Arm extends Subsystem {
 
         double error = desiredtargetEncoderValue - encoderPosition;
         integral += error * .02;
+        if (Math.abs(error) < 40) {
+            integral = 0;
+        }
         double derivative = (error - previousError) / .02;
         double speed = RobotMap.ARM_kP * error + RobotMap.ARM_kI * integral - RobotMap.ARM_kD * derivative;
 
