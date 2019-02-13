@@ -90,6 +90,8 @@ public class OI {
     private Button xbox2LTrig;
     private Button xbox2RTrig;
     public static boolean visionOn;
+
+    //private Joystick buttonBox;
     
     private Button xbox2LeftStick;
     private Button xbox2RightStick;
@@ -138,10 +140,10 @@ public class OI {
          
          // tie commands to buttons
          //xbox1ButtonX.whenPressed(new Shift());
-         xbox1LeftStick.whenPressed(new SwitchFront());
-         xbox1LeftStick.whenPressed(new SwitchCamera());
-         xbox1RightStick.whenPressed(new SwitchFront());
-         xbox1RightStick.whenPressed(new SwitchCamera());
+         //xbox1LeftStick.whenPressed(new SwitchFront());
+         //xbox1LeftStick.whenPressed(new SwitchCamera());
+         //xbox1RightStick.whenPressed(new SwitchFront());
+         //xbox1RightStick.whenPressed(new SwitchCamera());
          visionOn = false;
 
          xbox1X.whenPressed(new Shooting());
