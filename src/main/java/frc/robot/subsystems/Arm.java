@@ -44,7 +44,7 @@ public class Arm extends Subsystem {
         double error = desiredtargetEncoderValue - encoderPosition;
         integral += error * .02;
         double derivative = (error - previousError) / .02;
-        double speed = RobotMap.ARM_kP * error + RobotMap.ARM_kI * integral + RobotMap.ARM_kD * derivative;
+        double speed = RobotMap.ARM_kP * error + RobotMap.ARM_kI * integral - RobotMap.ARM_kD * derivative;
 
         RobotMap.armMotor1.set(ControlMode.PercentOutput, speed);
         RobotMap.armMotor2.set(ControlMode.PercentOutput, speed);

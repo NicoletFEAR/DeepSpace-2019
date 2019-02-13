@@ -75,9 +75,9 @@ public class RobotMap {
 	public static int maxChangeAmt = 100; // how much the arm moves by
 	public static int targetEncoderValue;
 	public static final int CargoShipDropPoint = 100;
-	public static final int CargoLevel1TargetValue = 100;
-	public static final int CargoLevel2TargetValue = 200;
-	public static final int CargoLevel3TargetValue = 300;
+	public static final int CargoLevel1TargetValue = -2000;
+	public static final int CargoLevel2TargetValue = -1200;
+	public static final int CargoLevel3TargetValue = -900;
 	public static final int HatchLevel1TargetValue = 400;
 	public static final int HatchLevel2TargetValue = 500;
 	public static final int HatchLevel3TargetValue = 600;
@@ -85,11 +85,11 @@ public class RobotMap {
 	public static final int CargoFloor = 600;
 	public static final int StraightUp = 0;
 	public static final double ARM_kP = 0.0005;
-	public static final double ARM_kI = 0.0005;
-	public static final double ARM_kD = 0.0000000;
+	public static final double ARM_kI = 0.00005; //0.0005 too fast
+	public static final double ARM_kD = 0.0000075; // 0.000015 too fast
 	public static double ARM_TICKS_PER_REVOLUTION = 4096.0; // Needs to be updated on final bot!!!!!!!!!!!!!!!!!!!!!!!!
-	public static int ARM_MAX_TICK_VAL = 2000;
-	public static int ARM_MIN_TICK_VAL = -2000;
+	public static int ARM_MAX_TICK_VAL = 4200;
+	public static int ARM_MIN_TICK_VAL = -4200;
 	public static int offset = 0;
 
 	// VISION CONSTANTS:

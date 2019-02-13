@@ -167,6 +167,13 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopInit() {
+        RobotMap.armMotor1.setSelectedSensorPosition(0);
+        RobotMap.targetEncoderValue = 0;
+        RobotMap.offset = 0;
+        RobotMap.ARM_MAX_TICK_VAL = 4200;
+        RobotMap.ARM_MIN_TICK_VAL = -4200;
+
+
         Robot.driveTrain.resetEncoders();
         double velocityRight = Robot.driveTrain.getRightEncoderVelocity();
         double velocityLeft = Robot.driveTrain.getLeftEncoderVelocity();

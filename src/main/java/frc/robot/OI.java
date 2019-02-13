@@ -139,7 +139,7 @@ public class OI {
         xbox2LeftStick = new JoystickButton(xbox2, 9);
         xbox2RightStick = new JoystickButton(xbox2, 10);
 
-        armLevelController = new Joystick(3);
+        armLevelController = new Joystick(2);
         CargoLevel1 = new JoystickButton(armLevelController, 1);
         CargoLevel2 = new JoystickButton(armLevelController, 2);
         CargoLevel3 = new JoystickButton(armLevelController, 3);
