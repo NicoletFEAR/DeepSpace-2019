@@ -13,11 +13,11 @@ import frc.robot.Robot;
 /**
  * Add your docs here.
  */
-public class SwitchCamera extends InstantCommand {
+public class GameMechOpen extends InstantCommand {
   /**
    * Add your docs here.
    */
-  public SwitchCamera() {
+  public GameMechOpen() {
     super();
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
@@ -26,13 +26,7 @@ public class SwitchCamera extends InstantCommand {
   // Called once when the command executes
   @Override
   protected void initialize() {
-    if (Robot.cameraMode.equalsIgnoreCase("front")) {
-      Robot.mVisionServer.backCamera();
-      Robot.cameraMode = "back";
-    } else {
-      Robot.mVisionServer.frontCamera();
-      Robot.cameraMode = "front";
-    }
+    Robot.gameMech.shootOut();
   }
 
 }

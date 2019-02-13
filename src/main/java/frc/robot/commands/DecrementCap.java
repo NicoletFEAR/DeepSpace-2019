@@ -29,8 +29,10 @@ public class DecrementCap extends InstantCommand {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        RobotMap.targetEncoderValue=RobotMap.targetEncoderValue-1000;
-        // RobotMap.offset = 0;
+        RobotMap.ARM_MAX_TICK_VAL -= RobotMap.maxChangeAmt;
+        RobotMap.ARM_MIN_TICK_VAL -= RobotMap.maxChangeAmt;
+
+        RobotMap.offset -= RobotMap.maxChangeAmt;
     }
 }
 

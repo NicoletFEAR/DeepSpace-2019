@@ -170,10 +170,10 @@ public class Robot extends TimedRobot {
     @Override
 
     public void autonomousPeriodic() {
-        double distanceLeft = RobotMap.ultraLeft.getAverageVoltage() * 300 / 293 * 1000 / 25.4;
-        SmartDashboard.putNumber("Distance from left ultrasonic (inches)", distanceLeft);
-        double distanceRight = RobotMap.ultraRight.getAverageVoltage() * 300 / 293 * 1000 / 25.4;
-        SmartDashboard.putNumber("Distance from right ultrasonic (inches)", distanceRight);
+        // double distanceLeft = RobotMap.ultraLeft.getAverageVoltage() * 300 / 293 * 1000 / 25.4;
+        // SmartDashboard.putNumber("Distance from left ultrasonic (inches)", distanceLeft);
+        // double distanceRight = RobotMap.ultraRight.getAverageVoltage() * 300 / 293 * 1000 / 25.4;
+        // SmartDashboard.putNumber("Distance from right ultrasonic (inches)", distanceRight);
     }
 
     @Override

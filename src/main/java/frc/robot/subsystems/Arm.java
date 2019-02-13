@@ -30,7 +30,7 @@ public class Arm extends Subsystem {
         setDefaultCommand(new Levels());
     }
 
-    public void rotateToPosition(int desiredtargetEncoderValue) {
+    public void rotateToPosition(double desiredtargetEncoderValue) {
         // checks if the target has changed
         // if it has changed, reset the base variables to 0;
         if (desiredtargetEncoderValue != previousDesiredtargetEncoderValue) {

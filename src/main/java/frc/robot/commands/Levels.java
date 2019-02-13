@@ -15,17 +15,15 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 
-
 /**
  *
  */
 public class Levels extends Command {
 
-    
     public Levels() {
         // Use requires() here to declare subsystem dependencies
-       requires(Robot.arm);
-       this.setInterruptible(true);
+        requires(Robot.arm);
+        this.setInterruptible(true);
     }
 
     // Called just before this Command runs the first time
@@ -34,15 +32,25 @@ public class Levels extends Command {
     }
 
     // Called repeatedly when this Command is scheduled to run
-    protected void execute() {	  
-        RobotMap.targetEncoderValue = RobotMap.targetEncoderValue+(int)(100*Robot.oi.getXbox2().getX(Hand.kLeft));
+    protected void execute() {
+        RobotMap.targetEncoderValue += (int) (100 * Robot.oi.getXbox2().getY(Hand.kLeft));
 
-        // if(RobotMap.targetEncoderValue<RobotMap.ARM_MAX_TICK_VAL || RobotMap.targetEncoderValue>RobotMap.ARM_MIN_TICK_VAL){
-        //     if(RobotMap.targetEncoderValue>(RobotMap.ARM_MAX_TICK_VAL+RobotMap.ARM_MIN_TICK_VAL)/2) RobotMap.targetEncoderValue = (int)RobotMap.ARM_MAX_TICK_VAL;
-        //     else RobotMap.targetEncoderValue = (int)RobotMap.ARM_MIN_TICK_VAL;
-        // }
-        if(Robot.driveTrain.isReversed()) Robot.arm.rotateToPosition(-RobotMap.targetEncoderValue);
-        else Robot.arm.rotateToPosition(RobotMap.targetEncoderValue);        
+        if (RobotMap.targetEncoderValue + RobotMap.offset > RobotMap.ARM_MAX_TICK_VAL)
+            RobotMap.targetEncoderValue = RobotMap.ARM_MAX_TICK_VAL - RobotMap.offset;
+
+        if (RobotMap.targetEncoderValue + RobotMap.offset< RobotMap.ARM_MIN_TICK_VAL)
+            RobotMap.targetEncoderValue = RobotMap.ARM_MIN_TICK_VAL - RobotMap.offset;
+        // if(RobotMap.targetEncoderValue<RobotMap.ARM_MAX_TICK_VAL ||
+        // RobotMap.targetEncoderValue>RobotMap.ARM_MIN_TICK_VAL){
+        // if(RobotMap.targetEncoderValue>(RobotMap.ARM_MAX_TICK_VAL+RobotMap.ARM_MIN_TICK_VAL)/2)
+        // RobotMap.targetEncoderValue = (int)RobotMap.ARM_MAX_TICK_VAL;
+        // else RobotMap.targetEncoderValue = (int)RobotMap.ARM_MIN_TICK_VAL;
+        // } 
+
+        if (Robot.driveTrain.isReversed())
+            Robot.arm.rotateToPosition(-RobotMap.targetEncoderValue + RobotMap.offset);
+        else
+            Robot.arm.rotateToPosition(RobotMap.targetEncoderValue + RobotMap.offset);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -59,4 +67,3 @@ public class Levels extends Command {
     protected void interrupted() {
     }
 }
-

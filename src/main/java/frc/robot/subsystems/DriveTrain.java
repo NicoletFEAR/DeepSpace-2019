@@ -126,10 +126,10 @@ public class DriveTrain extends Subsystem {
 	public void ArcadeDrive(double robotOutput, double turnAmount) {
 		if (!reversed) {
 			SmartDashboard.putNumber("turnamount", turnAmount);
-			RobotMap.left1.set(ControlMode.PercentOutput, (-robotOutput*.984187) - turnAmount);
+			RobotMap.left1.set(ControlMode.PercentOutput, (-robotOutput) - turnAmount);
 			RobotMap.right1.set(ControlMode.PercentOutput, robotOutput - turnAmount);
 		} else {
-			RobotMap.left1.set(ControlMode.PercentOutput, (robotOutput*.984187) - turnAmount);
+			RobotMap.left1.set(ControlMode.PercentOutput, (robotOutput) - turnAmount);
 			RobotMap.right1.set(ControlMode.PercentOutput, -robotOutput - turnAmount);
 		}
 
@@ -137,8 +137,8 @@ public class DriveTrain extends Subsystem {
 		// SmartDashboard.putNumber("Left Side", leftSide.get());
 		// SmartDashboard.putNumber("Right Side", rightSide.get());
 
-		SensorCollection sensorLeft = RobotMap.left2.getSensorCollection();
-		SensorCollection sensorRight = RobotMap.right2.getSensorCollection();
+		SensorCollection sensorLeft = RobotMap.left1.getSensorCollection();
+		SensorCollection sensorRight = RobotMap.right1.getSensorCollection();
 
 		SmartDashboard.putNumber("sensor analogin", sensorRight.getAnalogIn());
 		SmartDashboard.putNumber("sensor analoginraw", sensorRight.getAnalogInRaw());
@@ -192,39 +192,40 @@ public class DriveTrain extends Subsystem {
 
 
 
-	public void driveArcInit(double horizontalDist, double theta) {
-		// Set Encoder Position to 0
-		RobotMap.left1.setSelectedSensorPosition(0, 0, 10);
-		RobotMap.right1.setSelectedSensorPosition(0, 0, 10);
-		try {
-			Thread.sleep(10);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		RobotMap.left1.setSelectedSensorPosition(0, 0, 10);
-		RobotMap.right1.setSelectedSensorPosition(0, 0, 10);
+	// public void driveArcInit(double horizontalDist, double theta) {
+	// 	// Set Encoder Position to 0
+	// 	RobotMap.left1.setSelectedSensorPosition(0, 0, 10);
+	// 	RobotMap.right1.setSelectedSensorPosition(0, 0, 10);
+	// 	try {
+	// 		Thread.sleep(10);
+	// 	} catch (InterruptedException e) {
+	// 		e.printStackTrace();
+	// 	}
+	// 	RobotMap.left1.setSelectedSensorPosition(0, 0, 10);
+	// 	RobotMap.right1.setSelectedSensorPosition(0, 0, 10);
 
-		// Calculate arc lengths
-		theta = Math.toRadians(theta);
-		double radius = horizontalDist / (1 - Math.cos(theta));
-		double leftArcLength = theta * (radius + RobotMap.WHEEL_SEPARATION / 2);
-		double rightArcLength = theta * (radius - RobotMap.WHEEL_SEPARATION / 2);
-		if (horizontalDist < 0) {
-			leftArcLength *= -1;
-			rightArcLength *= -1;
-		}
+	// 	// Calculate arc lengths
+	// 	theta = Math.toRadians(theta);
+	// 	double radius = horizontalDist / (1 - Math.cos(theta));
+	// 	double leftArcLength = theta * (radius + RobotMap.WHEEL_SEPARATION / 2);
+	// 	double rightArcLength = theta * (radius - RobotMap.WHEEL_SEPARATION / 2);
+	// 	if (horizontalDist < 0) {
+	// 		leftArcLength *= -1;
+	// 		rightArcLength *= -1;
+	// 	}
 
-		// Run convertToRotations functions
-		double leftRot = convertToRotations(leftArcLength);
-		double rightRot = convertToRotations(rightArcLength);
+	// 	// Run convertToRotations functions
+	// 	double leftRot = convertToRotations(leftArcLength);
+	// 	double rightRot = convertToRotations(rightArcLength);
 
-		// Make motors drive number of rotations
-		// calculated before by convertToRotations()
-		// RobotMap.left1.set(leftRot/* * RobotMap.turnFudgeFactor*/);
-		// //Make sure we inverse this right side,
-		// //otherwise, you have a spinning robot on your hands
-		// RobotMap.right1.set(-rightRot/* * RobotMap.turnFudgeFactor*/);
-	}
+	// 	// Make motors drive number of rotations
+	// 	// calculated before by convertToRotations()
+	// 	// RobotMap.left1.set(leftRot/* * RobotMap.turnFudgeFactor*/);
+	// 	// //Make sure we inverse this right side,
+	// 	// //otherwise, you have a spinning robot on your hands
+	// 	// RobotMap.right1.set(-rightRot/* * RobotMap.turnFudgeFactor*/);
+	// }
+	
 
 	public void driveArcSpeedInit(double leftSpeed, double rightSpeed) {
 		// Set Encoder Position to 0

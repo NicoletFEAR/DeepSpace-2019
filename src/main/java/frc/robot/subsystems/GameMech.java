@@ -25,7 +25,6 @@ public class GameMech extends Subsystem {
 	
 	public void pull(){
 		panelShooter.set(DoubleSolenoid.Value.kReverse);
-	
 	}
 	// shift the gearbox to the opposite state
 	public void shoot(){

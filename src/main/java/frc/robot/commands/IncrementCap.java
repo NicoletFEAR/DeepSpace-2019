@@ -30,10 +30,9 @@ public class IncrementCap extends InstantCommand {
     // Called just before this Command runs the first time
     protected void initialize() {
         RobotMap.ARM_MAX_TICK_VAL += RobotMap.maxChangeAmt;
-        RobotMap.ARM_MIN_TICK_VAL -= RobotMap.maxChangeAmt;
+        RobotMap.ARM_MIN_TICK_VAL += RobotMap.maxChangeAmt;
 
-        // RobotMap.offset = 0;
-        
+        RobotMap.offset += RobotMap.maxChangeAmt;
     }
 }
 
