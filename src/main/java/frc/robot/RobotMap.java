@@ -91,6 +91,7 @@ public class RobotMap {
 	public static int ARM_MAX_TICK_VAL = 4200;
 	public static int ARM_MIN_TICK_VAL = -4200;
 	public static int offset = 0;
+	public static double armSpeedLimit = 0.75; // max speed we want arm motors to go to
 
 	// VISION CONSTANTS:
 	public static double angleConstant = 50;

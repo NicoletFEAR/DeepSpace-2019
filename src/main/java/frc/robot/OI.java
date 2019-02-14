@@ -62,7 +62,7 @@ public class OI {
     // private Joystick rightJoystick;
     // private Button xbox1StartButton;
 
-    public XboxController xbox1; // the drive controller
+    public XboxController xbox1; // the drive controller // input 0 on driver station
     private Button xbox1LeftStick;
     private Button xbox1RightStick;
     private Button xbox1LTrig;
@@ -74,7 +74,7 @@ public class OI {
     private Button xbox1B;
     private Button xbox1A;
 
-    private XboxController xbox2; // the game mech controller
+    private XboxController xbox2; // the game mech controller // input 1 on driver station
     private Button xbox2LeftStick;
     private Button xbox2RightStick;
     private Button xbox2Start;
@@ -87,7 +87,7 @@ public class OI {
     private Button xbox2RTrig;
     public static boolean visionOn;
 
-    private Joystick armLevelController;
+    private Joystick armLevelController; // input 2 on driver station
     private Button CargoLevel1;
     private Button CargoLevel2;
     private Button CargoLevel3;
@@ -153,7 +153,7 @@ public class OI {
         // tie commands to buttons
         // xbox1ButtonX.whenPressed(new Shift());
 
-        xbox1B.whenPressed(new SwitchFront());
+        xbox1X.whenPressed(new SwitchFront());
         // xbox1A.whenPressed(new DriveArc());
         // xbox1LeftStick.whenPressed(new SwitchFront());
         // xbox1LeftStick.whenPressed(new SwitchAndroidCamera());

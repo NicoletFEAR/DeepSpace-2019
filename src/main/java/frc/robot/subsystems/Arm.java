@@ -36,23 +36,31 @@ public class Arm extends Subsystem {
             previousError = 0;
             previousDesiredtargetEncoderValue = desiredtargetEncoderValue;
         }
+
         SmartDashboard.putNumber("armTarget", desiredtargetEncoderValue);
         double encoderPosition = getArmEncoder();
 
         double error = desiredtargetEncoderValue - encoderPosition;
         integral += error * .02;
-        // if (Math.abs(error) < 40) {
-        // integral = 0;
-        // }
+
+        if (Math.abs(error) < 50 && !(Math.abs(error) > Math.abs(previousError))) { // scale down the integral 
+            integral *= 0.95;
+        }
+
         double derivative = (error - previousError) / .02;
-        double speed = RobotMap.ARM_kP * error + RobotMap.ARM_kI * integral - RobotMap.ARM_kD * derivative;
-        if (speed > .75) {
-            RobotMap.armMotor1.set(ControlMode.PercentOutput, .75);
-            RobotMap.armMotor2.set(ControlMode.PercentOutput, .75);
+        double speed = RobotMap.ARM_kP * error + RobotMap.ARM_kI * integral + RobotMap.ARM_kD * derivative;
+        SmartDashboard.putNumber("armSpeed", speed);
+        if (speed > RobotMap.armSpeedLimit) {
+            RobotMap.armMotor1.set(ControlMode.PercentOutput, RobotMap.armSpeedLimit);
+            RobotMap.armMotor2.set(ControlMode.PercentOutput, RobotMap.armSpeedLimit);
+        } else if (speed < -RobotMap.armSpeedLimit) {
+            RobotMap.armMotor1.set(ControlMode.PercentOutput, -RobotMap.armSpeedLimit);
+            RobotMap.armMotor2.set(ControlMode.PercentOutput, -RobotMap.armSpeedLimit);
         } else {
             RobotMap.armMotor1.set(ControlMode.PercentOutput, speed);
             RobotMap.armMotor2.set(ControlMode.PercentOutput, speed);
         }
+        previousError = error;
     }
 
     public double getArmEncoder() {
