@@ -117,7 +117,6 @@ public class Robot extends TimedRobot {
         // serverFront.setSource(front);
         // serverBack.setSource(back);
         oi = new OI();
-
     }
 
     /**
@@ -250,18 +249,11 @@ public class Robot extends TimedRobot {
     }
 
     @Override public void testInit() {
-        for (int i = 0; i < SubsystemTestBase.subsystemCount; i++)
+        for (int i = 0; i < SubsystemTestBase.getSubsystemCount(); i++)
         {
-            
+            SubsystemTestBase current = SubsystemTestBase.getSubsystem(i);
+            System.out.println("Testing: " + current);
+            System.out.println("Test succesful?: " + current.subsystemTest(true));
         }
-
-        System.out.println("Testing: " + driveTrain);
-        System.out.println("Test succesful?: " + driveTrain.subsystemTest(true));
-
-        System.out.println("Testing: " + shifter);
-        System.out.println("Test succesful?: " + shifter.subsystemTest(true));
-
-        System.out.println("Testing: " + pressureSensor);
-        System.out.println("Test succesful?: " + pressureSensor.subsystemTest(true));
     }
 }

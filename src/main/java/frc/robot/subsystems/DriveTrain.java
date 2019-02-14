@@ -432,7 +432,14 @@ public class DriveTrain extends SubsystemTestBase {
 		RobotMap.right1.setSelectedSensorPosition(0, 0, SENSOR_POSITION_TIMEOUT);
 	}
 
-	public boolean subsystemTest(boolean advanced) {
-		return true;
+	public boolean subsystemTest(boolean failWithPassion) {
+		boolean result = false;
+
+		driveForSeconds(5, 10, 10);
+		
+		if (failWithPassion == true)
+			throw new IllegalAccessError("Hey");
+
+		return result;
 	}
 }
