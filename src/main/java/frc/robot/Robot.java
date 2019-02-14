@@ -253,7 +253,7 @@ public class Robot extends TimedRobot {
         {
             SubsystemTestBase current = SubsystemTestBase.getSubsystem(i);
             System.out.println("Testing: " + current);
-            System.out.println("Test succesful?: " + current.subsystemTest(true));
+            System.out.println("Test succesful?: " + current.subsystemTest(SmartDashboard.getBooleanArray("Fail", false)));
         }
     }
 }
