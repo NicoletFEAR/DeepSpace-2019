@@ -41,14 +41,18 @@ public class Arm extends Subsystem {
 
         double error = desiredtargetEncoderValue - encoderPosition;
         integral += error * .02;
-        //if (Math.abs(error) < 40) {
-        //    integral = 0;
-        //}
+        // if (Math.abs(error) < 40) {
+        // integral = 0;
+        // }
         double derivative = (error - previousError) / .02;
         double speed = RobotMap.ARM_kP * error + RobotMap.ARM_kI * integral - RobotMap.ARM_kD * derivative;
-
-        RobotMap.armMotor1.set(ControlMode.PercentOutput, speed);
-        RobotMap.armMotor2.set(ControlMode.PercentOutput, speed);
+        if (speed > .75) {
+            RobotMap.armMotor1.set(ControlMode.PercentOutput, .75);
+            RobotMap.armMotor2.set(ControlMode.PercentOutput, .75);
+        } else {
+            RobotMap.armMotor1.set(ControlMode.PercentOutput, speed);
+            RobotMap.armMotor2.set(ControlMode.PercentOutput, speed);
+        }
     }
 
     public double getArmEncoder() {
