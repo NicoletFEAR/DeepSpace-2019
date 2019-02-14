@@ -305,11 +305,11 @@ public class DriveTrain extends Subsystem {
 		double speed = RobotMap.TURN_kP*error + RobotMap.TURN_kI*integral + RobotMap.TURN_kD*derivative;
 
 		if (desiredAngle > 0) {
-			RobotMap.right1.set(ControlMode.PercentOutput, speed);
-			RobotMap.left1.set(ControlMode.PercentOutput, -speed);
-		} else {
 			RobotMap.right1.set(ControlMode.PercentOutput, -speed);
 			RobotMap.left1.set(ControlMode.PercentOutput, speed);
+		} else {
+			RobotMap.right1.set(ControlMode.PercentOutput, speed);
+			RobotMap.left1.set(ControlMode.PercentOutput, -speed);
 		}
 	
 		if (error < RobotMap.TURN_ERROR_CONSTANT && error > -RobotMap.TURN_ERROR_CONSTANT) {

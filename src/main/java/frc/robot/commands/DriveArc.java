@@ -72,6 +72,7 @@ public class DriveArc extends Command {
     // Arc length should be in inches
     public boolean arcDrive(double arcLength, TalonSRX talon) {
         // SmartDashboard.putNumber("", );
+        // System.out.print("HI");
         double error;
         double derivative;
         double speed;
@@ -137,6 +138,7 @@ public class DriveArc extends Command {
 
             while (!turnBool) {
                 turnBool = Robot.driveTrain.turnToAngle(degreesToRotate);
+                
             }
 
             double radius = (1.0 / 2 * Math.sqrt(x * x + y * y)) / (Math.sin(.5 * z));
