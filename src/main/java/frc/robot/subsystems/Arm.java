@@ -19,6 +19,7 @@ public class Arm extends Subsystem {
     double previousError = 0;
     double previousDesiredtargetEncoderValue = 0;
     // int offset=0;
+    double speed;
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
@@ -48,8 +49,10 @@ public class Arm extends Subsystem {
         }
 
         double derivative = (error - previousError) / .02;
-        double speed = RobotMap.ARM_kP * error + RobotMap.ARM_kI * integral + RobotMap.ARM_kD * derivative;
-        SmartDashboard.putNumber("armSpeed", speed);
+
+        speed = RobotMap.ARM_kP * error + RobotMap.ARM_kI * integral + RobotMap.ARM_kD * derivative;
+        speed*=-1;
+
         if (speed > RobotMap.armSpeedLimit) {
             RobotMap.armMotor1.set(ControlMode.PercentOutput, RobotMap.armSpeedLimit);
             RobotMap.armMotor2.set(ControlMode.PercentOutput, RobotMap.armSpeedLimit);
@@ -60,11 +63,28 @@ public class Arm extends Subsystem {
             RobotMap.armMotor1.set(ControlMode.PercentOutput, speed);
             RobotMap.armMotor2.set(ControlMode.PercentOutput, speed);
         }
+
         previousError = error;
+    }
+
+    public void rotateNoPID(double desiredtargetEncoderValue){
+        double encoderPosition = getArmEncoder();
+
+        double error = desiredtargetEncoderValue - encoderPosition;
+
+        if(error>50)RobotMap.armMotor1.set(ControlMode.PercentOutput, -1);
+        else if(error<-50)RobotMap.armMotor1.set(ControlMode.PercentOutput, 1);
+        else RobotMap.armMotor1.set(ControlMode.PercentOutput, 0);
+
+        
     }
 
     public double getArmEncoder() {
         return RobotMap.armMotor1.getSelectedSensorPosition(); // negative because enoder happens to be the poother way
+    }
+
+    public double getSpeed(){
+        return speed;
     }
 
 }

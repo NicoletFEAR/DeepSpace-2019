@@ -20,7 +20,7 @@ import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import frc.robot.subsystems.AirCompressor;
+// import frc.robot.subsystems.AirCompressor;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -78,20 +78,20 @@ public class RobotMap {
 	public static final int CargoLevel1TargetValue = -2000;
 	public static final int CargoLevel2TargetValue = -1200;
 	public static final int CargoLevel3TargetValue = -900;
-	public static final int HatchLevel1TargetValue = 400;
-	public static final int HatchLevel2TargetValue = 500;
-	public static final int HatchLevel3TargetValue = 600;
-	public static final int CargoLoadingStation = 500;
-	public static final int CargoFloor = 600;
+	public static final int HatchLevel1TargetValue = -2200;
+	public static final int HatchLevel2TargetValue = -1400;
+	public static final int HatchLevel3TargetValue = -1100;
+	public static final int CargoLoadingStation = -1200;
+	public static final int CargoFloor = -3500;
 	public static final int StraightUp = 0;
-	public static final double ARM_kP = 0.0005;
-	public static final double ARM_kI = 0.00005; //0.0005 too fast
-	public static final double ARM_kD = 0.0000075; // 0.000015 too fast
+	public static final double ARM_kP = 0.005;
+	public static final double ARM_kI = 0.0000;// 5; //0.0005 too fast
+	public static final double ARM_kD = 0.00000;// 75; // 0.000015 too fast
 	public static double ARM_TICKS_PER_REVOLUTION = 4096.0; // Needs to be updated on final bot!!!!!!!!!!!!!!!!!!!!!!!!
 	public static int ARM_MAX_TICK_VAL = 4200;
 	public static int ARM_MIN_TICK_VAL = -4200;
 	public static int offset = 0;
-	public static double armSpeedLimit = 0.75; // max speed we want arm motors to go to
+	public static double armSpeedLimit = 1; // max speed we want arm motors to go to
 
 	// VISION CONSTANTS:
 	public static double angleConstant = 50;
@@ -100,7 +100,7 @@ public class RobotMap {
 	// public static AnalogInput ultraLeft;
 	// public static AnalogInput ultraRight;
 	// Pneumatics
-	public static AirCompressor airCompressor;
+	// public static AirCompressor airCompressor;
 	public static int aModuleNumber = 0;
 	public static int aForwardChannel = 2;
 	public static int aReverseChannel = 1;
@@ -174,8 +174,7 @@ public class RobotMap {
 		supportWheel2 = new TalonSRX(22);
 		supportWheel2.setNeutralMode(NeutralMode.Coast);
 
-		airCompressor = new AirCompressor(compressormodule);
-
+		// airCompressor = new AirCompressor(compressormodule);
 
 		// ultraRight = new AnalogInput(3);
 		// ultraLeft = new AnalogInput(2);

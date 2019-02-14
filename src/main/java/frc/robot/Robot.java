@@ -191,15 +191,6 @@ public class Robot extends TimedRobot {
     public void teleopPeriodic() {
         pressureSensor.getPressure();
         Scheduler.getInstance().run();
-        double velocityRight = Robot.driveTrain.getRightEncoderVelocity();
-        double velocityLeft = Robot.driveTrain.getLeftEncoderVelocity();
-        SmartDashboard.putNumber("velR", velocityRight);
-        SmartDashboard.putNumber("velL", velocityLeft);
-
-        SmartDashboard.putNumber("Target", RobotMap.targetEncoderValue);
-
-        SmartDashboard.putNumber("NavX", navX.getAngle());
-        SmartDashboard.putNumber("Left Encoder: ", Robot.driveTrain.getLeftEncoderPosition());
         /*
          * VisionUpdate update = new VisionUpdate();
          * //System.out.print(update.getTargets()); List<TargetInfo> targets_list =
@@ -211,15 +202,6 @@ public class Robot extends TimedRobot {
         VisionProcessor processor = (VisionProcessor) mVisionServer.receivers.get(0);
 
         processor.onLoop(System.currentTimeMillis());
-        SmartDashboard.putNumber("y_val_target: ", y_val_target);
-        SmartDashboard.putNumber("z_val_target: ", z_val_target);
-        SmartDashboard.putNumber("x_val_target: ", x_val_target);
-        SmartDashboard.putNumber("angle_val_target: ", angle_val_target);
-        SmartDashboard.putBoolean("Target found: ", !isTargetNull);
-        SmartDashboard.putString("Camera Mode: ", cameraMode);
-
-        SmartDashboard.putNumber("Right Encoder: ", Robot.driveTrain.getRightEncoderPosition());
-        SmartDashboard.putBoolean("Switch Front", Robot.driveTrain.isReversed());
         // double distanceLeft = RobotMap.ultraLeft.getAverageVoltage() * 300 / 293 * 1000 / 25.4;
         // SmartDashboard.putNumber("Distance from left ultrasonic (inches)", distanceLeft);
         // double distanceRight = RobotMap.ultraRight.getAverageVoltage() * 300 / 293 * 1000 / 25.4;
@@ -230,5 +212,26 @@ public class Robot extends TimedRobot {
     @Override
     public void robotPeriodic() { // maybe works Check!!!!!
         SmartDashboard.putNumber("Arm Encoder Value", arm.getArmEncoder());
+        SmartDashboard.putNumber("y_val_target: ", y_val_target);
+        SmartDashboard.putNumber("z_val_target: ", z_val_target);
+        SmartDashboard.putNumber("x_val_target: ", x_val_target);
+        SmartDashboard.putNumber("angle_val_target: ", angle_val_target);
+        SmartDashboard.putBoolean("Target found: ", !isTargetNull);
+        SmartDashboard.putString("Camera Mode: ", cameraMode);
+
+        SmartDashboard.putNumber("Right Encoder: ", Robot.driveTrain.getRightEncoderPosition());
+        SmartDashboard.putBoolean("Switch Front", Robot.driveTrain.isReversed());
+
+        double velocityRight = Robot.driveTrain.getRightEncoderVelocity();
+        double velocityLeft = Robot.driveTrain.getLeftEncoderVelocity();
+        SmartDashboard.putNumber("velR", velocityRight);
+        SmartDashboard.putNumber("velL", velocityLeft);
+
+        SmartDashboard.putNumber("Target", RobotMap.targetEncoderValue+RobotMap.offset);
+
+        SmartDashboard.putNumber("NavX", navX.getAngle());
+        SmartDashboard.putNumber("Left Encoder: ", Robot.driveTrain.getLeftEncoderPosition());
+
+        SmartDashboard.putNumber("ArmySpeedyBoi", arm.getSpeed());
     }
 }
