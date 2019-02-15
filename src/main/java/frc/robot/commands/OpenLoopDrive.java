@@ -19,10 +19,12 @@ import frc.robot.Robot;
 // import frc.robot.OI;
 import edu.wpi.first.wpilibj.GenericHID;
 // import edu.wpi.first.wpilibj.GenericHID.Hand;
+
 /**
- *
+ *  Command handling simple driving for the robot
  */
 public class OpenLoopDrive extends Command {
+    public static final double TURN_SCALING = 0.5;
 
     public OpenLoopDrive() {
 
@@ -55,7 +57,7 @@ public class OpenLoopDrive extends Command {
     	//So Cool! :D
     	double robotOutput = forwardValue - reverseValue;
     	
-    	Robot.driveTrain.ArcadeDriveVer2(robotOutput, turnAmount * 0.5);
+    	Robot.driveTrain.ArcadeDriveVer2(robotOutput, turnAmount * TURN_SCALING);
     	
      }
 

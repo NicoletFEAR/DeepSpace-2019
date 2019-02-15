@@ -8,6 +8,7 @@ import edu.wpi.cscore.UsbCamera;
 import edu.wpi.cscore.VideoSink;
 // import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.SPI.Port;
@@ -62,6 +63,8 @@ public class Robot extends TimedRobot {
     // public static ArduinoInterface arduinoLEDInterface;
     // public static ArduinoInterface arduinoCameraInterface;
 
+    public static Compressor compressorOAir;
+
     private static JadbConnection m_jadb = null;
     private static List<JadbDevice> m_devices = null;
     private static JadbDevice m_currentDevice = null;
@@ -94,6 +97,8 @@ public class Robot extends TimedRobot {
         navX = new AHRS(Port.kMXP);
         // arduinoLEDInterface = new ArduinoInterface(7);
         // arduinoCameraInterface = new ArduinoInterface(6);
+
+        compressorOAir = new Compressor(RobotMap.compressormodule);
 
         // OI must be constructed after subsystems. If the OI creates Commands
         // (which it very likely will), subsystems are not guaranteed to be
