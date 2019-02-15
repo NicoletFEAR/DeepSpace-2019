@@ -41,6 +41,9 @@ public class RobotMap {
 
 	public static final double DRIVE_LIMITER = 1.0; // not 775 motors
 
+	public static final double SHIFT_UP_THRESHOLD = 1900; // speed at which drive base shifts up
+	public static final double SHIFT_DOWN_THRESHOLD = 2100; // speed at which drive base shifts down
+
 	// CARGO HATCH GAME MECH:
 	public static TalonSRX flywheel1;
 	public static TalonSRX flywheel2;
@@ -109,19 +112,20 @@ public class RobotMap {
 	// public static AnalogInput ultraRight;
 	// Pneumatics
 	// public static AirCompressor airCompressor;
-	public static int aModuleNumber = 0;
+
+	public static int aModuleNumber = 0; // IDK
 	public static int aForwardChannel = 2;
 	public static int aReverseChannel = 1;
 
-	public static int bModuleNumber = 0;
+	public static int bModuleNumber = 0; // IDK
 	public static int bForwardChannel = 5;
 	public static int bReverseChannel = 0;
 
-	public static int cModuleNumber = 0;
+	public static int cModuleNumber = 0; // IDK
 	public static int cForwardChannel = 4;
 	public static int cReverseChannel = 3;
 
-	public static int dModuleNumber = 0;
+	public static int dModuleNumber = 0; // SHIFTER
 	public static int dForwardChannel = 6;
 	public static int dReverseChannel = 7;
 

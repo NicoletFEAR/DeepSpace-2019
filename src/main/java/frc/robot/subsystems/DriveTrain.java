@@ -114,6 +114,7 @@ public class DriveTrain extends Subsystem {
 		// SmartDashboard.putNumber("Left Side", leftSide.get());
 		// SmartDashboard.putNumber("Right Side", rightSide.get());
 
+		/*
 		SensorCollection sensor = RobotMap.right1.getSensorCollection();
 
 		SmartDashboard.putNumber("sensor analogin", sensor.getAnalogIn());
@@ -121,6 +122,7 @@ public class DriveTrain extends Subsystem {
 		SmartDashboard.putNumber("sensor analongvel", sensor.getAnalogInVel());
 		SmartDashboard.putNumber("sensor widthpos", sensor.getPulseWidthPosition());
 		SmartDashboard.putNumber("sensor velocity", sensor.getQuadratureVelocity());
+		*/
 	}
 
 	public void ArcadeDrive(double robotOutput, double turnAmount) {
