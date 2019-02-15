@@ -110,6 +110,7 @@ public class DriveArc extends Command {
 
     @Override
     protected void initialize() {
+        Robot.driveArc = true;
         Robot.driveTrain.resetEncoders();
         complete = false;
         Robot.navX.reset();

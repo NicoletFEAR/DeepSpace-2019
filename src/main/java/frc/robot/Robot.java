@@ -3,7 +3,7 @@ package frc.robot;
 import java.util.List;
 
 import com.kauailabs.navx.frc.AHRS;
-
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.cscore.VideoSink;
 // import edu.wpi.first.wpilibj.CameraServer;
@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.loops.VisionProcessor;
 // import frc.robot.commands.*;
+import frc.robot.subsystems.Arduino;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.GameMech;
@@ -46,6 +47,7 @@ public class Robot extends TimedRobot {
     public static double x_val_target = 0.0;
     public static double angle_val_target = 0.0;
     public static boolean isTargetNull = true;
+    public static boolean driveArc = false;
 
     public static OI oi;
     public static DriveTrain driveTrain;
@@ -59,6 +61,7 @@ public class Robot extends TimedRobot {
     public static UsbCamera back;
     public static VideoSink serverFront, serverBack;
     public static AHRS navX;
+    public static Arduino arduino;
     // public static ArduinoInterface arduinoLEDInterface;
     // public static ArduinoInterface arduinoCameraInterface;
 
@@ -79,6 +82,7 @@ public class Robot extends TimedRobot {
     public void robotInit() {
         RobotMap.init();
         mVisionServer = VisionServer.getInstance();
+        arduino = new Arduino(0);
 
         driveTrain = new DriveTrain();
         // String[] args = {};
@@ -129,6 +133,7 @@ public class Robot extends TimedRobot {
         VisionProcessor processor = (VisionProcessor) mVisionServer.receivers.get(0);
         processor.onLoop(System.currentTimeMillis());
         SmartDashboard.putNumber("NavX Angle: ", navX.getAngle());
+        arduino.writeStringData("teallight");
 
         // VisionUpdate update = new VisionUpdate();
         // for (int i = 0; i < update.getTargets().size(); i++) {
@@ -159,6 +164,8 @@ public class Robot extends TimedRobot {
     @Override
 
     public void autonomousPeriodic() {
+        //Incase we ever accidentally enter autonomous 
+        arduino.writeStringData("orangelight");
         // double distanceLeft = RobotMap.ultraLeft.getAverageVoltage() * 300 / 293 * 1000 / 25.4;
         // SmartDashboard.putNumber("Distance from left ultrasonic (inches)", distanceLeft);
         // double distanceRight = RobotMap.ultraRight.getAverageVoltage() * 300 / 293 * 1000 / 25.4;
@@ -225,6 +232,17 @@ public class Robot extends TimedRobot {
         // double distanceRight = RobotMap.ultraRight.getAverageVoltage() * 300 / 293 * 1000 / 25.4;
         // SmartDashboard.putNumber("Distance from right ultrasonic (inches)", distanceRight);
 
+        if (!driveArc) {
+            arduino.writeStringData("purplelight");
+        } else if (!isTargetNull) {
+            arduino.writeStringData("yellowlight");
+        }  else {
+            if (DriverStation.getInstance().getAlliance().toString().equalsIgnoreCase("red")) {
+                arduino.writeStringData("redlight");
+            } else {
+                arduino.writeStringData("bluelight");
+            }
+        }
     }
 
     @Override
