@@ -154,11 +154,13 @@ public class Robot extends TimedRobot {
             disabledCommand.cancel();
         if (autonomousCommand != null)
             autonomousCommand.start();
+        teleopInit();
     }
 
     @Override
 
     public void autonomousPeriodic() {
+        teleopPeriodic();
         // double distanceLeft = RobotMap.ultraLeft.getAverageVoltage() * 300 / 293 * 1000 / 25.4;
         // SmartDashboard.putNumber("Distance from left ultrasonic (inches)", distanceLeft);
         // double distanceRight = RobotMap.ultraRight.getAverageVoltage() * 300 / 293 * 1000 / 25.4;

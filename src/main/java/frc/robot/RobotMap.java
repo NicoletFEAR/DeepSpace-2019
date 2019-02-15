@@ -30,7 +30,7 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
  */
 public class RobotMap {
 
-	// Talons for Drive Base
+	// DRIVE BASE:
 	public static TalonSRX left1;
 	public static TalonSRX left2;
 	public static TalonSRX left3;
@@ -39,29 +39,29 @@ public class RobotMap {
 	public static TalonSRX right2;
 	public static TalonSRX right3;
 
-	public static final double DRIVE_LIMITER = 1.0;
+	public static final double DRIVE_LIMITER = 1.0; // not 775 motors
 
-	// Talons for Game Mech
+	// CARGO HATCH GAME MECH:
 	public static TalonSRX flywheel1;
 	public static TalonSRX flywheel2;
 
-	public static final double FLYWHEEL_LIMITER = 1.0;
+	public static final double FLYWHEEL_LIMITER = 1.0; // 775 motors
 
-	// Talons for Arm
+	// ARM:
 	public static TalonSRX armMotor1;
 	public static TalonSRX armMotor2;
 
-	public static final double ARM_LIMITER = 1.0;
+	public static final double ARM_LIMITER = 1.0; // not 775 motors
 
-	// Talons for Lift System
+	// LIFT SYSTEM:
 	public static TalonSRX supportWheel1;
 	public static TalonSRX supportWheel2;
 
-	public static final double SUPPORT_LIMITER = 1.0;
+	public static final double SUPPORT_LIMITER = 1.0; // not 775 motors
 
 	public static DifferentialDrive robotDrive;
 
-	// PID Constants
+	// PID CONSTANTS:
 	public static double ERROR_CONSTANT_LEFT = 0.0;
 	public static double ERROR_CONSTANT_RIGHT = 0.0;
 	public static double WHEEL_RADIUS = 3.125; // Inches
@@ -79,7 +79,7 @@ public class RobotMap {
 	public static final double TURN_ERROR_CONSTANT = 0;
 	public static final double PERFECT_ARC_RANGE = 2;
 
-	// variables for arm movement
+	// ARM MOVEMENT CONSTANTS:
 	public static int maxChangeAmt = 100; // how much the arm moves by
 	public static int targetEncoderValue;
 	public static final int CargoShipDropPoint = 100;
@@ -99,7 +99,7 @@ public class RobotMap {
 	public static int ARM_MAX_TICK_VAL = 4200;
 	public static int ARM_MIN_TICK_VAL = -4200;
 	public static int offset = 0;
-	// public static double armSpeedLimit = 1; // max speed we want arm motors to go to
+	//public static double armSpeedLimit = 1; // max speed we want arm motors to go to
 
 	// VISION CONSTANTS:
 	public static double angleConstant = 50;
