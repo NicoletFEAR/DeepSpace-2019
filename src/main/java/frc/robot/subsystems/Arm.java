@@ -78,14 +78,24 @@ public class Arm extends Subsystem {
 
     public void rotateNoPID(double desiredtargetEncoderValue) {
         encoderPosition = getArmEncoder();
-        error = desiredtargetEncoderValue - encoderPosition;
+        error = desiredtargetEncoderValue - encoderPosition;    
 
-        if (error > 50)
+        if (error > 200) {
             RobotMap.armMotor1.set(ControlMode.PercentOutput, -RobotMap.ARM_LIMITER);
-        else if (error < -50)
+            RobotMap.armMotor2.set(ControlMode.PercentOutput, -RobotMap.ARM_LIMITER);
+        } else if (error < -200) {
             RobotMap.armMotor1.set(ControlMode.PercentOutput, RobotMap.ARM_LIMITER);
-        else
+            RobotMap.armMotor2.set(ControlMode.PercentOutput, RobotMap.ARM_LIMITER);
+        } else if (error < -50) {
+            RobotMap.armMotor1.set(ControlMode.PercentOutput, 0.75 * RobotMap.ARM_LIMITER);
+            RobotMap.armMotor2.set(ControlMode.PercentOutput, 0.75 * RobotMap.ARM_LIMITER);
+        } else if (error > 50) {
+            RobotMap.armMotor1.set(ControlMode.PercentOutput, 0.75 * -RobotMap.ARM_LIMITER);
+            RobotMap.armMotor2.set(ControlMode.PercentOutput, 0.75 * -RobotMap.ARM_LIMITER);
+        } else {
             RobotMap.armMotor1.set(ControlMode.PercentOutput, 0);
+            RobotMap.armMotor2.set(ControlMode.PercentOutput, 0);
+        }
     }
 
     public double getArmEncoder() {
