@@ -47,9 +47,7 @@ public class AutoShift extends Command {
         if (Robot.shifter.shifty.get() != DoubleSolenoid.Value.kForward) {
           Robot.shifter.shiftdown();
         }
-      } else if (averageVelocity < RobotMap.SHIFT_UP_THRESHOLD) {
-        // DO NOTHING
-      } else { // if in low, switch to high
+      } else if (averageVelocity > RobotMap.SHIFT_UP_THRESHOLD) { // if in low, switch to high
         if (Robot.shifter.shifty.get() == DoubleSolenoid.Value.kForward) {
           Robot.shifter.shiftup();
         }
