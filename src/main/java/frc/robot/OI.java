@@ -154,6 +154,8 @@ public class OI {
         // xbox1ButtonX.whenPressed(new Shift());
 
         xbox1X.whenPressed(new SwitchFront());
+        xbox1X.whenPressed(new SwitchAndroidCamera());
+
         // xbox1A.whenPressed(new DriveArc());
         // xbox1LeftStick.whenPressed(new SwitchFront());
         // xbox1LeftStick.whenPressed(new SwitchAndroidCamera());
