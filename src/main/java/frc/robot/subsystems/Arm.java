@@ -20,6 +20,10 @@ public class Arm extends Subsystem {
     double previousDesiredtargetEncoderValue = 0;
     // int offset=0;
     double speed;
+    double derivative;
+
+    double encoderPosition;
+    double error;
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
@@ -39,26 +43,26 @@ public class Arm extends Subsystem {
         }
 
         SmartDashboard.putNumber("armTarget", desiredtargetEncoderValue);
-        double encoderPosition = getArmEncoder();
+        encoderPosition = getArmEncoder();
 
-        double error = desiredtargetEncoderValue - encoderPosition;
+        error = desiredtargetEncoderValue - encoderPosition;
         integral += error * .02;
 
         if (Math.abs(error) < 50 && !(Math.abs(error) > Math.abs(previousError))) { // scale down the integral 
             integral *= 0.95;
         }
 
-        double derivative = (error - previousError) / .02;
+        derivative = (error - previousError) / .02;
 
         speed = RobotMap.ARM_kP * error + RobotMap.ARM_kI * integral + RobotMap.ARM_kD * derivative;
         speed*=-1;
 
-        if (speed > RobotMap.armSpeedLimit) {
-            RobotMap.armMotor1.set(ControlMode.PercentOutput, RobotMap.armSpeedLimit);
-            RobotMap.armMotor2.set(ControlMode.PercentOutput, RobotMap.armSpeedLimit);
-        } else if (speed < -RobotMap.armSpeedLimit) {
-            RobotMap.armMotor1.set(ControlMode.PercentOutput, -RobotMap.armSpeedLimit);
-            RobotMap.armMotor2.set(ControlMode.PercentOutput, -RobotMap.armSpeedLimit);
+        if (speed > RobotMap.ARM_LIMITER) {
+            RobotMap.armMotor1.set(ControlMode.PercentOutput, RobotMap.ARM_LIMITER);
+            RobotMap.armMotor2.set(ControlMode.PercentOutput, RobotMap.ARM_LIMITER);
+        } else if (speed < -RobotMap.ARM_LIMITER) {
+            RobotMap.armMotor1.set(ControlMode.PercentOutput, -RobotMap.ARM_LIMITER);
+            RobotMap.armMotor2.set(ControlMode.PercentOutput, -RobotMap.ARM_LIMITER);
         } else {
             RobotMap.armMotor1.set(ControlMode.PercentOutput, speed);
             RobotMap.armMotor2.set(ControlMode.PercentOutput, speed);
@@ -66,17 +70,13 @@ public class Arm extends Subsystem {
 
         previousError = error;
     }
-
     public void rotateNoPID(double desiredtargetEncoderValue){
-        double encoderPosition = getArmEncoder();
+        encoderPosition = getArmEncoder();
+        error = desiredtargetEncoderValue - encoderPosition;
 
-        double error = desiredtargetEncoderValue - encoderPosition;
-
-        if(error>50)RobotMap.armMotor1.set(ControlMode.PercentOutput, -1);
-        else if(error<-50)RobotMap.armMotor1.set(ControlMode.PercentOutput, 1);
+        if(error>50)RobotMap.armMotor1.set(ControlMode.PercentOutput, -RobotMap.ARM_LIMITER);
+        else if(error<-50)RobotMap.armMotor1.set(ControlMode.PercentOutput, RobotMap.ARM_LIMITER);
         else RobotMap.armMotor1.set(ControlMode.PercentOutput, 0);
-
-        
     }
 
     public double getArmEncoder() {

@@ -39,17 +39,25 @@ public class RobotMap {
 	public static TalonSRX right2;
 	public static TalonSRX right3;
 
+	public static final double DRIVE_LIMITER = 1.0;
+
 	// Talons for Game Mech
 	public static TalonSRX flywheel1;
 	public static TalonSRX flywheel2;
+
+	public static final double FLYWHEEL_LIMITER = 1.0;
 
 	// Talons for Arm
 	public static TalonSRX armMotor1;
 	public static TalonSRX armMotor2;
 
+	public static final double ARM_LIMITER = 1.0;
+
 	// Talons for Lift System
 	public static TalonSRX supportWheel1;
 	public static TalonSRX supportWheel2;
+
+	public static final double SUPPORT_LIMITER = 1.0;
 
 	public static DifferentialDrive robotDrive;
 
@@ -91,7 +99,7 @@ public class RobotMap {
 	public static int ARM_MAX_TICK_VAL = 4200;
 	public static int ARM_MIN_TICK_VAL = -4200;
 	public static int offset = 0;
-	public static double armSpeedLimit = 1; // max speed we want arm motors to go to
+	// public static double armSpeedLimit = 1; // max speed we want arm motors to go to
 
 	// VISION CONSTANTS:
 	public static double angleConstant = 50;

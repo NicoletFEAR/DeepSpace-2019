@@ -233,5 +233,12 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("Left Encoder: ", Robot.driveTrain.getLeftEncoderPosition());
 
         SmartDashboard.putNumber("ArmySpeedyBoi", arm.getSpeed());
+        
+        SmartDashboard.putNumber("V_armMotor1", RobotMap.armMotor1.getMotorOutputVoltage());
+        SmartDashboard.putNumber("V_armMotor2", RobotMap.armMotor2.getMotorOutputVoltage());
+        SmartDashboard.putNumber("V_left1", RobotMap.left1.getMotorOutputVoltage());
+        SmartDashboard.putNumber("V_right1", RobotMap.right1.getMotorOutputVoltage());
+        SmartDashboard.putNumber("V_flywheel1", RobotMap.flywheel1.getMotorOutputVoltage());
+
     }
 }
