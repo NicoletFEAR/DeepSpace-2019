@@ -1,7 +1,7 @@
 package frc.robot.subsystems;
 // import  frc.robot.commands.*;
 import  frc.robot.RobotMap;
-
+import frc.robot.commands.AutoShift;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -47,6 +47,6 @@ public class Shifter extends Subsystem {
 	// here. Call these from Commands.
 	// make sure the pistons are closed at first
 	public void initDefaultCommand() {
-		
+		setDefaultCommand(new AutoShift());
 	}
 }

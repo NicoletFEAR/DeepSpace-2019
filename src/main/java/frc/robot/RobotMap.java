@@ -20,7 +20,7 @@ import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import frc.robot.subsystems.AirCompressor;
+// import frc.robot.subsystems.AirCompressor;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -30,7 +30,7 @@ import frc.robot.subsystems.AirCompressor;
  */
 public class RobotMap {
 
-	// Talons for Drive Base
+	// DRIVE BASE:
 	public static TalonSRX left1;
 	public static TalonSRX left2;
 	public static TalonSRX left3;
@@ -39,21 +39,32 @@ public class RobotMap {
 	public static TalonSRX right2;
 	public static TalonSRX right3;
 
-	// Talons for Game Mech
+	public static final double DRIVE_LIMITER = 1.0; // not 775 motors
+
+	public static final double SHIFT_UP_THRESHOLD = 1900; // speed at which drive base shifts up
+	public static final double SHIFT_DOWN_THRESHOLD = 2100; // speed at which drive base shifts down
+
+	// CARGO HATCH GAME MECH:
 	public static TalonSRX flywheel1;
 	public static TalonSRX flywheel2;
 
-	// Talons for Arm
+	public static final double FLYWHEEL_LIMITER = 1.0; // 775 motors
+
+	// ARM:
 	public static TalonSRX armMotor1;
 	public static TalonSRX armMotor2;
 
-	// Talons for Lift System
+	public static final double ARM_LIMITER = 1.0; // not 775 motors
+
+	// LIFT SYSTEM:
 	public static TalonSRX supportWheel1;
 	public static TalonSRX supportWheel2;
 
+	public static final double SUPPORT_LIMITER = 1.0; // not 775 motors
+
 	public static DifferentialDrive robotDrive;
 
-	// PID Constants
+	// PID CONSTANTS:
 	public static double ERROR_CONSTANT_LEFT = 0.0;
 	public static double ERROR_CONSTANT_RIGHT = 0.0;
 	public static double WHEEL_RADIUS = 3.125; // Inches
@@ -71,7 +82,7 @@ public class RobotMap {
 	public static final double TURN_ERROR_CONSTANT = 0;
 	public static final double PERFECT_ARC_RANGE = 2;
 
-	// variables for arm movement
+	// ARM MOVEMENT CONSTANTS:
 	public static int maxChangeAmt = 100; // how much the arm moves by
 	public static int targetEncoderValue;
 	public static final int CargoShipDropPoint = 100;
@@ -91,7 +102,7 @@ public class RobotMap {
 	public static int ARM_MAX_TICK_VAL = 4200;
 	public static int ARM_MIN_TICK_VAL = -4200;
 	public static int offset = 0;
-	public static double armSpeedLimit = 1; // max speed we want arm motors to go to
+	//public static double armSpeedLimit = 1; // max speed we want arm motors to go to
 
 	// VISION CONSTANTS:
 	public static double angleConstant = 50;
@@ -100,20 +111,21 @@ public class RobotMap {
 	// public static AnalogInput ultraLeft;
 	// public static AnalogInput ultraRight;
 	// Pneumatics
-	public static AirCompressor airCompressor;
-	public static int aModuleNumber = 0;
+	// public static AirCompressor airCompressor;
+
+	public static int aModuleNumber = 0; // IDK
 	public static int aForwardChannel = 2;
 	public static int aReverseChannel = 1;
 
-	public static int bModuleNumber = 0;
+	public static int bModuleNumber = 0; // IDK
 	public static int bForwardChannel = 5;
 	public static int bReverseChannel = 0;
 
-	public static int cModuleNumber = 0;
+	public static int cModuleNumber = 0; // IDK
 	public static int cForwardChannel = 4;
 	public static int cReverseChannel = 3;
 
-	public static int dModuleNumber = 0;
+	public static int dModuleNumber = 0; // SHIFTER
 	public static int dForwardChannel = 6;
 	public static int dReverseChannel = 7;
 

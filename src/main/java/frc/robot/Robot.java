@@ -8,6 +8,7 @@ import edu.wpi.cscore.UsbCamera;
 import edu.wpi.cscore.VideoSink;
 // import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.SPI.Port;
@@ -62,6 +63,8 @@ public class Robot extends TimedRobot {
     // public static ArduinoInterface arduinoLEDInterface;
     // public static ArduinoInterface arduinoCameraInterface;
 
+    public static Compressor compressorOAir;
+
     private static JadbConnection m_jadb = null;
     private static List<JadbDevice> m_devices = null;
     private static JadbDevice m_currentDevice = null;
@@ -94,6 +97,8 @@ public class Robot extends TimedRobot {
         navX = new AHRS(Port.kMXP);
         // arduinoLEDInterface = new ArduinoInterface(7);
         // arduinoCameraInterface = new ArduinoInterface(6);
+
+        compressorOAir = new Compressor(RobotMap.compressormodule);
 
         // OI must be constructed after subsystems. If the OI creates Commands
         // (which it very likely will), subsystems are not guaranteed to be
@@ -154,11 +159,13 @@ public class Robot extends TimedRobot {
             disabledCommand.cancel();
         if (autonomousCommand != null)
             autonomousCommand.start();
+        teleopInit();
     }
 
     @Override
 
     public void autonomousPeriodic() {
+        teleopPeriodic();
         // double distanceLeft = RobotMap.ultraLeft.getAverageVoltage() * 300 / 293 * 1000 / 25.4;
         // SmartDashboard.putNumber("Distance from left ultrasonic (inches)", distanceLeft);
         // double distanceRight = RobotMap.ultraRight.getAverageVoltage() * 300 / 293 * 1000 / 25.4;
@@ -233,14 +240,12 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("Left Encoder: ", Robot.driveTrain.getLeftEncoderPosition());
 
         SmartDashboard.putNumber("ArmySpeedyBoi", arm.getSpeed());
-
-
+        
         SmartDashboard.putNumber("V_armMotor1", RobotMap.armMotor1.getMotorOutputVoltage());
-        SmartDashboard.putNumber("V_armMotor1", RobotMap.armMotor2.getMotorOutputVoltage());
-        SmartDashboard.putNumber("V_armMotor1", RobotMap.left1.getMotorOutputVoltage());
-        SmartDashboard.putNumber("V_armMotor1", RobotMap.left2.getMotorOutputVoltage());
-        SmartDashboard.putNumber("V_armMotor1", RobotMap.armMotor1.getMotorOutputVoltage());
-
+        SmartDashboard.putNumber("V_armMotor2", RobotMap.armMotor2.getMotorOutputVoltage());
+        SmartDashboard.putNumber("V_left1", RobotMap.left1.getMotorOutputVoltage());
+        SmartDashboard.putNumber("V_right1", RobotMap.right1.getMotorOutputVoltage());
+        SmartDashboard.putNumber("V_flywheel1", RobotMap.flywheel1.getMotorOutputVoltage());
 
     }
 }
