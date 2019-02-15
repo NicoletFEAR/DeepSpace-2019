@@ -87,11 +87,11 @@ public class Arm extends Subsystem {
             RobotMap.armMotor1.set(ControlMode.PercentOutput, RobotMap.ARM_LIMITER);
             RobotMap.armMotor2.set(ControlMode.PercentOutput, RobotMap.ARM_LIMITER);
         } else if (error < -50) {
-            RobotMap.armMotor1.set(ControlMode.PercentOutput, 0.75 * RobotMap.ARM_LIMITER);
-            RobotMap.armMotor2.set(ControlMode.PercentOutput, 0.75 * RobotMap.ARM_LIMITER);
+            RobotMap.armMotor1.set(ControlMode.PercentOutput, 0.5 * RobotMap.ARM_LIMITER);
+            RobotMap.armMotor2.set(ControlMode.PercentOutput, 0.5 * RobotMap.ARM_LIMITER);
         } else if (error > 50) {
-            RobotMap.armMotor1.set(ControlMode.PercentOutput, 0.75 * -RobotMap.ARM_LIMITER);
-            RobotMap.armMotor2.set(ControlMode.PercentOutput, 0.75 * -RobotMap.ARM_LIMITER);
+            RobotMap.armMotor1.set(ControlMode.PercentOutput, 0.5 * -RobotMap.ARM_LIMITER);
+            RobotMap.armMotor2.set(ControlMode.PercentOutput, 0.5 * -RobotMap.ARM_LIMITER);
         } else {
             RobotMap.armMotor1.set(ControlMode.PercentOutput, 0);
             RobotMap.armMotor2.set(ControlMode.PercentOutput, 0);
