@@ -48,14 +48,18 @@ public class Arm extends Subsystem {
         error = desiredtargetEncoderValue - encoderPosition;
         integral += error * .02;
 
-        if (Math.abs(error) < 50 && !(Math.abs(error) > Math.abs(previousError))) { // scale down the integral 
+        if (Math.abs(error) < 50 && !(Math.abs(error) > Math.abs(previousError))) { // scale down the integral
             integral *= 0.95;
         }
 
         derivative = (error - previousError) / .02;
 
+        SmartDashboard.putNumber("total_P_arm", RobotMap.ARM_kP * error);
+        SmartDashboard.putNumber("total_I_arm", RobotMap.ARM_kI * integral);
+        SmartDashboard.putNumber("total_D_arm", RobotMap.ARM_kD * derivative);
+
         speed = RobotMap.ARM_kP * error + RobotMap.ARM_kI * integral + RobotMap.ARM_kD * derivative;
-        speed*=-1;
+        speed *= -1;
 
         if (speed > RobotMap.ARM_LIMITER) {
             RobotMap.armMotor1.set(ControlMode.PercentOutput, RobotMap.ARM_LIMITER);
@@ -69,21 +73,26 @@ public class Arm extends Subsystem {
         }
 
         previousError = error;
+
     }
-    public void rotateNoPID(double desiredtargetEncoderValue){
+
+    public void rotateNoPID(double desiredtargetEncoderValue) {
         encoderPosition = getArmEncoder();
         error = desiredtargetEncoderValue - encoderPosition;
 
-        if(error>50)RobotMap.armMotor1.set(ControlMode.PercentOutput, -RobotMap.ARM_LIMITER);
-        else if(error<-50)RobotMap.armMotor1.set(ControlMode.PercentOutput, RobotMap.ARM_LIMITER);
-        else RobotMap.armMotor1.set(ControlMode.PercentOutput, 0);
+        if (error > 50)
+            RobotMap.armMotor1.set(ControlMode.PercentOutput, -RobotMap.ARM_LIMITER);
+        else if (error < -50)
+            RobotMap.armMotor1.set(ControlMode.PercentOutput, RobotMap.ARM_LIMITER);
+        else
+            RobotMap.armMotor1.set(ControlMode.PercentOutput, 0);
     }
 
     public double getArmEncoder() {
         return RobotMap.armMotor1.getSelectedSensorPosition(); // negative because enoder happens to be the poother way
     }
 
-    public double getSpeed(){
+    public double getSpeed() {
         return speed;
     }
 
