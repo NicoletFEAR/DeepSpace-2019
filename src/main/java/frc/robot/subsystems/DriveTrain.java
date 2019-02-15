@@ -178,10 +178,13 @@ public class DriveTrain extends Subsystem {
 		}
 	}
 
-	public void ArcadeDriveVer2(double robotOutput, double turnAmount) {
+	public void RacingDrive(double robotOutput, double turnAmount) {
 		double outputLeft = -robotOutput + turnAmount;
 		double outputRight = robotOutput + turnAmount;
-		double multiplier = RobotMap.DRIVE_LIMITER / (outputLeft < outputRight ? outputRight : outputLeft);
+		double max = outputLeft < outputRight ? outputRight : outputLeft;
+		double multiplier;
+		if(max>1) multiplier = RobotMap.DRIVE_LIMITER / (max);
+		else multiplier = 1;
 
 		outputLeft *= multiplier;
 		outputRight *= multiplier;
@@ -199,9 +202,6 @@ public class DriveTrain extends Subsystem {
 		// SmartDashboard.putNumber("Left Side", leftSide.get());
 		// SmartDashboard.putNumber("Right Side", rightSide.get());
 
-		SensorCollection sensorLeft = RobotMap.left1.getSensorCollection();
-		SensorCollection sensorRight = RobotMap.right1.getSensorCollection();
-
 		// SmartDashboard.putNumber("sensor analogin", sensorRight.getAnalogIn());
 		// SmartDashboard.putNumber("sensor analoginraw", sensorRight.getAnalogInRaw());
 		// SmartDashboard.putNumber("sensor analongvel", sensorRight.getAnalogInVel());
@@ -209,28 +209,6 @@ public class DriveTrain extends Subsystem {
 		// sensorRight.getPulseWidthPosition());
 		// SmartDashboard.putNumber("sensor velocity",
 		// sensorRight.getQuadratureVelocity());
-
-		// Shifting Logic Ahead
-		double averageVelocity = (Math.abs(sensorLeft.getQuadratureVelocity())
-				+ Math.abs(sensorRight.getQuadratureVelocity())) / 2.0;
-
-		// SmartDashboard.putNumber("averageVelocity", averageVelocity);
-
-		if (!(Robot.oi.xbox1.getStartButton())) {
-			if (averageVelocity < MAX_LOW_SPEED) { // if not in low, switch to low
-				if (Robot.shifter.shifty.get() != DoubleSolenoid.Value.kForward) {
-					Robot.shifter.shiftdown();
-				}
-			} else if (averageVelocity > MIN_HIGH_SPEED) { // if in low, switch to high
-				if (Robot.shifter.shifty.get() == DoubleSolenoid.Value.kForward) {
-					Robot.shifter.shiftup();
-				}
-			}
-		} else {
-			if (Robot.shifter.shifty.get() != DoubleSolenoid.Value.kForward) {
-				Robot.shifter.shiftdown();
-			}
-		}
 	}
 
 	// Welcome to the Amazing World of PID! (Population: 3, just P, I, and D)
