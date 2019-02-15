@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 // import  frc.robot.commands.*;
 import  frc.robot.RobotMap;
+import frc.robot.SubsystemTestBase;
 import frc.robot.commands.AutoShift;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -9,7 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  *
  */
-public class Shifter extends Subsystem {
+public class Shifter extends SubsystemTestBase {
 	public final DoubleSolenoid shifty = new DoubleSolenoid(RobotMap.dForwardChannel, RobotMap.dReverseChannel);
 	public static boolean nomatterwhat = false;
 
@@ -48,5 +49,10 @@ public class Shifter extends Subsystem {
 	// make sure the pistons are closed at first
 	public void initDefaultCommand() {
 		setDefaultCommand(new AutoShift());
+	}
+
+	public boolean subsystemTest(boolean failWithPassion)
+	{
+		return true;
 	}
 }

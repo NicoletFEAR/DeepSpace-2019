@@ -2,6 +2,7 @@
 package frc.robot.subsystems;
 import  frc.robot.commands.*;
 import  frc.robot.RobotMap;
+import frc.robot.SubsystemTestBase;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -9,7 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  *
  */
-public class Lifter extends Subsystem {
+public class Lifter extends SubsystemTestBase {
 	private final  DoubleSolenoid liftingMechFront = new DoubleSolenoid(RobotMap.aForwardChannel,RobotMap.aReverseChannel);
 	private final  DoubleSolenoid liftingMechBack  =  new DoubleSolenoid(RobotMap.bForwardChannel,RobotMap.bReverseChannel);
 	private static int count = 0;
@@ -80,5 +81,10 @@ public class Lifter extends Subsystem {
 	// make sure the pistons are closed at first
     public void initDefaultCommand() {
 		liftBackDown();
-    }
+	}
+	
+	public boolean subsystemTest(boolean failWithPassion)
+	{
+		return true;
+	}
 }

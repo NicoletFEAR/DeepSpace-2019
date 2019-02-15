@@ -3,11 +3,12 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.SubsystemTestBase;
 
 /**
  *
  */
-public class PressureSensor extends Subsystem {
+public class PressureSensor extends SubsystemTestBase {
 	public AnalogInput ai = new AnalogInput(0);
 	// Put methods for controlling this subsystem
 	public int getPressure() {
@@ -28,5 +29,10 @@ public class PressureSensor extends Subsystem {
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
 		// setDefaultCommand(new MySpecialCommand());
+	}
+
+	public boolean subsystemTest(boolean failWithPassion)
+	{
+		return true;
 	}
 }

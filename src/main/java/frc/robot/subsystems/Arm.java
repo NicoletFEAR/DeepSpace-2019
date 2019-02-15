@@ -8,13 +8,14 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
+import frc.robot.SubsystemTestBase;
 import frc.robot.commands.Levels;
 
 /**
  * This subsystem is used for precise positioning of the arm of the robot, and
  * for extending/retracting the arm
  */
-public class Arm extends Subsystem {
+public class Arm extends SubsystemTestBase {
     double integral = 0;
     double previousError = 0;
     double previousDesiredtargetEncoderValue = 0;
@@ -106,4 +107,8 @@ public class Arm extends Subsystem {
         return speed;
     }
 
+    public boolean subsystemTest(boolean failWithPassion)
+    {
+        return true;
+    }
 }
