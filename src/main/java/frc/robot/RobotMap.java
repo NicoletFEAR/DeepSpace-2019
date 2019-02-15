@@ -20,7 +20,7 @@ import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-// import frc.robot.subsystems.AirCompressor;
+import frc.robot.subsystems.AirCompressor;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -100,7 +100,7 @@ public class RobotMap {
 	// public static AnalogInput ultraLeft;
 	// public static AnalogInput ultraRight;
 	// Pneumatics
-	// public static AirCompressor airCompressor;
+	public static AirCompressor airCompressor;
 	public static int aModuleNumber = 0;
 	public static int aForwardChannel = 2;
 	public static int aReverseChannel = 1;
