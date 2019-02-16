@@ -54,6 +54,10 @@ public class RobotMap {
 
 	public static DifferentialDrive robotDrive;
 
+	// COMPRESSOR:
+	public static Integer PRESSURE_TOO_LOW_VALUE = 60;
+	public static Integer PRESSURE_TOO_HIGH_VALUE = 115;
+
 	// PID CONSTANTS:
 	public static double ERROR_CONSTANT_LEFT = 0.0;
 	public static double ERROR_CONSTANT_RIGHT = 0.0;

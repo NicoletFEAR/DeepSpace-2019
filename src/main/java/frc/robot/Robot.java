@@ -10,8 +10,8 @@ import edu.wpi.cscore.VideoSink;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.SPI.Port;
+import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -64,6 +64,7 @@ public class Robot extends TimedRobot {
     // public static ArduinoInterface arduinoCameraInterface;
 
     public static Compressor compressorOAir;
+    public boolean compressorRunning = true;
 
     private static JadbConnection m_jadb = null;
     private static List<JadbDevice> m_devices = null;
@@ -253,6 +254,13 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("V_flywheel1", RobotMap.flywheel1.getMotorOutputVoltage());
         SmartDashboard.putBoolean("armIsManual",Robot.arm.armIsManual);
 
+        if (pressureSensor.getPressure() < RobotMap.PRESSURE_TOO_LOW_VALUE) {
+            compressorOAir.setClosedLoopControl(true);            
+            compressorRunning = true;
+        } else if (pressureSensor.getPressure() > RobotMap.PRESSURE_TOO_HIGH_VALUE) {
+            compressorOAir.setClosedLoopControl(false);
+            compressorRunning = false;
+        }
 
     }
 }
