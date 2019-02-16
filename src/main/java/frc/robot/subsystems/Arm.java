@@ -26,6 +26,8 @@ public class Arm extends Subsystem {
     double encoderPosition;
     double error;
 
+    public boolean armIsManual = false;
+
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
     // make sure the pistons are closed at first
@@ -73,7 +75,7 @@ public class Arm extends Subsystem {
             RobotMap.armMotor1.set(ControlMode.PercentOutput,  -RobotMap.ARM_LIMITER);
             RobotMap.armMotor2.set(ControlMode.PercentOutput, -RobotMap.ARM_LIMITER);
         } else {
-            RobotMap.armMotor1.set(ControlMode.PercentOutput, 0.66 * speed);
+            RobotMap.armMotor1.set(ControlMode.PercentOutput, speed);
             RobotMap.armMotor2.set(ControlMode.PercentOutput, speed);
         }
 
@@ -116,6 +118,13 @@ public class Arm extends Subsystem {
             System.out.println("0");
         }
     }
+
+
+    public void manualControl(double joystickInput) {
+        RobotMap.armMotor1.set(ControlMode.PercentOutput, joystickInput);
+        RobotMap.armMotor2.set(ControlMode.PercentOutput, joystickInput);
+    }
+
 
     public double getArm1Encoder() {
         return RobotMap.armMotor1.getSelectedSensorPosition(); // negative because enoder happens to be the poother way

@@ -251,6 +251,8 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("V_left1", RobotMap.left1.getMotorOutputVoltage());
         SmartDashboard.putNumber("V_right1", RobotMap.right1.getMotorOutputVoltage());
         SmartDashboard.putNumber("V_flywheel1", RobotMap.flywheel1.getMotorOutputVoltage());
+        SmartDashboard.putBoolean("armIsManual",Robot.arm.armIsManual);
+
 
     }
 }

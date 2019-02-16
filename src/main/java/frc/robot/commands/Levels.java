@@ -33,6 +33,9 @@ public class Levels extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+        if (Robot.arm.armIsManual) {
+            Robot.arm.manualControl(Robot.oi.getXbox2().getY(Hand.kLeft));
+        } else {
         RobotMap.targetEncoderValue += (int) (25 * Robot.oi.getXbox2().getY(Hand.kLeft));
 
         if (RobotMap.targetEncoderValue + RobotMap.offset > RobotMap.ARM_MAX_TICK_VAL)
@@ -40,21 +43,12 @@ public class Levels extends Command {
 
         if (RobotMap.targetEncoderValue + RobotMap.offset< RobotMap.ARM_MIN_TICK_VAL)
             RobotMap.targetEncoderValue = RobotMap.ARM_MIN_TICK_VAL - RobotMap.offset;
-        // if(RobotMap.targetEncoderValue<RobotMap.ARM_MAX_TICK_VAL ||
-        // RobotMap.targetEncoderValue>RobotMap.ARM_MIN_TICK_VAL){
-        // if(RobotMap.targetEncoderValue>(RobotMap.ARM_MAX_TICK_VAL+RobotMap.ARM_MIN_TICK_VAL)/2)
-        // RobotMap.targetEncoderValue = (int)RobotMap.ARM_MAX_TICK_VAL;
-        // else RobotMap.targetEncoderValue = (int)RobotMap.ARM_MIN_TICK_VAL;
-        // } 
-
-        // if (Robot.driveTrain.isReversed())
-        //     Robot.arm.rotateToPosition(-RobotMap.targetEncoderValue + RobotMap.offset);
-        // else
-        //     Robot.arm.rotateToPosition(RobotMap.targetEncoderValue + RobotMap.offset);
+        
         if(Robot.driveTrain.isReversed())
             Robot.arm.rotateToPosition(-RobotMap.targetEncoderValue+RobotMap.offset);
         else 
             Robot.arm.rotateToPosition(RobotMap.targetEncoderValue+RobotMap.offset);
+        }
     }
 
     // Make this return true when this Command no longer needs to run execute()
