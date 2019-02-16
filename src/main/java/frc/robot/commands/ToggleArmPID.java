@@ -29,11 +29,8 @@ public class ToggleArmPID extends InstantCommand {
   @Override
   protected void initialize() {
 
-    if (Robot.arm.armIsManual) {
-      Robot.arm.armIsManual = false;
-    } else {
-      Robot.arm.armIsManual = true;
-    }
+    Robot.arm.armIsManual = !Robot.arm.armIsManual;
+    
     SmartDashboard.putBoolean("armIsManual",Robot.arm.armIsManual);
   }
 
