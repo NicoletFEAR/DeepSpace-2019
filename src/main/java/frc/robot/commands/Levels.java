@@ -52,9 +52,9 @@ public class Levels extends Command {
         // else
         //     Robot.arm.rotateToPosition(RobotMap.targetEncoderValue + RobotMap.offset);
         if(Robot.driveTrain.isReversed())
-            Robot.arm.rotateNoPID(-RobotMap.targetEncoderValue+RobotMap.offset);
+            Robot.arm.rotateToPosition(-RobotMap.targetEncoderValue+RobotMap.offset);
         else 
-            Robot.arm.rotateNoPID(RobotMap.targetEncoderValue+RobotMap.offset);
+            Robot.arm.rotateToPosition(RobotMap.targetEncoderValue+RobotMap.offset);
     }
 
     // Make this return true when this Command no longer needs to run execute()

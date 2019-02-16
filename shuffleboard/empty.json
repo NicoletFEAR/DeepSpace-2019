@@ -17,33 +17,70 @@
             ],
             "content": {
               "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/y_val_target: ",
-              "_title": "y_val_target: "
+              "_source0": "network_table:///SmartDashboard/velL",
+              "_title": "velL"
             }
           },
-          "1,0": {
+          "0,3": {
             "size": [
-              1,
-              1
+              4,
+              2
             ],
             "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/SwitchFront",
-              "_title": "SwitchFront"
+              "_type": "Graph",
+              "_source0": "network_table:///SmartDashboard/V_armMotor1",
+              "_title": "V_armMotor1",
+              "Graph/Visible time": 30.0,
+              "Visible data/SmartDashboard/V_armMotor1": true
             }
           },
-          "2,0": {
+          "4,3": {
+            "size": [
+              4,
+              2
+            ],
+            "content": {
+              "_type": "Graph",
+              "_source0": "network_table:///SmartDashboard/V_armMotor2",
+              "_title": "V_armMotor2",
+              "Graph/Visible time": 30.0,
+              "Visible data/SmartDashboard/V_armMotor2": true
+            }
+          },
+          "3,0": {
             "size": [
               1,
               1
             ],
             "content": {
               "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/z_val_target: ",
-              "_title": "z_val_target: "
+              "_source0": "network_table:///SmartDashboard/velR",
+              "_title": "velR"
+            }
+          },
+          "4,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/angle_val_target: ",
+              "_title": "angle_val_target: "
             }
           },
           "5,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/NavX",
+              "_title": "NavX"
+            }
+          },
+          "6,0": {
             "size": [
               1,
               1
@@ -54,7 +91,84 @@
               "_title": "Left Encoder: "
             }
           },
-          "6,0": {
+          "7,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Target",
+              "_title": "Target"
+            }
+          },
+          "8,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/y_val_target: ",
+              "_title": "y_val_target: "
+            }
+          },
+          "9,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/V_right1",
+              "_title": "V_right1"
+            }
+          },
+          "0,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/ArmySpeedyBoi",
+              "_title": "ArmySpeedyBoi"
+            }
+          },
+          "1,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/NavX Angle: ",
+              "_title": "NavX Angle: "
+            }
+          },
+          "2,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Camera Mode: ",
+              "_title": "Camera Mode: "
+            }
+          },
+          "3,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/V_left1",
+              "_title": "V_left1"
+            }
+          },
+          "4,1": {
             "size": [
               1,
               1
@@ -65,62 +179,7 @@
               "_title": "Right Encoder: "
             }
           },
-          "7,0": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/turnamount",
-              "_title": "turnamount"
-            }
-          },
-          "8,0": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/sensor analogin",
-              "_title": "sensor analogin"
-            }
-          },
-          "9,0": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/sensor analoginraw",
-              "_title": "sensor analoginraw"
-            }
-          },
-          "0,1": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/sensor analongvel",
-              "_title": "sensor analongvel"
-            }
-          },
-          "3,1": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/averageVelocity",
-              "_title": "averageVelocity"
-            }
-          },
-          "4,1": {
+          "5,1": {
             "size": [
               1,
               1
@@ -131,24 +190,10 @@
               "_title": "x_val_target: "
             }
           },
-          "5,1": {
+          "6,1": {
             "size": [
               1,
               1
-            ],
-            "content": {
-              "_type": "Simple Dial",
-              "_source0": "network_table:///SmartDashboard/angle_val_target: ",
-              "_title": "angle_val_target: ",
-              "Range/Min": -60.0,
-              "Range/Max": 60.0,
-              "Visuals/Show value": true
-            }
-          },
-          "0,2": {
-            "size": [
-              2,
-              2
             ],
             "content": {
               "_type": "Boolean Box",
@@ -165,57 +210,22 @@
             ],
             "content": {
               "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Camera Mode: ",
-              "_title": "Camera Mode: "
+              "_source0": "network_table:///SmartDashboard/V_flywheel1",
+              "_title": "V_flywheel1"
             }
           },
-          "6,1": {
+          "3,2": {
             "size": [
-              1,
+              2,
               1
             ],
             "content": {
               "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Pressure",
-              "_title": "Pressure"
-            }
-          },
-          "8,1": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Boolean Box",
-              "_source0": "network_table:///SmartDashboard/Pressure is not enough",
-              "_title": "Pressure is not enough",
-              "Colors/Color when true": "#7CFC00FF",
-              "Colors/Color when false": "#8B0000FF"
+              "_source0": "network_table:///SmartDashboard/Arm2 Encoder Value",
+              "_title": "Arm2 Encoder Value"
             }
           },
           "9,1": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Arm Encoder Value",
-              "_title": "Arm Encoder Value"
-            }
-          },
-          "2,2": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Target",
-              "_title": "Target"
-            }
-          },
-          "5,2": {
             "size": [
               1,
               1
@@ -228,147 +238,26 @@
               "Colors/Color when false": "#8B0000FF"
             }
           },
-          "7,2": {
+          "0,2": {
             "size": [
               1,
               1
             ],
             "content": {
               "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/original angle",
-              "_title": "original angle"
+              "_source0": "network_table:///SmartDashboard/z_val_target: ",
+              "_title": "z_val_target: "
             }
           },
-          "8,2": {
+          "1,2": {
             "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Desired angle",
-              "_title": "Desired angle"
-            }
-          },
-          "9,2": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/CurrentAngle",
-              "_title": "CurrentAngle"
-            }
-          },
-          "2,3": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/currentDistance",
-              "_title": "currentDistance"
-            }
-          },
-          "3,3": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/ArmySpeedyBoi",
-              "_title": "ArmySpeedyBoi"
-            }
-          },
-          "4,3": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/NavX Angle: ",
-              "_title": "NavX Angle: "
-            }
-          },
-          "7,3": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/V_left1",
-              "_title": "V_left1"
-            }
-          },
-          "8,3": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/V_right1",
-              "_title": "V_right1"
-            }
-          },
-          "9,3": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/V_flywheel1",
-              "_title": "V_flywheel1"
-            }
-          },
-          "3,2": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/turnToAngleSpeed",
-              "_title": "turnToAngleSpeed"
-            }
-          },
-          "4,2": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/turnError",
-              "_title": "turnError"
-            }
-          },
-          "5,3": {
-            "size": [
-              1,
+              2,
               1
             ],
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Arm1 Encoder Value",
               "_title": "Arm1 Encoder Value"
-            }
-          },
-          "6,3": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Arm2 Encoder Value",
-              "_title": "Arm2 Encoder Value"
             }
           }
         }
