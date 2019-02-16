@@ -14,10 +14,10 @@ public class GameMech extends Subsystem {
 	
 	public void initDefaultCommand() {
 		setDefaultCommand(new FlyWheelDrive());
-		shootOut();
+		open();
 	}
 
-	public void shootOut() {
+	public void open() {
 		panelShooter.set(DoubleSolenoid.Value.kForward);
 	}
 	
@@ -25,11 +25,11 @@ public class GameMech extends Subsystem {
 		panelShooter.set(DoubleSolenoid.Value.kReverse);
 	}
 	// shift the gearbox to the opposite state
-	public void shoot(){
+	public void toggleMechPiston(){
 		if (panelShooter.get()==DoubleSolenoid.Value.kForward){
 			pull();
 		}else {
-			shootOut();
+			open();
 		}
 	}
 

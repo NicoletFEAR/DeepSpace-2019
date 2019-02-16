@@ -49,6 +49,9 @@ public class RobotMap {
 
 	public static final double ARM_LIMITER = 1.0; // not 775 motors
 
+	public static double ARM_MOTOR_SLOW_FORWARDS = 0.928; // slow the faster motor to match the slower 
+	public static double ARM_MOTOR_SLOW_BACKWARDS = 0.967; // slow the faster motor to match the slower
+
 	// LIFT SYSTEM:
 	public static TalonSRX supportWheel1;
 	public static TalonSRX supportWheel2;
