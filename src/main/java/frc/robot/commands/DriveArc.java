@@ -50,7 +50,7 @@ public class DriveArc extends Command {
 
     public DriveArc() {
         // requires(Robot.driveTrain);
-        this(24, 24, 45);
+        this(-24, 48, 60);
     }
 
     public DriveArc(double x, double y, double theta) {

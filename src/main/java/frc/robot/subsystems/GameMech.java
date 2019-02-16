@@ -7,6 +7,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -38,6 +39,14 @@ public class GameMech extends Subsystem {
 	public void spinFlyWheels(double speed){
 		RobotMap.flywheel1.set(ControlMode.PercentOutput, speed);
 		RobotMap.flywheel2.set(ControlMode.PercentOutput, speed);
+	}
+
+	public double getFlywheel1Encoder(){
+		return RobotMap.flywheel1.getSelectedSensorPosition();
+	}
+
+	public double getFlywheel2Encoder(){
+		return RobotMap.flywheel2.getSelectedSensorPosition();
 	}
     // Put methods for controlling this subsystem
     // here. Call these from Commands.

@@ -155,7 +155,8 @@ public class OI {
 
         xbox1X.whenPressed(new SwitchFront());
         xbox1X.whenPressed(new SwitchAndroidCamera());
-        xbox1Y.whenPressed(new TurnToAngle(90));
+        // xbox1Y.whenPressed(new TurnToAngle(90));
+        xbox1Y.whenPressed(new DriveArc(-24,48,60));
         xbox1Back.whenPressed(new ToggleArmPID());
 
         // xbox1A.whenPressed(new DriveArc());
@@ -174,7 +175,6 @@ public class OI {
         xbox2Y.whenPressed(new GameMechClose());
         xbox2B.whenPressed(new GameMechOpen());
         xbox2A.whenPressed(new FlyWheelSetSpeed());
-        // xbox2X.whenPressed(new DriveArc());
 
         xbox2RTrig.whenPressed(new IncrementCap());
         xbox2LTrig.whenPressed(new DecrementCap());

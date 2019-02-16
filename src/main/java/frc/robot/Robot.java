@@ -162,6 +162,9 @@ public class Robot extends TimedRobot {
         teleopInit();
         RobotMap.armMotor1.setSelectedSensorPosition(0);
         RobotMap.armMotor2.setSelectedSensorPosition(0);
+        
+		RobotMap.flywheel1.setSelectedSensorPosition(0,0,10);
+		RobotMap.flywheel2.setSelectedSensorPosition(0,0,10);
 
         RobotMap.targetEncoderValue = 0;
         RobotMap.offset = 0;
@@ -253,6 +256,7 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("V_flywheel1", RobotMap.flywheel1.getMotorOutputVoltage());
         SmartDashboard.putBoolean("armIsManual",Robot.arm.armIsManual);
 
-
+        SmartDashboard.putNumber("flywheel1", gameMech.getFlywheel1Encoder());
+        SmartDashboard.putNumber("flywheel2", gameMech.getFlywheel2Encoder());
     }
 }
