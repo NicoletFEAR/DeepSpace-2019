@@ -83,18 +83,23 @@ public class Arm extends Subsystem {
         if (error > 200) {
             RobotMap.armMotor1.set(ControlMode.PercentOutput, -RobotMap.ARM_LIMITER);
             RobotMap.armMotor2.set(ControlMode.PercentOutput, -RobotMap.ARM_LIMITER);
+            SmartDashboard.putNumber("SPD_ARM_NO_PID", -1);
         } else if (error < -200) {
             RobotMap.armMotor1.set(ControlMode.PercentOutput, RobotMap.ARM_LIMITER);
             RobotMap.armMotor2.set(ControlMode.PercentOutput, RobotMap.ARM_LIMITER);
+            SmartDashboard.putNumber("SPD_ARM_NO_PID", 1);
         } else if (error < -50) {
             RobotMap.armMotor1.set(ControlMode.PercentOutput, 0.5 * RobotMap.ARM_LIMITER);
             RobotMap.armMotor2.set(ControlMode.PercentOutput, 0.5 * RobotMap.ARM_LIMITER);
+            SmartDashboard.putNumber("SPD_ARM_NO_PID", 0.5);
         } else if (error > 50) {
             RobotMap.armMotor1.set(ControlMode.PercentOutput, 0.5 * -RobotMap.ARM_LIMITER);
             RobotMap.armMotor2.set(ControlMode.PercentOutput, 0.5 * -RobotMap.ARM_LIMITER);
+            SmartDashboard.putNumber("SPD_ARM_NO_PID", -0.5);
         } else {
             RobotMap.armMotor1.set(ControlMode.PercentOutput, 0);
             RobotMap.armMotor2.set(ControlMode.PercentOutput, 0);
+            SmartDashboard.putNumber("SPD_ARM_NO_PID", 0);
         }
     }
 

@@ -349,28 +349,6 @@
               "_title": "NavX Angle: "
             }
           },
-          "5,3": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/V_armMotor1",
-              "_title": "V_armMotor1"
-            }
-          },
-          "6,3": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/V_armMotor2",
-              "_title": "V_armMotor2"
-            }
-          },
           "7,3": {
             "size": [
               1,
@@ -402,6 +380,50 @@
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/V_flywheel1",
               "_title": "V_flywheel1"
+            }
+          },
+          "3,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/turnToAngleSpeed",
+              "_title": "turnToAngleSpeed"
+            }
+          },
+          "4,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/turnError",
+              "_title": "turnError"
+            }
+          },
+          "5,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Arm1 Encoder Value",
+              "_title": "Arm1 Encoder Value"
+            }
+          },
+          "6,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Arm2 Encoder Value",
+              "_title": "Arm2 Encoder Value"
             }
           }
         }

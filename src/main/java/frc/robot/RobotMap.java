@@ -175,7 +175,7 @@ public class RobotMap {
 		armMotor1.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 10); // new frame ever X miliseconds
 		armMotor1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
 		armMotor1.setSelectedSensorPosition(0);
-		armMotor2 = new TalonSRX(23);
+		armMotor2 = new TalonSRX(22);
 		armMotor2.setNeutralMode(NeutralMode.Brake);
 		armMotor2.setInverted(true);
 		// armMotor2.setInverted(InvertType.FollowMaster);
@@ -183,7 +183,7 @@ public class RobotMap {
 
 		supportWheel1 = new TalonSRX(21);
 		supportWheel1.setNeutralMode(NeutralMode.Coast);
-		supportWheel2 = new TalonSRX(22);
+		supportWheel2 = new TalonSRX(23);
 		supportWheel2.setNeutralMode(NeutralMode.Coast);
 
 		// airCompressor = new AirCompressor(compressormodule);
