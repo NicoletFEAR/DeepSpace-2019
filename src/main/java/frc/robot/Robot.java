@@ -160,21 +160,9 @@ public class Robot extends TimedRobot {
         if (autonomousCommand != null)
             autonomousCommand.start();
         teleopInit();
-    }
-
-    @Override
-
-    public void autonomousPeriodic() {
-        teleopPeriodic();
-        // double distanceLeft = RobotMap.ultraLeft.getAverageVoltage() * 300 / 293 * 1000 / 25.4;
-        // SmartDashboard.putNumber("Distance from left ultrasonic (inches)", distanceLeft);
-        // double distanceRight = RobotMap.ultraRight.getAverageVoltage() * 300 / 293 * 1000 / 25.4;
-        // SmartDashboard.putNumber("Distance from right ultrasonic (inches)", distanceRight);
-    }
-
-    @Override
-    public void teleopInit() {
         RobotMap.armMotor1.setSelectedSensorPosition(0);
+        RobotMap.armMotor2.setSelectedSensorPosition(0);
+
         RobotMap.targetEncoderValue = 0;
         RobotMap.offset = 0;
         RobotMap.ARM_MAX_TICK_VAL = 4200;
@@ -189,6 +177,21 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("Left Encoder: ", Robot.driveTrain.getLeftEncoderPosition());
         SmartDashboard.putNumber("Right Encoder: ", Robot.driveTrain.getRightEncoderPosition());
         lifter.initDefaultCommand();
+    }
+
+    @Override
+
+    public void autonomousPeriodic() {
+        teleopPeriodic();
+        // double distanceLeft = RobotMap.ultraLeft.getAverageVoltage() * 300 / 293 * 1000 / 25.4;
+        // SmartDashboard.putNumber("Distance from left ultrasonic (inches)", distanceLeft);
+        // double distanceRight = RobotMap.ultraRight.getAverageVoltage() * 300 / 293 * 1000 / 25.4;
+        // SmartDashboard.putNumber("Distance from right ultrasonic (inches)", distanceRight);
+    }
+
+    @Override
+    public void teleopInit() {
+        
     }
 
     /**
@@ -248,6 +251,8 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("V_left1", RobotMap.left1.getMotorOutputVoltage());
         SmartDashboard.putNumber("V_right1", RobotMap.right1.getMotorOutputVoltage());
         SmartDashboard.putNumber("V_flywheel1", RobotMap.flywheel1.getMotorOutputVoltage());
+        SmartDashboard.putBoolean("armIsManual",Robot.arm.armIsManual);
+
 
     }
 }

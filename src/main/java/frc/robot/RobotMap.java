@@ -85,7 +85,7 @@ public class RobotMap {
 	public static final int CargoLoadingStation = -1200;
 	public static final int CargoFloor = -3500;
 	public static final int StraightUp = 0;
-	public static final double ARM_kP = 0.005;
+	public static final double ARM_kP = 0.01;
 	public static final double ARM_kI = 0.0000;// 5; //0.0005 too fast
 	public static final double ARM_kD = 0.00000;// 75; // 0.000015 too fast
 	public static double ARM_TICKS_PER_REVOLUTION = 4096.0; // Needs to be updated on final bot!!!!!!!!!!!!!!!!!!!!!!!!
@@ -165,7 +165,7 @@ public class RobotMap {
 		armMotor1.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 10); // new frame ever X miliseconds
 		armMotor1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
 		armMotor1.setSelectedSensorPosition(0);
-		armMotor2 = new TalonSRX(23);
+		armMotor2 = new TalonSRX(22);
 		armMotor2.setNeutralMode(NeutralMode.Brake);
 		armMotor2.setInverted(true);
 		// armMotor2.setInverted(InvertType.FollowMaster);
@@ -173,7 +173,7 @@ public class RobotMap {
 
 		supportWheel1 = new TalonSRX(21);
 		supportWheel1.setNeutralMode(NeutralMode.Coast);
-		supportWheel2 = new TalonSRX(22);
+		supportWheel2 = new TalonSRX(23);
 		supportWheel2.setNeutralMode(NeutralMode.Coast);
 
 		// airCompressor = new AirCompressor(compressormodule);

@@ -6,6 +6,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 
 // import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
 import frc.robot.commands.Levels;
@@ -24,6 +25,8 @@ public class Arm extends Subsystem {
 
     double encoderPosition;
     double error;
+
+    public boolean armIsManual = false;
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
@@ -61,11 +64,15 @@ public class Arm extends Subsystem {
         speed = RobotMap.ARM_kP * error + RobotMap.ARM_kI * integral + RobotMap.ARM_kD * derivative;
         speed *= -1;
 
+        if (Math.abs(error) < 5) {
+            speed = 0;
+        }
+
         if (speed > RobotMap.ARM_LIMITER) {
             RobotMap.armMotor1.set(ControlMode.PercentOutput, RobotMap.ARM_LIMITER);
             RobotMap.armMotor2.set(ControlMode.PercentOutput, RobotMap.ARM_LIMITER);
         } else if (speed < -RobotMap.ARM_LIMITER) {
-            RobotMap.armMotor1.set(ControlMode.PercentOutput, -RobotMap.ARM_LIMITER);
+            RobotMap.armMotor1.set(ControlMode.PercentOutput,  -RobotMap.ARM_LIMITER);
             RobotMap.armMotor2.set(ControlMode.PercentOutput, -RobotMap.ARM_LIMITER);
         } else {
             RobotMap.armMotor1.set(ControlMode.PercentOutput, speed);
@@ -83,20 +90,41 @@ public class Arm extends Subsystem {
         if (error > 200) {
             RobotMap.armMotor1.set(ControlMode.PercentOutput, -RobotMap.ARM_LIMITER);
             RobotMap.armMotor2.set(ControlMode.PercentOutput, -RobotMap.ARM_LIMITER);
+            SmartDashboard.putNumber("SPD_ARM_NO_PID", -1);
+            System.out.println("-1");
+
         } else if (error < -200) {
             RobotMap.armMotor1.set(ControlMode.PercentOutput, RobotMap.ARM_LIMITER);
             RobotMap.armMotor2.set(ControlMode.PercentOutput, RobotMap.ARM_LIMITER);
-        } else if (error < -50) {
-            RobotMap.armMotor1.set(ControlMode.PercentOutput, 0.5 * RobotMap.ARM_LIMITER);
-            RobotMap.armMotor2.set(ControlMode.PercentOutput, 0.5 * RobotMap.ARM_LIMITER);
-        } else if (error > 50) {
-            RobotMap.armMotor1.set(ControlMode.PercentOutput, 0.5 * -RobotMap.ARM_LIMITER);
-            RobotMap.armMotor2.set(ControlMode.PercentOutput, 0.5 * -RobotMap.ARM_LIMITER);
+            SmartDashboard.putNumber("SPD_ARM_NO_PID", 1);
+            System.out.println("1");
+
+        } else if (error < -5) {
+            RobotMap.armMotor1.set(ControlMode.PercentOutput, 0.1 * RobotMap.ARM_LIMITER);
+            RobotMap.armMotor2.set(ControlMode.PercentOutput, 0.1 * RobotMap.ARM_LIMITER);
+            SmartDashboard.putNumber("SPD_ARM_NO_PID", 0.5);
+            System.out.println("0.5");
+
+        } else if (error > 5) {
+            RobotMap.armMotor1.set(ControlMode.PercentOutput, 0.1 * -RobotMap.ARM_LIMITER);
+            RobotMap.armMotor2.set(ControlMode.PercentOutput, 0.1 * -RobotMap.ARM_LIMITER);
+            SmartDashboard.putNumber("SPD_ARM_NO_PID", -0.5);
+            System.out.println("-0.5");
+
         } else {
             RobotMap.armMotor1.set(ControlMode.PercentOutput, 0);
             RobotMap.armMotor2.set(ControlMode.PercentOutput, 0);
+            SmartDashboard.putNumber("SPD_ARM_NO_PID", 0);
+            System.out.println("0");
         }
     }
+
+
+    public void manualControl(double joystickInput) {
+        RobotMap.armMotor1.set(ControlMode.PercentOutput, joystickInput);
+        RobotMap.armMotor2.set(ControlMode.PercentOutput, joystickInput);
+    }
+
 
     public double getArm1Encoder() {
         return RobotMap.armMotor1.getSelectedSensorPosition(); // negative because enoder happens to be the poother way
