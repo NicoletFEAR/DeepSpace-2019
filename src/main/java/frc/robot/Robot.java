@@ -218,7 +218,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void robotPeriodic() { // maybe works Check!!!!!
-        SmartDashboard.putNumber("Arm Encoder Value", arm.getArmEncoder());
+        SmartDashboard.putNumber("Arm Encoder Value", arm.getArm1Encoder());
         SmartDashboard.putNumber("y_val_target: ", y_val_target);
         SmartDashboard.putNumber("z_val_target: ", z_val_target);
         SmartDashboard.putNumber("x_val_target: ", x_val_target);

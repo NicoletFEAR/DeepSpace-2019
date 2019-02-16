@@ -122,14 +122,14 @@ public class DriveTrain extends Subsystem {
 		// SmartDashboard.putNumber("Right Side", rightSide.get());
 
 		/*
-		SensorCollection sensor = RobotMap.right1.getSensorCollection();
-
-		SmartDashboard.putNumber("sensor analogin", sensor.getAnalogIn());
-		SmartDashboard.putNumber("sensor analoginraw", sensor.getAnalogInRaw());
-		SmartDashboard.putNumber("sensor analongvel", sensor.getAnalogInVel());
-		SmartDashboard.putNumber("sensor widthpos", sensor.getPulseWidthPosition());
-		SmartDashboard.putNumber("sensor velocity", sensor.getQuadratureVelocity());
-		*/
+		 * SensorCollection sensor = RobotMap.right1.getSensorCollection();
+		 * 
+		 * SmartDashboard.putNumber("sensor analogin", sensor.getAnalogIn());
+		 * SmartDashboard.putNumber("sensor analoginraw", sensor.getAnalogInRaw());
+		 * SmartDashboard.putNumber("sensor analongvel", sensor.getAnalogInVel());
+		 * SmartDashboard.putNumber("sensor widthpos", sensor.getPulseWidthPosition());
+		 * SmartDashboard.putNumber("sensor velocity", sensor.getQuadratureVelocity());
+		 */
 	}
 
 	public void ArcadeDrive(double robotOutput, double turnAmount) {
@@ -183,8 +183,10 @@ public class DriveTrain extends Subsystem {
 		double outputRight = robotOutput + turnAmount;
 		double max = outputLeft < outputRight ? outputRight : outputLeft;
 		double multiplier;
-		if(max>1) multiplier = RobotMap.DRIVE_LIMITER / (max);
-		else multiplier = 1;
+		if (max > 1)
+			multiplier = RobotMap.DRIVE_LIMITER / (max);
+		else
+			multiplier = 1;
 
 		outputLeft *= multiplier;
 		outputRight *= multiplier;
@@ -298,6 +300,7 @@ public class DriveTrain extends Subsystem {
 
 	double currentDistance = 0.0;
 	double driveError = 0.0;
+
 	public boolean driveToPosition(double desiredDistance) {
 		// checks if the target has changed
 		// if it has changed, reset the base variables to 0;
@@ -329,6 +332,8 @@ public class DriveTrain extends Subsystem {
 	}
 
 	double turnError = 0.0;
+	double startingAngle = 0.0;
+
 	public boolean turnToAngle(double desiredAngle) {
 		// checks if the target has changed
 		// if it has changed, reset the base variables to 0
@@ -336,25 +341,40 @@ public class DriveTrain extends Subsystem {
 			integral = 0;
 			previousError = 0;
 			previousDesiredAngle = desiredAngle;
+			startingAngle = Robot.navX.getAngle();
 		}
+
 		double currentAngle = Robot.navX.getAngle();
 
-		turnError = desiredAngle - currentAngle;
+		turnError = (desiredAngle + startingAngle) - currentAngle;
+
+		SmartDashboard.putNumber("turnError", turnError);
+
 		integral += turnError * TURN_ERROR_SCALING;
+
 		double derivative = (turnError - previousError) / TURN_ERROR_SCALING;
 		double speed = RobotMap.TURN_kP * turnError + RobotMap.TURN_kI * integral + RobotMap.TURN_kD * derivative;
 
-		if (desiredAngle > 0) {
-			RobotMap.right1.set(ControlMode.PercentOutput, -speed);
-			RobotMap.left1.set(ControlMode.PercentOutput, speed);
-		} else {
-			RobotMap.right1.set(ControlMode.PercentOutput, speed);
-			RobotMap.left1.set(ControlMode.PercentOutput, -speed);
-		}
+		SmartDashboard.putNumber("turnToAngleSpeed", speed);
 
-		if (turnError < RobotMap.TURN_ERROR_CONSTANT && turnError > -RobotMap.TURN_ERROR_CONSTANT) {
+		RacingDrive(0, speed);
+
+		/*
+		 * if (desiredAngle > 0) { RobotMap.right1.set(ControlMode.PercentOutput,
+		 * -speed); RobotMap.left1.set(ControlMode.PercentOutput, speed); } else {
+		 * RobotMap.right1.set(ControlMode.PercentOutput, speed);
+		 * RobotMap.left1.set(ControlMode.PercentOutput, -speed); }
+		 */
+
+		if (turnError < RobotMap.TURN_ERROR_CONSTANT && turnError > -RobotMap.TURN_ERROR_CONSTANT) {		
+			integral = 0;
+			previousError = 0;
+			previousDesiredAngle = 0.1;
+			desiredAngle = 0;
 			return true;
 		}
+
+		previousError = turnError;
 		return false;
 	}
 
