@@ -9,18 +9,16 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-/**
- *
- */
+
 public class GameMech extends Subsystem {
 	private final  DoubleSolenoid panelShooter = new DoubleSolenoid(RobotMap.cForwardChannel,RobotMap.cReverseChannel);
 	
 	public void initDefaultCommand() {
 		setDefaultCommand(new FlyWheelDrive());
-		shootOut();
+		open();
 	}
 
-	public void shootOut() {
+	public void open() {
 		panelShooter.set(DoubleSolenoid.Value.kForward);
 	}
 	
@@ -28,11 +26,11 @@ public class GameMech extends Subsystem {
 		panelShooter.set(DoubleSolenoid.Value.kReverse);
 	}
 	// shift the gearbox to the opposite state
-	public void shoot(){
+	public void toggleMechPiston(){
 		if (panelShooter.get()==DoubleSolenoid.Value.kForward){
 			pull();
 		}else {
-			shootOut();
+			open();
 		}
 	}
 
@@ -47,6 +45,12 @@ public class GameMech extends Subsystem {
 
 	public double getFlywheel2Encoder(){
 		return RobotMap.flywheel2.getSelectedSensorPosition();
+	}
+	
+	public boolean getCargoLimitSwitch(){
+		boolean cargoIn;
+		cargoIn = RobotMap.cargoIntakeLimitSwitch.get();
+		return cargoIn;
 	}
     // Put methods for controlling this subsystem
     // here. Call these from Commands.

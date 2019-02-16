@@ -38,6 +38,9 @@ public class RobotMap {
 	public static TalonSRX flywheel1;
 	public static TalonSRX flywheel2;
 
+	public static DigitalInput cargoIntakeLimitSwitch; // intake limit switch
+	public static Integer CARGO_LIMIT_SWITCH_INPUT;
+
 	public static final double FLYWHEEL_LIMITER = 1.0; // 775 motors
 
 	// ARM:
@@ -46,6 +49,9 @@ public class RobotMap {
 
 	public static final double ARM_LIMITER = 1.0; // not 775 motors
 
+	public static double ARM_MOTOR_SLOW_FORWARDS = 0.928; // slow the faster motor to match the slower 
+	public static double ARM_MOTOR_SLOW_BACKWARDS = 0.967; // slow the faster motor to match the slower
+
 	// LIFT SYSTEM:
 	public static TalonSRX supportWheel1;
 	public static TalonSRX supportWheel2;
@@ -53,6 +59,10 @@ public class RobotMap {
 	public static final double SUPPORT_LIMITER = 1.0; // not 775 motors
 
 	public static DifferentialDrive robotDrive;
+
+	// COMPRESSOR:
+	public static Integer PRESSURE_TOO_LOW_VALUE = 60;
+	public static Integer PRESSURE_TOO_HIGH_VALUE = 115;
 
 	// PID CONSTANTS:
 	public static double ERROR_CONSTANT_LEFT = 0.0;
@@ -156,6 +166,8 @@ public class RobotMap {
 		flywheel2.setInverted(false);
 		flywheel1.setNeutralMode(NeutralMode.Brake);
 		flywheel2.setNeutralMode(NeutralMode.Brake);
+
+		cargoIntakeLimitSwitch = new DigitalInput(CARGO_LIMIT_SWITCH_INPUT);
 
 		// next 2 need to be switched back to 21/22,
 		// using them for PID testing

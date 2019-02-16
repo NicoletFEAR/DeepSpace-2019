@@ -65,8 +65,8 @@ public class OI {
     public XboxController xbox1; // the drive controller // input 0 on driver station
     private Button xbox1LeftStick;
     private Button xbox1RightStick;
-    private Button xbox1LTrig;
-    private Button xbox1RTrig;
+    private Button xbox1LBumper;
+    private Button xbox1RBumper;
     private Button xbox1Start;
     private Button xbox1Back;
     private Button xbox1X;
@@ -83,8 +83,8 @@ public class OI {
     private Button xbox2Y;
     private Button xbox2B;
     private Button xbox2A;
-    private Button xbox2LTrig;
-    private Button xbox2RTrig;
+    private Button xbox2LBumper;
+    private Button xbox2RBumper;
     public static boolean visionOn;
 
     private Joystick armLevelController; // input 2 on driver station
@@ -119,8 +119,8 @@ public class OI {
         xbox1B = new JoystickButton(xbox1, 2);
         xbox1X = new JoystickButton(xbox1, 3);
         xbox1Y = new JoystickButton(xbox1, 4);
-        xbox1LTrig = new JoystickButton(xbox1, 5);
-        xbox1RTrig = new JoystickButton(xbox1, 6);
+        xbox1LBumper = new JoystickButton(xbox1, 5);
+        xbox1RBumper = new JoystickButton(xbox1, 6);
         xbox1Back = new JoystickButton(xbox1, 7);
         xbox1Start = new JoystickButton(xbox1, 8);
         xbox1LeftStick = new JoystickButton(xbox1, 9);
@@ -132,8 +132,8 @@ public class OI {
         xbox2B = new JoystickButton(xbox2, 2);
         xbox2X = new JoystickButton(xbox2, 3);
         xbox2Y = new JoystickButton(xbox2, 4);
-        xbox2LTrig = new JoystickButton(xbox2, 5);
-        xbox2RTrig = new JoystickButton(xbox2, 6);
+        xbox2LBumper = new JoystickButton(xbox2, 5);
+        xbox2RBumper = new JoystickButton(xbox2, 6);
         xbox2Back = new JoystickButton(xbox2, 7);
         xbox2Start = new JoystickButton(xbox2, 8);
         xbox2LeftStick = new JoystickButton(xbox2, 9);
@@ -176,8 +176,8 @@ public class OI {
         xbox2B.whenPressed(new GameMechOpen());
         xbox2A.whenPressed(new FlyWheelSetSpeed());
 
-        xbox2RTrig.whenPressed(new IncrementCap());
-        xbox2LTrig.whenPressed(new DecrementCap());
+        xbox2RBumper.whenPressed(new IncrementCap());
+        xbox2LBumper.whenPressed(new DecrementCap());
         // xbox2B.whenPressed(new MoveToLevel(1));
         // xbox2A.whenPressed(new MoveToLevel(4));
 
