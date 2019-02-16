@@ -34,8 +34,14 @@ public class Levels extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
         if (Robot.arm.armIsManual) {
-            Robot.arm.manualControl(Robot.oi.getXbox2().getY(Hand.kLeft));
+            if(Robot.driveTrain.isReversed()) {
+                Robot.arm.manualControl(-(Robot.oi.getXbox2().getY(Hand.kLeft)));
+            } else {
+                Robot.arm.manualControl(Robot.oi.getXbox2().getY(Hand.kLeft));
+            } 
+
         } else {
+
         RobotMap.targetEncoderValue += (int) (25 * Robot.oi.getXbox2().getY(Hand.kLeft));
 
         if (RobotMap.targetEncoderValue + RobotMap.offset > RobotMap.ARM_MAX_TICK_VAL)
@@ -48,6 +54,7 @@ public class Levels extends Command {
             Robot.arm.rotateToPosition(-RobotMap.targetEncoderValue+RobotMap.offset);
         else 
             Robot.arm.rotateToPosition(RobotMap.targetEncoderValue+RobotMap.offset);
+        
         }
     }
 
