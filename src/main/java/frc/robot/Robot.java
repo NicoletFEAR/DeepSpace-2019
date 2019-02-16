@@ -217,8 +217,10 @@ public class Robot extends TimedRobot {
     }
 
     @Override
-    public void robotPeriodic() { // maybe works Check!!!!!
-        SmartDashboard.putNumber("Arm Encoder Value", arm.getArm1Encoder());
+    public void robotPeriodic() { // Always runs, good for printing
+        SmartDashboard.putNumber("Arm1 Encoder Value", arm.getArm1Encoder());
+        SmartDashboard.putNumber("Arm2 Encoder Value", arm.getArm2Encoder());
+
         SmartDashboard.putNumber("y_val_target: ", y_val_target);
         SmartDashboard.putNumber("z_val_target: ", z_val_target);
         SmartDashboard.putNumber("x_val_target: ", x_val_target);
