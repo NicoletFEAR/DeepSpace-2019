@@ -9,15 +9,18 @@
 // it from being updated in the future.
 
 package frc.robot.commands;
+
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 // import frc.robot.RobotMap;
 // import frc.robot.subsystems.DriveTrain;
+import frc.robot.RobotMap;
 
 // import com.ctre.phoenix.motorcontrol.ControlMode;
 
 // import frc.robot.OI;
 import edu.wpi.first.wpilibj.GenericHID;
+
 // import edu.wpi.first.wpilibj.GenericHID.Hand;
 /**
  *
@@ -34,25 +37,33 @@ public class FlyWheelDrive extends Command {
 
     @Override
     protected void execute() {
-    	//for joy sticks
- //   	Robot.driveTrain.takeJoystickInputs(Robot.oi.getLeftJoystick() , Robot.oi.getRightJoystick());
+        // for joy sticks
+        // Robot.driveTrain.takeJoystickInputs(Robot.oi.getLeftJoystick() ,
+        // Robot.oi.getRightJoystick());
 
-    	// for xbox controller     
-//    	double rightStickValue = Robot.oi.getXbox1().getY(GenericHID.Hand.kRight);   	
-//    	double leftStickValue = Robot.oi.getXbox1().getY(GenericHID.Hand.kLeft);
-//    	System.out.println(-leftStickValue);
-//    	Robot.driveTrain.takeStickInputValues( - leftStickValue , - rightStickValue);
-    	
-    	double forwardValue = Robot.oi.getXbox2().getTriggerAxis(GenericHID.Hand.kRight) * 0.75;   	
-    	double reverseValue = Robot.oi.getXbox2().getTriggerAxis(GenericHID.Hand.kLeft) * 0.75;
-    	// double turnAmount = Robot.oi.getXbox1().getX(GenericHID.Hand.kLeft);
-    	
-    	//Calculate an Arcade drive speed by taking forward speed and subtracting it by reverse speed
-    	//So Cool! :D
-    	double robotOutput = forwardValue - reverseValue;
-    	
-    	Robot.gameMech.spinFlyWheels(robotOutput);
-     }
+        // for xbox controller
+        // double rightStickValue = Robot.oi.getXbox1().getY(GenericHID.Hand.kRight);
+        // double leftStickValue = Robot.oi.getXbox1().getY(GenericHID.Hand.kLeft);
+        // System.out.println(-leftStickValue);
+        // Robot.driveTrain.takeStickInputValues( - leftStickValue , - rightStickValue);
+
+        double forwardValue = Robot.oi.getXbox2().getTriggerAxis(GenericHID.Hand.kRight);
+        double reverseValue = Robot.oi.getXbox2().getTriggerAxis(GenericHID.Hand.kLeft);
+        // double turnAmount = Robot.oi.getXbox1().getX(GenericHID.Hand.kLeft);
+
+        // Calculate an Arcade drive speed by taking forward speed and subtracting it by
+        // reverse speed
+        // So Cool! :D
+        double robotOutput = forwardValue - reverseValue;
+
+        if (robotOutput > RobotMap.FLYWHEEL_LIMITER)
+            robotOutput = RobotMap.FLYWHEEL_LIMITER;
+        else if (robotOutput < -RobotMap.FLYWHEEL_LIMITER)
+            robotOutput = -RobotMap.FLYWHEEL_LIMITER;
+
+
+        Robot.gameMech.spinFlyWheels(robotOutput);
+    }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
@@ -63,13 +74,13 @@ public class FlyWheelDrive extends Command {
     // Called once after isFinished returns true
     @Override
     protected void end() {
-    	Robot.driveTrain.stop();
+        Robot.driveTrain.stop();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     @Override
     protected void interrupted() {
-    	end();
+        end();
     }
 }

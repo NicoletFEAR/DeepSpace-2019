@@ -85,7 +85,7 @@ public class RobotMap {
 	// ARM MOVEMENT CONSTANTS:
 	public static int maxChangeAmt = 100; // how much the arm moves by
 	public static int targetEncoderValue;
-	public static final int CargoShipDropPoint = 100;
+	public static final int CargoShipDropPoint = -100;
 	public static final int CargoLevel1TargetValue = -2000;
 	public static final int CargoLevel2TargetValue = -1200;
 	public static final int CargoLevel3TargetValue = -900;
