@@ -259,28 +259,6 @@
               "_title": "Target"
             }
           },
-          "3,2": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Distance from left ultrasonic (inches)",
-              "_title": "Distance from left ultrasonic (inches)"
-            }
-          },
-          "4,2": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Distance from right ultrasonic (inches)",
-              "_title": "Distance from right ultrasonic (inches)"
-            }
-          },
           "5,2": {
             "size": [
               1,
@@ -347,6 +325,83 @@
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/currentDistance",
               "_title": "currentDistance"
+            }
+          },
+          "3,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/ArmySpeedyBoi",
+              "_title": "ArmySpeedyBoi"
+            }
+          },
+          "4,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/NavX Angle: ",
+              "_title": "NavX Angle: "
+            }
+          },
+          "5,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/V_armMotor1",
+              "_title": "V_armMotor1"
+            }
+          },
+          "6,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/V_armMotor2",
+              "_title": "V_armMotor2"
+            }
+          },
+          "7,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/V_left1",
+              "_title": "V_left1"
+            }
+          },
+          "8,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/V_right1",
+              "_title": "V_right1"
+            }
+          },
+          "9,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/V_flywheel1",
+              "_title": "V_flywheel1"
             }
           }
         }

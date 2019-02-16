@@ -122,14 +122,14 @@ public class DriveTrain extends Subsystem {
 		// SmartDashboard.putNumber("Right Side", rightSide.get());
 
 		/*
-		SensorCollection sensor = RobotMap.right1.getSensorCollection();
-
-		SmartDashboard.putNumber("sensor analogin", sensor.getAnalogIn());
-		SmartDashboard.putNumber("sensor analoginraw", sensor.getAnalogInRaw());
-		SmartDashboard.putNumber("sensor analongvel", sensor.getAnalogInVel());
-		SmartDashboard.putNumber("sensor widthpos", sensor.getPulseWidthPosition());
-		SmartDashboard.putNumber("sensor velocity", sensor.getQuadratureVelocity());
-		*/
+		 * SensorCollection sensor = RobotMap.right1.getSensorCollection();
+		 * 
+		 * SmartDashboard.putNumber("sensor analogin", sensor.getAnalogIn());
+		 * SmartDashboard.putNumber("sensor analoginraw", sensor.getAnalogInRaw());
+		 * SmartDashboard.putNumber("sensor analongvel", sensor.getAnalogInVel());
+		 * SmartDashboard.putNumber("sensor widthpos", sensor.getPulseWidthPosition());
+		 * SmartDashboard.putNumber("sensor velocity", sensor.getQuadratureVelocity());
+		 */
 	}
 
 	public void ArcadeDrive(double robotOutput, double turnAmount) {
@@ -178,10 +178,15 @@ public class DriveTrain extends Subsystem {
 		}
 	}
 
-	public void ArcadeDriveVer2(double robotOutput, double turnAmount) {
+	public void RacingDrive(double robotOutput, double turnAmount) {
 		double outputLeft = -robotOutput + turnAmount;
 		double outputRight = robotOutput + turnAmount;
-		double multiplier = RobotMap.DRIVE_LIMITER / (outputLeft < outputRight ? outputRight : outputLeft);
+		double max = outputLeft < outputRight ? outputRight : outputLeft;
+		double multiplier;
+		if (max > 1)
+			multiplier = RobotMap.DRIVE_LIMITER / (max);
+		else
+			multiplier = 1;
 
 		outputLeft *= multiplier;
 		outputRight *= multiplier;
@@ -199,9 +204,6 @@ public class DriveTrain extends Subsystem {
 		// SmartDashboard.putNumber("Left Side", leftSide.get());
 		// SmartDashboard.putNumber("Right Side", rightSide.get());
 
-		SensorCollection sensorLeft = RobotMap.left1.getSensorCollection();
-		SensorCollection sensorRight = RobotMap.right1.getSensorCollection();
-
 		// SmartDashboard.putNumber("sensor analogin", sensorRight.getAnalogIn());
 		// SmartDashboard.putNumber("sensor analoginraw", sensorRight.getAnalogInRaw());
 		// SmartDashboard.putNumber("sensor analongvel", sensorRight.getAnalogInVel());
@@ -209,28 +211,6 @@ public class DriveTrain extends Subsystem {
 		// sensorRight.getPulseWidthPosition());
 		// SmartDashboard.putNumber("sensor velocity",
 		// sensorRight.getQuadratureVelocity());
-
-		// Shifting Logic Ahead
-		double averageVelocity = (Math.abs(sensorLeft.getQuadratureVelocity())
-				+ Math.abs(sensorRight.getQuadratureVelocity())) / 2.0;
-
-		// SmartDashboard.putNumber("averageVelocity", averageVelocity);
-
-		if (!(Robot.oi.xbox1.getStartButton())) {
-			if (averageVelocity < MAX_LOW_SPEED) { // if not in low, switch to low
-				if (Robot.shifter.shifty.get() != DoubleSolenoid.Value.kForward) {
-					Robot.shifter.shiftdown();
-				}
-			} else if (averageVelocity > MIN_HIGH_SPEED) { // if in low, switch to high
-				if (Robot.shifter.shifty.get() == DoubleSolenoid.Value.kForward) {
-					Robot.shifter.shiftup();
-				}
-			}
-		} else {
-			if (Robot.shifter.shifty.get() != DoubleSolenoid.Value.kForward) {
-				Robot.shifter.shiftdown();
-			}
-		}
 	}
 
 	// Welcome to the Amazing World of PID! (Population: 3, just P, I, and D)
@@ -320,6 +300,7 @@ public class DriveTrain extends Subsystem {
 
 	double currentDistance = 0.0;
 	double driveError = 0.0;
+
 	public boolean driveToPosition(double desiredDistance) {
 		// checks if the target has changed
 		// if it has changed, reset the base variables to 0;
@@ -351,6 +332,8 @@ public class DriveTrain extends Subsystem {
 	}
 
 	double turnError = 0.0;
+	double startingAngle = 0.0;
+
 	public boolean turnToAngle(double desiredAngle) {
 		// checks if the target has changed
 		// if it has changed, reset the base variables to 0
@@ -358,25 +341,40 @@ public class DriveTrain extends Subsystem {
 			integral = 0;
 			previousError = 0;
 			previousDesiredAngle = desiredAngle;
+			startingAngle = Robot.navX.getAngle();
 		}
+
 		double currentAngle = Robot.navX.getAngle();
 
-		turnError = desiredAngle - currentAngle;
+		turnError = (desiredAngle + startingAngle) - currentAngle;
+
+		SmartDashboard.putNumber("turnError", turnError);
+
 		integral += turnError * TURN_ERROR_SCALING;
+
 		double derivative = (turnError - previousError) / TURN_ERROR_SCALING;
 		double speed = RobotMap.TURN_kP * turnError + RobotMap.TURN_kI * integral + RobotMap.TURN_kD * derivative;
 
-		if (desiredAngle > 0) {
-			RobotMap.right1.set(ControlMode.PercentOutput, -speed);
-			RobotMap.left1.set(ControlMode.PercentOutput, speed);
-		} else {
-			RobotMap.right1.set(ControlMode.PercentOutput, speed);
-			RobotMap.left1.set(ControlMode.PercentOutput, -speed);
-		}
+		SmartDashboard.putNumber("turnToAngleSpeed", speed);
 
-		if (turnError < RobotMap.TURN_ERROR_CONSTANT && turnError > -RobotMap.TURN_ERROR_CONSTANT) {
+		RacingDrive(0, speed);
+
+		/*
+		 * if (desiredAngle > 0) { RobotMap.right1.set(ControlMode.PercentOutput,
+		 * -speed); RobotMap.left1.set(ControlMode.PercentOutput, speed); } else {
+		 * RobotMap.right1.set(ControlMode.PercentOutput, speed);
+		 * RobotMap.left1.set(ControlMode.PercentOutput, -speed); }
+		 */
+
+		if (turnError < RobotMap.TURN_ERROR_CONSTANT && turnError > -RobotMap.TURN_ERROR_CONSTANT) {		
+			integral = 0;
+			previousError = 0;
+			previousDesiredAngle = 0.1;
+			desiredAngle = 0;
 			return true;
 		}
+
+		previousError = turnError;
 		return false;
 	}
 

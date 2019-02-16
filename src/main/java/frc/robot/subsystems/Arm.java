@@ -43,7 +43,7 @@ public class Arm extends Subsystem {
         }
 
         SmartDashboard.putNumber("armTarget", desiredtargetEncoderValue);
-        encoderPosition = getArmEncoder();
+        encoderPosition = getArm1Encoder();
 
         error = desiredtargetEncoderValue - encoderPosition;
         integral += error * .02;
@@ -77,19 +77,33 @@ public class Arm extends Subsystem {
     }
 
     public void rotateNoPID(double desiredtargetEncoderValue) {
-        encoderPosition = getArmEncoder();
-        error = desiredtargetEncoderValue - encoderPosition;
+        encoderPosition = getArm1Encoder();
+        error = desiredtargetEncoderValue - encoderPosition;    
 
-        if (error > 50)
+        if (error > 200) {
             RobotMap.armMotor1.set(ControlMode.PercentOutput, -RobotMap.ARM_LIMITER);
-        else if (error < -50)
+            RobotMap.armMotor2.set(ControlMode.PercentOutput, -RobotMap.ARM_LIMITER);
+        } else if (error < -200) {
             RobotMap.armMotor1.set(ControlMode.PercentOutput, RobotMap.ARM_LIMITER);
-        else
+            RobotMap.armMotor2.set(ControlMode.PercentOutput, RobotMap.ARM_LIMITER);
+        } else if (error < -50) {
+            RobotMap.armMotor1.set(ControlMode.PercentOutput, 0.5 * RobotMap.ARM_LIMITER);
+            RobotMap.armMotor2.set(ControlMode.PercentOutput, 0.5 * RobotMap.ARM_LIMITER);
+        } else if (error > 50) {
+            RobotMap.armMotor1.set(ControlMode.PercentOutput, 0.5 * -RobotMap.ARM_LIMITER);
+            RobotMap.armMotor2.set(ControlMode.PercentOutput, 0.5 * -RobotMap.ARM_LIMITER);
+        } else {
             RobotMap.armMotor1.set(ControlMode.PercentOutput, 0);
+            RobotMap.armMotor2.set(ControlMode.PercentOutput, 0);
+        }
     }
 
-    public double getArmEncoder() {
+    public double getArm1Encoder() {
         return RobotMap.armMotor1.getSelectedSensorPosition(); // negative because enoder happens to be the poother way
+    }
+
+    public double getArm2Encoder() {
+        return RobotMap.armMotor2.getSelectedSensorPosition(); // negative because enoder happens to be the poother way
     }
 
     public double getSpeed() {

@@ -66,16 +66,16 @@ public class RobotMap {
 	public static final double DRIVE_kI = 0;
 	public static final double DRIVE_kD = 0;
 	public static final double DRIVE_ERROR_CONSTANT = 0;
-	public static final double TURN_kP = 0.02;
-	public static final double TURN_kI = 0.0001;
-	public static final double TURN_kD = 0;
-	public static final double TURN_ERROR_CONSTANT = 0;
+	public static final double TURN_kP = 0.04;
+	public static final double TURN_kI = 0;
+	public static final double TURN_kD = 0.001;
+	public static final double TURN_ERROR_CONSTANT = 1; // degrees the turn can be off
 	public static final double PERFECT_ARC_RANGE = 2;
 
 	// ARM MOVEMENT CONSTANTS:
 	public static int maxChangeAmt = 100; // how much the arm moves by
 	public static int targetEncoderValue;
-	public static final int CargoShipDropPoint = 100;
+	public static final int CargoShipDropPoint = -100;
 	public static final int CargoLevel1TargetValue = -2000;
 	public static final int CargoLevel2TargetValue = -1200;
 	public static final int CargoLevel3TargetValue = -900;

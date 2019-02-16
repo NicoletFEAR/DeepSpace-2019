@@ -69,7 +69,7 @@ public class Lifter extends Subsystem {
 		}else if (count==2){
 			liftBackDown();
 		}
-		System.out.println(count);
+		// System.out.println(count);
 		count++;
 		count = count%3;
 		SmartDashboard.putNumber("Count: ", count);
@@ -79,6 +79,6 @@ public class Lifter extends Subsystem {
     // here. Call these from Commands.
 	// make sure the pistons are closed at first
     public void initDefaultCommand() {
-		liftBackDown();
+		liftBothDown();
     }
 }
