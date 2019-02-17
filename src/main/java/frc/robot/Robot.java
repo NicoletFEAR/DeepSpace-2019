@@ -64,6 +64,7 @@ public class Robot extends TimedRobot {
     // public static ArduinoInterface arduinoCameraInterface;
 
     public static Compressor compressorOAir;
+    public boolean compressorRunning = true;
 
     private static JadbConnection m_jadb = null;
     private static List<JadbDevice> m_devices = null;
@@ -99,6 +100,8 @@ public class Robot extends TimedRobot {
         // arduinoCameraInterface = new ArduinoInterface(6);
 
         compressorOAir = new Compressor(RobotMap.compressormodule);
+        //compressorOAir.setClosedLoopControl(true);
+        compressorOAir.setClosedLoopControl(true);
 
         // OI must be constructed after subsystems. If the OI creates Commands
         // (which it very likely will), subsystems are not guaranteed to be
@@ -258,5 +261,14 @@ public class Robot extends TimedRobot {
 
         SmartDashboard.putNumber("flywheel1", gameMech.getFlywheel1Encoder());
         SmartDashboard.putNumber("flywheel2", gameMech.getFlywheel2Encoder());
+
+        if (pressureSensor.getPressure() < RobotMap.PRESSURE_TOO_LOW_VALUE) {
+            compressorOAir.setClosedLoopControl(true);                  
+            compressorRunning = true;
+        } else if (pressureSensor.getPressure() > RobotMap.PRESSURE_TOO_HIGH_VALUE) {
+            compressorOAir.setClosedLoopControl(false);
+            compressorRunning = false;
+        }
+
     }
 }
