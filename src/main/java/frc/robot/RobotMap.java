@@ -95,7 +95,7 @@ public class RobotMap {
 	public static final int CargoLoadingStation = -1200;
 	public static final int CargoFloor = -3500;
 	public static final int StraightUp = 0;
-	public static final double ARM_kP = 0.01;
+	public static final double ARM_kP = 0.001;
 	public static final double ARM_kI = 0.0000;// 5; //0.0005 too fast
 	public static final double ARM_kD = 0.00000;// 75; // 0.000015 too fast
 	public static double ARM_TICKS_PER_REVOLUTION = 4096.0; // Needs to be updated on final bot!!!!!!!!!!!!!!!!!!!!!!!!

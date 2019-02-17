@@ -254,6 +254,8 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("V_flywheel1", RobotMap.flywheel1.getMotorOutputVoltage());
         SmartDashboard.putBoolean("armIsManual",Robot.arm.armIsManual);
 
+
+        /*
         if (pressureSensor.getPressure() < RobotMap.PRESSURE_TOO_LOW_VALUE) {
             compressorOAir.setClosedLoopControl(true);            
             compressorRunning = true;
@@ -261,6 +263,7 @@ public class Robot extends TimedRobot {
             compressorOAir.setClosedLoopControl(false);
             compressorRunning = false;
         }
+        */
 
     }
 }
