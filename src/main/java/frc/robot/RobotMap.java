@@ -85,15 +85,15 @@ public class RobotMap {
 	// ARM MOVEMENT CONSTANTS:
 	public static int maxChangeAmt = 100; // how much the arm moves by
 	public static int targetEncoderValue;
-	public static final int CargoShipDropPoint = -100;
-	public static final int CargoLevel1TargetValue = -1200; //-2000
-	public static final int CargoLevel2TargetValue = -720; //-1200;
-	public static final int CargoLevel3TargetValue = -540; //-900;
-	public static final int HatchLevel1TargetValue = -1320; //-2200;
-	public static final int HatchLevel2TargetValue = -840; //-1400;
+	public static final int CargoShipDropPoint = -1200;
+	public static final int CargoLevel1TargetValue = -1500; //-2000
+	public static final int CargoLevel2TargetValue = -1100; //-1200;
+	public static final int CargoLevel3TargetValue = -560; //-900;
+	public static final int HatchLevel1TargetValue = -1600; //-2200;
+	public static final int HatchLevel2TargetValue = -1200; //-1400;
 	public static final int HatchLevel3TargetValue = -660; //-1100;
-	public static final int CargoLoadingStation = -720; //-1200;
-	public static final int CargoFloor = -2100; //-3500;
+	public static final int CargoLoadingStation = -2100; //-1200;
+	public static final int CargoFloor = -2500; //-3500;
 	public static final int StraightUp = 0;
 	public static final double ARM_kP = 0.001 ;
 	public static final double ARM_kI = 0.0000;// 5; //0.0005 too fast
