@@ -33,8 +33,8 @@ public class Levels extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        //if (Robot.arm.armIsManual) {
-        if (true) {
+        if (Robot.arm.armIsManual) {
+        //if (true) {
 
             if (Robot.driveTrain.isReversed()) {
                 Robot.arm.manualControl(-(Robot.oi.getXbox2().getY(Hand.kLeft)));

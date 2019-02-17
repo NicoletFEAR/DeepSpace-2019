@@ -32,7 +32,7 @@ public class RobotMap {
 	public static final double DRIVE_LIMITER = 1.0; // not 775 motors
 
 	public static final double SHIFT_UP_THRESHOLD = 2500; // speed at which drive base shifts up
-	public static final double SHIFT_DOWN_THRESHOLD = 2700; // speed at which drive base shifts down
+	public static final double SHIFT_DOWN_THRESHOLD = 2300; // speed at which drive base shifts down
 
 	// CARGO HATCH GAME MECH:
 	public static TalonSRX flywheel1;
@@ -162,8 +162,8 @@ public class RobotMap {
 		flywheel1 = new TalonSRX(25); // cargo handlers
 		flywheel2 = new TalonSRX(26);
 
-		flywheel1.setInverted(true); // two flywheels must be opposite to intake and shoot cargo
-		flywheel2.setInverted(false);
+		flywheel1.setInverted(false); // two flywheels must be opposite to intake and shoot cargo
+		flywheel2.setInverted(true);
 		flywheel1.setNeutralMode(NeutralMode.Brake);
 		flywheel2.setNeutralMode(NeutralMode.Brake);
 
@@ -172,13 +172,13 @@ public class RobotMap {
 		// next 2 need to be switched back to 21/22,
 		// using them for PID testing
 		armMotor1 = new TalonSRX(24);
-		armMotor1.setNeutralMode(NeutralMode.Coast);
+		armMotor1.setNeutralMode(NeutralMode.Brake);
 		armMotor1.setInverted(false);
 		armMotor1.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 10); // new frame ever X miliseconds
 		armMotor1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
 		armMotor1.setSelectedSensorPosition(0);
 		armMotor2 = new TalonSRX(22); // SHOULD BE 22
-		armMotor2.setNeutralMode(NeutralMode.Coast);
+		armMotor2.setNeutralMode(NeutralMode.Brake);
 		armMotor2.setInverted(true);
 		// armMotor2.setInverted(InvertType.FollowMaster);
 		// armMotor2.setInverted(false);
