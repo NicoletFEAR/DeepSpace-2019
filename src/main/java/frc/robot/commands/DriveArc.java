@@ -140,6 +140,7 @@ public class DriveArc extends Command {
             z = -2 * (Math.toDegrees(Math.tanh(x / y)) - theta);
             double degreesToRotate = theta + z;
 
+            if(!positive) degreesToRotate = -degreesToRotate;
             while (!turnBool) {
                 turnBool = Robot.driveTrain.turnToAngle(degreesToRotate);
 
@@ -156,6 +157,8 @@ public class DriveArc extends Command {
             z = 2 * (theta - Math.toDegrees(Math.tanh(x / y)));
             double degreesToRotate = theta - z;
 
+            if(!positive) degreesToRotate = -degreesToRotate;
+            
             while (!turnBool) {
                 turnBool = Robot.driveTrain.turnToAngle(degreesToRotate);
             }
@@ -251,7 +254,7 @@ public class DriveArc extends Command {
             double rightSpeed = speed;
             double leftSpeed = speed*circL/circR;
             double average = (leftSpeed+rightSpeed)/2;
-            Robot.driveTrain.RacingDrive(average, (rightSpeed-average));
+            Robot.driveTrain.RacingDrive(average, -(rightSpeed-average));
         }
 
     }
