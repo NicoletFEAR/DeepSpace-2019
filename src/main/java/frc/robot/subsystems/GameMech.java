@@ -7,10 +7,11 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 public class GameMech extends Subsystem {
-	private final  DoubleSolenoid panelShooter = new DoubleSolenoid(RobotMap.cForwardChannel,RobotMap.cReverseChannel);
+	private final  DoubleSolenoid panelShooter = new DoubleSolenoid(RobotMap.aForwardChannel,RobotMap.aReverseChannel);
 	
 	public void initDefaultCommand() {
 		setDefaultCommand(new FlyWheelDrive());
@@ -18,11 +19,11 @@ public class GameMech extends Subsystem {
 	}
 
 	public void open() {
-		panelShooter.set(DoubleSolenoid.Value.kForward);
+		panelShooter.set(DoubleSolenoid.Value.kReverse);
 	}
 	
 	public void pull(){
-		panelShooter.set(DoubleSolenoid.Value.kReverse);
+		panelShooter.set(DoubleSolenoid.Value.kForward);
 	}
 	// shift the gearbox to the opposite state
 	public void toggleMechPiston(){
@@ -34,14 +35,23 @@ public class GameMech extends Subsystem {
 	}
 
 	public void spinFlyWheels(double speed){
-		RobotMap.flywheel1.set(ControlMode.PercentOutput, speed);
-		RobotMap.flywheel2.set(ControlMode.PercentOutput, speed);
+		RobotMap.flywheel1.set(ControlMode.PercentOutput, -speed);
+		RobotMap.flywheel2.set(ControlMode.PercentOutput, -speed);
 	}
 
+	public double getFlywheel1Encoder(){
+		return RobotMap.flywheel1.getSelectedSensorPosition();
+	}
+
+	public double getFlywheel2Encoder(){
+		return RobotMap.flywheel2.getSelectedSensorPosition();
+	}
+	
 	public boolean getCargoLimitSwitch(){
-		boolean cargoIn;
-		cargoIn = RobotMap.cargoIntakeLimitSwitch.get();
-		return cargoIn;
+		// boolean cargoIn;
+		// cargoIn = RobotMap.cargoIntakeLimitSwitch.get();
+		// return cargoIn;
+		return RobotMap.cargoIntakeLimitSwitch.get();
 	}
     // Put methods for controlling this subsystem
     // here. Call these from Commands.

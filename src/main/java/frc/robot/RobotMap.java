@@ -31,15 +31,15 @@ public class RobotMap {
 
 	public static final double DRIVE_LIMITER = 1.0; // not 775 motors
 
-	public static final double SHIFT_UP_THRESHOLD = 1900; // speed at which drive base shifts up
-	public static final double SHIFT_DOWN_THRESHOLD = 2100; // speed at which drive base shifts down
+	public static final double SHIFT_UP_THRESHOLD = 2500; // speed at which drive base shifts up
+	public static final double SHIFT_DOWN_THRESHOLD = 2700; // speed at which drive base shifts down
 
 	// CARGO HATCH GAME MECH:
 	public static TalonSRX flywheel1;
 	public static TalonSRX flywheel2;
 
 	public static DigitalInput cargoIntakeLimitSwitch; // intake limit switch
-	public static Integer CARGO_LIMIT_SWITCH_INPUT;
+	public static int CARGO_LIMIT_SWITCH_INPUT;
 
 	public static final double FLYWHEEL_LIMITER = 1.0; // 775 motors
 
@@ -62,7 +62,7 @@ public class RobotMap {
 
 	// COMPRESSOR:
 	public static Integer PRESSURE_TOO_LOW_VALUE = 60;
-	public static Integer PRESSURE_TOO_HIGH_VALUE = 115;
+	public static Integer PRESSURE_TOO_HIGH_VALUE = 100;
 
 	// PID CONSTANTS:
 	public static double ERROR_CONSTANT_LEFT = 0.0;
@@ -113,12 +113,12 @@ public class RobotMap {
 	// Pneumatics
 	// public static AirCompressor airCompressor;
 
-	public static int aModuleNumber = 0; // IDK
-	public static int aForwardChannel = 2;
+	public static int aModuleNumber = 0; // GAME MECH
+	public static int aForwardChannel = 6;
 	public static int aReverseChannel = 1;
 
 	public static int bModuleNumber = 0; // IDK
-	public static int bForwardChannel = 5;
+	public static int bForwardChannel = 7;
 	public static int bReverseChannel = 0;
 
 	public static int cModuleNumber = 0; // IDK
@@ -126,8 +126,8 @@ public class RobotMap {
 	public static int cReverseChannel = 3;
 
 	public static int dModuleNumber = 0; // SHIFTER
-	public static int dForwardChannel = 6;
-	public static int dReverseChannel = 7;
+	public static int dForwardChannel = 5;
+	public static int dReverseChannel = 2;
 
 	public static int compressormodule = 0;
 
@@ -159,8 +159,8 @@ public class RobotMap {
 		right2.follow(right1);
 		right3.follow(right1);
 
-		flywheel1 = new TalonSRX(19); // cargo handlers
-		flywheel2 = new TalonSRX(20);
+		flywheel1 = new TalonSRX(25); // cargo handlers
+		flywheel2 = new TalonSRX(26);
 
 		flywheel1.setInverted(true); // two flywheels must be opposite to intake and shoot cargo
 		flywheel2.setInverted(false);
@@ -172,13 +172,13 @@ public class RobotMap {
 		// next 2 need to be switched back to 21/22,
 		// using them for PID testing
 		armMotor1 = new TalonSRX(24);
-		armMotor1.setNeutralMode(NeutralMode.Brake);
+		armMotor1.setNeutralMode(NeutralMode.Coast);
 		armMotor1.setInverted(false);
 		armMotor1.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 10); // new frame ever X miliseconds
 		armMotor1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
 		armMotor1.setSelectedSensorPosition(0);
-		armMotor2 = new TalonSRX(22);
-		armMotor2.setNeutralMode(NeutralMode.Brake);
+		armMotor2 = new TalonSRX(22); // SHOULD BE 22
+		armMotor2.setNeutralMode(NeutralMode.Coast);
 		armMotor2.setInverted(true);
 		// armMotor2.setInverted(InvertType.FollowMaster);
 		// armMotor2.setInverted(false);

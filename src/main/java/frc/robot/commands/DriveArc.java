@@ -48,10 +48,10 @@ public class DriveArc extends Command {
     boolean complete;
     boolean left;
 
-    public DriveArc() {
-        // requires(Robot.driveTrain);
-        this(24, 24, 45);
-    }
+    // public DriveArc() {
+    //     // requires(Robot.driveTrain);
+    //     this(-24, 48, 60);
+    // }
 
     public DriveArc(double x, double y, double theta) {
         requires(Robot.driveTrain);
@@ -117,10 +117,11 @@ public class DriveArc extends Command {
     protected void initialize() {
         complete = false;
         Robot.navX.reset();
-        double copyOfX = x;
+        boolean positive = true;
         if (x < 0) {
             x = -x;
-            theta = -theta;
+            // theta = -theta;
+            positive = false;
         }
         double prefferedLength = y / Math.cos(Math.toRadians(theta));
         double currentLength = Math.sqrt(x * x + y * y);
@@ -139,6 +140,7 @@ public class DriveArc extends Command {
             z = -2 * (Math.toDegrees(Math.tanh(x / y)) - theta);
             double degreesToRotate = theta + z;
 
+            if(!positive) degreesToRotate = -degreesToRotate;
             while (!turnBool) {
                 turnBool = Robot.driveTrain.turnToAngle(degreesToRotate);
 
@@ -155,6 +157,8 @@ public class DriveArc extends Command {
             z = 2 * (theta - Math.toDegrees(Math.tanh(x / y)));
             double degreesToRotate = theta - z;
 
+            if(!positive) degreesToRotate = -degreesToRotate;
+            
             while (!turnBool) {
                 turnBool = Robot.driveTrain.turnToAngle(degreesToRotate);
             }
@@ -167,7 +171,7 @@ public class DriveArc extends Command {
             circR = rightRadius * 2 * Math.PI * z / 360;
         }
         // System.out.println("Done turning");
-        if (copyOfX != x) {
+        if (!positive) {
             double tmp = circL;
             circL = circR;
             circR = tmp;
@@ -175,6 +179,12 @@ public class DriveArc extends Command {
 
         Robot.driveTrain.resetEncoders();
         // SmartDashboard.putBoolean("Turning complete", true);
+
+        if (Robot.driveTrain.isReversed()){
+            double tmp = circL;
+            circL = -circR;
+            circR = -tmp;
+        }
     }
 
     double currentLocation;
@@ -242,9 +252,9 @@ public class DriveArc extends Command {
             left = false;
             arcDriveRacing(circR);
             double rightSpeed = speed;
-            double leftSpeed = speed*circR/circL;
+            double leftSpeed = speed*circL/circR;
             double average = (leftSpeed+rightSpeed)/2;
-            Robot.driveTrain.RacingDrive(average, rightSpeed-average);
+            Robot.driveTrain.RacingDrive(average, -(rightSpeed-average));
         }
 
     }
