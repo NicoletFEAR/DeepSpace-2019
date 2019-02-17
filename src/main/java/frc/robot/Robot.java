@@ -58,6 +58,8 @@ public class Robot extends TimedRobot {
     public static CameraServer camera;
     public static UsbCamera front;
     public static UsbCamera back;
+    public static UsbCamera otherCam;
+
     public static VideoSink serverFront, serverBack;
     public static AHRS navX;
     // public static ArduinoInterface arduinoLEDInterface;
@@ -114,6 +116,8 @@ public class Robot extends TimedRobot {
         camera = CameraServer.getInstance();
         front = CameraServer.getInstance().startAutomaticCapture("BACK", 1);
         back = CameraServer.getInstance().startAutomaticCapture("FRONT", 0);
+        otherCam = CameraServer.getInstance().startAutomaticCapture("OTHER", 2);
+
 
         lifter.initDefaultCommand();
         serverFront = CameraServer.getInstance().getServer();
