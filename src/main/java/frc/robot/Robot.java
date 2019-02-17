@@ -112,8 +112,8 @@ public class Robot extends TimedRobot {
         // pointers. Bad news. Don't move it.
 
         camera = CameraServer.getInstance();
-        front = CameraServer.getInstance().startAutomaticCapture("FRONT", 1);
-        back = CameraServer.getInstance().startAutomaticCapture("BACK", 0);
+        front = CameraServer.getInstance().startAutomaticCapture("BACK", 1);
+        back = CameraServer.getInstance().startAutomaticCapture("FRONT", 0);
 
         lifter.initDefaultCommand();
         serverFront = CameraServer.getInstance().getServer();

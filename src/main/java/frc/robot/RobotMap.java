@@ -31,8 +31,8 @@ public class RobotMap {
 
 	public static final double DRIVE_LIMITER = 1.0; // not 775 motors
 
-	public static final double SHIFT_UP_THRESHOLD = 2500; // speed at which drive base shifts up
-	public static final double SHIFT_DOWN_THRESHOLD = 2300; // speed at which drive base shifts down
+	public static final double SHIFT_UP_THRESHOLD = 2300; // speed at which drive base shifts up
+	public static final double SHIFT_DOWN_THRESHOLD = 2100; // speed at which drive base shifts down
 
 	// CARGO HATCH GAME MECH:
 	public static TalonSRX flywheel1;
@@ -47,7 +47,7 @@ public class RobotMap {
 	public static TalonSRX armMotor1;
 	public static TalonSRX armMotor2;
 
-	public static final double ARM_LIMITER = 1.0; // not 775 motors
+	public static final double ARM_LIMITER = 0.4; // not 775 motors
 
 	public static double ARM_MOTOR_SLOW_FORWARDS = 0.928; // slow the faster motor to match the slower 
 	public static double ARM_MOTOR_SLOW_BACKWARDS = 0.967; // slow the faster motor to match the slower
@@ -86,21 +86,21 @@ public class RobotMap {
 	public static int maxChangeAmt = 100; // how much the arm moves by
 	public static int targetEncoderValue;
 	public static final int CargoShipDropPoint = -100;
-	public static final int CargoLevel1TargetValue = -2000;
-	public static final int CargoLevel2TargetValue = -1200;
-	public static final int CargoLevel3TargetValue = -900;
-	public static final int HatchLevel1TargetValue = -2200;
-	public static final int HatchLevel2TargetValue = -1400;
-	public static final int HatchLevel3TargetValue = -1100;
-	public static final int CargoLoadingStation = -1200;
-	public static final int CargoFloor = -3500;
+	public static final int CargoLevel1TargetValue = -1200; //-2000
+	public static final int CargoLevel2TargetValue = -720; //-1200;
+	public static final int CargoLevel3TargetValue = -540; //-900;
+	public static final int HatchLevel1TargetValue = -1320; //-2200;
+	public static final int HatchLevel2TargetValue = -840; //-1400;
+	public static final int HatchLevel3TargetValue = -660; //-1100;
+	public static final int CargoLoadingStation = -720; //-1200;
+	public static final int CargoFloor = -2100; //-3500;
 	public static final int StraightUp = 0;
-	public static final double ARM_kP = 0.001;
+	public static final double ARM_kP = 0.003;
 	public static final double ARM_kI = 0.0000;// 5; //0.0005 too fast
 	public static final double ARM_kD = 0.00000;// 75; // 0.000015 too fast
 	public static double ARM_TICKS_PER_REVOLUTION = 4096.0; // Needs to be updated on final bot!!!!!!!!!!!!!!!!!!!!!!!!
-	public static int ARM_MAX_TICK_VAL = 4200;
-	public static int ARM_MIN_TICK_VAL = -4200;
+	public static int ARM_MAX_TICK_VAL = 2750;
+	public static int ARM_MIN_TICK_VAL = -2750;
 	public static int offset = 0;
 	//public static double armSpeedLimit = 1; // max speed we want arm motors to go to
 
