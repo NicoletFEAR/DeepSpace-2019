@@ -446,6 +446,17 @@
               "_source0": "network_table:///SmartDashboard/currentDistance",
               "_title": "currentDistance"
             }
+          },
+          "9,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/SwitchFront",
+              "_title": "SwitchFront"
+            }
           }
         }
       }
