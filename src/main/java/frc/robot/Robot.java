@@ -10,6 +10,7 @@ import edu.wpi.cscore.VideoSink;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -164,12 +165,16 @@ public class Robot extends TimedRobot {
     @Override
 
     public void autonomousPeriodic() {
-        //Incase we ever accidentally enter autonomous 
+        // Incase we ever accidentally enter autonomous
         arduino.writeStringData("orangelight");
-        // double distanceLeft = RobotMap.ultraLeft.getAverageVoltage() * 300 / 293 * 1000 / 25.4;
-        // SmartDashboard.putNumber("Distance from left ultrasonic (inches)", distanceLeft);
-        // double distanceRight = RobotMap.ultraRight.getAverageVoltage() * 300 / 293 * 1000 / 25.4;
-        // SmartDashboard.putNumber("Distance from right ultrasonic (inches)", distanceRight);
+        // double distanceLeft = RobotMap.ultraLeft.getAverageVoltage() * 300 / 293 *
+        // 1000 / 25.4;
+        // SmartDashboard.putNumber("Distance from left ultrasonic (inches)",
+        // distanceLeft);
+        // double distanceRight = RobotMap.ultraRight.getAverageVoltage() * 300 / 293 *
+        // 1000 / 25.4;
+        // SmartDashboard.putNumber("Distance from right ultrasonic (inches)",
+        // distanceRight);
     }
 
     @Override
@@ -179,7 +184,6 @@ public class Robot extends TimedRobot {
         RobotMap.offset = 0;
         RobotMap.ARM_MAX_TICK_VAL = 4200;
         RobotMap.ARM_MIN_TICK_VAL = -4200;
-
 
         Robot.driveTrain.resetEncoders();
         double velocityRight = Robot.driveTrain.getRightEncoderVelocity();
@@ -227,16 +231,21 @@ public class Robot extends TimedRobot {
 
         SmartDashboard.putNumber("Right Encoder: ", Robot.driveTrain.getRightEncoderPosition());
         SmartDashboard.putBoolean("Switch Front", Robot.driveTrain.isReversed());
-        // double distanceLeft = RobotMap.ultraLeft.getAverageVoltage() * 300 / 293 * 1000 / 25.4;
-        // SmartDashboard.putNumber("Distance from left ultrasonic (inches)", distanceLeft);
-        // double distanceRight = RobotMap.ultraRight.getAverageVoltage() * 300 / 293 * 1000 / 25.4;
-        // SmartDashboard.putNumber("Distance from right ultrasonic (inches)", distanceRight);
+        // double distanceLeft = RobotMap.ultraLeft.getAverageVoltage() * 300 / 293 *
+        // 1000 / 25.4;
+        // SmartDashboard.putNumber("Distance from left ultrasonic (inches)",
+        // distanceLeft);
+        // double distanceRight = RobotMap.ultraRight.getAverageVoltage() * 300 / 293 *
+        // 1000 / 25.4;
+        // SmartDashboard.putNumber("Distance from right ultrasonic (inches)",
+        // distanceRight);
 
-        if (!driveArc) {
+      
+             if (!driveArc) {
             arduino.writeStringData("purplelight");
         } else if (!isTargetNull) {
             arduino.writeStringData("yellowlight");
-        }  else {
+        } else {
             if (DriverStation.getInstance().getAlliance().toString().equalsIgnoreCase("red")) {
                 arduino.writeStringData("redlight");
             } else {
