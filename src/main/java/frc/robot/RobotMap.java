@@ -95,7 +95,7 @@ public class RobotMap {
 	public static final int CargoLoadingStation = -720; //-1200;
 	public static final int CargoFloor = -2100; //-3500;
 	public static final int StraightUp = 0;
-	public static final double ARM_kP = 0.003;
+	public static final double ARM_kP = 0.001 ;
 	public static final double ARM_kI = 0.0000;// 5; //0.0005 too fast
 	public static final double ARM_kD = 0.00000;// 75; // 0.000015 too fast
 	public static double ARM_TICKS_PER_REVOLUTION = 4096.0; // Needs to be updated on final bot!!!!!!!!!!!!!!!!!!!!!!!!
@@ -164,8 +164,8 @@ public class RobotMap {
 
 		flywheel1.setInverted(false); // two flywheels must be opposite to intake and shoot cargo
 		flywheel2.setInverted(true);
-		flywheel1.setNeutralMode(NeutralMode.Brake);
-		flywheel2.setNeutralMode(NeutralMode.Brake);
+		flywheel1.setNeutralMode(NeutralMode.Coast);
+		flywheel2.setNeutralMode(NeutralMode.Coast);
 
 		cargoIntakeLimitSwitch = new DigitalInput(CARGO_LIMIT_SWITCH_INPUT);
 
