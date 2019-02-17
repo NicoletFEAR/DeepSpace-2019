@@ -64,7 +64,7 @@ public class Arm extends Subsystem {
         speed = RobotMap.ARM_kP * error + RobotMap.ARM_kI * integral + RobotMap.ARM_kD * derivative;
         speed *= -1;
 
-        if (Math.abs(error) < 50) {
+        if (Math.abs(error) < 75) {
             speed = 0;
         }
 
