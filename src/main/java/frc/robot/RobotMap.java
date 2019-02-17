@@ -39,7 +39,7 @@ public class RobotMap {
 	public static TalonSRX flywheel2;
 
 	public static DigitalInput cargoIntakeLimitSwitch; // intake limit switch
-	public static Integer CARGO_LIMIT_SWITCH_INPUT;
+	public static int CARGO_LIMIT_SWITCH_INPUT;
 
 	public static final double FLYWHEEL_LIMITER = 1.0; // 775 motors
 
@@ -133,9 +133,9 @@ public class RobotMap {
 
 	public static void init() {
 		targetEncoderValue = 0;
-		left1 = new TalonSRX(13);
+		left1 = new TalonSRX(15);
 		left1.setNeutralMode(NeutralMode.Brake);
-		left2 = new TalonSRX(15);
+		left2 = new TalonSRX(13);
 		left2.setNeutralMode(NeutralMode.Brake);
 		left3 = new TalonSRX(17);
 		left3.setNeutralMode(NeutralMode.Brake);
@@ -146,9 +146,9 @@ public class RobotMap {
 		left2.follow(left1);
 		left3.follow(left1);
 
-		right1 = new TalonSRX(14);
+		right1 = new TalonSRX(16);
 		right1.setNeutralMode(NeutralMode.Brake);
-		right2 = new TalonSRX(16);
+		right2 = new TalonSRX(14);
 		right2.setNeutralMode(NeutralMode.Brake);
 		right3 = new TalonSRX(18);
 		right3.setNeutralMode(NeutralMode.Brake);

@@ -69,15 +69,21 @@ public class Arm extends Subsystem {
         }
 
         if (speed > RobotMap.ARM_LIMITER) {
-            RobotMap.armMotor1.set(ControlMode.PercentOutput, RobotMap.ARM_LIMITER);
-            RobotMap.armMotor2.set(ControlMode.PercentOutput, RobotMap.ARM_LIMITER);
+            speed = RobotMap.ARM_LIMITER;
+            // RobotMap.armMotor1.set(ControlMode.PercentOutput,  RobotMap.ARM_LIMITER);
+            // RobotMap.armMotor2.set(ControlMode.PercentOutput, RobotMap.ARM_LIMITER);
         } else if (speed < -RobotMap.ARM_LIMITER) {
-            RobotMap.armMotor1.set(ControlMode.PercentOutput,  -RobotMap.ARM_LIMITER);
-            RobotMap.armMotor2.set(ControlMode.PercentOutput, -RobotMap.ARM_LIMITER);
-        } else {
-            RobotMap.armMotor1.set(ControlMode.PercentOutput, speed);
-            RobotMap.armMotor2.set(ControlMode.PercentOutput, speed);
+            speed = -RobotMap.ARM_LIMITER;
+            // RobotMap.armMotor1.set(ControlMode.PercentOutput,  -RobotMap.ARM_LIMITER);
+            // RobotMap.armMotor2.set(ControlMode.PercentOutput, -RobotMap.ARM_LIMITER);
         }
+        RobotMap.armMotor1.set(ControlMode.PercentOutput, speed);
+        RobotMap.armMotor2.set(ControlMode.PercentOutput, speed);
+        // if(speed < 0){
+        //     RobotMap.armMotor2.set(ControlMode.PercentOutput, speed * RobotMap.ARM_MOTOR_SLOW_BACKWARDS);
+        // } else {
+        //     RobotMap.armMotor2.set(ControlMode.PercentOutput, speed * RobotMap.ARM_MOTOR_SLOW_FORWARDS);
+        // }
 
         previousError = error;
 
@@ -88,35 +94,21 @@ public class Arm extends Subsystem {
         error = desiredtargetEncoderValue - encoderPosition;    
 
         if (error > 200) {
-            RobotMap.armMotor1.set(ControlMode.PercentOutput, -RobotMap.ARM_LIMITER);
-            RobotMap.armMotor2.set(ControlMode.PercentOutput, -RobotMap.ARM_LIMITER);
-            SmartDashboard.putNumber("SPD_ARM_NO_PID", -1);
-            System.out.println("-1");
-
+            speed = -1.0;
         } else if (error < -200) {
-            RobotMap.armMotor1.set(ControlMode.PercentOutput, RobotMap.ARM_LIMITER);
-            RobotMap.armMotor2.set(ControlMode.PercentOutput, RobotMap.ARM_LIMITER);
-            SmartDashboard.putNumber("SPD_ARM_NO_PID", 1);
-            System.out.println("1");
-
+            speed = 1.0;
         } else if (error < -5) {
-            RobotMap.armMotor1.set(ControlMode.PercentOutput, 0.1 * RobotMap.ARM_LIMITER);
-            RobotMap.armMotor2.set(ControlMode.PercentOutput, 0.1 * RobotMap.ARM_LIMITER);
-            SmartDashboard.putNumber("SPD_ARM_NO_PID", 0.5);
-            System.out.println("0.5");
-
+            speed = 0.5;
         } else if (error > 5) {
-            RobotMap.armMotor1.set(ControlMode.PercentOutput, 0.1 * -RobotMap.ARM_LIMITER);
-            RobotMap.armMotor2.set(ControlMode.PercentOutput, 0.1 * -RobotMap.ARM_LIMITER);
-            SmartDashboard.putNumber("SPD_ARM_NO_PID", -0.5);
-            System.out.println("-0.5");
-
+            speed = -0.5;
         } else {
-            RobotMap.armMotor1.set(ControlMode.PercentOutput, 0);
-            RobotMap.armMotor2.set(ControlMode.PercentOutput, 0);
-            SmartDashboard.putNumber("SPD_ARM_NO_PID", 0);
-            System.out.println("0");
+            speed = 0.0;
         }
+
+        SmartDashboard.putNumber("SPD_ARM_NO_PID", 0);
+        RobotMap.armMotor1.set(ControlMode.PercentOutput, speed * RobotMap.ARM_LIMITER);
+        RobotMap.armMotor2.set(ControlMode.PercentOutput, speed * RobotMap.ARM_LIMITER);
+
     }
 
 

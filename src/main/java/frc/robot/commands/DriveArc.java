@@ -120,7 +120,7 @@ public class DriveArc extends Command {
         double copyOfX = x;
         if (x < 0) {
             x = -x;
-            theta = -theta;
+            // theta = -theta;
         }
         double prefferedLength = y / Math.cos(Math.toRadians(theta));
         double currentLength = Math.sqrt(x * x + y * y);
@@ -175,6 +175,11 @@ public class DriveArc extends Command {
 
         Robot.driveTrain.resetEncoders();
         // SmartDashboard.putBoolean("Turning complete", true);
+
+        if (Robot.driveTrain.isReversed()){
+            circL = -circL;
+            circR = -circR;
+        }
     }
 
     double currentLocation;

@@ -56,8 +56,8 @@ public class Robot extends TimedRobot {
     public static PressureSensor pressureSensor;
     public static Shifter shifter;
     public static CameraServer camera;
-    public static UsbCamera front;
-    public static UsbCamera back;
+    // public static UsbCamera front;
+    // public static UsbCamera back;
     public static VideoSink serverFront, serverBack;
     public static AHRS navX;
     // public static ArduinoInterface arduinoLEDInterface;
@@ -106,14 +106,14 @@ public class Robot extends TimedRobot {
         // pointers. Bad news. Don't move it.
 
         // camera = CameraServer.getInstance();
-        front = CameraServer.getInstance().startAutomaticCapture("FRONT", 1);
-        back = CameraServer.getInstance().startAutomaticCapture("BACK", 0);
+        // front = CameraServer.getInstance().startAutomaticCapture("FRONT", 1);
+        // back = CameraServer.getInstance().startAutomaticCapture("BACK", 0);
 
         lifter.initDefaultCommand();
-        serverFront = CameraServer.getInstance().getServer();
-        serverBack = CameraServer.getInstance().getServer();
-        front.setConnectionStrategy(edu.wpi.cscore.VideoSource.ConnectionStrategy.kKeepOpen);
-        back.setConnectionStrategy(edu.wpi.cscore.VideoSource.ConnectionStrategy.kKeepOpen);
+        // serverFront = CameraServer.getInstance().getServer();
+        // serverBack = CameraServer.getInstance().getServer();
+        // front.setConnectionStrategy(edu.wpi.cscore.VideoSource.ConnectionStrategy.kKeepOpen);
+        // back.setConnectionStrategy(edu.wpi.cscore.VideoSource.ConnectionStrategy.kKeepOpen);
         // serverFront.setSource(front);
         // serverBack.setSource(back);
         oi = new OI();

@@ -17,241 +17,13 @@
             ],
             "content": {
               "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/velL",
-              "_title": "velL"
-            }
-          },
-          "0,3": {
-            "size": [
-              4,
-              2
-            ],
-            "content": {
-              "_type": "Graph",
-              "_source0": "network_table:///SmartDashboard/V_armMotor1",
-              "_title": "V_armMotor1",
-              "Graph/Visible time": 30.0,
-              "Visible data/SmartDashboard/V_armMotor1": true
-            }
-          },
-          "4,3": {
-            "size": [
-              4,
-              2
-            ],
-            "content": {
-              "_type": "Graph",
-              "_source0": "network_table:///SmartDashboard/V_armMotor2",
-              "_title": "V_armMotor2",
-              "Graph/Visible time": 30.0,
-              "Visible data/SmartDashboard/V_armMotor2": true
+              "_source0": "network_table:///SmartDashboard/NavX Angle: ",
+              "_title": "NavX Angle: "
             }
           },
           "1,0": {
             "size": [
               1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/velR",
-              "_title": "velR"
-            }
-          },
-          "4,0": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/angle_val_target: ",
-              "_title": "angle_val_target: "
-            }
-          },
-          "5,0": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/NavX",
-              "_title": "NavX"
-            }
-          },
-          "6,0": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Left Encoder: ",
-              "_title": "Left Encoder: "
-            }
-          },
-          "7,0": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Target",
-              "_title": "Target"
-            }
-          },
-          "8,0": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/y_val_target: ",
-              "_title": "y_val_target: "
-            }
-          },
-          "9,0": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/V_right1",
-              "_title": "V_right1"
-            }
-          },
-          "0,1": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/ArmySpeedyBoi",
-              "_title": "ArmySpeedyBoi"
-            }
-          },
-          "1,1": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/NavX Angle: ",
-              "_title": "NavX Angle: "
-            }
-          },
-          "2,1": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Camera Mode: ",
-              "_title": "Camera Mode: "
-            }
-          },
-          "3,1": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/V_left1",
-              "_title": "V_left1"
-            }
-          },
-          "4,1": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Right Encoder: ",
-              "_title": "Right Encoder: "
-            }
-          },
-          "5,1": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/x_val_target: ",
-              "_title": "x_val_target: "
-            }
-          },
-          "6,1": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Boolean Box",
-              "_source0": "network_table:///SmartDashboard/Target found: ",
-              "_title": "Target found: ",
-              "Colors/Color when true": "#7CFC00FF",
-              "Colors/Color when false": "#8B0000FF"
-            }
-          },
-          "7,1": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/V_flywheel1",
-              "_title": "V_flywheel1"
-            }
-          },
-          "5,2": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Arm2 Encoder Value",
-              "_title": "Arm2 Encoder Value"
-            }
-          },
-          "9,1": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Boolean Box",
-              "_source0": "network_table:///SmartDashboard/Switch Front",
-              "_title": "Switch Front",
-              "Colors/Color when true": "#7CFC00FF",
-              "Colors/Color when false": "#8B0000FF"
-            }
-          },
-          "0,2": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/z_val_target: ",
-              "_title": "z_val_target: "
-            }
-          },
-          "3,2": {
-            "size": [
-              2,
               1
             ],
             "content": {
@@ -267,8 +39,8 @@
             ],
             "content": {
               "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Pressure",
-              "_title": "Pressure"
+              "_source0": "network_table:///SmartDashboard/Arm2 Encoder Value",
+              "_title": "Arm2 Encoder Value"
             }
           },
           "3,0": {
@@ -277,11 +49,167 @@
               1
             ],
             "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/y_val_target: ",
+              "_title": "y_val_target: "
+            }
+          },
+          "4,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/z_val_target: ",
+              "_title": "z_val_target: "
+            }
+          },
+          "5,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/x_val_target: ",
+              "_title": "x_val_target: "
+            }
+          },
+          "6,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/angle_val_target: ",
+              "_title": "angle_val_target: "
+            }
+          },
+          "7,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
               "_type": "Boolean Box",
-              "_source0": "network_table:///SmartDashboard/Pressure is not enough",
-              "_title": "Pressure is not enough",
+              "_source0": "network_table:///SmartDashboard/Target found: ",
+              "_title": "Target found: ",
               "Colors/Color when true": "#7CFC00FF",
               "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "8,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Camera Mode: ",
+              "_title": "Camera Mode: "
+            }
+          },
+          "9,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Right Encoder: ",
+              "_title": "Right Encoder: "
+            }
+          },
+          "0,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Switch Front",
+              "_title": "Switch Front",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "1,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/velR",
+              "_title": "velR"
+            }
+          },
+          "2,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/velL",
+              "_title": "velL"
+            }
+          },
+          "3,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Target",
+              "_title": "Target"
+            }
+          },
+          "4,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/NavX",
+              "_title": "NavX"
+            }
+          },
+          "5,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Left Encoder: ",
+              "_title": "Left Encoder: "
+            }
+          },
+          "6,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/ArmySpeedyBoi",
+              "_title": "ArmySpeedyBoi"
+            }
+          },
+          "7,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/V_armMotor1",
+              "_title": "V_armMotor1"
             }
           },
           "8,1": {
@@ -291,8 +219,30 @@
             ],
             "content": {
               "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/armTarget",
-              "_title": "armTarget"
+              "_source0": "network_table:///SmartDashboard/V_armMotor2",
+              "_title": "V_armMotor2"
+            }
+          },
+          "9,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/V_left1",
+              "_title": "V_left1"
+            }
+          },
+          "0,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/V_right1",
+              "_title": "V_right1"
             }
           },
           "1,2": {
@@ -302,44 +252,11 @@
             ],
             "content": {
               "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/total_P_arm",
-              "_title": "total_P_arm"
+              "_source0": "network_table:///SmartDashboard/V_flywheel1",
+              "_title": "V_flywheel1"
             }
           },
           "2,2": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/total_I_arm",
-              "_title": "total_I_arm"
-            }
-          },
-          "7,2": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/total_D_arm",
-              "_title": "total_D_arm"
-            }
-          },
-          "8,2": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/averageVelocity",
-              "_title": "averageVelocity"
-            }
-          },
-          "9,2": {
             "size": [
               1,
               1
@@ -352,7 +269,108 @@
               "Colors/Color when false": "#8B0000FF"
             }
           },
-          "8,3": {
+          "3,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/flywheel1",
+              "_title": "flywheel1"
+            }
+          },
+          "4,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/flywheel2",
+              "_title": "flywheel2"
+            }
+          },
+          "5,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Pressure",
+              "_title": "Pressure"
+            }
+          },
+          "6,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Pressure is not enough",
+              "_title": "Pressure is not enough",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "7,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/armTarget",
+              "_title": "armTarget"
+            }
+          },
+          "8,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/total_P_arm",
+              "_title": "total_P_arm"
+            }
+          },
+          "9,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/total_I_arm",
+              "_title": "total_I_arm"
+            }
+          },
+          "0,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/total_D_arm",
+              "_title": "total_D_arm"
+            }
+          },
+          "1,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/averageVelocity",
+              "_title": "averageVelocity"
+            }
+          },
+          "2,3": {
             "size": [
               1,
               1
@@ -363,7 +381,7 @@
               "_title": "turnError"
             }
           },
-          "9,3": {
+          "3,3": {
             "size": [
               1,
               1
@@ -374,7 +392,7 @@
               "_title": "turnToAngleSpeed"
             }
           },
-          "8,4": {
+          "4,3": {
             "size": [
               1,
               1
@@ -385,7 +403,7 @@
               "_title": "CircL"
             }
           },
-          "9,4": {
+          "5,3": {
             "size": [
               1,
               1
@@ -394,6 +412,39 @@
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/CircR",
               "_title": "CircR"
+            }
+          },
+          "6,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Speed",
+              "_title": "Speed"
+            }
+          },
+          "7,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Arc target",
+              "_title": "Arc target"
+            }
+          },
+          "8,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/currentDistance",
+              "_title": "currentDistance"
             }
           }
         }
