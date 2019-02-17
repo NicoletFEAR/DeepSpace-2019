@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *
  */
 public class Lifter extends Subsystem {
-	private final  DoubleSolenoid liftingMechFront = new DoubleSolenoid(RobotMap.aForwardChannel,RobotMap.aReverseChannel);
+	private final  DoubleSolenoid liftingMechFront = new DoubleSolenoid(RobotMap.cForwardChannel,RobotMap.cReverseChannel);
 	private final  DoubleSolenoid liftingMechBack  =  new DoubleSolenoid(RobotMap.bForwardChannel,RobotMap.bReverseChannel);
 	private static int count = 0;
 

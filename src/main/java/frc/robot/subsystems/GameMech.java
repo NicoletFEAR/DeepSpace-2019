@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 public class GameMech extends Subsystem {
-	private final  DoubleSolenoid panelShooter = new DoubleSolenoid(RobotMap.cForwardChannel,RobotMap.cReverseChannel);
+	private final  DoubleSolenoid panelShooter = new DoubleSolenoid(RobotMap.aForwardChannel,RobotMap.aReverseChannel);
 	
 	public void initDefaultCommand() {
 		setDefaultCommand(new FlyWheelDrive());
@@ -19,11 +19,11 @@ public class GameMech extends Subsystem {
 	}
 
 	public void open() {
-		panelShooter.set(DoubleSolenoid.Value.kForward);
+		panelShooter.set(DoubleSolenoid.Value.kReverse);
 	}
 	
 	public void pull(){
-		panelShooter.set(DoubleSolenoid.Value.kReverse);
+		panelShooter.set(DoubleSolenoid.Value.kForward);
 	}
 	// shift the gearbox to the opposite state
 	public void toggleMechPiston(){
@@ -35,8 +35,8 @@ public class GameMech extends Subsystem {
 	}
 
 	public void spinFlyWheels(double speed){
-		RobotMap.flywheel1.set(ControlMode.PercentOutput, speed);
-		RobotMap.flywheel2.set(ControlMode.PercentOutput, speed);
+		RobotMap.flywheel1.set(ControlMode.PercentOutput, -speed);
+		RobotMap.flywheel2.set(ControlMode.PercentOutput, -speed);
 	}
 
 	public double getFlywheel1Encoder(){

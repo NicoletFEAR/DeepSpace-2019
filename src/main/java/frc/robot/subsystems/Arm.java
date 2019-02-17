@@ -97,10 +97,10 @@ public class Arm extends Subsystem {
             speed = -1.0;
         } else if (error < -200) {
             speed = 1.0;
-        } else if (error < -5) {
-            speed = 0.5;
-        } else if (error > 5) {
-            speed = -0.5;
+        } else if (error < -50) {
+            speed = 0.2;
+        } else if (error > 50) {
+            speed = -0.2;
         } else {
             speed = 0.0;
         }
@@ -120,6 +120,11 @@ public class Arm extends Subsystem {
     public void manualControl(double joystickInput) {
         RobotMap.armMotor1.set(ControlMode.PercentOutput, joystickInput);
         RobotMap.armMotor2.set(ControlMode.PercentOutput, joystickInput);
+        if(joystickInput < 0){
+            RobotMap.armMotor2.set(ControlMode.PercentOutput, joystickInput * RobotMap.ARM_MOTOR_SLOW_BACKWARDS);
+        } else {
+            RobotMap.armMotor2.set(ControlMode.PercentOutput, joystickInput * RobotMap.ARM_MOTOR_SLOW_FORWARDS);
+        }
     }
 
 

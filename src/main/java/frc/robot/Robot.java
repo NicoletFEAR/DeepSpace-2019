@@ -91,10 +91,13 @@ public class Robot extends TimedRobot {
         mVisionServer.addVisionUpdateReceiver(VisionProcessor.getInstance());
 
         gameMech = new GameMech();
+        gameMech.pull();
         lifter = new Lifter();
         arm = new Arm();
         pressureSensor = new PressureSensor();
         shifter = new Shifter();
+        shifter.shiftdown();
+
         navX = new AHRS(Port.kMXP);
         // arduinoLEDInterface = new ArduinoInterface(7);
         // arduinoCameraInterface = new ArduinoInterface(6);
@@ -174,6 +177,8 @@ public class Robot extends TimedRobot {
         RobotMap.ARM_MAX_TICK_VAL = 4200;
         RobotMap.ARM_MIN_TICK_VAL = -4200;
 
+
+        shifter.shiftdown();
 
         Robot.driveTrain.resetEncoders();
         double velocityRight = Robot.driveTrain.getRightEncoderVelocity();
@@ -265,10 +270,13 @@ public class Robot extends TimedRobot {
         if (pressureSensor.getPressure() < RobotMap.PRESSURE_TOO_LOW_VALUE) {
             compressorOAir.setClosedLoopControl(true);                  
             compressorRunning = true;
-        } else if (pressureSensor.getPressure() > RobotMap.PRESSURE_TOO_HIGH_VALUE) {
+        } else if (pressureSensor.getPressure() > RobotMap.PRESSURE_TOO_LOW_VALUE) {
+            compressorRunning = false;
+        }/*
+        } else if (pressureSensor.getPressure() > RobotMap.PRESSURE_TOO_HIGH_VALUE && ) {
             compressorOAir.setClosedLoopControl(false);
             compressorRunning = false;
-        }
+        }*/
 
     }
 }
