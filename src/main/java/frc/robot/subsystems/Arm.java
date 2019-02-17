@@ -78,12 +78,12 @@ public class Arm extends Subsystem {
             // RobotMap.armMotor2.set(ControlMode.PercentOutput, -RobotMap.ARM_LIMITER);
         }
         RobotMap.armMotor1.set(ControlMode.PercentOutput, speed);
-        RobotMap.armMotor2.set(ControlMode.PercentOutput, speed);
-        // if(speed < 0){
-        //     RobotMap.armMotor2.set(ControlMode.PercentOutput, speed * RobotMap.ARM_MOTOR_SLOW_BACKWARDS);
-        // } else {
-        //     RobotMap.armMotor2.set(ControlMode.PercentOutput, speed * RobotMap.ARM_MOTOR_SLOW_FORWARDS);
-        // }
+        // RobotMap.armMotor2.set(ControlMode.PercentOutput, speed);
+        if(speed < 0){
+            RobotMap.armMotor2.set(ControlMode.PercentOutput, speed * RobotMap.ARM_MOTOR_SLOW_BACKWARDS);
+        } else {
+            RobotMap.armMotor2.set(ControlMode.PercentOutput, speed * RobotMap.ARM_MOTOR_SLOW_FORWARDS);
+        }
 
         previousError = error;
 
@@ -106,8 +106,13 @@ public class Arm extends Subsystem {
         }
 
         SmartDashboard.putNumber("SPD_ARM_NO_PID", 0);
-        RobotMap.armMotor1.set(ControlMode.PercentOutput, speed * RobotMap.ARM_LIMITER);
-        RobotMap.armMotor2.set(ControlMode.PercentOutput, speed * RobotMap.ARM_LIMITER);
+        RobotMap.armMotor1.set(ControlMode.PercentOutput, speed);
+        if(speed < 0){
+            RobotMap.armMotor2.set(ControlMode.PercentOutput, speed * RobotMap.ARM_MOTOR_SLOW_BACKWARDS);
+        } else {
+            RobotMap.armMotor2.set(ControlMode.PercentOutput, speed * RobotMap.ARM_MOTOR_SLOW_FORWARDS);
+        }
+        // RobotMap.armMotor2.set(ControlMode.PercentOutput, speed * RobotMap.ARM_LIMITER);
 
     }
 
