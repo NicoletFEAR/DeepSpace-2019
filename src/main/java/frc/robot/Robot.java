@@ -17,7 +17,6 @@ import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.CompressAir;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.GameMech;
-import frc.robot.subsystems.Lifter;
 import frc.robot.subsystems.PressureSensor;
 import frc.robot.subsystems.Shifter;
 import frc.robot.vision.VisionServer;
@@ -48,7 +47,6 @@ public class Robot extends TimedRobot {
     public static OI oi;
     public static DriveTrain driveTrain;
     public static GameMech gameMech;
-    public static Lifter lifter;
     public static Arm arm;
     public static PressureSensor pressureSensor;
     public static Shifter shifter;
@@ -88,9 +86,6 @@ public class Robot extends TimedRobot {
 
         gameMech = new GameMech();
         gameMech.pull();
-
-        lifter = new Lifter();
-        lifter.initDefaultCommand();
 
         arm = new Arm();
 
@@ -181,7 +176,6 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("velL", velocityLeft);
         SmartDashboard.putNumber("Left Encoder: ", Robot.driveTrain.getLeftEncoderPosition());
         SmartDashboard.putNumber("Right Encoder: ", Robot.driveTrain.getRightEncoderPosition());
-        lifter.initDefaultCommand();
     }
 
     @Override

@@ -54,7 +54,7 @@ public class OI {
 
     public static boolean visionOn;
 
-    private Joystick armLevelController; // input 2 on driver station
+    private Joystick armLevelController; // the box button controller // input 2 on driver station
     private Button CargoLevel1;
     private Button CargoLevel2;
     private Button CargoLevel3;
@@ -132,7 +132,6 @@ public class OI {
         // xbox1RightStick.whenPressed(new SwitchAndroidCamera());
 
         // xbox1X.whenPressed(new Shoot());
-        // xbox1Y.whenPressed(new Lifting());
         // xbox1B.whenPressed(new DriveArc());
 
         // xbox1A.whenPressed(new CargoLevel1());
