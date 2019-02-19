@@ -260,5 +260,7 @@ public class Robot extends TimedRobot {
 
         SmartDashboard.putNumber("flywheel1", gameMech.getFlywheel1Encoder());
         SmartDashboard.putNumber("flywheel2", gameMech.getFlywheel2Encoder());
+
+        SmartDashboard.putBoolean("Compressor Enabled:", compressorOAir.isEnabled());
     }
 }

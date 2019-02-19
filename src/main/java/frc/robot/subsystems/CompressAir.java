@@ -29,8 +29,8 @@ public class CompressAir extends Subsystem {
     }
   }
 
-  public boolean isLowPressure() {
-    return theCompressor.getPressureSwitchValue();
+  public boolean isEnabled() {
+    return theCompressor.enabled();
   }
 
   @Override
