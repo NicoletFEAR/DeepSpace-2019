@@ -5,10 +5,7 @@ import java.util.List;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.cscore.UsbCamera;
-import edu.wpi.cscore.VideoSink;
-// import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.SPI.Port;
@@ -16,8 +13,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.loops.VisionProcessor;
-// import frc.robot.commands.*;
 import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.CompressAir;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.GameMech;
 import frc.robot.subsystems.Lifter;
@@ -57,13 +54,11 @@ public class Robot extends TimedRobot {
     public static Shifter shifter;
     public static UsbCamera front;
     public static UsbCamera back;
-
-    public static VideoSink serverFront, serverBack;
     public static AHRS navX;
+    public static CompressAir compressorOAir;
     // public static ArduinoInterface arduinoLEDInterface;
     // public static ArduinoInterface arduinoCameraInterface;
 
-    public static Compressor compressorOAir;
     public boolean compressorRunning = true;
 
     private static JadbConnection m_jadb = null;
@@ -84,32 +79,29 @@ public class Robot extends TimedRobot {
         RobotMap.init();
         mVisionServer = VisionServer.getInstance();
 
-        driveTrain = new DriveTrain();
         // String[] args = {};
         // mVisionServer.main(args);
 
         mVisionServer.addVisionUpdateReceiver(VisionProcessor.getInstance());
 
+        driveTrain = new DriveTrain();
+
         gameMech = new GameMech();
         gameMech.pull();
+
         lifter = new Lifter();
+        lifter.initDefaultCommand();
+
         arm = new Arm();
+
         pressureSensor = new PressureSensor();
+
         shifter = new Shifter();
         shifter.shiftdown();
 
         navX = new AHRS(Port.kMXP);
-        // arduinoLEDInterface = new ArduinoInterface(7);
-        // arduinoCameraInterface = new ArduinoInterface(6);
-
-        compressorOAir = new Compressor(RobotMap.compressormodule);
-        //compressorOAir.setClosedLoopControl(true);
-        compressorOAir.setClosedLoopControl(true);
-
-        // OI must be constructed after subsystems. If the OI creates Commands
-        // (which it very likely will), subsystems are not guaranteed to be
-        // constructed yet. Thus, their requires() statements may grab null
-        // pointers. Bad news. Don't move it.
+        
+        compressorOAir = new CompressAir();
 
         front = CameraServer.getInstance().startAutomaticCapture("FRONT", 1);
         back = CameraServer.getInstance().startAutomaticCapture("BACK", 0);
@@ -117,7 +109,14 @@ public class Robot extends TimedRobot {
         front.setConnectionStrategy(edu.wpi.cscore.VideoSource.ConnectionStrategy.kKeepOpen);
         back.setConnectionStrategy(edu.wpi.cscore.VideoSource.ConnectionStrategy.kKeepOpen);
 
-        lifter.initDefaultCommand();
+        // arduinoLEDInterface = new ArduinoInterface(7);
+        // arduinoCameraInterface = new ArduinoInterface(6);
+
+        // OI must be constructed after subsystems. If the OI creates Commands
+        // (which it very likely will), subsystems are not guaranteed to be
+        // constructed yet. Thus, their requires() statements may grab null
+        // pointers. Bad news. Don't move it.
+
         oi = new OI();
     }
 
@@ -261,18 +260,5 @@ public class Robot extends TimedRobot {
 
         SmartDashboard.putNumber("flywheel1", gameMech.getFlywheel1Encoder());
         SmartDashboard.putNumber("flywheel2", gameMech.getFlywheel2Encoder());
-
-        if (pressureSensor.getPressure() < RobotMap.PRESSURE_TOO_LOW_VALUE) {
-            compressorOAir.setClosedLoopControl(true);                  
-            compressorRunning = true;
-        } else if (pressureSensor.getPressure() > RobotMap.PRESSURE_TOO_LOW_VALUE) {
-            compressorRunning = false;
-        }/*
-        } else if (pressureSensor.getPressure() > RobotMap.PRESSURE_TOO_HIGH_VALUE && ) {
-            compressorOAir.setClosedLoopControl(false);
-            compressorRunning = false;
-        }
-        */
-
     }
 }
