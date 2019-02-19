@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *
  */
 public class Shifter extends Subsystem {
-	public final DoubleSolenoid shifty = new DoubleSolenoid(RobotMap.dForwardChannel, RobotMap.dReverseChannel);
+	public final DoubleSolenoid shifty = new DoubleSolenoid(RobotMap.shiftForwardChannel, RobotMap.shiftReverseChannel);
 	public static boolean nomatterwhat = false;
 
 	public void shiftup() {

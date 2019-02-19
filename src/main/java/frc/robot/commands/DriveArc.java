@@ -10,23 +10,16 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-// import frc.robot.sub//Systems.DriveTrain;
 import frc.robot.RobotMap;
 
-// import com.ctre.phoenix.motorcontrol.ControlMode;
-
-// import frc.robot.OI;
-//import edu.wpi.first.wpilibj.GenericHID;
-// import edu.wpi.first.wpilibj.GenericHID.Hand;
 /**
- *
+ * Command handling driving in an arc
  */
 public class DriveArc extends Command {
     double x;

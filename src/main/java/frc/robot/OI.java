@@ -15,7 +15,6 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * This class is the glue that binds the controls on the physical operator

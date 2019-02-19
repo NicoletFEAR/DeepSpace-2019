@@ -10,7 +10,6 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import frc.robot.RobotMap;
-import frc.robot.Robot;
 
 /**
  * VisionUpdate contains the various attributes outputted by the vision system,

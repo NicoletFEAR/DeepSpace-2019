@@ -6,7 +6,6 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 
 // import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
 import frc.robot.commands.Levels;

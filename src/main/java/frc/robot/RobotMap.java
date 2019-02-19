@@ -2,15 +2,10 @@ package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-// import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
-import edu.wpi.first.wpilibj.AnalogInput;
-import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-// import frc.robot.subsystems.AirCompressor;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -52,18 +47,6 @@ public class RobotMap {
 	public static double ARM_MOTOR_SLOW_FORWARDS = 0.928; // slow the faster motor to match the slower 
 	public static double ARM_MOTOR_SLOW_BACKWARDS = 0.967; // slow the faster motor to match the slower
 
-	// LIFT SYSTEM:
-	public static TalonSRX supportWheel1;
-	public static TalonSRX supportWheel2;
-
-	public static final double SUPPORT_LIMITER = 1.0; // not 775 motors
-
-	public static DifferentialDrive robotDrive;
-
-	// COMPRESSOR:
-	public static Integer PRESSURE_TOO_LOW_VALUE = 60;
-	public static Integer PRESSURE_TOO_HIGH_VALUE = 100;
-
 	// PID CONSTANTS:
 	public static double ERROR_CONSTANT_LEFT = 0.0;
 	public static double ERROR_CONSTANT_RIGHT = 0.0;
@@ -102,7 +85,6 @@ public class RobotMap {
 	public static int ARM_MAX_TICK_VAL = 2750;
 	public static int ARM_MIN_TICK_VAL = -2750;
 	public static int offset = 0;
-	//public static double armSpeedLimit = 1; // max speed we want arm motors to go to
 
 	// VISION CONSTANTS:
 	public static double angleConstant = 50;
@@ -110,24 +92,14 @@ public class RobotMap {
 	// // ultrasonic sensors
 	// public static AnalogInput ultraLeft;
 	// public static AnalogInput ultraRight;
-	// Pneumatics
-	// public static AirCompressor airCompressor;
 
-	public static int aModuleNumber = 0; // GAME MECH
-	public static int aForwardChannel = 6;
-	public static int aReverseChannel = 1;
+	public static int gmModuleNumber = 0; // GAME MECH
+	public static int gmForwardChannel = 6;
+	public static int gmReverseChannel = 1;
 
-	public static int bModuleNumber = 0; // IDK
-	public static int bForwardChannel = 7;
-	public static int bReverseChannel = 0;
-
-	public static int cModuleNumber = 0; // IDK
-	public static int cForwardChannel = 4;
-	public static int cReverseChannel = 3;
-
-	public static int dModuleNumber = 0; // SHIFTER
-	public static int dForwardChannel = 5;
-	public static int dReverseChannel = 2;
+	public static int shiftModuleNumber = 0; // SHIFTER
+	public static int shiftForwardChannel = 5;
+	public static int shiftReverseChannel = 2;
 
 	public static int compressormodule = 0;
 
@@ -182,13 +154,6 @@ public class RobotMap {
 		armMotor2.setInverted(true);
 		// armMotor2.setInverted(InvertType.FollowMaster);
 		// armMotor2.setInverted(false);
-
-		supportWheel1 = new TalonSRX(21);
-		supportWheel1.setNeutralMode(NeutralMode.Coast);
-		supportWheel2 = new TalonSRX(23);
-		supportWheel2.setNeutralMode(NeutralMode.Coast);
-
-		// airCompressor = new AirCompressor(compressormodule);
 
 		// ultraRight = new AnalogInput(3);
 		// ultraLeft = new AnalogInput(2);

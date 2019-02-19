@@ -7,11 +7,10 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 public class GameMech extends Subsystem {
-	private final  DoubleSolenoid panelShooter = new DoubleSolenoid(RobotMap.aForwardChannel,RobotMap.aReverseChannel);
+	private final  DoubleSolenoid panelShooter = new DoubleSolenoid(RobotMap.gmForwardChannel, RobotMap.gmReverseChannel);
 	
 	public void initDefaultCommand() {
 		setDefaultCommand(new FlyWheelDrive());
