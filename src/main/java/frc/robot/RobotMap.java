@@ -39,7 +39,7 @@ public class RobotMap {
 	public static TalonSRX flywheel2;
 
 	public static DigitalInput cargoIntakeLimitSwitch; // intake limit switch
-	public static int CARGO_LIMIT_SWITCH_INPUT;
+	public static int CARGO_LIMIT_SWITCH_INPUT = 0;
 
 	public static final double FLYWHEEL_LIMITER = 1.0; // 775 motors
 

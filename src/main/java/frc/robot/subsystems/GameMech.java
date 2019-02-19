@@ -48,10 +48,9 @@ public class GameMech extends Subsystem {
 	}
 	
 	public boolean getCargoLimitSwitch(){
-		// boolean cargoIn;
-		// cargoIn = RobotMap.cargoIntakeLimitSwitch.get();
-		// return cargoIn;
-		return RobotMap.cargoIntakeLimitSwitch.get();
+		boolean cargoIn = RobotMap.cargoIntakeLimitSwitch.get();
+		SmartDashboard.putBoolean("Cargo Limit Switch", cargoIn);
+		return cargoIn;
 	}
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
