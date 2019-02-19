@@ -5,10 +5,7 @@ import java.util.List;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.cscore.UsbCamera;
-import edu.wpi.cscore.VideoSink;
-// import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.SPI.Port;
@@ -16,11 +13,10 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.loops.VisionProcessor;
-// import frc.robot.commands.*;
 import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.CompressAir;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.GameMech;
-import frc.robot.subsystems.Lifter;
 import frc.robot.subsystems.PressureSensor;
 import frc.robot.subsystems.Shifter;
 import frc.robot.vision.VisionServer;
@@ -51,19 +47,16 @@ public class Robot extends TimedRobot {
     public static OI oi;
     public static DriveTrain driveTrain;
     public static GameMech gameMech;
-    public static Lifter lifter;
     public static Arm arm;
     public static PressureSensor pressureSensor;
     public static Shifter shifter;
-    public static CameraServer camera;
-    // public static UsbCamera front;
-    // public static UsbCamera back;
-    public static VideoSink serverFront, serverBack;
+    public static UsbCamera front;
+    public static UsbCamera back;
     public static AHRS navX;
+    public static CompressAir compressorOAir;
     // public static ArduinoInterface arduinoLEDInterface;
     // public static ArduinoInterface arduinoCameraInterface;
 
-    public static Compressor compressorOAir;
     public boolean compressorRunning = true;
 
     private static JadbConnection m_jadb = null;
@@ -84,46 +77,42 @@ public class Robot extends TimedRobot {
         RobotMap.init();
         mVisionServer = VisionServer.getInstance();
 
-        driveTrain = new DriveTrain();
         // String[] args = {};
         // mVisionServer.main(args);
 
         mVisionServer.addVisionUpdateReceiver(VisionProcessor.getInstance());
 
+        driveTrain = new DriveTrain();
+
         gameMech = new GameMech();
         gameMech.pull();
-        lifter = new Lifter();
+
         arm = new Arm();
+
         pressureSensor = new PressureSensor();
+
         shifter = new Shifter();
         shifter.shiftdown();
 
         navX = new AHRS(Port.kMXP);
+        
+        compressorOAir = new CompressAir();
+
+        front = CameraServer.getInstance().startAutomaticCapture("FRONT", 1);
+        back = CameraServer.getInstance().startAutomaticCapture("BACK", 0);
+
+        front.setConnectionStrategy(edu.wpi.cscore.VideoSource.ConnectionStrategy.kKeepOpen);
+        back.setConnectionStrategy(edu.wpi.cscore.VideoSource.ConnectionStrategy.kKeepOpen);
+
         // arduinoLEDInterface = new ArduinoInterface(7);
         // arduinoCameraInterface = new ArduinoInterface(6);
-
-        compressorOAir = new Compressor(RobotMap.compressormodule);
-        //compressorOAir.setClosedLoopControl(true);
-        compressorOAir.setClosedLoopControl(true);
 
         // OI must be constructed after subsystems. If the OI creates Commands
         // (which it very likely will), subsystems are not guaranteed to be
         // constructed yet. Thus, their requires() statements may grab null
         // pointers. Bad news. Don't move it.
 
-        // camera = CameraServer.getInstance();
-        // front = CameraServer.getInstance().startAutomaticCapture("FRONT", 1);
-        // back = CameraServer.getInstance().startAutomaticCapture("BACK", 0);
-
-        lifter.initDefaultCommand();
-        // serverFront = CameraServer.getInstance().getServer();
-        // serverBack = CameraServer.getInstance().getServer();
-        // front.setConnectionStrategy(edu.wpi.cscore.VideoSource.ConnectionStrategy.kKeepOpen);
-        // back.setConnectionStrategy(edu.wpi.cscore.VideoSource.ConnectionStrategy.kKeepOpen);
-        // serverFront.setSource(front);
-        // serverBack.setSource(back);
         oi = new OI();
-
     }
 
     /**
@@ -174,8 +163,8 @@ public class Robot extends TimedRobot {
 
         RobotMap.targetEncoderValue = 0;
         RobotMap.offset = 0;
-        RobotMap.ARM_MAX_TICK_VAL = 4200;
-        RobotMap.ARM_MIN_TICK_VAL = -4200;
+        RobotMap.ARM_MAX_TICK_VAL = 2750;
+        RobotMap.ARM_MIN_TICK_VAL = -2750;
 
 
         shifter.shiftdown();
@@ -187,7 +176,6 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("velL", velocityLeft);
         SmartDashboard.putNumber("Left Encoder: ", Robot.driveTrain.getLeftEncoderPosition());
         SmartDashboard.putNumber("Right Encoder: ", Robot.driveTrain.getRightEncoderPosition());
-        lifter.initDefaultCommand();
     }
 
     @Override
@@ -267,16 +255,6 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("flywheel1", gameMech.getFlywheel1Encoder());
         SmartDashboard.putNumber("flywheel2", gameMech.getFlywheel2Encoder());
 
-        if (pressureSensor.getPressure() < RobotMap.PRESSURE_TOO_LOW_VALUE) {
-            compressorOAir.setClosedLoopControl(true);                  
-            compressorRunning = true;
-        } else if (pressureSensor.getPressure() > RobotMap.PRESSURE_TOO_LOW_VALUE) {
-            compressorRunning = false;
-        }/*
-        } else if (pressureSensor.getPressure() > RobotMap.PRESSURE_TOO_HIGH_VALUE && ) {
-            compressorOAir.setClosedLoopControl(false);
-            compressorRunning = false;
-        }*/
-
+        SmartDashboard.putBoolean("Compressor Enabled:", compressorOAir.isEnabled());
     }
 }

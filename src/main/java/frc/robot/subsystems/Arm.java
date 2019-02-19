@@ -6,7 +6,6 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 
 // import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
 import frc.robot.commands.Levels;
@@ -64,7 +63,7 @@ public class Arm extends Subsystem {
         speed = RobotMap.ARM_kP * error + RobotMap.ARM_kI * integral + RobotMap.ARM_kD * derivative;
         speed *= -1;
 
-        if (Math.abs(error) < 5) {
+        if (Math.abs(error) < 75) {
             speed = 0;
         }
 

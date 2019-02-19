@@ -31,7 +31,7 @@ public class FlyWheelSetSpeed extends InstantCommand {
         try {
             Thread.sleep(500);
         } catch (Exception e) {
-            //TODO: handle exception
+            System.out.println("Could make flywheel thread sleep!");
         }
         Robot.gameMech.spinFlyWheels(0);
     }
