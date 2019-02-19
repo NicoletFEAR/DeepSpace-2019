@@ -94,12 +94,12 @@ public class RobotMap {
 	// public static AnalogInput ultraRight;
 
 	public static int gmModuleNumber = 0; // GAME MECH
-	public static int gmForwardChannel = 6;
-	public static int gmReverseChannel = 1;
+	public static int gmForwardChannel = 3;
+	public static int gmReverseChannel = 4;
 
 	public static int shiftModuleNumber = 0; // SHIFTER
-	public static int shiftForwardChannel = 5;
-	public static int shiftReverseChannel = 2;
+	public static int shiftForwardChannel = 0;
+	public static int shiftReverseChannel = 7;
 
 	public static int compressormodule = 0;
 
