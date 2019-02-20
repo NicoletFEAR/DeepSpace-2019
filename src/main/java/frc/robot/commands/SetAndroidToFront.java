@@ -13,11 +13,11 @@ import frc.robot.Robot;
 /**
  * Add your docs here.
  */
-public class SwitchAndroidCamera extends InstantCommand {
+public class SetAndroidToFront extends InstantCommand {
   /**
    * Add your docs here.
    */
-  public SwitchAndroidCamera() {
+  public SetAndroidToFront() {
     super();
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
@@ -26,13 +26,8 @@ public class SwitchAndroidCamera extends InstantCommand {
   // Called once when the command executes
   @Override
   protected void initialize() {
-    if (Robot.cameraMode.equalsIgnoreCase("front")) {
       Robot.mVisionServer.frontCamera();
-      Robot.cameraMode = "back";
-    } else {
-      Robot.mVisionServer.backCamera();
       Robot.cameraMode = "front";
-    }
   }
 
 }

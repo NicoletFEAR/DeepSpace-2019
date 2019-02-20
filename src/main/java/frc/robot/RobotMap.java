@@ -26,8 +26,8 @@ public class RobotMap {
 
 	public static final double DRIVE_LIMITER = 0.75; // not 775 motors
 
-	public static final double SHIFT_UP_THRESHOLD = 2300; // speed at which drive base shifts up
-	public static final double SHIFT_DOWN_THRESHOLD = 2100; // speed at which drive base shifts down
+	public static final double SHIFT_UP_THRESHOLD = 1750; // speed at which drive base shifts up
+	public static final double SHIFT_DOWN_THRESHOLD = 1900; // speed at which drive base shifts down
 
 	// CARGO HATCH GAME MECH:
 	public static TalonSRX flywheel1;
@@ -88,8 +88,9 @@ public class RobotMap {
 	public static int offset = 0;
 
 	// VISION CONSTANTS:
-	public static double angleConstant = 50;
+	public static double angleConstant = 80;
 	public static double distanceConstant = 1.5;
+	public static double x_val_constant = 4.4;
 	// // ultrasonic sensors
 	// public static AnalogInput ultraLeft;
 	// public static AnalogInput ultraRight;

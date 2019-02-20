@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.SetAndroidToFront;
 import frc.robot.loops.VisionProcessor;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.CompressAir;
@@ -176,6 +177,7 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("velL", velocityLeft);
         SmartDashboard.putNumber("Left Encoder: ", Robot.driveTrain.getLeftEncoderPosition());
         SmartDashboard.putNumber("Right Encoder: ", Robot.driveTrain.getRightEncoderPosition());
+        new SetAndroidToFront();
     }
 
     @Override
