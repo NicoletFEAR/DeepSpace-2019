@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 // import frc.robot.RobotMap;
 // import frc.robot.subsystems.DriveTrain;
+import frc.robot.RobotMap;
 
 // import com.ctre.phoenix.motorcontrol.ControlMode;
 
@@ -56,7 +57,7 @@ public class OpenLoopDrive extends Command {
     	//So Cool! :D
     	double robotOutput = forwardValue - reverseValue;
     	
-    	Robot.driveTrain.RacingDrive(robotOutput, turnAmount);
+    	Robot.driveTrain.RacingDrive(robotOutput, turnAmount * RobotMap.TURN_SCALING);
     	
      }
 

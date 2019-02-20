@@ -183,7 +183,7 @@ public class DriveTrain extends Subsystem {
 		double outputRight = robotOutput + turnAmount;
 		double max = outputLeft < outputRight ? outputRight : outputLeft;
 		double multiplier;
-		if (max > 1)
+		if (max > RobotMap.DRIVE_LIMITER)
 			multiplier = RobotMap.DRIVE_LIMITER / (max);
 		else
 			multiplier = 1;
