@@ -29,6 +29,8 @@ public class RobotMap {
 	public static final double SHIFT_UP_THRESHOLD = 1750; // speed at which drive base shifts up
 	public static final double SHIFT_DOWN_THRESHOLD = 1900; // speed at which drive base shifts down
 
+	public static final double DRIVE_RAMP_RATE = 10; // 10 is recomended by our friends from 2015, need to test
+
 	// CARGO HATCH GAME MECH:
 	public static TalonSRX flywheel1;
 	public static TalonSRX flywheel2;
@@ -89,7 +91,8 @@ public class RobotMap {
 	public static int ARM_MAX_TICK_VAL = 2750;
 	public static int ARM_MIN_TICK_VAL = -2750;
 	public static int offset = 0;
-	public static double ARM_DEAD_ZONE = 1;
+	public static double ARM_DEAD_ZONE = 1; // check
+
 
 	// VISION CONSTANTS:
 	public static double angleConstant = 80;
@@ -118,6 +121,12 @@ public class RobotMap {
 		left3 = new TalonSRX(17);
 		left3.setNeutralMode(NeutralMode.Brake);
 
+		// Set how fast of a rate the robot will accelerate Do not remove or you
+		// get a fabulous prize of a Flipping robot - CLOSED_LOOP_RAMP_RATE - 2015
+		left1.configClosedloopRamp(DRIVE_RAMP_RATE);
+		left2.configClosedloopRamp(DRIVE_RAMP_RATE);
+		left3.configClosedloopRamp(DRIVE_RAMP_RATE);
+
 		left1.setInverted(true);
 		left2.setInverted(true);
 		left3.setInverted(true);
@@ -130,6 +139,12 @@ public class RobotMap {
 		right2.setNeutralMode(NeutralMode.Brake);
 		right3 = new TalonSRX(18);
 		right3.setNeutralMode(NeutralMode.Brake);
+
+		// Set how fast of a rate the robot will accelerate Do not remove or you
+		// get a fabulous prize of a Flipping robot - CLOSED_LOOP_RAMP_RATE - 2015
+		right1.configClosedloopRamp(DRIVE_RAMP_RATE);
+		right2.configClosedloopRamp(DRIVE_RAMP_RATE);
+		right3.configClosedloopRamp(DRIVE_RAMP_RATE);
 
 		right1.setInverted(true);
 		right2.setInverted(true);
