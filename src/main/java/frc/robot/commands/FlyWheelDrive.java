@@ -37,24 +37,18 @@ public class FlyWheelDrive extends Command {
 
     @Override
     protected void execute() {
-        // for joy sticks
-        // Robot.driveTrain.takeJoystickInputs(Robot.oi.getLeftJoystick() ,
+        // for joy sticks if not xbox cotroller
         // Robot.oi.getRightJoystick());
-
-        // for xbox controller
-        // double rightStickValue = Robot.oi.getXbox1().getY(GenericHID.Hand.kRight);
-        // double leftStickValue = Robot.oi.getXbox1().getY(GenericHID.Hand.kLeft);
-        // System.out.println(-leftStickValue);
-        // Robot.driveTrain.takeStickInputValues( - leftStickValue , - rightStickValue);
 
         double forwardValue = Robot.oi.getXbox2().getTriggerAxis(GenericHID.Hand.kRight);
         double reverseValue = Robot.oi.getXbox2().getTriggerAxis(GenericHID.Hand.kLeft);
-        // double turnAmount = Robot.oi.getXbox1().getX(GenericHID.Hand.kLeft);
 
-        // Calculate an Arcade drive speed by taking forward speed and subtracting it by
-        // reverse speed
         // So Cool! :D
         double robotOutput = forwardValue - reverseValue;
+
+        if (Math.abs(robotOutput) < RobotMap.ARM_JOYSTICK_DEAD_ZONE) {
+            robotOutput = 0;
+        }
 
         if (robotOutput > RobotMap.FLYWHEEL_LIMITER)
             robotOutput = RobotMap.FLYWHEEL_LIMITER;

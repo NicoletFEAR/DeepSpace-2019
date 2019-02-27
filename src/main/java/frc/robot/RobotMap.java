@@ -93,6 +93,7 @@ public class RobotMap {
 	public static int offset = 0;
 	public static double ARM_DEAD_ZONE = 1; // check
 
+	public static double ARM_JOYSTICK_DEAD_ZONE = 0.05; // check
 
 	// VISION CONSTANTS:
 	public static double angleConstant = 80;
@@ -122,7 +123,7 @@ public class RobotMap {
 		left3.setNeutralMode(NeutralMode.Brake);
 
 		// Set how fast of a rate the robot will accelerate Do not remove or you
-		// get a fabulous prize of a Flipping robot - CLOSED_LOOP_RAMP_RATE - 2015
+		// get a fabulous prize of a Flipping robot - 2015
 		left1.configClosedloopRamp(DRIVE_RAMP_RATE);
 		left2.configClosedloopRamp(DRIVE_RAMP_RATE);
 		left3.configClosedloopRamp(DRIVE_RAMP_RATE);
@@ -141,7 +142,7 @@ public class RobotMap {
 		right3.setNeutralMode(NeutralMode.Brake);
 
 		// Set how fast of a rate the robot will accelerate Do not remove or you
-		// get a fabulous prize of a Flipping robot - CLOSED_LOOP_RAMP_RATE - 2015
+		// get a fabulous prize of a Flipping robot - 2015
 		right1.configClosedloopRamp(DRIVE_RAMP_RATE);
 		right2.configClosedloopRamp(DRIVE_RAMP_RATE);
 		right3.configClosedloopRamp(DRIVE_RAMP_RATE);
