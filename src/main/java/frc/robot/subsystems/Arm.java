@@ -63,22 +63,22 @@ public class Arm extends Subsystem {
         speed = RobotMap.ARM_kP * error + RobotMap.ARM_kI * integral + RobotMap.ARM_kD * derivative;
         speed *= -1;
 
-        if (Math.abs(error) < 5) {
+        if (Math.abs(error) < RobotMap.ARM_DEAD_ZONE) {
             speed = 0;
         }
 
         if (speed > RobotMap.ARM_LIMITER) {
             speed = RobotMap.ARM_LIMITER;
-            // RobotMap.armMotor1.set(ControlMode.PercentOutput,  RobotMap.ARM_LIMITER);
+            // RobotMap.armMotor1.set(ControlMode.PercentOutput, RobotMap.ARM_LIMITER);
             // RobotMap.armMotor2.set(ControlMode.PercentOutput, RobotMap.ARM_LIMITER);
         } else if (speed < -RobotMap.ARM_LIMITER) {
             speed = -RobotMap.ARM_LIMITER;
-            // RobotMap.armMotor1.set(ControlMode.PercentOutput,  -RobotMap.ARM_LIMITER);
+            // RobotMap.armMotor1.set(ControlMode.PercentOutput, -RobotMap.ARM_LIMITER);
             // RobotMap.armMotor2.set(ControlMode.PercentOutput, -RobotMap.ARM_LIMITER);
         }
         RobotMap.armMotor1.set(ControlMode.PercentOutput, speed);
         // RobotMap.armMotor2.set(ControlMode.PercentOutput, speed);
-        if(speed < 0){
+        if (speed < 0) {
             RobotMap.armMotor2.set(ControlMode.PercentOutput, speed * RobotMap.ARM_MOTOR_SLOW_BACKWARDS);
         } else {
             RobotMap.armMotor2.set(ControlMode.PercentOutput, speed * RobotMap.ARM_MOTOR_SLOW_FORWARDS);
@@ -90,7 +90,7 @@ public class Arm extends Subsystem {
 
     public void rotateNoPID(double desiredtargetEncoderValue) {
         encoderPosition = getArm1Encoder();
-        error = desiredtargetEncoderValue - encoderPosition;    
+        error = desiredtargetEncoderValue - encoderPosition;
 
         if (error > 200) {
             speed = -1.0;
@@ -106,26 +106,25 @@ public class Arm extends Subsystem {
 
         SmartDashboard.putNumber("SPD_ARM_NO_PID", 0);
         RobotMap.armMotor1.set(ControlMode.PercentOutput, speed);
-        if(speed < 0){
+        if (speed < 0) {
             RobotMap.armMotor2.set(ControlMode.PercentOutput, speed * RobotMap.ARM_MOTOR_SLOW_BACKWARDS);
         } else {
             RobotMap.armMotor2.set(ControlMode.PercentOutput, speed * RobotMap.ARM_MOTOR_SLOW_FORWARDS);
         }
-        // RobotMap.armMotor2.set(ControlMode.PercentOutput, speed * RobotMap.ARM_LIMITER);
+        // RobotMap.armMotor2.set(ControlMode.PercentOutput, speed *
+        // RobotMap.ARM_LIMITER);
 
     }
-
 
     public void manualControl(double joystickInput) {
         RobotMap.armMotor1.set(ControlMode.PercentOutput, joystickInput);
         RobotMap.armMotor2.set(ControlMode.PercentOutput, joystickInput);
-        if(joystickInput < 0){
+        if (joystickInput < 0) {
             RobotMap.armMotor2.set(ControlMode.PercentOutput, joystickInput * RobotMap.ARM_MOTOR_SLOW_BACKWARDS);
         } else {
             RobotMap.armMotor2.set(ControlMode.PercentOutput, joystickInput * RobotMap.ARM_MOTOR_SLOW_FORWARDS);
         }
     }
-
 
     public double getArm1Encoder() {
         return RobotMap.armMotor1.getSelectedSensorPosition(); // negative because enoder happens to be the poother way
