@@ -1,13 +1,13 @@
 
 package frc.robot.subsystems;
-import  frc.robot.commands.*;
-import  frc.robot.RobotMap;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
-
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import  frc.robot.RobotMap;
+import frc.robot.commands.FlyWheelDrive;
 
 public class GameMech extends Subsystem {
 	private final  DoubleSolenoid panelShooter = new DoubleSolenoid(RobotMap.gmForwardChannel, RobotMap.gmReverseChannel);

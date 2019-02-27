@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 // import frc.robot.RobotMap;
 // import frc.robot.subsystems.DriveTrain;
+import frc.robot.RobotMap;
 
 // import com.ctre.phoenix.motorcontrol.ControlMode;
 
@@ -24,7 +25,6 @@ import edu.wpi.first.wpilibj.GenericHID;
  *  Command handling simple driving for the robot
  */
 public class OpenLoopDrive extends Command {
-    public static final double TURN_SCALING = 0.5;
 
     public OpenLoopDrive() {
 
@@ -51,13 +51,13 @@ public class OpenLoopDrive extends Command {
     	
     	double forwardValue = Robot.oi.getXbox1().getTriggerAxis(GenericHID.Hand.kRight);   	
     	double reverseValue = Robot.oi.getXbox1().getTriggerAxis(GenericHID.Hand.kLeft);
-    	double turnAmount = Robot.oi.getXbox1().getX(GenericHID.Hand.kLeft) * 0.8;
+    	double turnAmount = Robot.oi.getXbox1().getX(GenericHID.Hand.kLeft);
     
     	//Calculate an Arcade drive speed by taking forward speed and subtracting it by reverse speed
     	//So Cool! :D
     	double robotOutput = forwardValue - reverseValue;
     	
-    	Robot.driveTrain.RacingDrive(robotOutput, turnAmount * TURN_SCALING);
+    	Robot.driveTrain.RacingDrive(robotOutput, turnAmount * RobotMap.TURN_SCALING);
     	
      }
 

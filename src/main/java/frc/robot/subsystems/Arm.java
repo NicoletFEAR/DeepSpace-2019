@@ -50,8 +50,8 @@ public class Arm extends Subsystem {
         error = desiredtargetEncoderValue - encoderPosition;
         integral += error * .02;
 
-        if (Math.abs(error) < 50 && !(Math.abs(error) > Math.abs(previousError))) { // scale down the integral
-            integral *= 0.95;
+        if (Math.abs(error) < 25 && !(Math.abs(error) > Math.abs(previousError))) { // scale down the integral
+            integral *= 0.1;
         }
 
         derivative = (error - previousError) / .02;
@@ -63,7 +63,7 @@ public class Arm extends Subsystem {
         speed = RobotMap.ARM_kP * error + RobotMap.ARM_kI * integral + RobotMap.ARM_kD * derivative;
         speed *= -1;
 
-        if (Math.abs(error) < 75) {
+        if (Math.abs(error) < 5) {
             speed = 0;
         }
 

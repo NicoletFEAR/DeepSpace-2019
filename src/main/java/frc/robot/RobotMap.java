@@ -24,10 +24,10 @@ public class RobotMap {
 	public static TalonSRX right2;
 	public static TalonSRX right3;
 
-	public static final double DRIVE_LIMITER = 1.0; // not 775 motors
+	public static final double DRIVE_LIMITER = 0.75; // not 775 motors
 
-	public static final double SHIFT_UP_THRESHOLD = 2300; // speed at which drive base shifts up
-	public static final double SHIFT_DOWN_THRESHOLD = 2100; // speed at which drive base shifts down
+	public static final double SHIFT_UP_THRESHOLD = 1750; // speed at which drive base shifts up
+	public static final double SHIFT_DOWN_THRESHOLD = 1900; // speed at which drive base shifts down
 
 	// CARGO HATCH GAME MECH:
 	public static TalonSRX flywheel1;
@@ -36,7 +36,7 @@ public class RobotMap {
 	public static DigitalInput cargoIntakeLimitSwitch; // intake limit switch
 	public static int CARGO_LIMIT_SWITCH_INPUT = 0;
 
-	public static final double FLYWHEEL_LIMITER = 1.0; // 775 motors
+	public static final double FLYWHEEL_LIMITER = 0.75; // 775 motors
 
 	// ARM:
 	public static TalonSRX armMotor1;
@@ -64,42 +64,44 @@ public class RobotMap {
 	public static final double TURN_kD = 0.001;
 	public static final double TURN_ERROR_CONSTANT = 1; // degrees the turn can be off
 	public static final double PERFECT_ARC_RANGE = 2;
+    public static final double TURN_SCALING = 0.6;
 
 	// ARM MOVEMENT CONSTANTS:
 	public static int maxChangeAmt = 100; // how much the arm moves by
 	public static int targetEncoderValue;
-	public static final int CargoShipDropPoint = -1200;
-	public static final int CargoLevel1TargetValue = -1500; //-2000
+	public static final int CargoShipDropPoint = -1350;
+	public static final int CargoLevel1TargetValue = -1750; //-2000
 	public static final int CargoLevel2TargetValue = -1100; //-1200;
 	public static final int CargoLevel3TargetValue = -560; //-900;
-	public static final int HatchLevel1TargetValue = -1600; //-2200;
-	public static final int HatchLevel2TargetValue = -1200; //-1400;
+	public static final int HatchLevel1TargetValue = -2125; //-2200;
+	public static final int HatchLevel2TargetValue = -1225; //-1400;
 	public static final int HatchLevel3TargetValue = -660; //-1100;
 	public static final int CargoLoadingStation = -2100; //-1200;
-	public static final int CargoFloor = -2500; //-3500;
+	public static final int CargoFloor = -2400; //-3500;
 	public static final int StraightUp = 0;
-	public static final double ARM_kP = 0.001 ;
-	public static final double ARM_kI = 0.0000;// 5; //0.0005 too fast
-	public static final double ARM_kD = 0.00000;// 75; // 0.000015 too fast
+	public static final double ARM_kP = 0.002 ;
+	public static final double ARM_kI = 0.0001;// 5; //0.0005 too fast
+	public static final double ARM_kD = 0.00005;// 75; // 0.000015 too fast
 	public static double ARM_TICKS_PER_REVOLUTION = 4096.0; // Needs to be updated on final bot!!!!!!!!!!!!!!!!!!!!!!!!
 	public static int ARM_MAX_TICK_VAL = 2750;
 	public static int ARM_MIN_TICK_VAL = -2750;
 	public static int offset = 0;
 
 	// VISION CONSTANTS:
-	public static double angleConstant = 50;
+	public static double angleConstant = 80;
 	public static double distanceConstant = 1.5;
+	public static double x_val_constant = 4.4;
 	// // ultrasonic sensors
 	// public static AnalogInput ultraLeft;
 	// public static AnalogInput ultraRight;
 
 	public static int gmModuleNumber = 0; // GAME MECH
-	public static int gmForwardChannel = 6;
-	public static int gmReverseChannel = 1;
+	public static int gmForwardChannel = 3;
+	public static int gmReverseChannel = 4;
 
 	public static int shiftModuleNumber = 0; // SHIFTER
-	public static int shiftForwardChannel = 5;
-	public static int shiftReverseChannel = 2;
+	public static int shiftForwardChannel = 0;
+	public static int shiftReverseChannel = 7;
 
 	public static int compressormodule = 0;
 

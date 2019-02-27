@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Shifter extends Subsystem {
 	public final DoubleSolenoid shifty = new DoubleSolenoid(RobotMap.shiftForwardChannel, RobotMap.shiftReverseChannel);
-	public static boolean nomatterwhat = false;
 
 	public void shiftup() {
 		shifty.set(DoubleSolenoid.Value.kReverse);
@@ -32,15 +31,6 @@ public class Shifter extends Subsystem {
 
 	public void stop() {
 		shifty.set(DoubleSolenoid.Value.kOff);
-	}
-
-	public boolean getNoMatterWhat() {
-		return nomatterwhat; // nomatterwhat overides the 40 limit
-	}
-
-	public void setNoMatterWhat() {
-		nomatterwhat = !nomatterwhat;
-		SmartDashboard.putBoolean("Start button hit", getNoMatterWhat());
 	}
 
 	// Put methods for controlling this subsystem

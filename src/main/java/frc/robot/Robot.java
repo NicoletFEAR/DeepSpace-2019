@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.SetAndroidToFront;
 import frc.robot.loops.VisionProcessor;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.CompressAir;
@@ -176,6 +177,7 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("velL", velocityLeft);
         SmartDashboard.putNumber("Left Encoder: ", Robot.driveTrain.getLeftEncoderPosition());
         SmartDashboard.putNumber("Right Encoder: ", Robot.driveTrain.getRightEncoderPosition());
+        new SetAndroidToFront();
     }
 
     @Override
@@ -245,11 +247,11 @@ public class Robot extends TimedRobot {
 
         SmartDashboard.putNumber("ArmySpeedyBoi", arm.getSpeed());
         
-        SmartDashboard.putNumber("V_armMotor1", RobotMap.armMotor1.getMotorOutputVoltage());
-        SmartDashboard.putNumber("V_armMotor2", RobotMap.armMotor2.getMotorOutputVoltage());
-        SmartDashboard.putNumber("V_left1", RobotMap.left1.getMotorOutputVoltage());
-        SmartDashboard.putNumber("V_right1", RobotMap.right1.getMotorOutputVoltage());
-        SmartDashboard.putNumber("V_flywheel1", RobotMap.flywheel1.getMotorOutputVoltage());
+        SmartDashboard.putNumber("Vol_armMotor1", RobotMap.armMotor1.getMotorOutputVoltage());
+        SmartDashboard.putNumber("Vol_armMotor2", RobotMap.armMotor2.getMotorOutputVoltage());
+        SmartDashboard.putNumber("Vol_left1", RobotMap.left1.getMotorOutputVoltage());
+        SmartDashboard.putNumber("Vol_right1", RobotMap.right1.getMotorOutputVoltage());
+        SmartDashboard.putNumber("Vol_flywheel1", RobotMap.flywheel1.getMotorOutputVoltage());
         SmartDashboard.putBoolean("armIsManual",Robot.arm.armIsManual);
 
         SmartDashboard.putNumber("flywheel1", gameMech.getFlywheel1Encoder());

@@ -62,9 +62,9 @@ public class FlyWheelDrive extends Command {
             robotOutput = -RobotMap.FLYWHEEL_LIMITER;
 
         Robot.gameMech.spinFlyWheels(robotOutput);
-         if (robotOutput > 0 && Robot.gameMech.getCargoLimitSwitch()) { // if spinning in and cargo inside
-             Robot.gameMech.pull();
-         }
+        //  if (robotOutput > 0 && Robot.gameMech.getCargoLimitSwitch()) { // if spinning in and cargo inside
+        //      Robot.gameMech.pull();
+        //  }
     }
 
     // Make this return true when this Command no longer needs to run execute()

@@ -43,8 +43,9 @@ public class Levels extends Command {
             }
 
         } else {
-
+            if (Math.abs(Robot.oi.getXbox2().getY(Hand.kLeft)) > 0.1){
             RobotMap.targetEncoderValue += (int) (50 * Robot.oi.getXbox2().getY(Hand.kLeft));
+            }
 
             if (RobotMap.targetEncoderValue + RobotMap.offset > RobotMap.ARM_MAX_TICK_VAL)
                 RobotMap.targetEncoderValue = RobotMap.ARM_MAX_TICK_VAL - RobotMap.offset;
