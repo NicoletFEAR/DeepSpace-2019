@@ -50,7 +50,7 @@ public class DriveArc extends Command {
         requires(Robot.driveTrain);
         this.x = x;
         this.y = y;
-        this.theta = theta;
+        this.theta = -theta; // inverted
     }
 
     public double TicksToRevolution(double numberOfTicks) {
@@ -68,7 +68,6 @@ public class DriveArc extends Command {
     // Arc length should be in inches
     public boolean arcDrive(double arcLength, TalonSRX talon) {
         // SmartDashboard.putNumber("", );
-        // System.out.print("HI");
 
         double currentLocation = RevolutionsToInches(TicksToRevolution(talon.getSelectedSensorPosition()));
 
@@ -113,7 +112,7 @@ public class DriveArc extends Command {
         boolean positive = true;
         if (x < 0) {
             x = -x;
-            // theta = -theta;
+            theta = -theta;
             positive = false;
         }
         double prefferedLength = y / Math.cos(Math.toRadians(theta));
@@ -136,7 +135,7 @@ public class DriveArc extends Command {
             if(!positive) degreesToRotate = -degreesToRotate;
             while (!turnBool) {
                 turnBool = Robot.driveTrain.turnToAngle(degreesToRotate);
-
+                SmartDashboard.putString("Turning", "turning");
             }
 
             double radius = (1.0 / 2 * Math.sqrt(x * x + y * y)) / (Math.sin(Math.toRadians(.5 * z)));
@@ -154,6 +153,7 @@ public class DriveArc extends Command {
             
             while (!turnBool) {
                 turnBool = Robot.driveTrain.turnToAngle(degreesToRotate);
+                SmartDashboard.putString("Turning", "turning");
             }
 
             double radius = (1.0 / 2 * Math.sqrt(x * x + y * y)) / (Math.sin(Math.toRadians(.5 * z)));
@@ -163,7 +163,9 @@ public class DriveArc extends Command {
             circL = leftRadius * 2 * Math.PI * z / 360;
             circR = rightRadius * 2 * Math.PI * z / 360;
         }
-        // System.out.println("Done turning");
+        SmartDashboard.putString("Turning", "done turning");
+
+        //System.out.println("Done turning");
         if (!positive) {
             double tmp = circL;
             circL = circR;
@@ -178,7 +180,7 @@ public class DriveArc extends Command {
             circL = -circR;
             circR = -tmp;
         }
-    }
+    } // end of init, go to execute
 
     double currentLocation;
 
