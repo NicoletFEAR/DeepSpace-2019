@@ -46,10 +46,10 @@ public class DriveArc extends Command {
     // this(-24, 48, 60);
     // }
 
-    public DriveArc(double x, double y, double theta) {
+    public DriveArc(double x, double y, double theta, double distOffset) {
         requires(Robot.driveTrain);
-        this.x = x;
-        this.y = y;
+        this.x = x - distOffset * Math.cos(Math.toRadians(90 - theta));
+        this.y = y*12 - distOffset * Math.sin(Math.toRadians(90 - theta));
         this.theta = -theta; // inverted
 
         setInterruptible(true);

@@ -14,7 +14,9 @@ public class DriveAngle extends CommandGroup {
    * Add your docs here.
    */
 
-  public DriveAngle(double x, double y, double theta) {
+  public DriveAngle(double thisX, double thisY, double theta, double distOffset) {
+    double x = thisX - distOffset * Math.cos(Math.toRadians(90 - theta));
+    double y = thisY - distOffset * Math.sin(Math.toRadians(90 - theta));
     double idealX = y * Math.tan(Math.toRadians(theta));
     if (x < idealX) {
       addSequential(new TurnToAngle(90));
