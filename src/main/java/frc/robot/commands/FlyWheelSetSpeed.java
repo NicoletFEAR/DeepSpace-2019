@@ -17,17 +17,19 @@ public class FlyWheelSetSpeed extends InstantCommand {
     /**
      * Add your docs here.
      */
-    public FlyWheelSetSpeed() {
+    private double speed;
+    public FlyWheelSetSpeed(double speed) {
         super();
         requires(Robot.gameMech);
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+        this.speed = speed;
     }
 
     // Called once when the command executes
     @Override
     protected void initialize() {
-        Robot.gameMech.spinFlyWheels(.5);
+        Robot.gameMech.spinFlyWheels(speed);
         try {
             Thread.sleep(500);
         } catch (Exception e) {

@@ -116,9 +116,28 @@ public class OI {
         CargoFloor = new JoystickButton(armLevelController, 10);
 
         // Drive Controller Command Mapping
-        xbox1X.whenPressed(new SwitchFront());
-        xbox1X.whenPressed(new SwitchAndroidCamera());
+        xbox1B.whenPressed(new SwitchFront());
+        xbox1B.whenPressed(new SwitchAndroidCamera());
         xbox1Back.whenPressed(new ToggleArmPID());
+        if (xbox1.getXButton()) {
+            CargoLevel1.toggleWhenPressed(new PlaceCargo(1));
+            CargoLevel2.toggleWhenPressed(new PlaceCargo(2));
+            CargoLevel3.toggleWhenPressed(new PlaceCargo(3));
+            HatchLevel1.toggleWhenPressed(new PlaceHatch(1));
+            HatchLevel2.toggleWhenPressed(new PlaceHatch(2));
+            HatchLevel3.toggleWhenPressed(new PlaceHatch(3));
+            CargoShipCargo.toggleWhenPressed(new PlaceCargo(7));
+            CargoLoadingStation.toggleWhenPressed(new LoadingStation());
+        } else {
+            CargoLevel1.whenPressed(new MoveToLevel(1));
+            CargoLevel2.whenPressed(new MoveToLevel(2));
+            CargoLevel3.whenPressed(new MoveToLevel(3));
+            HatchLevel1.whenPressed(new MoveToLevel(4));
+            HatchLevel2.whenPressed(new MoveToLevel(5));
+            HatchLevel3.whenPressed(new MoveToLevel(6));
+            CargoShipCargo.whenPressed(new MoveToLevel(7));
+            CargoLoadingStation.whenPressed(new MoveToLevel(10));
+        }
 
         // xbox1X.whenPressed(new Shift());
         // xbox1Y.whenPressed(new TurnToAngle(90));
@@ -138,7 +157,7 @@ public class OI {
         // Mech Controller Command Mapping
         xbox2Y.whenPressed(new GameMechClose());
         xbox2B.whenPressed(new GameMechOpen());
-        xbox2A.whenPressed(new FlyWheelSetSpeed());
+        xbox2A.whenPressed(new FlyWheelSetSpeed(.5));
         xbox2RBumper.whenPressed(new IncrementCap());
         xbox2LBumper.whenPressed(new DecrementCap());
         xbox2Start.whenPressed(new ToggleCompressor());
@@ -147,15 +166,8 @@ public class OI {
         // xbox2A.whenPressed(new MoveToLevel(4));
 
         // Box Controller Command Mapping
-        CargoLevel1.whenPressed(new MoveToLevel(1));
-        CargoLevel2.whenPressed(new MoveToLevel(2));
-        CargoLevel3.whenPressed(new MoveToLevel(3));
-        HatchLevel1.whenPressed(new MoveToLevel(4));
-        HatchLevel2.whenPressed(new MoveToLevel(5));
-        HatchLevel3.whenPressed(new MoveToLevel(6));
+       
         Vertical.whenPressed(new MoveToLevel(8));
-        CargoShipCargo.whenPressed(new MoveToLevel(7));
-        CargoLoadingStation.whenPressed(new MoveToLevel(10));
         CargoFloor.whenPressed(new MoveToLevel(9));
     }
 
