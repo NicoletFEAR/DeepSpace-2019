@@ -51,6 +51,9 @@ public class DriveArc extends Command {
         this.x = x;
         this.y = y;
         this.theta = -theta; // inverted
+
+        setInterruptible(true);
+
     }
 
     public double TicksToRevolution(double numberOfTicks) {
