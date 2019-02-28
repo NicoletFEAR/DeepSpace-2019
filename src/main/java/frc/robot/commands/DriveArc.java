@@ -42,8 +42,8 @@ public class DriveArc extends Command {
     boolean left;
 
     // public DriveArc() {
-    //     // requires(Robot.driveTrain);
-    //     this(-24, 48, 60);
+    // // requires(Robot.driveTrain);
+    // this(-24, 48, 60);
     // }
 
     public DriveArc(double x, double y, double theta) {
@@ -132,7 +132,8 @@ public class DriveArc extends Command {
             z = -2 * (Math.toDegrees(Math.tanh(x / y)) - theta);
             double degreesToRotate = theta + z;
 
-            if(!positive) degreesToRotate = -degreesToRotate;
+            if (!positive)
+                degreesToRotate = -degreesToRotate;
             while (!turnBool) {
                 turnBool = Robot.driveTrain.turnToAngle(degreesToRotate);
                 SmartDashboard.putString("Turning", "turning");
@@ -149,8 +150,9 @@ public class DriveArc extends Command {
             z = 2 * (theta - Math.toDegrees(Math.tanh(x / y)));
             double degreesToRotate = theta - z;
 
-            if(!positive) degreesToRotate = -degreesToRotate;
-            
+            if (!positive)
+                degreesToRotate = -degreesToRotate;
+
             while (!turnBool) {
                 turnBool = Robot.driveTrain.turnToAngle(degreesToRotate);
                 SmartDashboard.putString("Turning", "turning");
@@ -165,7 +167,7 @@ public class DriveArc extends Command {
         }
         SmartDashboard.putString("Turning", "done turning");
 
-        //System.out.println("Done turning");
+        // System.out.println("Done turning");
         if (!positive) {
             double tmp = circL;
             circL = circR;
@@ -175,11 +177,12 @@ public class DriveArc extends Command {
         Robot.driveTrain.resetEncoders();
         // SmartDashboard.putBoolean("Turning complete", true);
 
-        if (Robot.driveTrain.isReversed()){
+        if (Robot.driveTrain.isReversed()) {
             double tmp = circL;
             circL = -circR;
             circR = -tmp;
         }
+
     } // end of init, go to execute
 
     double currentLocation;
@@ -200,11 +203,13 @@ public class DriveArc extends Command {
         derivative = (error - previousError) / .02;
         previousError = error;
 
+
+        //  Welcome to the Amazing World of PID :D
         speed = RobotMap.DRIVE_kP * error + RobotMap.DRIVE_kI * integral + RobotMap.DRIVE_kD * derivative;
         if (Math.abs(error) < 10)
             complete = true;
-        if (left)
-            speed = -speed;
+        // if (left)
+        // speed = -speed;
         // return speed;
 
         // if (Math.abs(currentLocation) > Math.abs(arcLength))
@@ -233,23 +238,23 @@ public class DriveArc extends Command {
         // RobotMap.left1.set(ControlMode.PercentOutput, -speed* circL / circR);
         // }
 
-        if (circL > circR) {
+        if (circL > circR) { 
             left = true;
             arcDriveRacing(-circL);
             // double tmp = arcDriveRacing(circL);
             // complete = .05 > Math.abs(speed);
             // RobotMap.right1.set(ControlMode.PercentOutput, -speed * circR / circL);
             double leftSpeed = speed;
-            double rightSpeed = speed*circR/circL;
-            double average = (leftSpeed+rightSpeed)/2;
-            Robot.driveTrain.RacingDrive(average, leftSpeed-average);
+            double rightSpeed = speed * circR / circL;
+            double average = (leftSpeed + rightSpeed) / 2;
+            Robot.driveTrain.RacingDrive(average, leftSpeed - average);
         } else {
             left = false;
             arcDriveRacing(circR);
             double rightSpeed = speed;
-            double leftSpeed = speed*circL/circR;
-            double average = (leftSpeed+rightSpeed)/2;
-            Robot.driveTrain.RacingDrive(average, -(rightSpeed-average));
+            double leftSpeed = speed * circL / circR;
+            double average = (leftSpeed + rightSpeed) / 2;
+            Robot.driveTrain.RacingDrive(average, -(rightSpeed - average));
         }
 
     }
