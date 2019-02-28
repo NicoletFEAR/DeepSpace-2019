@@ -96,9 +96,9 @@ public class RobotMap {
 	public static double ARM_JOYSTICK_DEAD_ZONE = 0.05; // check
 
 	// VISION CONSTANTS:
-	public static double angleConstant = 80;
+	public static double angleConstant = 2400;
 	public static double distanceConstant = 1.5;
-	public static double x_val_constant = 4.4;
+	public static double x_val_constant = .95;
 	// // ultrasonic sensors
 	// public static AnalogInput ultraLeft;
 	// public static AnalogInput ultraRight;
