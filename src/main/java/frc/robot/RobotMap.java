@@ -113,6 +113,17 @@ public class RobotMap {
 
 	public static int compressormodule = 0;
 
+	//distance offsets for arc + angle drive
+	public static double cargo1Dist = 45;
+	public static double cargo2Dist = 38;
+	public static double cargo3Dist = 45;
+	public static double hatch1Dist = 38;
+	public static double hatch2Dist = 34;
+	public static double loadingStationHatchDist = 38;
+	public static double loadingStationCargoDist = 38;
+	public static double cargoShipCargoDist = 35;
+	public static double cargoShipHatchDist = 38;
+
 	public static void init() {
 		targetEncoderValue = 0;
 		left1 = new TalonSRX(13);
@@ -179,5 +190,27 @@ public class RobotMap {
 
 		// ultraRight = new AnalogInput(3);
 		// ultraLeft = new AnalogInput(2);
+	}
+
+	public static double getDistanceOffset(int level) {
+		switch (level) {
+			case 1:
+				return cargo1Dist;
+			case 2:
+				return cargo2Dist;
+			case 3:
+				return cargo3Dist;
+			case 4:
+				return hatch1Dist;
+			case 5:
+				return hatch2Dist;
+			case 7:
+				return cargoShipCargoDist;
+			case 10:
+				return loadingStationCargoDist;
+			default:
+				return -1;
+
+		}
 	}
 }

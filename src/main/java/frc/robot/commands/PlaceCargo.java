@@ -9,6 +9,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.Robot;
+import frc.robot.RobotMap;
 
 public class PlaceCargo extends CommandGroup {
   /**
@@ -31,8 +32,9 @@ public class PlaceCargo extends CommandGroup {
     // e.g. if Command1 requires chassis, and Command2 requires arm,
     // a CommandGroup containing them would require both the chassis and the
     // arm.
+    double distOffset = RobotMap.getDistanceOffset(level);
     addSequential(new MoveToLevel(8));
-    addSequential(new DriveArc(Robot.x_val_target, Robot.y_val_target, Robot.angle_val_target));
+    addSequential(new DriveArc(Robot.x_val_target, Robot.y_val_target, Robot.angle_val_target, distOffset));
     addSequential(new MoveToLevel(level));
     addParallel(new FlyWheelSetSpeed(.5));
   }
