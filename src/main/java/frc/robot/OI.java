@@ -141,7 +141,7 @@ public class OI {
 
         // xbox1X.whenPressed(new Shift());
         // xbox1Y.whenPressed(new TurnToAngle(90));
-        // xbox1Y.whenPressed(new DriveArc(-24,48,60));
+        xbox1Y.whenPressed(new DriveArc(-24, 48, 60));
 
         // xbox1A.whenPressed(new DriveArc());
         // xbox1LeftStick.whenPressed(new SwitchFront());
