@@ -30,7 +30,7 @@ public class Arm extends Subsystem {
     public boolean armIsManual = false;
 
     /**
-     * Sets the default method for controlling this subsystem. This method runs upon
+     * Sets the method to run while this subsystem is running. This method runs upon
      * this subsystem's initialization. This default command checks to see if the
      * pistons are closed first.
      */

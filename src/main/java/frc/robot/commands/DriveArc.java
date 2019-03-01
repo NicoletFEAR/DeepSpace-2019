@@ -250,14 +250,14 @@ public class DriveArc extends Command {
             double leftSpeed = speed;
             double rightSpeed = speed * circR / circL;
             double average = (leftSpeed + rightSpeed) / 2;
-            Robot.driveTrain.RacingDrive(average, leftSpeed - average);
+            Robot.driveTrain.racingDrive(average, leftSpeed - average);
         } else {
             left = false;
             arcDriveRacing(circR);
             double rightSpeed = speed;
             double leftSpeed = speed * circL / circR;
             double average = (leftSpeed + rightSpeed) / 2;
-            Robot.driveTrain.RacingDrive(average, -(rightSpeed - average));
+            Robot.driveTrain.racingDrive(average, -(rightSpeed - average));
         }
 
     }

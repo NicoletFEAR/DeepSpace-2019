@@ -57,7 +57,7 @@ public class OpenLoopDrive extends Command {
     	//So Cool! :D
     	double robotOutput = forwardValue - reverseValue;
     	
-    	Robot.driveTrain.RacingDrive(robotOutput, turnAmount * RobotMap.TURN_SCALING);
+    	Robot.driveTrain.racingDrive(robotOutput, turnAmount * RobotMap.TURN_SCALING);
     	
      }
 
