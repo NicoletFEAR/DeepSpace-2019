@@ -7,6 +7,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
@@ -42,7 +43,7 @@ public class DriveToPosition extends Command {
       Robot.driveTrain.previousError = 0;
       return true;
     }
-    return false;
+    return false || Robot.oi.getXbox1().getTriggerAxis(GenericHID.Hand.kLeft) != 0 || Robot.oi.getXbox1().getTriggerAxis(GenericHID.Hand.kRight) != 0;
   }
 
   // Called once after isFinished returns true

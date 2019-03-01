@@ -10,12 +10,13 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.Robot;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
+import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Robot;
 import frc.robot.RobotMap;
 
 /**
@@ -264,7 +265,7 @@ public class DriveArc extends Command {
 
     @Override
     protected boolean isFinished() {
-        return complete;
+        return complete || Robot.oi.getXbox1().getTriggerAxis(GenericHID.Hand.kLeft) != 0 || Robot.oi.getXbox1().getTriggerAxis(GenericHID.Hand.kRight) != 0;
     }
 
     // Called once after isFinished returns true
