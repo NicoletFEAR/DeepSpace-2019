@@ -180,7 +180,7 @@ public class DriveArc extends Command {
         Robot.driveTrain.resetEncoders();
         // SmartDashboard.putBoolean("Turning complete", true);
 
-        if (Robot.driveTrain.isReversed()) {
+        if (!Robot.driveTrain.isReversed()) {
             double tmp = circL;
             circL = -circR;
             circR = -tmp;
@@ -241,9 +241,9 @@ public class DriveArc extends Command {
         // RobotMap.left1.set(ControlMode.PercentOutput, -speed* circL / circR);
         // }
 
-        if (circL > circR) { 
+        if (Math.abs(circL) > Math.abs(circR)) { 
             left = true;
-            arcDriveRacing(-circL);
+            arcDriveRacing(circL);
             // double tmp = arcDriveRacing(circL);
             // complete = .05 > Math.abs(speed);
             // RobotMap.right1.set(ControlMode.PercentOutput, -speed * circR / circL);
@@ -253,7 +253,7 @@ public class DriveArc extends Command {
             Robot.driveTrain.RacingDrive(average, leftSpeed - average);
         } else {
             left = false;
-            arcDriveRacing(circR);
+            arcDriveRacing(-circR);
             double rightSpeed = speed;
             double leftSpeed = speed * circL / circR;
             double average = (leftSpeed + rightSpeed) / 2;

@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.SetAndroidToFront;
 import frc.robot.loops.VisionProcessor;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.CompressAir;
@@ -68,6 +67,7 @@ public class Robot extends TimedRobot {
     public static String cameraMode = "back";
 
     public static VisionServer mVisionServer;
+    public static boolean xPressed = false;
 
     /**
      * This function is run when the robot is first started up and should be used
@@ -77,6 +77,7 @@ public class Robot extends TimedRobot {
     public void robotInit() {
         RobotMap.init();
         mVisionServer = VisionServer.getInstance();
+        mVisionServer.frontCamera();
 
         // String[] args = {};
         // mVisionServer.main(args);
@@ -99,11 +100,11 @@ public class Robot extends TimedRobot {
         
         compressorOAir = new CompressAir();
 
-        front = CameraServer.getInstance().startAutomaticCapture("FRONT", 1);
-        back = CameraServer.getInstance().startAutomaticCapture("BACK", 0);
+        //front = CameraServer.getInstance().startAutomaticCapture("FRONT", 1);
+       // back = CameraServer.getInstance().startAutomaticCapture("BACK", 0);
 
-        front.setConnectionStrategy(edu.wpi.cscore.VideoSource.ConnectionStrategy.kKeepOpen);
-        back.setConnectionStrategy(edu.wpi.cscore.VideoSource.ConnectionStrategy.kKeepOpen);
+       // front.setConnectionStrategy(edu.wpi.cscore.VideoSource.ConnectionStrategy.kKeepOpen);
+       // back.setConnectionStrategy(edu.wpi.cscore.VideoSource.ConnectionStrategy.kKeepOpen);
 
         // arduinoLEDInterface = new ArduinoInterface(7);
         // arduinoCameraInterface = new ArduinoInterface(6);
@@ -151,6 +152,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void autonomousInit() {
+        mVisionServer.backCamera();
         if (disabledCommand != null)
             disabledCommand.cancel();
         if (autonomousCommand != null)
@@ -177,7 +179,6 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("velL", velocityLeft);
         SmartDashboard.putNumber("Left Encoder: ", Robot.driveTrain.getLeftEncoderPosition());
         SmartDashboard.putNumber("Right Encoder: ", Robot.driveTrain.getRightEncoderPosition());
-        new SetAndroidToFront();
     }
 
     @Override
@@ -258,5 +259,8 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("flywheel2", gameMech.getFlywheel2Encoder());
 
         SmartDashboard.putBoolean("Compressor Enabled:", compressorOAir.isEnabled());
+
+        xPressed = oi.getXbox1().getXButton();
+        SmartDashboard.putBoolean("Drive X Button: ", xPressed);
     }
 }

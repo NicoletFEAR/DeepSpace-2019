@@ -57,7 +57,7 @@ public class RobotMap {
 	public static double DISTANCE_BETWEEN_TRACKS = 20.0; // Inches // FCB:20.5 // UDB:20
 	public static double fudgeFactor = 1.0;
 	public static double WHEEL_TICKS_PER_REVOLUTION = 7610;
-	public static double DRIVE_kP = 0.03;
+	public static final double DRIVE_kP = 0.03;
 	public static final double DRIVE_kI = 0;
 	public static final double DRIVE_kD = 0;
 	public static final double DRIVE_ERROR_CONSTANT = 0;
@@ -126,9 +126,9 @@ public class RobotMap {
 
 	public static void init() {
 		targetEncoderValue = 0;
-		left1 = new TalonSRX(13);
+		left1 = new TalonSRX(15);
 		left1.setNeutralMode(NeutralMode.Brake);
-		left2 = new TalonSRX(15);
+		left2 = new TalonSRX(13);
 		left2.setNeutralMode(NeutralMode.Brake);
 		left3 = new TalonSRX(17);
 		left3.setNeutralMode(NeutralMode.Brake);
@@ -145,9 +145,9 @@ public class RobotMap {
 		left2.follow(left1);
 		left3.follow(left1);
 
-		right1 = new TalonSRX(14);
+		right1 = new TalonSRX(16);
 		right1.setNeutralMode(NeutralMode.Brake);
-		right2 = new TalonSRX(16);
+		right2 = new TalonSRX(14);
 		right2.setNeutralMode(NeutralMode.Brake);
 		right3 = new TalonSRX(18);
 		right3.setNeutralMode(NeutralMode.Brake);

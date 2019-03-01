@@ -8,12 +8,14 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import frc.robot.RobotMap;
+import frc.robot.Robot;
 
-public class LoadingStation extends CommandGroup {
+public class LoadingStationHatch extends CommandGroup {
   /**
    * Add your docs here.
    */
-  public LoadingStation() {
+  public LoadingStationHatch() {
     // Add Commands here:
     // e.g. addSequential(new Command1());
     // addSequential(new Command2());
@@ -30,5 +32,11 @@ public class LoadingStation extends CommandGroup {
     // e.g. if Command1 requires chassis, and Command2 requires arm,
     // a CommandGroup containing them would require both the chassis and the
     // arm.
+    double distOffset = RobotMap.getDistanceOffset(4);
+    addSequential(new MoveToLevel(8));
+    addSequential(new DriveArc(Robot.x_val_target, Robot.y_val_target, Robot.z_val_target, distOffset));
+    addSequential(new GameMechClose());
+    addSequential(new MoveToLevel(4));
+    addSequential(new GameMechOpen());
   }
 }

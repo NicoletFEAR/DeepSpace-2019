@@ -10,11 +10,22 @@
 
 package frc.robot;
 
-import frc.robot.commands.*;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.robot.commands.ButtonOrganizer;
+import frc.robot.commands.DecrementCap;
+import frc.robot.commands.DriveArc;
+import frc.robot.commands.FlyWheelSetSpeed;
+import frc.robot.commands.GameMechClose;
+import frc.robot.commands.GameMechOpen;
+import frc.robot.commands.IncrementCap;
+import frc.robot.commands.MoveToLevel;
+import frc.robot.commands.SwitchAndroidCamera;
+import frc.robot.commands.SwitchFront;
+import frc.robot.commands.ToggleArmPID;
+import frc.robot.commands.ToggleCompressor;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -62,7 +73,7 @@ public class OI {
     private Button HatchLevel3;
     private Button Vertical;
     private Button CargoShipCargo;
-    private Button CargoLoadingStation;
+    private Button LoadingStation;
     private Button CargoFloor;
 
     public OI() {
@@ -112,32 +123,22 @@ public class OI {
         HatchLevel3 = new JoystickButton(armLevelController, 6);
         Vertical = new JoystickButton(armLevelController, 7);
         CargoShipCargo = new JoystickButton(armLevelController, 8);
-        CargoLoadingStation = new JoystickButton(armLevelController, 9);
+        LoadingStation = new JoystickButton(armLevelController, 9);
         CargoFloor = new JoystickButton(armLevelController, 10);
 
         // Drive Controller Command Mapping
         xbox1B.whenPressed(new SwitchFront());
         xbox1B.whenPressed(new SwitchAndroidCamera());
         xbox1Back.whenPressed(new ToggleArmPID());
-        if (xbox1.getXButton()) {
-            CargoLevel1.toggleWhenPressed(new PlaceCargo(1));
-            CargoLevel2.toggleWhenPressed(new PlaceCargo(2));
-            CargoLevel3.toggleWhenPressed(new PlaceCargo(3));
-            HatchLevel1.toggleWhenPressed(new PlaceHatch(1));
-            HatchLevel2.toggleWhenPressed(new PlaceHatch(2));
-            HatchLevel3.toggleWhenPressed(new PlaceHatch(3));
-            CargoShipCargo.toggleWhenPressed(new PlaceCargo(7));
-            CargoLoadingStation.toggleWhenPressed(new LoadingStation());
-        } else {
-            CargoLevel1.whenPressed(new MoveToLevel(1));
-            CargoLevel2.whenPressed(new MoveToLevel(2));
-            CargoLevel3.whenPressed(new MoveToLevel(3));
-            HatchLevel1.whenPressed(new MoveToLevel(4));
-            HatchLevel2.whenPressed(new MoveToLevel(5));
-            HatchLevel3.whenPressed(new MoveToLevel(6));
-            CargoShipCargo.whenPressed(new MoveToLevel(7));
-            CargoLoadingStation.whenPressed(new MoveToLevel(10));
-        }
+        CargoLevel1.whenPressed(new ButtonOrganizer(1));
+       // CargoLevel1.whenPressed(new DriveArc(24, 4, -45, 0));
+        CargoLevel2.whenPressed(new ButtonOrganizer(2));
+        CargoLevel3.whenPressed(new ButtonOrganizer(3));
+        HatchLevel1.whenPressed(new ButtonOrganizer(4));
+        HatchLevel2.whenPressed(new ButtonOrganizer(5));
+        HatchLevel3.whenPressed(new ButtonOrganizer(6));
+        CargoShipCargo.whenPressed(new ButtonOrganizer(7));
+        LoadingStation.whenPressed(new ButtonOrganizer(10));
 
         // xbox1X.whenPressed(new Shift());
         // xbox1Y.whenPressed(new TurnToAngle(90));

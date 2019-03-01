@@ -141,10 +141,14 @@ public class RobotState {
                 // double yyaw = target.getY(); //ydeadband * camera_yaw_correction_.cos() - target.getX() * camera_yaw_correction_.sin();
                 // double zyaw = target.getZ();
 
-                Robot.y_val_target = target.getY();
+                if (Robot.driveTrain.isReversed()) {
+                    Robot.x_val_target = target.getX() - 3;
+                } else {
+                    Robot.x_val_target = target.getX() + 3;
+                }
                 Robot.z_val_target = target.getZ();
-                Robot.x_val_target = target.getX();
                 Robot.angle_val_target = target.getAngle();
+                Robot.y_val_target = target.getY();
 
 
 
