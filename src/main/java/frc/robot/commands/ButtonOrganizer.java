@@ -29,7 +29,7 @@ public class ButtonOrganizer extends InstantCommand {
   // Called once when the command executes
   @Override
   protected void initialize() {
-    if (Robot.oi.getXbox1().getXButton()) {
+    if (Robot.oi.getXbox1().getBButton()) {
       switch (buttonID) {
         case 1:
           Scheduler.getInstance().add(new PlaceCargo(1));

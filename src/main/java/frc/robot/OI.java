@@ -127,8 +127,8 @@ public class OI {
         CargoFloor = new JoystickButton(armLevelController, 10);
 
         // Drive Controller Command Mapping
-        xbox1B.whenPressed(new SwitchFront());
-        xbox1B.whenPressed(new SwitchAndroidCamera());
+        xbox1X.whenPressed(new SwitchFront());
+        xbox1X.whenPressed(new SwitchAndroidCamera());
         xbox1Back.whenPressed(new ToggleArmPID());
         CargoLevel1.whenPressed(new ButtonOrganizer(1));
        // CargoLevel1.whenPressed(new DriveArc(24, 4, -45, 0));
