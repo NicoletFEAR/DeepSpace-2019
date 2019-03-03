@@ -520,6 +520,30 @@
               "Colors/Color when true": "#7CFC00FF",
               "Colors/Color when false": "#8B0000FF"
             }
+          },
+          "5,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Drive Arc Error",
+              "_title": "Drive Arc Error"
+            }
+          },
+          "6,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Complete arc drive",
+              "_title": "Complete arc drive",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
           }
         }
       }
@@ -1009,7 +1033,7 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Turning",
-              "_title": "SmartDashboard/Turning"
+              "_title": "/SmartDashboard/Turning"
             }
           },
           "8,1": {
@@ -1020,7 +1044,7 @@
             "content": {
               "_type": "Boolean Box",
               "_source0": "network_table:///SmartDashboard/is B pressed",
-              "_title": "SmartDashboard/is B pressed",
+              "_title": "/SmartDashboard/is B pressed",
               "Colors/Color when true": "#7CFC00FF",
               "Colors/Color when false": "#8B0000FF"
             }
@@ -1033,20 +1057,7 @@
             "content": {
               "_type": "Network Table Tree",
               "_source0": "network_table:///SmartDashboard/Command Running",
-              "_title": "SmartDashboard/Command Running"
-            }
-          },
-          "5,1": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Boolean Box",
-              "_source0": "network_table:///SmartDashboard/Turn Bool",
-              "_title": "SmartDashboard/Turn Bool",
-              "Colors/Color when true": "#7CFC00FF",
-              "Colors/Color when false": "#8B0000FF"
+              "_title": "/SmartDashboard/Command Running"
             }
           },
           "6,1": {
@@ -1057,7 +1068,40 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/turnError",
-              "_title": "SmartDashboard/turnError"
+              "_title": "/SmartDashboard/turnError"
+            }
+          },
+          "5,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Arc target",
+              "_title": "/SmartDashboard/Arc target"
+            }
+          },
+          "7,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Drive Arc Error",
+              "_title": "/SmartDashboard/Drive Arc Error"
+            }
+          },
+          "4,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/currentDistance",
+              "_title": "/SmartDashboard/currentDistance"
             }
           }
         }

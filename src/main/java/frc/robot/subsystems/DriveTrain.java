@@ -369,7 +369,7 @@ public class DriveTrain extends Subsystem {
 		if (turnError < RobotMap.TURN_ERROR_CONSTANT && turnError > -RobotMap.TURN_ERROR_CONSTANT) {		
 			integral = 0;
 			previousError = 0;
-			previousDesiredAngle = 0.1;
+			previousDesiredAngle = 0.111;
 			desiredAngle = 0;
 			return true;
 		}

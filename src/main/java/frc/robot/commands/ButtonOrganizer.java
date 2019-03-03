@@ -9,6 +9,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
 /**
@@ -29,7 +30,9 @@ public class ButtonOrganizer extends InstantCommand {
   // Called once when the command executes
   @Override
   protected void initialize() {
-    if (Robot.oi.getXbox1().getXButton()) {
+    SmartDashboard.putBoolean("is B pressed", Robot.oi.getXbox1().getBButton());
+    System.out.println("inside ButtonOrganiser");
+    if (Robot.oi.getXbox1().getBButton()) {
       switch (buttonID) {
         case 1:
           Scheduler.getInstance().add(new PlaceCargo(1));

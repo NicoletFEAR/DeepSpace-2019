@@ -8,6 +8,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 
@@ -34,7 +35,9 @@ public class PlaceCargo extends CommandGroup {
     // arm.
     double distOffset = RobotMap.getDistanceOffset(level);
     addSequential(new MoveToLevel(8));
-    addSequential(new DriveArc(Robot.x_val_target, Robot.y_val_target, Robot.angle_val_target, distOffset));
+    addSequential(new DriveArc(-12, 2, 45, 0));
+    SmartDashboard.putString("RunningArc", "24,4,45");
+    //addSequential(new DriveArc(Robot.x_val_target, Robot.y_val_target, Robot.angle_val_target, distOffset));
     addSequential(new MoveToLevel(level));
     addParallel(new FlyWheelSetSpeed(.5));
   }

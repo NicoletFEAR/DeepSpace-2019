@@ -262,5 +262,7 @@ public class Robot extends TimedRobot {
 
         xPressed = oi.getXbox1().getXButton();
         SmartDashboard.putBoolean("Drive X Button: ", xPressed);
+
+        SmartDashboard.putData("Command Running", Scheduler.getInstance());
     }
 }

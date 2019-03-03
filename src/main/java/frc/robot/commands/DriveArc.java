@@ -52,9 +52,18 @@ public class DriveArc extends Command {
         this.x = x - distOffset * Math.cos(Math.toRadians(90 - theta));
         this.y = y*12 - distOffset * Math.sin(Math.toRadians(90 - theta));
         this.theta = -theta; // inverted
+        
+        // if (x == 0) {
+        //     this.x = 0.01;
+        // }
+        // if (y == 0) {
+        //     this.y = 0.01;
+        // }
+        // if (theta == 0) {
+        //     this.theta = 0.01;
+        // }
 
         setInterruptible(true);
-
     }
 
     public double TicksToRevolution(double numberOfTicks) {
@@ -112,155 +121,117 @@ public class DriveArc extends Command {
     @Override
     protected void initialize() {
         complete = false;
+        
+        //reset navX for tuning arc
         Robot.navX.reset();
-        boolean positive = true;
-        if (x < 0) {
-            x = -x;
-            theta = -theta;
-            positive = false;
-        }
+
         double prefferedLength = y / Math.cos(Math.toRadians(theta));
         double currentLength = Math.sqrt(x * x + y * y);
-        /*
-         * double radius1 = y/Math.sin(Math.toRadians(theta)); double radius2 =
-         * x+y/Math.tan(Math.toRadians(theta));
-         * if(radius1>radius2-RobotMap.PERFECT_ARC_RANGE &&
-         * radius1<radius2+RobotMap.PERFECT_ARC_RANGE){ //already in position //execute
-         * already perfect arc
-         * 
-         * }else
-         */
+
+
+        double leftRadius = 0.0;
+        double rightRadius = 0.0;
         boolean turnBool = false;
         if (currentLength > prefferedLength) {
             // rotate to the right, arcing to the left
             z = -2 * (Math.toDegrees(Math.tanh(x / y)) - theta);
             double degreesToRotate = theta + z;
-
-            if (!positive)
-                degreesToRotate = -degreesToRotate;
+            
             while (!turnBool) {
                 turnBool = Robot.driveTrain.turnToAngle(degreesToRotate);
-                SmartDashboard.putString("Turning", "turning");
+                SmartDashboard.putString("Turning", "Turn Left");
             }
 
             double radius = (1.0 / 2 * Math.sqrt(x * x + y * y)) / (Math.sin(Math.toRadians(.5 * z)));
-            double leftRadius = radius - 1.0 / 2 * RobotMap.DISTANCE_BETWEEN_TRACKS;
-            double rightRadius = radius + 1.0 / 2 * RobotMap.DISTANCE_BETWEEN_TRACKS;
-
-            circL = leftRadius * 2 * Math.PI * z / 360;
-            circR = rightRadius * 2 * Math.PI * z / 360;
+            leftRadius = radius - 1.0 * RobotMap.DISTANCE_BETWEEN_TRACKS;
+            rightRadius = radius + 1.0 * RobotMap.DISTANCE_BETWEEN_TRACKS;
         } else {
             // rotate to the left, arcing to the right
             z = 2 * (theta - Math.toDegrees(Math.tanh(x / y)));
             double degreesToRotate = theta - z;
 
-            if (!positive)
-                degreesToRotate = -degreesToRotate;
-
             while (!turnBool) {
                 turnBool = Robot.driveTrain.turnToAngle(degreesToRotate);
-                SmartDashboard.putString("Turning", "turning");
+                SmartDashboard.putString("Turning", "Turn Right");
             }
 
             double radius = (1.0 / 2 * Math.sqrt(x * x + y * y)) / (Math.sin(Math.toRadians(.5 * z)));
-            double leftRadius = radius + 1.0 / 2 * RobotMap.DISTANCE_BETWEEN_TRACKS;
-            double rightRadius = radius - 1.0 / 2 * RobotMap.DISTANCE_BETWEEN_TRACKS;
-
-            circL = leftRadius * 2 * Math.PI * z / 360;
-            circR = rightRadius * 2 * Math.PI * z / 360;
+            leftRadius = radius + 1.0 / 2 * RobotMap.DISTANCE_BETWEEN_TRACKS;
+            rightRadius = radius - 1.0 / 2 * RobotMap.DISTANCE_BETWEEN_TRACKS;
         }
+
+        circL = leftRadius * 2 * Math.PI * z / 360;
+        circR = rightRadius * 2 * Math.PI * z / 360;
+
         SmartDashboard.putString("Turning", "done turning");
 
-        // System.out.println("Done turning");
-        if (!positive) {
-            double tmp = circL;
-            circL = circR;
-            circR = tmp;
-        }
-
-        Robot.driveTrain.resetEncoders();
         // SmartDashboard.putBoolean("Turning complete", true);
+        
+        // if (!Robot.driveTrain.isReversed()) {
+        //     double tmp = circL;
+        //     circL = -circR;
+        //     circR = -tmp;
+        // }
 
-        if (!Robot.driveTrain.isReversed()) {
-            double tmp = circL;
-            circL = -circR;
-            circR = -tmp;
-        }
-
+        // reset the encoders
+        Robot.driveTrain.resetEncoders();
+        
     } // end of init, go to execute
+
+    @Override
+    protected void execute() {
+        SmartDashboard.putNumber("CircL", circL);
+        SmartDashboard.putNumber("CircR", circR);
+        SmartDashboard.putNumber("Speed", speed);
+
+        if (Math.abs(circL) > Math.abs(circR)) { 
+            left = true;
+            arcDriveRacing(circL);
+            double leftSpeed = speed;
+            double rightSpeed = speed * circR / circL;
+            double average = (leftSpeed + rightSpeed) / 2;
+            Robot.driveTrain.RacingDrive(-average, -(leftSpeed - average));
+        } else {
+            left = false;
+            arcDriveRacing(circR);
+            double rightSpeed = speed;
+            double leftSpeed = speed * circL / circR;
+            double average = (leftSpeed + rightSpeed) / 2;
+            Robot.driveTrain.RacingDrive(-average, (rightSpeed - average));
+        }
+        SmartDashboard.putBoolean("Complete arc drive", complete);
+
+    }
 
     double currentLocation;
 
     // Arc length should be in inches
     public void arcDriveRacing(double arcLength) {
-        // SmartDashboard.putNumber("", );
-        // System.out.print("HI");
+        SmartDashboard.putBoolean("Left?", left);
+
+        //measure left or right encoders, as applicable
         if (left)
             currentLocation = RevolutionsToInches(TicksToRevolution(Robot.driveTrain.getLeftEncoderPosition()));
         else
             currentLocation = RevolutionsToInches(TicksToRevolution(Robot.driveTrain.getRightEncoderPosition()));
+        
+        currentLocation = Math.abs(currentLocation);
+
         SmartDashboard.putNumber("Arc target", arcLength);
         SmartDashboard.putNumber("currentDistance", currentLocation);
 
+        //PID measurements
         error = arcLength - currentLocation;
         integral += error * .02;
         derivative = (error - previousError) / .02;
         previousError = error;
 
+        SmartDashboard.putNumber("Drive Arc Error", error);
 
         //  Welcome to the Amazing World of PID :D
         speed = RobotMap.DRIVE_kP * error + RobotMap.DRIVE_kI * integral + RobotMap.DRIVE_kD * derivative;
         if (Math.abs(error) < 10)
             complete = true;
-        // if (left)
-        // speed = -speed;
-        // return speed;
-
-        // if (Math.abs(currentLocation) > Math.abs(arcLength))
-        // return true;
-        // return false;
-    }
-
-    @Override
-    protected void execute() {
-        // //System.out.println("execute()");
-        // Needs to be configured for switch front
-        // if(Robot.oi.getXbox1().getBumperPressed(Hand.kRight))RobotMap.DRIVE_kP+=.01;
-        // SmartDashboard.putNumber("P Val", RobotMap.DRIVE_kP);
-
-        SmartDashboard.putNumber("CircL", circL);
-        SmartDashboard.putNumber("CircR", circR);
-        SmartDashboard.putNumber("Speed", speed);
-
-        // if (circL > circR) {
-        // left = true;
-        // complete = arcDrive(circL, RobotMap.left1);
-        // RobotMap.right1.set(ControlMode.PercentOutput, -speed * circR / circL);
-        // } else {
-        // left = false;
-        // complete = arcDrive(circR, RobotMap.right1);
-        // RobotMap.left1.set(ControlMode.PercentOutput, -speed* circL / circR);
-        // }
-
-        if (Math.abs(circL) > Math.abs(circR)) { 
-            left = true;
-            arcDriveRacing(circL);
-            // double tmp = arcDriveRacing(circL);
-            // complete = .05 > Math.abs(speed);
-            // RobotMap.right1.set(ControlMode.PercentOutput, -speed * circR / circL);
-            double leftSpeed = speed;
-            double rightSpeed = speed * circR / circL;
-            double average = (leftSpeed + rightSpeed) / 2;
-            Robot.driveTrain.RacingDrive(average, leftSpeed - average);
-        } else {
-            left = false;
-            arcDriveRacing(-circR);
-            double rightSpeed = speed;
-            double leftSpeed = speed * circL / circR;
-            double average = (leftSpeed + rightSpeed) / 2;
-            Robot.driveTrain.RacingDrive(average, -(rightSpeed - average));
-        }
-
     }
 
     @Override
