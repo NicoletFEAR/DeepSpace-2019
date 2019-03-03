@@ -30,8 +30,6 @@ public class ButtonOrganizer extends InstantCommand {
   // Called once when the command executes
   @Override
   protected void initialize() {
-    SmartDashboard.putBoolean("is B pressed", Robot.oi.getXbox1().getBButton());
-    System.out.println("inside ButtonOrganiser");
     if (Robot.oi.getXbox1().getBButton()) {
       switch (buttonID) {
         case 1:

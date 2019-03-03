@@ -844,7 +844,7 @@
               "_source0": "camera_server://FRONT",
               "_title": "FRONT",
               "Crosshair/Show crosshair": true,
-              "Crosshair/Crosshair color": "#FFFFFFFF",
+              "Crosshair/Crosshair color": "#FF0000FF",
               "Controls/Show controls": true,
               "Controls/Rotation": "NONE",
               "compression": -1.0,
@@ -908,17 +908,6 @@
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Camera Mode: ",
               "_title": "/SmartDashboard/Camera Mode: "
-            }
-          },
-          "5,5": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///LiveWindow/Ungrouped/AnalogInput[0]/Value",
-              "_title": "/LiveWindow/Ungrouped/AnalogInput[0]/Value"
             }
           },
           "0,1": {
