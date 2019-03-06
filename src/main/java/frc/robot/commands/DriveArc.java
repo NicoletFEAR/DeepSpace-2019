@@ -50,7 +50,7 @@ public class DriveArc extends Command {
     public DriveArc(double x, double y, double theta, double distOffset) {
         requires(Robot.driveTrain);
         this.x = x - distOffset * Math.cos(Math.toRadians(90 - theta));
-        this.y = y*12 - distOffset * Math.sin(Math.toRadians(90 - theta));
+        this.y = (y * 12) - distOffset * Math.sin(Math.toRadians(90 - theta));
         this.theta = -theta; // inverted
         
         // if (x == 0) {
@@ -77,46 +77,6 @@ public class DriveArc extends Command {
         double distanceTraveled = (2 * Math.PI * RobotMap.WHEEL_RADIUS) * percentRotation;
         return distanceTraveled;
     }
-
-    // Arc length should be in inches
-    public boolean arcDrive(double arcLength, TalonSRX talon) {
-        // SmartDashboard.putNumber("", );
-
-        double currentLocation = RevolutionsToInches(TicksToRevolution(talon.getSelectedSensorPosition()));
-
-        SmartDashboard.putNumber("Target", arcLength);
-        SmartDashboard.putNumber("currentDistance", currentLocation);
-
-        error = arcLength - currentLocation;
-        integral += error * .02;
-        derivative = (error - previousError) / .02;
-        previousError = error;
-
-        speed = RobotMap.DRIVE_kP * error + RobotMap.DRIVE_kI * integral + RobotMap.DRIVE_kD * derivative;
-        if (left)
-            speed = -speed;
-        talon.set(ControlMode.PercentOutput, speed);
-
-        if (Math.abs(currentLocation) > Math.abs(arcLength))
-            return true;
-        return false;
-    }
-
-    // protected void rotateDegrees(double degrees){
-    // double error;
-    // //
-    // // SmartDashboard.putNumber("original angle", degrees);
-    // degrees = degrees<0?(degrees%360):-(degrees%360);
-    // // SmartDashboard.putNumber("Desired angle", degrees);
-    // do{
-    // error = degrees-Robot.navX.getAngle();
-    // double speed = RobotMap.TURN_kP*error;
-    // RobotMap.left1.set(ControlMode.PercentOutput, -speed);
-    // RobotMap.right1.set(ControlMode.PercentOutput, -speed);
-    // // SmartDashboard.putNumber("CurrentAngle", Robot.navX.getAngle());
-    // }while(error<-RobotMap.PERFECT_ARC_RANGE ||
-    // error>RobotMap.PERFECT_ARC_RANGE);
-    // }
 
     @Override
     protected void initialize() {
@@ -164,8 +124,6 @@ public class DriveArc extends Command {
         circR = rightRadius * 2 * Math.PI * z / 360;
 
         SmartDashboard.putString("Turning", "done turning");
-
-        // SmartDashboard.putBoolean("Turning complete", true);
         
         // if (!Robot.driveTrain.isReversed()) {
         //     double tmp = circL;
@@ -230,6 +188,7 @@ public class DriveArc extends Command {
 
         //  Welcome to the Amazing World of PID :D
         speed = RobotMap.DRIVE_kP * error + RobotMap.DRIVE_kI * integral + RobotMap.DRIVE_kD * derivative;
+        speed *= -1;
         if (Math.abs(error) < 10)
             complete = true;
     }
