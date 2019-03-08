@@ -99,6 +99,11 @@ public class RobotMap {
 	public static double angleConstant = 2400;
 	public static double distanceConstant = 1.5;
 	public static double x_val_constant = .95;
+
+	// ARC DRIVE 2.0 CONSTANTS
+	public static double y_multiplier = 0.1; // multiplies the target output by the Android vision to robot driving output
+	public static double x_multiplier = 0.05;
+
 	// // ultrasonic sensors
 	// public static AnalogInput ultraLeft;
 	// public static AnalogInput ultraRight;

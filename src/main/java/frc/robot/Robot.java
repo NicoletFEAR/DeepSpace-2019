@@ -43,6 +43,7 @@ public class Robot extends TimedRobot {
     public static double x_val_target = 0.0;
     public static double angle_val_target = 0.0;
     public static boolean isTargetNull = true;
+    public static boolean doneArc = false;
 
     public static OI oi;
     public static DriveTrain driveTrain;
