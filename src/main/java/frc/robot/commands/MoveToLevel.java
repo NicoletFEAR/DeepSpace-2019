@@ -51,6 +51,8 @@ public class MoveToLevel extends InstantCommand {
       RobotMap.targetEncoderValue = RobotMap.CargoLoadingStation;
     } else if (level == 12) {// Hatch from loading station
       RobotMap.targetEncoderValue = RobotMap.HatchLevel1TargetValue;
+    } else if (level == 13) {// climbing position
+      RobotMap.targetEncoderValue = RobotMap.backToClimb;
     }
   }
 

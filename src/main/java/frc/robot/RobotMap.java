@@ -81,6 +81,7 @@ public class RobotMap {
 	public static final int CargoLoadingStation = -2100; //-1200;
 	public static final int CargoFloor = -2400; //-3500;
 	public static final int StraightUp = 0;
+	public static final int backToClimb = 1100;
 	// P: increases proportional to error
 	public static final double ARM_kP = 0.002; // please raise
 	// I: sum of error over time, helps arm get to final pos 
