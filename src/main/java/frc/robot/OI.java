@@ -131,14 +131,14 @@ public class OI {
         xbox1X.whenPressed(new SwitchFront());
         xbox1X.whenPressed(new SwitchAndroidCamera());
         xbox1Back.whenPressed(new ToggleArmPID());
-        CargoLevel1.whenPressed(new ButtonOrganizer(1));
-        CargoLevel2.whenPressed(new ButtonOrganizer(2));
-        CargoLevel3.whenPressed(new ButtonOrganizer(3));
-        HatchLevel1.whenPressed(new ButtonOrganizer(4));
-        HatchLevel2.whenPressed(new ButtonOrganizer(5));
-        HatchLevel3.whenPressed(new ButtonOrganizer(6));
-        CargoShipCargo.whenPressed(new ButtonOrganizer(7));
-        LoadingStation.whenPressed(new ButtonOrganizer(8));
+        CargoLevel1.whileHeld(new ButtonOrganizer(1));
+        CargoLevel2.whileHeld(new ButtonOrganizer(2));
+        CargoLevel3.whileHeld(new ButtonOrganizer(3));
+        HatchLevel1.whileHeld(new ButtonOrganizer(4));
+        HatchLevel2.whileHeld(new ButtonOrganizer(5));
+        HatchLevel3.whileHeld(new ButtonOrganizer(6));
+        CargoShipCargo.whileHeld(new ButtonOrganizer(7));
+        LoadingStation.whileHeld(new ButtonOrganizer(8));
 
         // xbox1X.whenPressed(new Shift());
         // xbox1Y.whenPressed(new TurnToAngle(90));
