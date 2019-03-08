@@ -138,7 +138,7 @@ public class OI {
         HatchLevel2.whenPressed(new ButtonOrganizer(5));
         HatchLevel3.whenPressed(new ButtonOrganizer(6));
         CargoShipCargo.whenPressed(new ButtonOrganizer(7));
-        LoadingStation.whenPressed(new ButtonOrganizer(10));
+        LoadingStation.whenPressed(new ButtonOrganizer(8));
 
         // xbox1X.whenPressed(new Shift());
         // xbox1Y.whenPressed(new TurnToAngle(90));

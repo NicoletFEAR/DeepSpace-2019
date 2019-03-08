@@ -36,7 +36,8 @@ public class PlaceCargo extends CommandGroup {
     double distOffset = RobotMap.getDistanceOffset(level);
     addSequential(new MoveToLevel(8));
     //addSequential(new DriveArc(2, 4, 20, 12));
-    addSequential(new DriveArc(Robot.x_val_target, Robot.y_val_target, Robot.angle_val_target, distOffset));
+    //addSequential(new DriveArc(Robot.x_val_target, Robot.y_val_target, Robot.angle_val_target, distOffset));
+    addSequential(new DriveToTarget(Robot.x_val_target, Robot.y_val_target, Robot.angle_val_target, distOffset));
     addSequential(new MoveToLevel(level));
     addParallel(new FlyWheelSetSpeed(.5));
   }

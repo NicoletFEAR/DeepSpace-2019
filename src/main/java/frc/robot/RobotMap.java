@@ -64,7 +64,7 @@ public class RobotMap {
 	public static final double TURN_kP = 0.04;
 	public static final double TURN_kI = 0.001;
 	public static final double TURN_kD = 0.001;
-	public static final double TURN_ERROR_CONSTANT = 1; // degrees the turn can be off
+	public static final double TURN_ERROR_CONSTANT = 2; // degrees the turn can be off
 	public static final double PERFECT_ARC_RANGE = 2;
     public static final double TURN_SCALING = 0.6;
 
@@ -206,7 +206,7 @@ public class RobotMap {
 				return hatch2Dist;
 			case 7:
 				return cargoShipCargoDist;
-			case 10:
+			case 8:
 				return loadingStationCargoDist;
 			default:
 				return -1;

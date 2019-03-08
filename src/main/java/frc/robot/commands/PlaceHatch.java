@@ -34,7 +34,8 @@ public class PlaceHatch extends CommandGroup {
     // arm.
     double distOffset = RobotMap.getDistanceOffset(level);
     addSequential(new MoveToLevel(8));
-    addSequential(new DriveArc(Robot.x_val_target, Robot.y_val_target, Robot.z_val_target, distOffset));
+    // addSequential(new DriveArc(Robot.x_val_target, Robot.y_val_target, Robot.angle_val_target, distOffset));
+    addSequential(new DriveToTarget(Robot.x_val_target, Robot.y_val_target, Robot.angle_val_target, distOffset));
     addSequential(new MoveToLevel(level));
     addSequential(new GameMechClose());
 

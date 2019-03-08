@@ -130,7 +130,7 @@ public class RobotState {
     public void addVisionUpdate(double timestamp, List<TargetInfo> vision_update) {
         //List<Translation2d> field_to_goals = new ArrayList<>();
         //RigidTransform2d field_to_camera = getFieldToCamera(timestamp);
-        Robot.isTargetNull = (vision_update == null || vision_update.isEmpty());
+        //Robot.isTargetNull = (vision_update == null || vision_update.isEmpty());
         if (!(vision_update == null || vision_update.isEmpty())) {
             for (TargetInfo target : vision_update) {
             //double ydeadband = (target.getY() > -Constants.kCameraDeadband
@@ -150,6 +150,7 @@ public class RobotState {
                 Robot.angle_val_target = target.getAngle();
                 Robot.y_val_target = target.getY();
 
+                Robot.isTargetNull = Math.abs(Robot.x_val_target) > 10;
 
 
                 // // Compensate for camera pitch

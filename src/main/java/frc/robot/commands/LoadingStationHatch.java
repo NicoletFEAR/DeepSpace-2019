@@ -32,9 +32,10 @@ public class LoadingStationHatch extends CommandGroup {
     // e.g. if Command1 requires chassis, and Command2 requires arm,
     // a CommandGroup containing them would require both the chassis and the
     // arm.
-    double distOffset = RobotMap.getDistanceOffset(4);
+    double distOffset = RobotMap.getDistanceOffset(8);
     addSequential(new MoveToLevel(8));
-    addSequential(new DriveArc(Robot.x_val_target, Robot.y_val_target, Robot.z_val_target, distOffset));
+    //addSequential(new DriveArc(Robot.x_val_target, Robot.y_val_target, Robot.angle_val_target, distOffset));
+    addSequential(new DriveToTarget(Robot.x_val_target, Robot.y_val_target, Robot.angle_val_target, distOffset));
     addSequential(new GameMechClose());
     addSequential(new MoveToLevel(4));
     addSequential(new GameMechOpen());
