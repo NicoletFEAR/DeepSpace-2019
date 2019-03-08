@@ -15,21 +15,19 @@ public class ArcDrive2 extends InstantCommand {
 
   double x;
   double y;
-  double theta;
   double distOffset;
 
   int level;
 
-  public ArcDrive2(double x, double y, double theta, double distOffset, int level) {
+  public ArcDrive2(int level) {
 
     super();
 
     // Uses input from the Android vision system to drive to targets and place game
     // pieces
-    this.x = x;
-    this.y = y;
-    this.theta = theta;
-    this.distOffset = distOffset;
+    this.x = Robot.x_val_target;
+    this.y = Robot.y_val_target;
+    this.distOffset = RobotMap.getDistanceOffset(level);
 
     this.level = level;
 
@@ -53,7 +51,7 @@ public class ArcDrive2 extends InstantCommand {
 
   public void setDriving() {
 
-    if (y < distOffset) {
+    if (this.y < distOffset) {
       Robot.doneArc = true;
     } else {
       Robot.doneArc = false;
@@ -62,13 +60,13 @@ public class ArcDrive2 extends InstantCommand {
     if (Robot.doneArc) {
       // stop
     } else {
-      Robot.driveTrain.RacingDrive(y * RobotMap.y_multiplier, x * RobotMap.x_multiplier);
+      Robot.driveTrain.RacingDrive(this.y * RobotMap.y_multiplier, this.x * RobotMap.x_multiplier);
     }
   }
 
   public void setHeight() {
 
-    if (y < distOffset + 1) {
+    if (this.y < distOffset + 1) {
       new MoveToLevel(level);
     } else {
       new MoveToLevel(8);

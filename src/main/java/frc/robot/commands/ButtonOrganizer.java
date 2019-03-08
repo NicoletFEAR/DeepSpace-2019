@@ -33,28 +33,28 @@ public class ButtonOrganizer extends InstantCommand {
     if (Robot.oi.getXbox1().getBButton()) {
       switch (buttonID) {
         case 1:
-          Scheduler.getInstance().add(new PlaceCargo(1));
+          Scheduler.getInstance().add(new ArcDrive2(1)); // cargo 1
           break;
         case 2:
-          Scheduler.getInstance().add(new PlaceCargo(2));
+          Scheduler.getInstance().add(new ArcDrive2(2)); // cargo 2
           break;
         case 3:
-          Scheduler.getInstance().add(new PlaceCargo(3));
+          Scheduler.getInstance().add(new ArcDrive2(3)); // cargo 3
           break;
         case 4:
-          Scheduler.getInstance().add(new PlaceHatch(4));
+          Scheduler.getInstance().add(new ArcDrive2(4)); // hatch 1
           break;
         case 5:
-          Scheduler.getInstance().add(new PlaceHatch(5));
+          Scheduler.getInstance().add(new ArcDrive2(5)); // hatch 2
           break;
         case 6:
-          Scheduler.getInstance().add(new PlaceHatch(6));
+          Scheduler.getInstance().add(new ArcDrive2(6)); // hatch 3
           break;
         case 7:
-          Scheduler.getInstance().add(new PlaceCargo(7));
+          Scheduler.getInstance().add(new ArcDrive2(7)); // cargo ship drop
           break;
         case 8:
-          Scheduler.getInstance().add(new LoadingStationHatch());
+          Scheduler.getInstance().add(new ArcDrive2(12)); // loading station hatch
           break;
       }
     } else {

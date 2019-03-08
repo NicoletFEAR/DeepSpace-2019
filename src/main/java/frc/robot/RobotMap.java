@@ -128,6 +128,7 @@ public class RobotMap {
 	public static double loadingStationCargoDist = 38;
 	public static double cargoShipCargoDist = 35;
 	public static double cargoShipHatchDist = 38;
+	
 
 	public static void init() {
 		targetEncoderValue = 0;
@@ -213,6 +214,8 @@ public class RobotMap {
 				return cargoShipCargoDist;
 			case 8:
 				return loadingStationCargoDist;
+			case 12:
+				return loadingStationHatchDist;
 			default:
 				return -1;
 
