@@ -39,6 +39,13 @@ public class ArcDrive2 extends InstantCommand {
   @Override
   protected void initialize() {
 
+    // Uncommenmt to account for the offset of the phone (which side is which not verified yet)
+    // if (Robot.driveTrain.isReversed()) {
+    //   this.x -= 3;
+    // } else {
+    //   this.x += 3;
+    // }
+
     setDriving();
 
     setHeight();
