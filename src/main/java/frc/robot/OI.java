@@ -23,7 +23,6 @@ import frc.robot.commands.GameMechClose;
 import frc.robot.commands.GameMechOpen;
 import frc.robot.commands.IncrementCap;
 import frc.robot.commands.MoveToLevel;
-import frc.robot.commands.SwitchAndroidCamera;
 import frc.robot.commands.SwitchFront;
 import frc.robot.commands.ToggleArmPID;
 import frc.robot.commands.ToggleCompressor;
@@ -129,16 +128,15 @@ public class OI {
 
         // Drive Controller Command Mapping
         xbox1X.whenPressed(new SwitchFront());
-        xbox1X.whenPressed(new SwitchAndroidCamera());
         xbox1Back.whenPressed(new ToggleArmPID());
-        CargoLevel1.whenPressed(new ButtonOrganizer(1));
-        CargoLevel2.whenPressed(new ButtonOrganizer(2));
-        CargoLevel3.whenPressed(new ButtonOrganizer(3));
-        HatchLevel1.whenPressed(new ButtonOrganizer(4));
-        HatchLevel2.whenPressed(new ButtonOrganizer(5));
-        HatchLevel3.whenPressed(new ButtonOrganizer(6));
-        CargoShipCargo.whenPressed(new ButtonOrganizer(7));
-        LoadingStation.whenPressed(new ButtonOrganizer(8));
+        CargoLevel1.whileHeld(new ButtonOrganizer(1));
+        CargoLevel2.whileHeld(new ButtonOrganizer(2));
+        CargoLevel3.whileHeld(new ButtonOrganizer(3));
+        HatchLevel1.whileHeld(new ButtonOrganizer(4));
+        HatchLevel2.whileHeld(new ButtonOrganizer(5));
+        HatchLevel3.whileHeld(new ButtonOrganizer(6));
+        CargoShipCargo.whileHeld(new ButtonOrganizer(7));
+        LoadingStation.whileHeld(new ButtonOrganizer(8));
 
         // xbox1X.whenPressed(new Shift());
         // xbox1Y.whenPressed(new TurnToAngle(90));
@@ -170,6 +168,8 @@ public class OI {
        
         Vertical.whenPressed(new MoveToLevel(8));
         CargoFloor.whenPressed(new MoveToLevel(9));
+
+        xbox1Y.whenPressed(new MoveToLevel(13));
     }
 
     public XboxController getXbox1() {

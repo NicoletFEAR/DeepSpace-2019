@@ -81,6 +81,7 @@ public class RobotMap {
 	public static final int CargoLoadingStation = -2100; //-1200;
 	public static final int CargoFloor = -2400; //-3500;
 	public static final int StraightUp = 0;
+	public static final int backToClimb = 1100;
 	// P: increases proportional to error
 	public static final double ARM_kP = 0.002; // please raise
 	// I: sum of error over time, helps arm get to final pos 
@@ -99,6 +100,14 @@ public class RobotMap {
 	public static double angleConstant = 2400;
 	public static double distanceConstant = 1.5;
 	public static double x_val_constant = .95;
+	public static double visionXAllowance = 14;
+
+	// ARC DRIVE 2.0 CONSTANTS
+	public static double y_multiplier = 0.03; // multiplies the target output by the Android vision to robot driving output
+	public static double x_multiplier = 0.03;
+	public static double adjustmentAllowance = 1.5;
+	public static double xMaxTurnSpeed = 0.25;
+
 	// // ultrasonic sensors
 	// public static AnalogInput ultraLeft;
 	// public static AnalogInput ultraRight;
@@ -123,6 +132,7 @@ public class RobotMap {
 	public static double loadingStationCargoDist = 38;
 	public static double cargoShipCargoDist = 35;
 	public static double cargoShipHatchDist = 38;
+	
 
 	public static void init() {
 		targetEncoderValue = 0;
@@ -208,8 +218,10 @@ public class RobotMap {
 				return cargoShipCargoDist;
 			case 8:
 				return loadingStationCargoDist;
+			case 12:
+				return loadingStationHatchDist;
 			default:
-				return -1;
+				return 40;
 
 		}
 	}

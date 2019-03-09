@@ -1,6 +1,7 @@
 package frc.robot.vision;
 
 import frc.robot.Robot;
+import frc.robot.RobotMap;
 //import com.team254.frc2017.GoalTracker.TrackReport;
 import frc.robot.vision.TargetInfo;
 //import frc.robot.lib.util.*;
@@ -150,7 +151,7 @@ public class RobotState {
                 Robot.angle_val_target = target.getAngle();
                 Robot.y_val_target = target.getY();
 
-                Robot.isTargetNull = Math.abs(Robot.x_val_target) > 10;
+                Robot.isTargetNull = Math.abs(Robot.x_val_target) > RobotMap.visionXAllowance;
 
 
                 // // Compensate for camera pitch
