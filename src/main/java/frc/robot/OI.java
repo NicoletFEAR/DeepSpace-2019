@@ -23,7 +23,6 @@ import frc.robot.commands.GameMechClose;
 import frc.robot.commands.GameMechOpen;
 import frc.robot.commands.IncrementCap;
 import frc.robot.commands.MoveToLevel;
-import frc.robot.commands.SwitchAndroidCamera;
 import frc.robot.commands.SwitchFront;
 import frc.robot.commands.ToggleArmPID;
 import frc.robot.commands.ToggleCompressor;
@@ -129,7 +128,6 @@ public class OI {
 
         // Drive Controller Command Mapping
         xbox1X.whenPressed(new SwitchFront());
-        xbox1X.whenPressed(new SwitchAndroidCamera());
         xbox1Back.whenPressed(new ToggleArmPID());
         CargoLevel1.whileHeld(new ButtonOrganizer(1));
         CargoLevel2.whileHeld(new ButtonOrganizer(2));

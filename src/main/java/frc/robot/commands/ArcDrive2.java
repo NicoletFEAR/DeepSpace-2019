@@ -8,6 +8,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.InstantCommand;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 
@@ -25,9 +26,9 @@ public class ArcDrive2 extends InstantCommand {
 
     // Uses input from the Android vision system to drive to targets and place game
     // pieces
-    this.x = Robot.x_val_target;
-    this.y = Robot.y_val_target;
-    this.distOffset = RobotMap.getDistanceOffset(level);
+    x = Robot.x_val_target;
+    y = Robot.y_val_target;
+    distOffset = RobotMap.getDistanceOffset(level);
 
     this.level = level;
 
@@ -38,13 +39,6 @@ public class ArcDrive2 extends InstantCommand {
   // Called once when the command executes
   @Override
   protected void initialize() {
-
-    // Uncommenmt to account for the offset of the phone (which side is which not verified yet)
-    // if (Robot.driveTrain.isReversed()) {
-    //   this.x -= 3;
-    // } else {
-    //   this.x += 3;
-    // }
 
     setDriving();
 
@@ -57,23 +51,34 @@ public class ArcDrive2 extends InstantCommand {
   }
 
   public void setDriving() {
+    SmartDashboard.putNumber("DistOffset", distOffset);
 
-    if (this.y < distOffset) {
+    if (((y < distOffset + RobotMap.adjustmentAllowance) && (Math.abs(x) < RobotMap.adjustmentAllowance)) || Robot.isTargetNull) {
       Robot.doneArc = true;
     } else {
       Robot.doneArc = false;
     }
 
+    SmartDashboard.putBoolean("DoneArc", Robot.doneArc);
+
+    double output = (y - distOffset) * RobotMap.y_multiplier;
+    double turn = x * RobotMap.x_multiplier;
+
+    if (turn > RobotMap.xMaxTurnSpeed)
+      turn = RobotMap.xMaxTurnSpeed;
+    else if (turn < -RobotMap.xMaxTurnSpeed)
+      turn = -RobotMap.xMaxTurnSpeed;
+
     if (Robot.doneArc) {
-      // stop
+      Robot.driveTrain.stop();
     } else {
-      Robot.driveTrain.RacingDrive(this.y * RobotMap.y_multiplier, this.x * RobotMap.x_multiplier);
+      Robot.driveTrain.RacingDrive(output, turn);
     }
   }
 
   public void setHeight() {
 
-    if (this.y < distOffset + 1) {
+    if (y < distOffset + 12) {
       new MoveToLevel(level);
     } else {
       new MoveToLevel(8);

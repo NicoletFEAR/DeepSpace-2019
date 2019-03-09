@@ -100,10 +100,13 @@ public class RobotMap {
 	public static double angleConstant = 2400;
 	public static double distanceConstant = 1.5;
 	public static double x_val_constant = .95;
+	public static double visionXAllowance = 14;
 
 	// ARC DRIVE 2.0 CONSTANTS
-	public static double y_multiplier = 0.1; // multiplies the target output by the Android vision to robot driving output
-	public static double x_multiplier = 0.05;
+	public static double y_multiplier = 0.03; // multiplies the target output by the Android vision to robot driving output
+	public static double x_multiplier = 0.03;
+	public static double adjustmentAllowance = 1.5;
+	public static double xMaxTurnSpeed = 0.25;
 
 	// // ultrasonic sensors
 	// public static AnalogInput ultraLeft;
@@ -218,7 +221,7 @@ public class RobotMap {
 			case 12:
 				return loadingStationHatchDist;
 			default:
-				return -1;
+				return 40;
 
 		}
 	}

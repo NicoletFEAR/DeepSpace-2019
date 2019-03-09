@@ -77,7 +77,7 @@ public class VisionUpdate {
                     update.valid = false;
                     return update;
                 }
-                targetInfos.add(new TargetInfo(y.get() * RobotMap.distanceConstant, z.get() * RobotMap.distanceConstant, x.get() * RobotMap.x_val_constant, angle.get() * RobotMap.angleConstant));
+                targetInfos.add(new TargetInfo(y.get() * RobotMap.distanceConstant * 12, z.get() * RobotMap.distanceConstant, x.get() * RobotMap.x_val_constant, angle.get() * RobotMap.angleConstant));
             }
             update.targets = targetInfos;
             update.valid = true;
