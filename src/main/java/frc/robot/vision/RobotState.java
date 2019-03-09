@@ -170,6 +170,8 @@ public class RobotState {
                 //             .getTranslation());
                 // }
             }
+        } else {
+            Robot.isTargetNull = true;
         }
         //synchronized (this) {
         //    goal_tracker_.update(timestamp, field_to_goals);
