@@ -1,8 +1,8 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.InstantCommand;
-import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.robot.Robot;
+import frc.robot.RobotMap;
 
 public class SwitchFront extends InstantCommand {
 
@@ -32,6 +32,8 @@ public class SwitchFront extends InstantCommand {
             Robot.mVisionServer.backCamera();
             Robot.cameraMode = "back";
         }
+
+        RobotMap.targetEncoderValue = -RobotMap.targetEncoderValue; // makes the arm stay at its current height when switching front
 
     	//Flip left and right
         //Robot.oi.switchJoystickIDs();
