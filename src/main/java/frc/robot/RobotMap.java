@@ -52,9 +52,9 @@ public class RobotMap {
 	// PID CONSTANTS:
 	public static double ERROR_CONSTANT_LEFT = 0.0;
 	public static double ERROR_CONSTANT_RIGHT = 0.0;
-	public static double WHEEL_RADIUS = 2.0; // Inches // UDB:2 // FCB:4
+	public static double WHEEL_RADIUS = 4.0; // Inches // UDB:2 // FCB:4
 	public static double WHEEL_SEPARATION = 5.0; // Inches
-	public static double DISTANCE_BETWEEN_TRACKS = 20.0; // Inches // FCB:20.5 // UDB:20
+	public static double DISTANCE_BETWEEN_TRACKS = 20.5; // Inches // FCB:20.5 // UDB:20
 	public static double fudgeFactor = 1.0;
 	public static double WHEEL_TICKS_PER_REVOLUTION = 7610;
 	public static final double DRIVE_kP = 0.03;
@@ -220,6 +220,8 @@ public class RobotMap {
 				return loadingStationCargoDist;
 			case 12:
 				return loadingStationHatchDist;
+			case 9:
+				return 40;
 			default:
 				return 40;
 

@@ -79,7 +79,11 @@ public class ArcDrive2 extends InstantCommand {
   public void setHeight() {
 
     if (y < distOffset + 12) {
-      new MoveToLevel(level);
+      if (level == 9) {
+        new MoveToLevel(10);
+      } else {
+        new MoveToLevel(level);
+      } 
     } else {
       new MoveToLevel(8);
     }
@@ -91,8 +95,13 @@ public class ArcDrive2 extends InstantCommand {
       new FlyWheelSetSpeed(0.3);
     } else if (level == 4 || level == 5 || level == 6) { // we want to place a hatch
       new GameMechClose();
-    } else if (level == 12) { // we want to get from the loading station
+    } else if (level == 12) { // we want to get a hatch from the loading station
       new GameMechOpen();
+    } else if (level == 9) { // we want to get a cargo from the loading station
+      new FlyWheelSetSpeed(-0.3);
+      if (Robot.gameMech.getCargoLimitSwitch()) {
+        Robot.gameMech.pull();
+      }
     }
   }
 

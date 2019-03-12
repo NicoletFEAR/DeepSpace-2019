@@ -136,8 +136,8 @@ public class OI {
         HatchLevel2.whileHeld(new ButtonOrganizer(5));
         HatchLevel3.whileHeld(new ButtonOrganizer(6));
         CargoShipCargo.whileHeld(new ButtonOrganizer(7));
-        LoadingStation.whileHeld(new ButtonOrganizer(8));
-
+        LoadingStation.whileHeld(new ButtonOrganizer(9));
+        CargoFloor.whileHeld(new ButtonOrganizer(8));
         // xbox1X.whenPressed(new Shift());
         // xbox1Y.whenPressed(new TurnToAngle(90));
         //xbox1Y.whenPressed(new DriveArc(-24, 48, 60));
@@ -167,7 +167,7 @@ public class OI {
         // Box Controller Command Mapping
        
         Vertical.whenPressed(new MoveToLevel(8));
-        CargoFloor.whenPressed(new MoveToLevel(9));
+        // CargoFloor.whenPressed(new MoveToLevel(9));
 
         xbox1Y.whenPressed(new MoveToLevel(13));
     }

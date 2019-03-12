@@ -56,32 +56,38 @@ public class ButtonOrganizer extends InstantCommand {
         case 8:
           Scheduler.getInstance().add(new ArcDrive2(12)); // loading station hatch
           break;
+        case 9:
+          Scheduler.getInstance().add(new ArcDrive2(9)); // loading station cargo
+          break;
       }
     } else {
       switch (buttonID) {
         case 1:
-          Scheduler.getInstance().add(new MoveToLevel(1));
+          Scheduler.getInstance().add(new MoveToLevel(1)); // C1
           break;
         case 2:
-          Scheduler.getInstance().add(new MoveToLevel(2));
+          Scheduler.getInstance().add(new MoveToLevel(2)); // C2
           break;
         case 3:
-          Scheduler.getInstance().add(new MoveToLevel(3));
+          Scheduler.getInstance().add(new MoveToLevel(3)); // C3
           break;
         case 4:
-          Scheduler.getInstance().add(new MoveToLevel(4));
+          Scheduler.getInstance().add(new MoveToLevel(4)); // H1
           break;
         case 5:
-          Scheduler.getInstance().add(new MoveToLevel(5));
+          Scheduler.getInstance().add(new MoveToLevel(5)); // H2
           break;
         case 6:
-          Scheduler.getInstance().add(new MoveToLevel(6));
+          Scheduler.getInstance().add(new MoveToLevel(6)); // H3
           break;
         case 7:
-          Scheduler.getInstance().add(new MoveToLevel(7));
+          Scheduler.getInstance().add(new MoveToLevel(7)); // CS C Drop
           break;
         case 8:
-          Scheduler.getInstance().add(new MoveToLevel(10));
+          Scheduler.getInstance().add(new MoveToLevel(10)); // C from LS
+          break;
+        case 9:
+          Scheduler.getInstance().add(new MoveToLevel(9)); // C from floor
           break;
       }
     }
