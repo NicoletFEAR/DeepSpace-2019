@@ -155,9 +155,9 @@ public class RobotMap {
 		left2.follow(left1);
 		left3.follow(left1);
 
-		right1 = new TalonSRX(14);
+		right1 = new TalonSRX(16);
 		right1.setNeutralMode(NeutralMode.Brake);
-		right2 = new TalonSRX(16);
+		right2 = new TalonSRX(14);
 		right2.setNeutralMode(NeutralMode.Brake);
 		right3 = new TalonSRX(18);
 		right3.setNeutralMode(NeutralMode.Brake);
