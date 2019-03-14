@@ -156,8 +156,8 @@ public class DriveTrain extends Subsystem {
 		SmartDashboard.putNumber("sensor velocity", sensorRight.getQuadratureVelocity());
 
 		// shifting
-		double averageVelocity = (Math.abs(sensorLeft.getQuadratureVelocity())
-				+ Math.abs(sensorRight.getQuadratureVelocity())) / 2.0;
+		double averageVelocity = (Math.abs(sensorLeft.getQuadratureVelocity()));
+			//	+ Math.abs(sensorRight.getQuadratureVelocity())) / 2.0;
 
 		SmartDashboard.putNumber("averageVelocity", averageVelocity);
 

@@ -70,7 +70,7 @@ public class Robot extends TimedRobot {
     public static VisionServer mVisionServer;
     public static boolean xPressed = false;
 
-    public static final double versionNumber = 1.0;
+    public static final double versionNumber = 1.1;
 
     /**
      * This function is run when the robot is first started up and should be used
@@ -204,7 +204,6 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void teleopPeriodic() {
-        pressureSensor.getPressure();
         Scheduler.getInstance().run();
         /*
          * VisionUpdate update = new VisionUpdate();
@@ -262,6 +261,7 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("flywheel2", gameMech.getFlywheel2Encoder());
 
         SmartDashboard.putBoolean("Compressor Enabled:", compressorOAir.isEnabled());
+        pressureSensor.getPressure();
 
         xPressed = oi.getXbox1().getXButton();
         SmartDashboard.putBoolean("Drive X Button: ", xPressed);
