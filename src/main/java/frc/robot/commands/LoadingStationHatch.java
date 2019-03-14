@@ -38,6 +38,6 @@ public class LoadingStationHatch extends CommandGroup {
     addSequential(new DriveToTarget(Robot.x_val_target, Robot.y_val_target, Robot.angle_val_target, distOffset));
     addSequential(new GameMechClose());
     addSequential(new MoveToLevel(4));
-    addSequential(new GameMechOpen());
+   // addSequential(new GameMechOpen());
   }
 }

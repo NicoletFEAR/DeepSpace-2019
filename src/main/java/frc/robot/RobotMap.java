@@ -46,8 +46,8 @@ public class RobotMap {
 
 	public static final double ARM_LIMITER = 0.4; // not 775 motors
 
-	public static double ARM_MOTOR_SLOW_FORWARDS = 0.928; // slow the faster motor to match the slower 
-	public static double ARM_MOTOR_SLOW_BACKWARDS = 0.967; // slow the faster motor to match the slower
+	public static double ARM_MOTOR_SLOW_FORWARDS = 1; // slow the faster motor to match the slower 
+	public static double ARM_MOTOR_SLOW_BACKWARDS = 1; // slow the faster motor to match the slower
 
 	// PID CONSTANTS:
 	public static double ERROR_CONSTANT_LEFT = 0.0;
@@ -136,9 +136,9 @@ public class RobotMap {
 
 	public static void init() {
 		targetEncoderValue = 0;
-		left1 = new TalonSRX(15);
+		left1 = new TalonSRX(13);
 		left1.setNeutralMode(NeutralMode.Brake);
-		left2 = new TalonSRX(13);
+		left2 = new TalonSRX(15);
 		left2.setNeutralMode(NeutralMode.Brake);
 		left3 = new TalonSRX(17);
 		left3.setNeutralMode(NeutralMode.Brake);
@@ -155,9 +155,9 @@ public class RobotMap {
 		left2.follow(left1);
 		left3.follow(left1);
 
-		right1 = new TalonSRX(16);
+		right1 = new TalonSRX(14);
 		right1.setNeutralMode(NeutralMode.Brake);
-		right2 = new TalonSRX(14);
+		right2 = new TalonSRX(16);
 		right2.setNeutralMode(NeutralMode.Brake);
 		right3 = new TalonSRX(18);
 		right3.setNeutralMode(NeutralMode.Brake);

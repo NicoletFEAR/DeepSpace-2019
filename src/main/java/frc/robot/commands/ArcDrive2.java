@@ -8,6 +8,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.InstantCommand;
+import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
@@ -45,7 +46,7 @@ public class ArcDrive2 extends InstantCommand {
     setHeight();
 
     if (Robot.doneArc) {
-      operateMech();
+      //operateMech();
     }
 
   }
@@ -80,12 +81,12 @@ public class ArcDrive2 extends InstantCommand {
 
     if (y < distOffset + 12) {
       if (level == 9) {
-        new MoveToLevel(10);
+        Scheduler.getInstance().add(new MoveToLevel(10));
       } else {
-        new MoveToLevel(level);
+        Scheduler.getInstance().add(new MoveToLevel(level));
       } 
     } else {
-      new MoveToLevel(8);
+      Scheduler.getInstance().add(new MoveToLevel(8));
     }
 
   }

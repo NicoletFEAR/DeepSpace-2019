@@ -70,6 +70,8 @@ public class Robot extends TimedRobot {
     public static VisionServer mVisionServer;
     public static boolean xPressed = false;
 
+    public static final double versionNumber = 1.0;
+
     /**
      * This function is run when the robot is first started up and should be used
      * for any initialization code.
@@ -265,5 +267,6 @@ public class Robot extends TimedRobot {
         SmartDashboard.putBoolean("Drive X Button: ", xPressed);
 
         SmartDashboard.putData("Command Running", Scheduler.getInstance());
+        SmartDashboard.putNumber("Version Number: ", versionNumber);
     }
 }
