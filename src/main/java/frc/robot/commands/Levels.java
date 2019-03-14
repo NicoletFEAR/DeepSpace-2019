@@ -12,6 +12,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 
@@ -52,6 +53,9 @@ public class Levels extends Command {
 
             if (RobotMap.targetEncoderValue + RobotMap.offset < RobotMap.ARM_MIN_TICK_VAL)
                 RobotMap.targetEncoderValue = RobotMap.ARM_MIN_TICK_VAL - RobotMap.offset;
+
+            SmartDashboard.putNumber("Target Arm Encoder", RobotMap.targetEncoderValue);
+            SmartDashboard.putNumber("Arm Offset", RobotMap.offset);
 
             if (Robot.driveTrain.isReversed())
                 Robot.arm.rotateToPosition(-RobotMap.targetEncoderValue + RobotMap.offset);
