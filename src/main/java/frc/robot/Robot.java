@@ -118,6 +118,13 @@ public class Robot extends TimedRobot {
         // pointers. Bad news. Don't move it.
 
         oi = new OI();
+
+        RobotMap.armMotor1.setSelectedSensorPosition(0);
+        RobotMap.armMotor2.setSelectedSensorPosition(0);
+        RobotMap.targetEncoderValue = 0;
+        RobotMap.offset = 0;
+        RobotMap.ARM_MAX_TICK_VAL = 2750;
+        RobotMap.ARM_MIN_TICK_VAL = -2750;
     }
 
     /**
@@ -161,16 +168,12 @@ public class Robot extends TimedRobot {
         if (autonomousCommand != null)
             autonomousCommand.start();
         teleopInit();
-        RobotMap.armMotor1.setSelectedSensorPosition(0);
-        RobotMap.armMotor2.setSelectedSensorPosition(0);
+        
         
 		RobotMap.flywheel1.setSelectedSensorPosition(0,0,10);
 		RobotMap.flywheel2.setSelectedSensorPosition(0,0,10);
 
-        RobotMap.targetEncoderValue = 0;
-        RobotMap.offset = 0;
-        RobotMap.ARM_MAX_TICK_VAL = 2750;
-        RobotMap.ARM_MIN_TICK_VAL = -2750;
+        
 
 
         shifter.shiftdown();

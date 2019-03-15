@@ -35,7 +35,7 @@ public class RobotMap {
 	public static TalonSRX flywheel1;
 	public static TalonSRX flywheel2;
 
-	public static DigitalInput cargoIntakeLimitSwitch; // intake limit switch
+//	public static DigitalInput cargoIntakeLimitSwitch; // intake limit switch
 	public static int CARGO_LIMIT_SWITCH_INPUT = 0;
 
 	public static final double FLYWHEEL_LIMITER = 0.75; // 775 motors
@@ -72,8 +72,8 @@ public class RobotMap {
 	public static int maxChangeAmt = 100; // how much the arm moves by
 	public static int targetEncoderValue;
 	public static final int CargoShipDropPoint = -1350;
-	public static final int CargoLevel1TargetValue = -1750; //-2000
-	public static final int CargoLevel2TargetValue = -1100; //-1200;
+	public static final int CargoLevel1TargetValue = -1700; //-2000, -1750
+	public static final int CargoLevel2TargetValue = -1150; //-1200;
 	public static final int CargoLevel3TargetValue = -560; //-900;
 	public static final int HatchLevel1TargetValue = -2125; //-2200;
 	public static final int HatchLevel2TargetValue = -1225; //-1400;
@@ -182,7 +182,7 @@ public class RobotMap {
 		flywheel1.setNeutralMode(NeutralMode.Coast);
 		flywheel2.setNeutralMode(NeutralMode.Coast);
 
-		cargoIntakeLimitSwitch = new DigitalInput(CARGO_LIMIT_SWITCH_INPUT);
+	//	cargoIntakeLimitSwitch = new DigitalInput(CARGO_LIMIT_SWITCH_INPUT);
 
 		// next 2 need to be switched back to 21/22,
 		// using them for PID testing

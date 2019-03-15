@@ -37,9 +37,9 @@ public class GameMech extends Subsystem {
 		RobotMap.flywheel1.set(ControlMode.PercentOutput, -speed);
 		RobotMap.flywheel2.set(ControlMode.PercentOutput, -speed);
 
-		if (speed < 0 && getCargoLimitSwitch()) {
-			pull();
-		}
+		// if (speed < 0 && getCargoLimitSwitch()) {
+		// 	pull();
+		// }
 	}
 
 	public double getFlywheel1Encoder(){
@@ -50,11 +50,11 @@ public class GameMech extends Subsystem {
 		return RobotMap.flywheel2.getSelectedSensorPosition();
 	}
 	
-	public boolean getCargoLimitSwitch(){
-		boolean cargoIn = RobotMap.cargoIntakeLimitSwitch.get();
-		//SmartDashboard.putBoolean("Cargo Limit Switch", cargoIn);
-		return cargoIn;
-	}
+	// public boolean getCargoLimitSwitch(){
+	// 	boolean cargoIn = RobotMap.cargoIntakeLimitSwitch.get();
+	// 	//SmartDashboard.putBoolean("Cargo Limit Switch", cargoIn);
+	// 	return cargoIn;
+	// }
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 	// make sure the pistons are closed at first

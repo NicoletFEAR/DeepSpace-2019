@@ -100,9 +100,9 @@ public class ArcDrive2 extends InstantCommand {
       new GameMechOpen();
     } else if (level == 9) { // we want to get a cargo from the loading station
       new FlyWheelSetSpeed(-0.3);
-      if (Robot.gameMech.getCargoLimitSwitch()) {
-        Robot.gameMech.pull();
-      }
+      // if (Robot.gameMech.getCargoLimitSwitch()) {
+      //   Robot.gameMech.pull();
+      // }
     }
   }
 
