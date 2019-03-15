@@ -26,8 +26,8 @@ public class RobotMap {
 
 	public static final double DRIVE_LIMITER = 0.75; // not 775 motors
 
-	public static final double SHIFT_UP_THRESHOLD = 1750; // speed at which drive base shifts up
-	public static final double SHIFT_DOWN_THRESHOLD = 1900; // speed at which drive base shifts down
+	public static final double SHIFT_UP_THRESHOLD = 1750; // speed at which drive base shifts up //1600
+	public static final double SHIFT_DOWN_THRESHOLD = 1750; // speed at which drive base shifts down //1700
 
 	public static final double DRIVE_RAMP_RATE = 10; // 10 is recomended by our friends from 2015, need to test
 

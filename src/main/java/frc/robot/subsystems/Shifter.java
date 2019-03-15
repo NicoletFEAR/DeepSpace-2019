@@ -14,7 +14,7 @@ public class Shifter extends Subsystem {
 
 	public void shiftup() {
 		shifty.set(DoubleSolenoid.Value.kReverse);
-		RobotMap.speedMultiplier = 1	;
+		RobotMap.speedMultiplier = 1;
 	}
 
 	public void shiftdown() {
