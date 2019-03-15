@@ -156,8 +156,8 @@ public class DriveTrain extends Subsystem {
 		SmartDashboard.putNumber("sensor velocity", sensorRight.getQuadratureVelocity());
 
 		// shifting
-		double averageVelocity = (Math.abs(sensorLeft.getQuadratureVelocity())
-				+ Math.abs(sensorRight.getQuadratureVelocity())) / 2.0;
+		double averageVelocity = (Math.abs(sensorLeft.getQuadratureVelocity()));
+		//		+ Math.abs(sensorRight.getQuadratureVelocity())) / 2.0;
 
 		SmartDashboard.putNumber("averageVelocity", averageVelocity);
 
@@ -268,14 +268,14 @@ public class DriveTrain extends Subsystem {
 	public void driveArcSpeedInit(double leftSpeed, double rightSpeed) {
 		// Set Encoder Position to 0
 		RobotMap.left1.setSelectedSensorPosition(0, 0, SENSOR_POSITION_TIMEOUT);
-		RobotMap.right1.setSelectedSensorPosition(0, 0, SENSOR_POSITION_TIMEOUT);
+	//	RobotMap.right1.setSelectedSensorPosition(0, 0, SENSOR_POSITION_TIMEOUT);
 		try {
 			Thread.sleep(10);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 		RobotMap.left1.setSelectedSensorPosition(0, 0, SENSOR_POSITION_TIMEOUT);
-		RobotMap.right1.setSelectedSensorPosition(0, 0, SENSOR_POSITION_TIMEOUT);
+	//	RobotMap.right1.setSelectedSensorPosition(0, 0, SENSOR_POSITION_TIMEOUT);
 
 		RobotMap.left1.set(ControlMode.PercentOutput, -leftSpeed);
 		RobotMap.right1.set(ControlMode.PercentOutput, -rightSpeed);
@@ -382,21 +382,21 @@ public class DriveTrain extends Subsystem {
 		return (RobotMap.left1.getSelectedSensorPosition(0));
 	}
 
-	public double getRightEncoderPosition() {
-		// Make sure graph isn't upside down (The stocks are going into the
-		// toilet!!)
-		return (RobotMap.right1.getSelectedSensorPosition(0));
-	}
+	// public double getRightEncoderPosition() {
+	// 	// Make sure graph isn't upside down (The stocks are going into the
+	// 	// toilet!!)
+	// 	return (RobotMap.right1.getSelectedSensorPosition(0));
+	// }
 
 	public double getLeftEncoderVelocity() {
 		return -RobotMap.left1.getSelectedSensorVelocity(0);
 	}
 
-	public double getRightEncoderVelocity() {
-		// Make sure graph isn't upside down (The stocks are going into the
-		// toilet!!)
-		return (RobotMap.right1.getSelectedSensorVelocity(0));
-	}
+	// public double getRightEncoderVelocity() {
+	// 	// Make sure graph isn't upside down (The stocks are going into the
+	// 	// toilet!!)
+	// 	return (RobotMap.right1.getSelectedSensorVelocity(0));
+	// }
 
 	@Override
 	public void periodic() {
@@ -425,6 +425,6 @@ public class DriveTrain extends Subsystem {
 
 	public void resetEncoders() {
 		RobotMap.left1.setSelectedSensorPosition(0, 0, SENSOR_POSITION_TIMEOUT);
-		RobotMap.right1.setSelectedSensorPosition(0, 0, SENSOR_POSITION_TIMEOUT);
+		//RobotMap.right1.setSelectedSensorPosition(0, 0, SENSOR_POSITION_TIMEOUT);
 	}
 }

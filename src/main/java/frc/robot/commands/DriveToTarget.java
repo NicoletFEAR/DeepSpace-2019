@@ -100,8 +100,8 @@ public class DriveToTarget extends Command {
     // Distance away should be in inches
     public void arcDriveRacing(double distanceAway) {
         //average both encoders
-        double encoderAverage = Math.abs(Robot.driveTrain.getLeftEncoderPosition()) +
-            Math.abs(Robot.driveTrain.getRightEncoderPosition()) / 2.0;
+        double encoderAverage = Math.abs(Robot.driveTrain.getLeftEncoderPosition());
+      //      Math.abs(Robot.driveTrain.getRightEncoderPosition()) / 2.0;
         currentLocation = RevolutionsToInches(TicksToRevolution(encoderAverage));
         
         currentLocation = Math.abs(currentLocation);

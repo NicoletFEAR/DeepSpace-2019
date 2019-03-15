@@ -170,8 +170,8 @@ public class DriveArc extends Command {
         //measure left or right encoders, as applicable
         if (left)
             currentLocation = RevolutionsToInches(TicksToRevolution(Robot.driveTrain.getLeftEncoderPosition()));
-        else
-            currentLocation = RevolutionsToInches(TicksToRevolution(Robot.driveTrain.getRightEncoderPosition()));
+       // else
+          //  currentLocation = RevolutionsToInches(TicksToRevolution(Robot.driveTrain.getRightEncoderPosition()));
         
         currentLocation = Math.abs(currentLocation);
 

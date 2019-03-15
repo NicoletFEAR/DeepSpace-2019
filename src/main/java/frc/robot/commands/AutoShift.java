@@ -24,21 +24,21 @@ public class AutoShift extends Command {
   }
 
   SensorCollection sensorLeft;
-  SensorCollection sensorRight;
+  //SensorCollection sensorRight;
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
     sensorLeft = RobotMap.left1.getSensorCollection();
-    sensorRight = RobotMap.right1.getSensorCollection();
+ //   sensorRight = RobotMap.right1.getSensorCollection();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
     // shifting
-    double averageVelocity = (Math.abs(sensorLeft.getQuadratureVelocity())
-        + Math.abs(sensorRight.getQuadratureVelocity())) / 2;
+    double averageVelocity = (Math.abs(sensorLeft.getQuadratureVelocity()));
+      //  + Math.abs(sensorRight.getQuadratureVelocity())) / 2;
 
     SmartDashboard.putNumber("averageVelocity", averageVelocity);
 

@@ -179,12 +179,12 @@ public class Robot extends TimedRobot {
         shifter.shiftdown();
 
         Robot.driveTrain.resetEncoders();
-        double velocityRight = Robot.driveTrain.getRightEncoderVelocity();
+      //  double velocityRight = Robot.driveTrain.getRightEncoderVelocity();
         double velocityLeft = Robot.driveTrain.getLeftEncoderVelocity();
-        SmartDashboard.putNumber("velR", velocityRight);
+       // SmartDashboard.putNumber("velR", velocityRight);
         SmartDashboard.putNumber("velL", velocityLeft);
         SmartDashboard.putNumber("Left Encoder: ", Robot.driveTrain.getLeftEncoderPosition());
-        SmartDashboard.putNumber("Right Encoder: ", Robot.driveTrain.getRightEncoderPosition());
+      //  SmartDashboard.putNumber("Right Encoder: ", Robot.driveTrain.getRightEncoderPosition());
     }
 
     @Override
@@ -238,12 +238,12 @@ public class Robot extends TimedRobot {
         SmartDashboard.putBoolean("Target found: ", !isTargetNull);
         SmartDashboard.putString("Camera Mode: ", cameraMode);
 
-        SmartDashboard.putNumber("Right Encoder: ", Robot.driveTrain.getRightEncoderPosition());
+     //   SmartDashboard.putNumber("Right Encoder: ", Robot.driveTrain.getRightEncoderPosition());
         SmartDashboard.putBoolean("Switch Front", Robot.driveTrain.isReversed());
 
-        double velocityRight = Robot.driveTrain.getRightEncoderVelocity();
+    //    double velocityRight = Robot.driveTrain.getRightEncoderVelocity();
         double velocityLeft = Robot.driveTrain.getLeftEncoderVelocity();
-        SmartDashboard.putNumber("velR", velocityRight);
+     //   SmartDashboard.putNumber("velR", velocityRight);
         SmartDashboard.putNumber("velL", velocityLeft);
 
         SmartDashboard.putNumber("Target", RobotMap.targetEncoderValue+RobotMap.offset);
