@@ -70,7 +70,7 @@ public class Robot extends TimedRobot {
     public static VisionServer mVisionServer;
     public static boolean xPressed = false;
 
-    public static final double versionNumber = 2.2;
+    public static final double versionNumber = 2.4;
 
     /**
      * This function is run when the robot is first started up and should be used
