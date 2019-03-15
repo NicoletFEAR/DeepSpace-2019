@@ -33,7 +33,7 @@ public class SwitchFront extends InstantCommand {
             Robot.cameraMode = "back";
         }
 
-        RobotMap.targetEncoderValue = -RobotMap.targetEncoderValue; // makes the arm stay at its current height when switching front
+       // RobotMap.targetEncoderValue = -RobotMap.targetEncoderValue; // makes the arm stay at its current height when switching front
 
     	//Flip left and right
         //Robot.oi.switchJoystickIDs();

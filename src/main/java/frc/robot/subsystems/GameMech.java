@@ -14,7 +14,7 @@ public class GameMech extends Subsystem {
 	
 	public void initDefaultCommand() {
 		setDefaultCommand(new FlyWheelDrive());
-		open();
+		//open();
 	}
 
 	public void open() {

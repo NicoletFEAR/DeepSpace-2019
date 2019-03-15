@@ -37,11 +37,11 @@ public class Levels extends Command {
         if (Robot.arm.armIsManual) {
         //if (true) {
 
-            if (Robot.driveTrain.isReversed()) {
-                Robot.arm.manualControl(-(Robot.oi.getXbox2().getY(Hand.kLeft)));
-            } else {
+            // if (Robot.driveTrain.isReversed()) {
+            //     Robot.arm.manualControl(-(Robot.oi.getXbox2().getY(Hand.kLeft)));
+            // } else {
                 Robot.arm.manualControl(Robot.oi.getXbox2().getY(Hand.kLeft));
-            }
+           // }
 
         } else {
             if (Math.abs(Robot.oi.getXbox2().getY(Hand.kLeft)) > 0.1){
@@ -57,9 +57,9 @@ public class Levels extends Command {
             SmartDashboard.putNumber("Target Arm Encoder", RobotMap.targetEncoderValue);
             SmartDashboard.putNumber("Arm Offset", RobotMap.offset);
 
-            if (Robot.driveTrain.isReversed())
-                Robot.arm.rotateToPosition(-RobotMap.targetEncoderValue + RobotMap.offset);
-            else
+            // if (Robot.driveTrain.isReversed())
+            //     Robot.arm.rotateToPosition(-RobotMap.targetEncoderValue + RobotMap.offset);
+            // else
                 Robot.arm.rotateToPosition(RobotMap.targetEncoderValue + RobotMap.offset);
 
         }

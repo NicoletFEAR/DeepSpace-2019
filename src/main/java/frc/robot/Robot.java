@@ -121,7 +121,7 @@ public class Robot extends TimedRobot {
 
         RobotMap.armMotor1.setSelectedSensorPosition(0);
         RobotMap.armMotor2.setSelectedSensorPosition(0);
-        RobotMap.targetEncoderValue = 0;
+        RobotMap.targetEncoderValue = -688;
         RobotMap.offset = 0;
         RobotMap.ARM_MAX_TICK_VAL = 2750;
         RobotMap.ARM_MIN_TICK_VAL = -2750;
