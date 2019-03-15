@@ -14,10 +14,12 @@ public class Shifter extends Subsystem {
 
 	public void shiftup() {
 		shifty.set(DoubleSolenoid.Value.kReverse);
+		RobotMap.speedMultiplier = 1	;
 	}
 
 	public void shiftdown() {
 		shifty.set(DoubleSolenoid.Value.kForward); //Low = forward
+		RobotMap.speedMultiplier = 1;
 	}
 
 	// shift the gearbox to the opposite state

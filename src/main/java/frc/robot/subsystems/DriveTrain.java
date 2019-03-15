@@ -197,8 +197,8 @@ public class DriveTrain extends Subsystem {
 			outputRight = temp;
 		}
 
-		RobotMap.left1.set(ControlMode.PercentOutput, outputLeft);
-		RobotMap.right1.set(ControlMode.PercentOutput, outputRight);
+		RobotMap.left1.set(ControlMode.PercentOutput, outputLeft * RobotMap.speedMultiplier);
+		RobotMap.right1.set(ControlMode.PercentOutput, outputRight * RobotMap.speedMultiplier);
 
 		// SmartDashboard.putData("Drive Train", robotDrive);
 		// SmartDashboard.putNumber("Left Side", leftSide.get());

@@ -133,6 +133,7 @@ public class RobotMap {
 	public static double cargoShipCargoDist = 35;
 	public static double cargoShipHatchDist = 38;
 	
+	public static double speedMultiplier = 1;
 
 	public static void init() {
 		targetEncoderValue = 0;
