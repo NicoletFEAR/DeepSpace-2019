@@ -42,7 +42,7 @@ public class AutoShift extends Command {
 
     SmartDashboard.putNumber("averageVelocity", averageVelocity);
 
-    if (!(Robot.oi.xbox1.getStartButton())) { // check the driver isn't holding down the low gear button
+    if (!(Robot.oi.xbox1.getStartButton()) && !(Robot.oi.xbox1.getAButton())) { // check the driver isn't holding down the low gear button
       if (averageVelocity < RobotMap.SHIFT_DOWN_THRESHOLD) { // if not in low, switch to low
         if (Robot.shifter.shifty.get() != DoubleSolenoid.Value.kForward) {
           Robot.shifter.shiftdown();
@@ -52,11 +52,15 @@ public class AutoShift extends Command {
           Robot.shifter.shiftup();
         }
       }
-    } else {
+    } else if (Robot.oi.xbox1.getStartButton()) {
       if (Robot.shifter.shifty.get() != DoubleSolenoid.Value.kForward) {
         Robot.shifter.shiftdown();
       }
+    } else {
+      if (Robot.shifter.shifty.get() != DoubleSolenoid.Value.kReverse)
+        Robot.shifter.shiftup();
     }
+
   }
 
   // Make this return true when this Command no longer needs to run execute()
