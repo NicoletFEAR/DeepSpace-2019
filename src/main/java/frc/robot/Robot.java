@@ -103,8 +103,8 @@ public class Robot extends TimedRobot {
         
         compressorOAir = new CompressAir();
 
-        front = CameraServer.getInstance().startAutomaticCapture("FRONT", 1);
-        back = CameraServer.getInstance().startAutomaticCapture("BACK", 0);
+        front = CameraServer.getInstance().startAutomaticCapture("FRONT", 0);
+        back = CameraServer.getInstance().startAutomaticCapture("BACK", 1);
 
        // front.setConnectionStrategy(edu.wpi.cscore.VideoSource.ConnectionStrategy.kKeepOpen);
        // back.setConnectionStrategy(edu.wpi.cscore.VideoSource.ConnectionStrategy.kKeepOpen);
