@@ -68,9 +68,10 @@ public class Robot extends TimedRobot {
     public static String cameraMode = "back";
 
     public static VisionServer mVisionServer;
+    public static VisionProcessor processor;
     public static boolean xPressed = false;
 
-    public static final double versionNumber = 2.5;
+    public static final double versionNumber = 1.0;
 
     /**
      * This function is run when the robot is first started up and should be used
@@ -86,6 +87,8 @@ public class Robot extends TimedRobot {
         // mVisionServer.main(args);
 
         mVisionServer.addVisionUpdateReceiver(VisionProcessor.getInstance());
+
+        processor = (VisionProcessor) mVisionServer.receivers.get(0);
 
         driveTrain = new DriveTrain();
 
@@ -138,8 +141,7 @@ public class Robot extends TimedRobot {
     @Override
     public void disabledPeriodic() {
         Scheduler.getInstance().run();
-        VisionProcessor processor = (VisionProcessor) mVisionServer.receivers.get(0);
-        processor.onLoop(System.currentTimeMillis());
+
         SmartDashboard.putNumber("NavX Angle: ", navX.getAngle());
 
         // VisionUpdate update = new VisionUpdate();
@@ -171,10 +173,7 @@ public class Robot extends TimedRobot {
         
         
 		RobotMap.flywheel1.setSelectedSensorPosition(0,0,10);
-		RobotMap.flywheel2.setSelectedSensorPosition(0,0,10);
-
-        
-
+		RobotMap.flywheel2.setSelectedSensorPosition(0,0,10); 
 
         shifter.shiftdown();
 
@@ -216,9 +215,6 @@ public class Robot extends TimedRobot {
          * targets_list.get(0).getY(); System.out.println(Y_val); }
          */
 
-        VisionProcessor processor = (VisionProcessor) mVisionServer.receivers.get(0);
-
-        processor.onLoop(System.currentTimeMillis());
         // double distanceLeft = RobotMap.ultraLeft.getAverageVoltage() * 300 / 293 * 1000 / 25.4;
         // SmartDashboard.putNumber("Distance from left ultrasonic (inches)", distanceLeft);
         // double distanceRight = RobotMap.ultraRight.getAverageVoltage() * 300 / 293 * 1000 / 25.4;
@@ -228,6 +224,8 @@ public class Robot extends TimedRobot {
 
     @Override
     public void robotPeriodic() { // Always runs, good for printing
+        processor.onLoop(System.currentTimeMillis());
+
         SmartDashboard.putNumber("Arm1 Encoder Value", arm.getArm1Encoder());
         SmartDashboard.putNumber("Arm2 Encoder Value", arm.getArm2Encoder());
 
