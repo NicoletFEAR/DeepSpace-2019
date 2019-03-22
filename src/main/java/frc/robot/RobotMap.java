@@ -71,17 +71,11 @@ public class RobotMap {
 	// ARM MOVEMENT CONSTANTS:
 	public static int maxChangeAmt = 100; // how much the arm moves by
 	public static int targetEncoderValue;
-	public static final int CargoShipDropPoint = -1350;
-	public static final int CargoLevel1TargetValue = -1700; //-2000, -1750
-	public static final int CargoLevel2TargetValue = -1150; //-1200;
-	public static final int CargoLevel3TargetValue = -560; //-900;
-	public static final int HatchLevel1TargetValue = -2125; //-2200;
-	public static final int HatchLevel2TargetValue = -1225; //-1400;
-	public static final int HatchLevel3TargetValue = -660; //-1100;
-	public static final int CargoLoadingStation = -2100; //-1200;
-	public static final int CargoFloor = -2400; //-3500;
+	public static final int CargoShipDropPoint = 1350;
+	public static final int CargoLoadingStation = -1350; //-1200;
+	public static final int HatchHeight = 2700;
 	public static final int StraightUp = 0;
-	public static final int backToClimb = 1100;
+	public static final int BackToClimb = 1100;
 	// P: increases proportional to error
 	public static final double ARM_kP = 0.002; // please raise
 	// I: sum of error over time, helps arm get to final pos 

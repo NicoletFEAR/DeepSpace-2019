@@ -26,6 +26,7 @@ import frc.robot.commands.MoveToLevel;
 import frc.robot.commands.SwitchFront;
 import frc.robot.commands.ToggleArmPID;
 import frc.robot.commands.ToggleCompressor;
+import frc.robot.commands.ToggleGameMech;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -154,12 +155,21 @@ public class OI {
         // xbox1A.whenPressed(new CargoLevel1());
 
         // Mech Controller Command Mapping
-        xbox2Y.whenPressed(new GameMechClose());
-        xbox2B.whenPressed(new GameMechOpen());
-        xbox2A.whenPressed(new FlyWheelSetSpeed(.5));
+
+        /* Old Game Mech Mapping */
+        // xbox2Y.whenPressed(new GameMechClose());
+        // xbox2B.whenPressed(new GameMechOpen());
+        // xbox2A.whenPressed(new FlyWheelSetSpeed(.5));
+        // xbox2RBumper.whenPressed(new IncrementCap());
+        // xbox2LBumper.whenPressed(new DecrementCap());
+        // xbox2Start.whenPressed(new ToggleCompressor());
+
+        xbox2A.whenPressed(new MoveToLevel(7)); // Move to 45 degrees
+        xbox2B.whenPressed(new ToggleGameMech());
+        xbox2X.whenPressed(new MoveToLevel(1)); // Should be LS Cargo, instead Cargo Level 1
         xbox2RBumper.whenPressed(new IncrementCap());
         xbox2LBumper.whenPressed(new DecrementCap());
-        xbox2Start.whenPressed(new ToggleCompressor());
+        xbox2Start.whenPressed(new MoveToLevel(8)); // Move straight up
 
         // xbox2B.whenPressed(new MoveToLevel(1));
         // xbox2A.whenPressed(new MoveToLevel(4));
