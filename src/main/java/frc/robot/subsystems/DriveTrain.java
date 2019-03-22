@@ -334,69 +334,69 @@ public class DriveTrain extends Subsystem {
 	double turnError = 0.0;
 	double startingAngle = 0.0;
 
-	public boolean turnToAngle(double desiredAngle) {
-		// checks if the target has changed
-		// if it has changed, reset the base variables to 0
-		if (desiredAngle != previousDesiredAngle) {
-			integral = 0;
-			previousError = 0;
-			previousDesiredAngle = desiredAngle;
-			startingAngle = Robot.navX.getAngle();
-		}
+	// public boolean turnToAngle(double desiredAngle) {
+	// 	// checks if the target has changed
+	// 	// if it has changed, reset the base variables to 0
+	// 	if (desiredAngle != previousDesiredAngle) {
+	// 		integral = 0;
+	// 		previousError = 0;
+	// 		previousDesiredAngle = desiredAngle;
+	// 		startingAngle = Robot.navX.getAngle();
+	// 	}
 
-		double currentAngle = Robot.navX.getAngle();
+	// 	double currentAngle = Robot.navX.getAngle();
 
-		turnError = (desiredAngle + startingAngle) - currentAngle;
+	// 	turnError = (desiredAngle + startingAngle) - currentAngle;
 
-		SmartDashboard.putNumber("turnError", turnError);
+	// 	SmartDashboard.putNumber("turnError", turnError);
 
-		integral += turnError * TURN_ERROR_SCALING;
+	// 	integral += turnError * TURN_ERROR_SCALING;
 
-		double derivative = (turnError - previousError) / TURN_ERROR_SCALING;
-		double speed = RobotMap.TURN_kP * turnError + RobotMap.TURN_kI * integral + RobotMap.TURN_kD * derivative;
+	// 	double derivative = (turnError - previousError) / TURN_ERROR_SCALING;
+	// 	double speed = RobotMap.TURN_kP * turnError + RobotMap.TURN_kI * integral + RobotMap.TURN_kD * derivative;
 
-		SmartDashboard.putNumber("turnToAngleSpeed", speed);
+	// 	SmartDashboard.putNumber("turnToAngleSpeed", speed);
 
-		RacingDrive(0, speed);
+	// 	RacingDrive(0, speed);
 
-		/*
-		 * if (desiredAngle > 0) { RobotMap.right1.set(ControlMode.PercentOutput,
-		 * -speed); RobotMap.left1.set(ControlMode.PercentOutput, speed); } else {
-		 * RobotMap.right1.set(ControlMode.PercentOutput, speed);
-		 * RobotMap.left1.set(ControlMode.PercentOutput, -speed); }
-		 */
+	// 	/*
+	// 	 * if (desiredAngle > 0) { RobotMap.right1.set(ControlMode.PercentOutput,
+	// 	 * -speed); RobotMap.left1.set(ControlMode.PercentOutput, speed); } else {
+	// 	 * RobotMap.right1.set(ControlMode.PercentOutput, speed);
+	// 	 * RobotMap.left1.set(ControlMode.PercentOutput, -speed); }
+	// 	 */
 
-		if (turnError < RobotMap.TURN_ERROR_CONSTANT && turnError > -RobotMap.TURN_ERROR_CONSTANT) {		
-			integral = 0;
-			previousError = 0;
-			previousDesiredAngle = 0.111;
-			desiredAngle = 0;
-			return true;
-		}
+	// 	if (turnError < RobotMap.TURN_ERROR_CONSTANT && turnError > -RobotMap.TURN_ERROR_CONSTANT) {		
+	// 		integral = 0;
+	// 		previousError = 0;
+	// 		previousDesiredAngle = 0.111;
+	// 		desiredAngle = 0;
+	// 		return true;
+	// 	}
 
-		previousError = turnError;
-		return false;
-	}
+	// 	previousError = turnError;
+	// 	return false;
+	// }
 
 	public double getLeftEncoderPosition() {
 		return (RobotMap.left1.getSelectedSensorPosition(0));
 	}
 
-	// public double getRightEncoderPosition() {
-	// 	// Make sure graph isn't upside down (The stocks are going into the
-	// 	// toilet!!)
-	// 	return (RobotMap.right1.getSelectedSensorPosition(0));
-	// }
+	public double getRightEncoderPosition() {
+		// Make sure graph isn't upside down (The stocks are going into the
+		// toilet!!)
+		return (RobotMap.right1.getSelectedSensorPosition(0));
+	}
 
 	public double getLeftEncoderVelocity() {
 		return -RobotMap.left1.getSelectedSensorVelocity(0);
 	}
 
-	// public double getRightEncoderVelocity() {
-	// 	// Make sure graph isn't upside down (The stocks are going into the
-	// 	// toilet!!)
-	// 	return (RobotMap.right1.getSelectedSensorVelocity(0));
-	// }
+	public double getRightEncoderVelocity() {
+		// Make sure graph isn't upside down (The stocks are going into the
+		// toilet!!)
+		return (RobotMap.right1.getSelectedSensorVelocity(0));
+	}
 
 	@Override
 	public void periodic() {
@@ -425,6 +425,6 @@ public class DriveTrain extends Subsystem {
 
 	public void resetEncoders() {
 		RobotMap.left1.setSelectedSensorPosition(0, 0, SENSOR_POSITION_TIMEOUT);
-		//RobotMap.right1.setSelectedSensorPosition(0, 0, SENSOR_POSITION_TIMEOUT);
+		RobotMap.right1.setSelectedSensorPosition(0, 0, SENSOR_POSITION_TIMEOUT);
 	}
 }

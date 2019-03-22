@@ -83,7 +83,7 @@ public class DriveArc extends Command {
         complete = false;
         
         //reset navX for tuning arc
-        Robot.navX.reset();
+        //Robot.navX.reset();
 
         double prefferedLength = y / Math.cos(Math.toRadians(theta));
         double currentLength = Math.sqrt(x * x + y * y);
@@ -98,7 +98,7 @@ public class DriveArc extends Command {
             double degreesToRotate = theta + z;
             
             while (!turnBool) {
-                turnBool = Robot.driveTrain.turnToAngle(degreesToRotate);
+                //turnBool = Robot.driveTrain.turnToAngle(degreesToRotate);
                 SmartDashboard.putString("Turning", "Turn Left");
             }
 
@@ -111,7 +111,7 @@ public class DriveArc extends Command {
             double degreesToRotate = theta - z;
 
             while (!turnBool) {
-                turnBool = Robot.driveTrain.turnToAngle(degreesToRotate);
+                //turnBool = Robot.driveTrain.turnToAngle(degreesToRotate);
                 SmartDashboard.putString("Turning", "Turn Right");
             }
 

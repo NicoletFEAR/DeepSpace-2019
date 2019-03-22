@@ -53,7 +53,6 @@ public class Robot extends TimedRobot {
     public static Shifter shifter;
     public static UsbCamera front;
     public static UsbCamera back;
-    public static AHRS navX;
     public static CompressAir compressorOAir;
     // public static ArduinoInterface arduinoLEDInterface;
     // public static ArduinoInterface arduinoCameraInterface;
@@ -72,6 +71,8 @@ public class Robot extends TimedRobot {
     public static boolean xPressed = false;
 
     public static final double versionNumber = 1.0;
+    
+    public static final boolean DEBUG_TIME = false;
 
     /**
      * This function is run when the robot is first started up and should be used
@@ -88,8 +89,6 @@ public class Robot extends TimedRobot {
 
         mVisionServer.addVisionUpdateReceiver(VisionProcessor.getInstance());
 
-        processor = (VisionProcessor) mVisionServer.receivers.get(0);
-
         driveTrain = new DriveTrain();
 
         gameMech = new GameMech();
@@ -101,8 +100,6 @@ public class Robot extends TimedRobot {
 
         shifter = new Shifter();
         shifter.shiftdown();
-
-        navX = new AHRS(Port.kMXP);
         
         compressorOAir = new CompressAir();
 
@@ -128,6 +125,8 @@ public class Robot extends TimedRobot {
         RobotMap.offset = 0;
         RobotMap.ARM_MAX_TICK_VAL = 2750;
         RobotMap.ARM_MIN_TICK_VAL = -2750;
+
+        SmartDashboard.putNumber("Version Number: ", versionNumber);
     }
 
     /**
@@ -141,8 +140,6 @@ public class Robot extends TimedRobot {
     @Override
     public void disabledPeriodic() {
         Scheduler.getInstance().run();
-
-        SmartDashboard.putNumber("NavX Angle: ", navX.getAngle());
 
         // VisionUpdate update = new VisionUpdate();
         // for (int i = 0; i < update.getTargets().size(); i++) {
@@ -224,50 +221,41 @@ public class Robot extends TimedRobot {
 
     @Override
     public void robotPeriodic() { // Always runs, good for printing
+        processor = (VisionProcessor) mVisionServer.receivers.get(0);
         processor.onLoop(System.currentTimeMillis());
-
-        SmartDashboard.putNumber("Arm1 Encoder Value", arm.getArm1Encoder());
-        SmartDashboard.putNumber("Arm2 Encoder Value", arm.getArm2Encoder());
-
-        SmartDashboard.putNumber("y_val_target: ", y_val_target);
-        SmartDashboard.putNumber("z_val_target: ", z_val_target);
-        SmartDashboard.putNumber("x_val_target: ", x_val_target);
-        SmartDashboard.putNumber("angle_val_target: ", angle_val_target);
-        SmartDashboard.putBoolean("Target found: ", !isTargetNull);
-        SmartDashboard.putString("Camera Mode: ", cameraMode);
-
-     //   SmartDashboard.putNumber("Right Encoder: ", Robot.driveTrain.getRightEncoderPosition());
-        SmartDashboard.putBoolean("Switch Front", Robot.driveTrain.isReversed());
-
-    //    double velocityRight = Robot.driveTrain.getRightEncoderVelocity();
-        double velocityLeft = Robot.driveTrain.getLeftEncoderVelocity();
-     //   SmartDashboard.putNumber("velR", velocityRight);
-        SmartDashboard.putNumber("velL", velocityLeft);
-
-        SmartDashboard.putNumber("Target", RobotMap.targetEncoderValue+RobotMap.offset);
-
-        SmartDashboard.putNumber("NavX", navX.getAngle());
-        SmartDashboard.putNumber("Left Encoder: ", Robot.driveTrain.getLeftEncoderPosition());
-
-        SmartDashboard.putNumber("ArmySpeedyBoi", arm.getSpeed());
         
-        SmartDashboard.putNumber("Vol_armMotor1", RobotMap.armMotor1.getMotorOutputVoltage());
-        SmartDashboard.putNumber("Vol_armMotor2", RobotMap.armMotor2.getMotorOutputVoltage());
-        SmartDashboard.putNumber("Vol_left1", RobotMap.left1.getMotorOutputVoltage());
-        SmartDashboard.putNumber("Vol_right1", RobotMap.right1.getMotorOutputVoltage());
-        SmartDashboard.putNumber("Vol_flywheel1", RobotMap.flywheel1.getMotorOutputVoltage());
-        SmartDashboard.putBoolean("armIsManual",Robot.arm.armIsManual);
+        SmartDashboard.putBoolean("Target found: ", !isTargetNull);
 
-        SmartDashboard.putNumber("flywheel1", gameMech.getFlywheel1Encoder());
-        SmartDashboard.putNumber("flywheel2", gameMech.getFlywheel2Encoder());
+        if (DEBUG_TIME)
+        {
+            SmartDashboard.putString("Camera Mode: ", cameraMode);
+            SmartDashboard.putBoolean("Switch Front", Robot.driveTrain.isReversed());
 
-        SmartDashboard.putBoolean("Compressor Enabled:", compressorOAir.isEnabled());
-        pressureSensor.getPressure();
+            SmartDashboard.putNumber("Arm1 Encoder Value", arm.getArm1Encoder());
+            SmartDashboard.putNumber("Arm2 Encoder Value", arm.getArm2Encoder());
 
-        xPressed = oi.getXbox1().getXButton();
-        SmartDashboard.putBoolean("Drive X Button: ", xPressed);
+            SmartDashboard.putNumber("y_val_target: ", y_val_target);
+            SmartDashboard.putNumber("z_val_target: ", z_val_target);
+            SmartDashboard.putNumber("x_val_target: ", x_val_target);
+            SmartDashboard.putNumber("angle_val_target: ", angle_val_target);
 
-        SmartDashboard.putData("Command Running", Scheduler.getInstance());
-        SmartDashboard.putNumber("Version Number: ", versionNumber);
+        //    double velocityRight = Robot.driveTrain.getRightEncoderVelocity();
+        //    double velocityLeft = Robot.driveTrain.getLeftEncoderVelocity();
+        //    SmartDashboard.putNumber("velR", velocityRight);
+        //    SmartDashboard.putNumber("velL", velocityLeft);
+
+           SmartDashboard.putNumber("Right Encoder: ", Robot.driveTrain.getRightEncoderPosition());
+            SmartDashboard.putNumber("Left Encoder: ", Robot.driveTrain.getLeftEncoderPosition());
+
+            SmartDashboard.putNumber("ArmySpeedyBoi", arm.getSpeed());
+            
+            SmartDashboard.putNumber("Vol_armMotor1", RobotMap.armMotor1.getMotorOutputVoltage());
+            SmartDashboard.putNumber("Vol_armMotor2", RobotMap.armMotor2.getMotorOutputVoltage());
+            SmartDashboard.putNumber("Vol_left1", RobotMap.left1.getMotorOutputVoltage());
+            SmartDashboard.putNumber("Vol_right1", RobotMap.right1.getMotorOutputVoltage());
+            SmartDashboard.putNumber("Vol_flywheel1", RobotMap.flywheel1.getMotorOutputVoltage());
+            SmartDashboard.putBoolean("armIsManual",Robot.arm.armIsManual);
+        }
+
     }
 }

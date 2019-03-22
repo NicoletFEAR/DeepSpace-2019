@@ -65,7 +65,7 @@ public class DriveToTarget extends Command {
         complete = false;
         
         //reset navX for tuning arc
-        Robot.navX.reset();
+        //Robot.navX.reset();
 
         prefferedLength = y / Math.cos(Math.toRadians(theta));
         currentLength = Math.sqrt(x * x + y * y);

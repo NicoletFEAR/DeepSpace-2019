@@ -155,8 +155,12 @@ public class VisionServer extends CrashTrackingRunnable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        new Thread(this).start();
-        new Thread(new AppMaintainanceThread()).start();
+        Thread main = new Thread(this);
+        main.start();
+        main.setPriority((Thread.MIN_PRIORITY + Thread.MAX_PRIORITY) / 3);
+        Thread maintenance = new Thread(new AppMaintainanceThread());
+        maintenance.start();
+        maintenance.setPriority((Thread.MIN_PRIORITY + Thread.MAX_PRIORITY) / 3);
     }
 
     public void restartAdb() {
