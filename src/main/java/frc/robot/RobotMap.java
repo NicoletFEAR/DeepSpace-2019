@@ -190,4 +190,26 @@ public class RobotMap {
 				return 40;
 		}
 	}
+
+	public static void setTalonMode(String mode)
+	{
+		if (mode.equalsIgnoreCase("coast"))
+		{
+			RobotMap.left1.setNeutralMode(NeutralMode.Coast);
+			RobotMap.right1.setNeutralMode(NeutralMode.Coast);
+			RobotMap.left2.setNeutralMode(NeutralMode.Coast);
+			RobotMap.right2.setNeutralMode(NeutralMode.Coast);
+			RobotMap.left3.setNeutralMode(NeutralMode.Coast);
+			RobotMap.right3.setNeutralMode(NeutralMode.Coast);
+			Robot.talonMode = "coast";
+		} else if (mode.equalsIgnoreCase("brake")) {
+			RobotMap.left1.setNeutralMode(NeutralMode.Brake);
+			RobotMap.right1.setNeutralMode(NeutralMode.Brake);
+			RobotMap.left2.setNeutralMode(NeutralMode.Brake);
+			RobotMap.right2.setNeutralMode(NeutralMode.Brake);
+			RobotMap.left3.setNeutralMode(NeutralMode.Brake);
+			RobotMap.right3.setNeutralMode(NeutralMode.Brake);
+			Robot.talonMode = "brake";
+		}	
+	}
 }

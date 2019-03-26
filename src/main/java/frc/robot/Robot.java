@@ -99,6 +99,8 @@ public class Robot extends TimedRobot {
 
         front = CameraServer.getInstance().startAutomaticCapture("FRONT", 0);
         back = CameraServer.getInstance().startAutomaticCapture("BACK", 1);
+        front.setFPS(20);
+        back.setFPS(20);
 
         // arduinoLEDInterface = new ArduinoInterface(7);
         // arduinoCameraInterface = new ArduinoInterface(6);

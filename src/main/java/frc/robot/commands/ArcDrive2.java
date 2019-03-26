@@ -19,23 +19,22 @@ public class ArcDrive2 extends InstantCommand {
 
   int level;
 
-  public ArcDrive2(int level) {
+  public ArcDrive2(int desiredLevel) {
     super();
+    requires(Robot.driveTrain);
 
     // Uses input from the Android vision system to drive to targets and place game
     // pieces
     x = Robot.x_val_target;
     y = Robot.y_val_target;
-    distOffset = RobotMap.getDistanceOffset(level);
-
-    this.level = level;
-
-    requires(Robot.driveTrain);
+    distOffset = RobotMap.getDistanceOffset(desiredLevel);
+    level = desiredLevel;
   }
 
   // Called once when the command executes
   @Override
   protected void initialize() {
+    RobotMap.setTalonMode("coast");
     setDriving();
     setHeight();
   }

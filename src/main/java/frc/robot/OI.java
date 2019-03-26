@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.ArcDrive2;
 import frc.robot.commands.MoveToLevel;
+import frc.robot.commands.SetTalonMode;
 import frc.robot.commands.SwitchFront;
 import frc.robot.commands.ToggleArmPID;
 import frc.robot.commands.ToggleGameMech;
@@ -25,7 +26,8 @@ import frc.robot.commands.ToggleTalonMode;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-    public XboxController xbox1; // the drive controller // input 0 on driver station
+    // The drive controller, input 0 on driver station
+    public XboxController xbox1;
     private Button xbox1LeftStick;
     private Button xbox1RightStick;
     private Button xbox1LBumper;
@@ -37,7 +39,8 @@ public class OI {
     private Button xbox1B;
     private Button xbox1A;
 
-    private XboxController xbox2; // the game mech controller // input 1 on driver station
+     // The game mech controller, input 1 on driver station
+    private XboxController xbox2;
     private Button xbox2LeftStick;
     private Button xbox2RightStick;
     private Button xbox2LBumper;
@@ -50,7 +53,7 @@ public class OI {
     private Button xbox2A;
 
     public OI() {
-        // create our buttons
+        // Create our buttons
         xbox1 = new XboxController(0);
 
         xbox1A = new JoystickButton(xbox1, 1);
@@ -80,7 +83,10 @@ public class OI {
         // Drive Controller Command Mapping
 
         xbox1X.whenPressed(new SwitchFront());
+        xbox1Y.whenPressed(new MoveToLevel(5));
         xbox1Back.whenPressed(new ToggleTalonMode());
+        xbox1RBumper.whileHeld(new ArcDrive2(3)); // Auto Hatch
+        xbox1RBumper.whenReleased(new SetTalonMode("brake"));
 
         // Mech Controller Command Mapping
 
@@ -96,7 +102,8 @@ public class OI {
         xbox2B.whenPressed(new ToggleGameMech()); // Hatch Mech Control
         xbox2X.whenPressed(new MoveToLevel(1)); // Should be LS Cargo, instead Cargo Level 1
         xbox2Y.whenPressed(new MoveToLevel(3)); // Should be Hatch Height
-        xbox2RBumper.whenPressed(new ArcDrive2(3)); // Auto Hatch
+        xbox2RBumper.whileHeld(new ArcDrive2(3)); // Auto Hatch
+        xbox2RBumper.whenReleased(new SetTalonMode("brake"));
         xbox2Start.whenPressed(new MoveToLevel(4)); // Move straight up
         xbox2Back.whenPressed(new ToggleArmPID());
     }
