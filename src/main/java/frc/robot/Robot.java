@@ -184,11 +184,6 @@ public class Robot extends TimedRobot {
 
     @Override
     public void testPeriodic() {
-        // double distanceLeft = RobotMap.ultraLeft.getAverageVoltage() * 300 / 293 * 1000 / 25.4;
-        // SmartDashboard.putNumber("Distance from left ultrasonic (inches): ", distanceLeft);
-        // double distanceRight = RobotMap.ultraRight.getAverageVoltage() * 300 / 293 * 1000 / 25.4;
-        // SmartDashboard.putNumber("Distance from right ultrasonic (inches): ", distanceRight);
-
         SmartDashboard.putNumber("Arm1 Encoder Value: ", arm.getArm1Encoder());
         SmartDashboard.putNumber("Arm2 Encoder Value: ", arm.getArm2Encoder());
 
