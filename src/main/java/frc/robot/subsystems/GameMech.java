@@ -20,7 +20,7 @@ public class GameMech extends Subsystem {
 	}
 
 	public void toggleMechPiston(){
-		if (panelShooter.get() == DoubleSolenoid.Value.kForward) {
+		if (panelShooter.get() == DoubleSolenoid.Value.kReverse) {
 			pull();
 		} else {
 			open();
