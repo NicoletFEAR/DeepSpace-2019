@@ -120,6 +120,7 @@ public class Robot extends TimedRobot {
         RobotMap.ARM_MIN_TICK_VAL = -2750;
 
         SmartDashboard.putNumber("Version Number: ", versionNumber);
+        SmartDashboard.putBoolean("Active: ", false);
     }
 
     /**

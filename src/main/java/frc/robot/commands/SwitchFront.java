@@ -1,6 +1,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.InstantCommand;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 
@@ -19,9 +20,11 @@ public class SwitchFront extends InstantCommand {
         if (Robot.driveTrain.isReversed()) {
             Robot.mVisionServer.frontCamera();
             Robot.cameraMode = "front";
+            SmartDashboard.putBoolean("Active: ", true);
         } else {
             Robot.mVisionServer.backCamera();
             Robot.cameraMode = "back";
+            SmartDashboard.putBoolean("Active: ", false);
         }
 
         // Makes the arm stay at its current height when switching front
