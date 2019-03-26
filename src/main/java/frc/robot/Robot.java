@@ -142,8 +142,6 @@ public class Robot extends TimedRobot {
             autonomousCommand.start();
         teleopInit();
         
-		RobotMap.flywheel1.setSelectedSensorPosition(0,0,10);
-		RobotMap.flywheel2.setSelectedSensorPosition(0,0,10); 
 
         shifter.shiftdown();
 
@@ -213,7 +211,6 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("Vol_armMotor2: ", RobotMap.armMotor2.getMotorOutputVoltage());
         SmartDashboard.putNumber("Vol_left1: ", RobotMap.left1.getMotorOutputVoltage());
         SmartDashboard.putNumber("Vol_right1: ", RobotMap.right1.getMotorOutputVoltage());
-        SmartDashboard.putNumber("Vol_flywheel1: ", RobotMap.flywheel1.getMotorOutputVoltage());
         SmartDashboard.putBoolean("armIsManual: ",Robot.arm.armIsManual);
         SmartDashboard.putNumber("LastArmTarget: ", Robot.arm.getLastEncoderTarget());
 
