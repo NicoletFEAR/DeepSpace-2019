@@ -10,35 +10,21 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.ButtonOrganizer;
-import frc.robot.commands.DecrementCap;
-import frc.robot.commands.DriveArc;
-import frc.robot.commands.FlyWheelSetSpeed;
-import frc.robot.commands.GameMechClose;
-import frc.robot.commands.GameMechOpen;
-import frc.robot.commands.IncrementCap;
+import frc.robot.commands.ArcDrive2;
 import frc.robot.commands.MoveToLevel;
 import frc.robot.commands.SwitchFront;
 import frc.robot.commands.ToggleArmPID;
-import frc.robot.commands.ToggleCompressor;
 import frc.robot.commands.ToggleGameMech;
+import frc.robot.commands.ToggleTalonMode;
 
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-    // private JoystickButton leftJoystickButton1;
-    // private Joystick leftJoystick;
-    // private JoystickButton rightJoystickButton1;
-    // private Joystick rightJoystick;
-    // private Button xbox1StartButton;
-
     public XboxController xbox1; // the drive controller // input 0 on driver station
     private Button xbox1LeftStick;
     private Button xbox1RightStick;
@@ -63,31 +49,7 @@ public class OI {
     private Button xbox2B;
     private Button xbox2A;
 
-    public static boolean visionOn;
-
-    private Joystick armLevelController; // the box button controller // input 2 on driver station
-    private Button CargoLevel1;
-    private Button CargoLevel2;
-    private Button CargoLevel3;
-    private Button HatchLevel1;
-    private Button HatchLevel2;
-    private Button HatchLevel3;
-    private Button Vertical;
-    private Button CargoShipCargo;
-    private Button LoadingStation;
-    private Button CargoFloor;
-
     public OI() {
-        visionOn = false;
-
-        // rightJoystick = new Joystick(1);
-        // rightJoystickButton1 = new JoystickButton(rightJoystick, 1);
-        // rightJoystickButton1.whileHeld(new SwitchFront());
-
-        // leftJoystick = new Joystick(0);
-        // leftJoystickButton1 = new JoystickButton(leftJoystick, 1);
-        // leftJoystickButton1.whileHeld(new SwitchFront());
-
         // create our buttons
         xbox1 = new XboxController(0);
 
@@ -115,48 +77,14 @@ public class OI {
         xbox2LeftStick = new JoystickButton(xbox2, 9);
         xbox2RightStick = new JoystickButton(xbox2, 10);
 
-        armLevelController = new Joystick(2);
-        CargoLevel1 = new JoystickButton(armLevelController, 1);
-        CargoLevel2 = new JoystickButton(armLevelController, 2);
-        CargoLevel3 = new JoystickButton(armLevelController, 3);
-        HatchLevel1 = new JoystickButton(armLevelController, 4);
-        HatchLevel2 = new JoystickButton(armLevelController, 5);
-        HatchLevel3 = new JoystickButton(armLevelController, 6);
-        Vertical = new JoystickButton(armLevelController, 7);
-        CargoShipCargo = new JoystickButton(armLevelController, 8);
-        LoadingStation = new JoystickButton(armLevelController, 9);
-        CargoFloor = new JoystickButton(armLevelController, 10);
-
         // Drive Controller Command Mapping
+
         xbox1X.whenPressed(new SwitchFront());
-        xbox1Back.whenPressed(new ToggleArmPID());
-        CargoLevel1.whileHeld(new ButtonOrganizer(1));
-        CargoLevel2.whileHeld(new ButtonOrganizer(2));
-        CargoLevel3.whileHeld(new ButtonOrganizer(3));
-        HatchLevel1.whileHeld(new ButtonOrganizer(4));
-        HatchLevel2.whileHeld(new ButtonOrganizer(5));
-        HatchLevel3.whileHeld(new ButtonOrganizer(6));
-        CargoShipCargo.whileHeld(new ButtonOrganizer(7));
-        LoadingStation.whileHeld(new ButtonOrganizer(9));
-        CargoFloor.whileHeld(new ButtonOrganizer(8));
-        // xbox1X.whenPressed(new Shift());
-        // xbox1Y.whenPressed(new TurnToAngle(90));
-        //xbox1Y.whenPressed(new DriveArc(-24, 48, 60));
-
-        // xbox1A.whenPressed(new DriveArc());
-        // xbox1LeftStick.whenPressed(new SwitchFront());
-        // xbox1LeftStick.whenPressed(new SwitchAndroidCamera());
-        // xbox1RightStick.whenPressed(new SwitchFront());
-        // xbox1RightStick.whenPressed(new SwitchAndroidCamera());
-
-        // xbox1X.whenPressed(new Shoot());
-        // xbox1B.whenPressed(new DriveArc());
-
-        // xbox1A.whenPressed(new CargoLevel1());
+        xbox1Back.whenPressed(new ToggleTalonMode());
 
         // Mech Controller Command Mapping
 
-        /* Old Game Mech Mapping */
+        /* Old Game Mech Mapping From Heartland */
         // xbox2Y.whenPressed(new GameMechClose());
         // xbox2B.whenPressed(new GameMechOpen());
         // xbox2A.whenPressed(new FlyWheelSetSpeed(.5));
@@ -164,22 +92,13 @@ public class OI {
         // xbox2LBumper.whenPressed(new DecrementCap());
         // xbox2Start.whenPressed(new ToggleCompressor());
 
-        xbox2A.whenPressed(new MoveToLevel(7)); // Move to 45 degrees
-        xbox2B.whenPressed(new ToggleGameMech());
+        xbox2A.whenPressed(new MoveToLevel(2)); // Move to 45 degrees
+        xbox2B.whenPressed(new ToggleGameMech()); // Hatch Mech Control
         xbox2X.whenPressed(new MoveToLevel(1)); // Should be LS Cargo, instead Cargo Level 1
-        xbox2RBumper.whenPressed(new IncrementCap());
-        xbox2LBumper.whenPressed(new DecrementCap());
-        xbox2Start.whenPressed(new MoveToLevel(8)); // Move straight up
-
-        // xbox2B.whenPressed(new MoveToLevel(1));
-        // xbox2A.whenPressed(new MoveToLevel(4));
-
-        // Box Controller Command Mapping
-       
-        Vertical.whenPressed(new MoveToLevel(8));
-        // CargoFloor.whenPressed(new MoveToLevel(9));
-
-        xbox1Y.whenPressed(new MoveToLevel(13));
+        xbox2Y.whenPressed(new MoveToLevel(3)); // Should be Hatch Height
+        xbox2RBumper.whenPressed(new ArcDrive2(3)); // Auto Hatch
+        xbox2Start.whenPressed(new MoveToLevel(4)); // Move straight up
+        xbox2Back.whenPressed(new ToggleArmPID());
     }
 
     public XboxController getXbox1() {

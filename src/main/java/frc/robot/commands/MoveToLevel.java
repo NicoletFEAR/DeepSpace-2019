@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
+/* Copyright (c) 2019 FIRST. All Rights Reserved.                             */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
@@ -8,22 +8,19 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.InstantCommand;
+import frc.robot.Robot;
 import frc.robot.RobotMap;
 
 /**
- * Add your docs here.
+ * Move arm to set position
  */
 public class MoveToLevel extends InstantCommand {
-  /**
-   * Add your docs here.
-   */
-  int level;
+  private int level;
 
   public MoveToLevel(int level) {
     super();
     this.level = level;
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
+    requires(Robot.arm);
   }
 
   // Called once when the command executes
@@ -41,5 +38,4 @@ public class MoveToLevel extends InstantCommand {
       RobotMap.targetEncoderValue = RobotMap.BackToClimb;
     }
   }
-
 }

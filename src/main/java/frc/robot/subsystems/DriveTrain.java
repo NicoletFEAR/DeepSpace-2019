@@ -10,20 +10,17 @@
 
 package frc.robot.subsystems;
 
-import frc.robot.*;
-import frc.robot.commands.*;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.SensorCollection;
-import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
+
+import frc.robot.Robot;
+import frc.robot.RobotMap;
+import frc.robot.commands.OpenLoopDrive;
 
 /**
  * Subsystem representing the robot drivetrain and all ways it can be controlled
@@ -39,16 +36,7 @@ public class DriveTrain extends Subsystem {
 	// Class Variables
 	private boolean reversed;
 
-	// SpeedControllerGroup leftSide = new
-	// SpeedControllerGroup(RobotMap.left1, RobotMap.left2,
-	// RobotMap.left3);
-	// SpeedControllerGroup rightSide = new
-	// SpeedControllerGroup(RobotMap.right1, RobotMap.right2,
-	// RobotMap.right3);
-	//
-	// public DifferentialDrive robotDrive = new DifferentialDrive(leftSide,
-	// rightSide);
-
+	public double averageVelocity = 0.0;
 	public double leftSideSwitchSide = 0.0;
 	public double rightSideSwitchSide = 0.0;
 	public double integral = 0.0;
@@ -57,58 +45,22 @@ public class DriveTrain extends Subsystem {
 	public double previousDesiredDistance = 0.0;
 
 	// Setup our timed drive
-	double currentTime = 0.0;
-	double endTime = 0.0;
-
-	public void testCommand() {
-	}
+	private double currentTime = 0.0;
+	private double endTime = 0.0;
 
 	@Override
 	public void initDefaultCommand() {
 		setDefaultCommand(new OpenLoopDrive());
-		// initPID();
 	}
 
-	public void initPID() {
-		// RobotMap.left1.configAllowableClosedloopError(RobotMap.PIDSLOT,
-		// RobotMap.ALLOWABLE_ERROR_CONSTANT_LEFT, 10);
-		// RobotMap.right1.configAllowableClosedloopError(RobotMap.PIDSLOT,
-		// RobotMap.ALLOWABLE_ERROR_CONSTANT_RIGHT,
-		// 10);
-		//
-		// // Make sure the CANTalons are looking at the right stored PID values
-		// // with the Profile
-		// // Set our PID Values
-		//
-		// RobotMap.left1.config_kP(RobotMap.PIDSLOT, RobotMap.LeftP, 10);
-		// RobotMap.left1.config_kI(RobotMap.PIDSLOT, RobotMap.LeftI, 10);
-		// RobotMap.left1.config_kD(RobotMap.PIDSLOT, RobotMap.LeftD, 10);
-		// RobotMap.left1.config_kF(RobotMap.PIDSLOT, RobotMap.LeftF, 10);
-		// RobotMap.left1.config_IntegralZone(RobotMap.PIDSLOT, RobotMap.IZONE, 10);
-		// /*
-		// * Set how fast of a rate the robot will accelerate Do not remove or you
-		// * get a fabulous prize of a Flipping robot - CLOSED_LOOP_RAMP_RATE
-		// */
-		// RobotMap.left1.configClosedloopRamp(RobotMap.CLOSED_LOOP_RAMP_RATE, 10);
-		//
-		// RobotMap.right1.config_kP(RobotMap.PIDSLOT, RobotMap.RightP, 10);
-		// RobotMap.right1.config_kI(RobotMap.PIDSLOT, RobotMap.RightI, 10);
-		// RobotMap.right1.config_kD(RobotMap.PIDSLOT, RobotMap.RightD, 10);
-		// RobotMap.right1.config_kF(RobotMap.PIDSLOT, RobotMap.RightF, 10);
-		// RobotMap.right1.config_IntegralZone(RobotMap.PIDSLOT, RobotMap.IZONE, 10);
-		// /*
-		// * Set how fast of a rate the robot will accelerate Do not remove or you
-		// * get a fabulous prize of a Flipping robot - CLOSED_LOOP_RAMP_RATE
-		// */
-		// RobotMap.right1.configClosedloopRamp(RobotMap.CLOSED_LOOP_RAMP_RATE, 10);
-	}
-
-	public void takeJoystickInputs(Joystick left, Joystick right) { // tank drive
+	 // Tank drive
+	public void takeJoystickInputs(Joystick left, Joystick right) {
 		RobotMap.left1.set(ControlMode.PercentOutput, left.getY());
 		RobotMap.right1.set(ControlMode.PercentOutput, right.getY());
 	}
 
-	public void takeStickInputValues(double leftStickV, double rightStickV) { // arcade drive
+	// Arcade drive
+	public void takeStickInputValues(double leftStickV, double rightStickV) {
 		if (!reversed) {
 			RobotMap.left1.set(ControlMode.PercentOutput, -leftStickV);
 			RobotMap.right1.set(ControlMode.PercentOutput, rightStickV);
@@ -116,65 +68,16 @@ public class DriveTrain extends Subsystem {
 			RobotMap.left1.set(ControlMode.PercentOutput, -rightStickV);
 			RobotMap.right1.set(ControlMode.PercentOutput, leftStickV);
 		}
-
-		// SmartDashboard.putData("Drive Train", robotDrive);
-		// SmartDashboard.putNumber("Left Side", leftSide.get());
-		// SmartDashboard.putNumber("Right Side", rightSide.get());
-
-		/*
-		 * SensorCollection sensor = RobotMap.right1.getSensorCollection();
-		 * 
-		 * SmartDashboard.putNumber("sensor analogin", sensor.getAnalogIn());
-		 * SmartDashboard.putNumber("sensor analoginraw", sensor.getAnalogInRaw());
-		 * SmartDashboard.putNumber("sensor analongvel", sensor.getAnalogInVel());
-		 * SmartDashboard.putNumber("sensor widthpos", sensor.getPulseWidthPosition());
-		 * SmartDashboard.putNumber("sensor velocity", sensor.getQuadratureVelocity());
-		 */
 	}
 
 	public void ArcadeDrive(double robotOutput, double turnAmount) {
 		if (!reversed) {
-			SmartDashboard.putNumber("turnamount", turnAmount);
+			// SmartDashboard.putNumber("turnamount", turnAmount);
 			RobotMap.left1.set(ControlMode.PercentOutput, (-robotOutput) + turnAmount);
 			RobotMap.right1.set(ControlMode.PercentOutput, robotOutput + turnAmount);
 		} else {
 			RobotMap.left1.set(ControlMode.PercentOutput, (robotOutput) + turnAmount);
 			RobotMap.right1.set(ControlMode.PercentOutput, -robotOutput + turnAmount);
-		}
-
-		// SmartDashboard.putData("Drive Train", robotDrive);
-		// SmartDashboard.putNumber("Left Side", leftSide.get());
-		// SmartDashboard.putNumber("Right Side", rightSide.get());
-
-		SensorCollection sensorLeft = RobotMap.left1.getSensorCollection();
-		SensorCollection sensorRight = RobotMap.right1.getSensorCollection();
-
-		SmartDashboard.putNumber("sensor analogin", sensorRight.getAnalogIn());
-		SmartDashboard.putNumber("sensor analoginraw", sensorRight.getAnalogInRaw());
-		SmartDashboard.putNumber("sensor analongvel", sensorRight.getAnalogInVel());
-		SmartDashboard.putNumber("sensor widthpos", sensorRight.getPulseWidthPosition());
-		SmartDashboard.putNumber("sensor velocity", sensorRight.getQuadratureVelocity());
-
-		// shifting
-		double averageVelocity = (Math.abs(sensorLeft.getQuadratureVelocity()));
-		//		+ Math.abs(sensorRight.getQuadratureVelocity())) / 2.0;
-
-		SmartDashboard.putNumber("averageVelocity", averageVelocity);
-
-		if (!(Robot.oi.xbox1.getStartButton())) {
-			if (averageVelocity < MAX_LOW_SPEED) { // if not in low, switch to low
-				if (Robot.shifter.shifty.get() != DoubleSolenoid.Value.kForward) {
-					Robot.shifter.shiftdown();
-				}
-			} else if (averageVelocity > MIN_HIGH_SPEED) { // if in low, switch to high
-				if (Robot.shifter.shifty.get() == DoubleSolenoid.Value.kForward) {
-					Robot.shifter.shiftup();
-				}
-			}
-		} else {
-			if (Robot.shifter.shifty.get() != DoubleSolenoid.Value.kForward) {
-				Robot.shifter.shiftdown();
-			}
 		}
 	}
 
@@ -183,6 +86,7 @@ public class DriveTrain extends Subsystem {
 		double outputRight = robotOutput + turnAmount;
 		double max = outputLeft < outputRight ? outputRight : outputLeft;
 		double multiplier;
+
 		if (max > RobotMap.DRIVE_LIMITER)
 			multiplier = RobotMap.DRIVE_LIMITER / (max);
 		else
@@ -199,95 +103,25 @@ public class DriveTrain extends Subsystem {
 
 		RobotMap.left1.set(ControlMode.PercentOutput, outputLeft * RobotMap.speedMultiplier);
 		RobotMap.right1.set(ControlMode.PercentOutput, outputRight * RobotMap.speedMultiplier);
-
-		// SmartDashboard.putData("Drive Train", robotDrive);
-		// SmartDashboard.putNumber("Left Side", leftSide.get());
-		// SmartDashboard.putNumber("Right Side", rightSide.get());
-
-		// SmartDashboard.putNumber("sensor analogin", sensorRight.getAnalogIn());
-		// SmartDashboard.putNumber("sensor analoginraw", sensorRight.getAnalogInRaw());
-		// SmartDashboard.putNumber("sensor analongvel", sensorRight.getAnalogInVel());
-		// SmartDashboard.putNumber("sensor widthpos",
-		// sensorRight.getPulseWidthPosition());
-		// SmartDashboard.putNumber("sensor velocity",
-		// sensorRight.getQuadratureVelocity());
 	}
 
 	// Welcome to the Amazing World of PID! (Population: 3, just P, I, and D)
 
 	private double convertToRotations(double distanceInFeet) {
-		return (distanceInFeet) / (Math.PI * (RobotMap.WHEEL_RADIUS * 2.0));
+		return distanceInFeet / (Math.PI * (RobotMap.WHEEL_RADIUS * 2.0));
 	}
 
 	public void driveForSeconds(double seconds, double leftInput, double rightInput) {
 		currentTime = System.currentTimeMillis();
 		endTime = System.currentTimeMillis() + (seconds * S_MS_MULTIPLIER);
+
 		while (currentTime < endTime) {
 			currentTime = System.currentTimeMillis();
-			// robotDrive.tankDrive(leftInput, rightInput);
 			RobotMap.left1.set(ControlMode.PercentOutput, leftInput);
 			RobotMap.right1.set(ControlMode.PercentOutput, rightInput);
 		}
 		stop();
 	}
-
-	// public void driveArcInit(double horizontalDist, double theta) {
-	// // Set Encoder Position to 0
-	// RobotMap.left1.setSelectedSensorPosition(0, 0, 10);
-	// RobotMap.right1.setSelectedSensorPosition(0, 0, 10);
-	// try {
-	// Thread.sleep(10);
-	// } catch (InterruptedException e) {
-	// e.printStackTrace();
-	// }
-	// RobotMap.left1.setSelectedSensorPosition(0, 0, 10);
-	// RobotMap.right1.setSelectedSensorPosition(0, 0, 10);
-
-	// // Calculate arc lengths
-	// theta = Math.toRadians(theta);
-	// double radius = horizontalDist / (1 - Math.cos(theta));
-	// double leftArcLength = theta * (radius + RobotMap.WHEEL_SEPARATION / 2);
-	// double rightArcLength = theta * (radius - RobotMap.WHEEL_SEPARATION / 2);
-	// if (horizontalDist < 0) {
-	// leftArcLength *= -1;
-	// rightArcLength *= -1;
-	// }
-
-	// // Run convertToRotations functions
-	// double leftRot = convertToRotations(leftArcLength);
-	// double rightRot = convertToRotations(rightArcLength);
-
-	// // Make motors drive number of rotations
-	// // calculated before by convertToRotations()
-	// // RobotMap.left1.set(leftRot/* * RobotMap.turnFudgeFactor*/);
-	// // //Make sure we inverse this right side,
-	// // //otherwise, you have a spinning robot on your hands
-	// // RobotMap.right1.set(-rightRot/* * RobotMap.turnFudgeFactor*/);
-	// }
-
-	public void driveArcSpeedInit(double leftSpeed, double rightSpeed) {
-		// Set Encoder Position to 0
-		RobotMap.left1.setSelectedSensorPosition(0, 0, SENSOR_POSITION_TIMEOUT);
-	//	RobotMap.right1.setSelectedSensorPosition(0, 0, SENSOR_POSITION_TIMEOUT);
-		try {
-			Thread.sleep(10);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		RobotMap.left1.setSelectedSensorPosition(0, 0, SENSOR_POSITION_TIMEOUT);
-	//	RobotMap.right1.setSelectedSensorPosition(0, 0, SENSOR_POSITION_TIMEOUT);
-
-		RobotMap.left1.set(ControlMode.PercentOutput, -leftSpeed);
-		RobotMap.right1.set(ControlMode.PercentOutput, -rightSpeed);
-	}
-
-	public void driveArcSpeedEnd() {
-		// RobotMap.left1.set(0);
-		// RobotMap.right1.set(0);
-	}
-
-	// Some special isFinished() command stuff to not stop before the robot has
-	// even moved
 
 	public double ticksToRot(double ticks) {
 		return ticks / 7610;
@@ -302,8 +136,8 @@ public class DriveTrain extends Subsystem {
 	double driveError = 0.0;
 
 	public boolean driveToPosition(double desiredDistance) {
-		// checks if the target has changed
-		// if it has changed, reset the base variables to 0;
+		// Checks if the target has changed.
+		// If it has changed, reset the base variables to 0.
 
 		if (desiredDistance != previousDesiredDistance) {
 			integral = 0.0;
@@ -331,61 +165,12 @@ public class DriveTrain extends Subsystem {
 		RobotMap.right1.setSelectedSensorPosition(0, 0, 10);
 	}
 
-	double turnError = 0.0;
-	double startingAngle = 0.0;
-
-	// public boolean turnToAngle(double desiredAngle) {
-	// 	// checks if the target has changed
-	// 	// if it has changed, reset the base variables to 0
-	// 	if (desiredAngle != previousDesiredAngle) {
-	// 		integral = 0;
-	// 		previousError = 0;
-	// 		previousDesiredAngle = desiredAngle;
-	// 		startingAngle = Robot.navX.getAngle();
-	// 	}
-
-	// 	double currentAngle = Robot.navX.getAngle();
-
-	// 	turnError = (desiredAngle + startingAngle) - currentAngle;
-
-	// 	SmartDashboard.putNumber("turnError", turnError);
-
-	// 	integral += turnError * TURN_ERROR_SCALING;
-
-	// 	double derivative = (turnError - previousError) / TURN_ERROR_SCALING;
-	// 	double speed = RobotMap.TURN_kP * turnError + RobotMap.TURN_kI * integral + RobotMap.TURN_kD * derivative;
-
-	// 	SmartDashboard.putNumber("turnToAngleSpeed", speed);
-
-	// 	RacingDrive(0, speed);
-
-	// 	/*
-	// 	 * if (desiredAngle > 0) { RobotMap.right1.set(ControlMode.PercentOutput,
-	// 	 * -speed); RobotMap.left1.set(ControlMode.PercentOutput, speed); } else {
-	// 	 * RobotMap.right1.set(ControlMode.PercentOutput, speed);
-	// 	 * RobotMap.left1.set(ControlMode.PercentOutput, -speed); }
-	// 	 */
-
-	// 	if (turnError < RobotMap.TURN_ERROR_CONSTANT && turnError > -RobotMap.TURN_ERROR_CONSTANT) {		
-	// 		integral = 0;
-	// 		previousError = 0;
-	// 		previousDesiredAngle = 0.111;
-	// 		desiredAngle = 0;
-	// 		return true;
-	// 	}
-
-	// 	previousError = turnError;
-	// 	return false;
-	// }
-
 	public double getLeftEncoderPosition() {
-		return (RobotMap.left1.getSelectedSensorPosition(0));
+		return RobotMap.left1.getSelectedSensorPosition(0);
 	}
 
 	public double getRightEncoderPosition() {
-		// Make sure graph isn't upside down (The stocks are going into the
-		// toilet!!)
-		return (RobotMap.right1.getSelectedSensorPosition(0));
+		return RobotMap.right1.getSelectedSensorPosition(0);
 	}
 
 	public double getLeftEncoderVelocity() {
@@ -393,14 +178,7 @@ public class DriveTrain extends Subsystem {
 	}
 
 	public double getRightEncoderVelocity() {
-		// Make sure graph isn't upside down (The stocks are going into the
-		// toilet!!)
-		return (RobotMap.right1.getSelectedSensorVelocity(0));
-	}
-
-	@Override
-	public void periodic() {
-		// Put code here to be run every loop
+		return RobotMap.right1.getSelectedSensorVelocity(0);
 	}
 
 	public void stop() {
@@ -413,14 +191,7 @@ public class DriveTrain extends Subsystem {
 	}
 
 	public void switchFront() {
-		// RobotMap.left1.setInverted(!RobotMap.left1.getInverted());
-		// RobotMap.left2.setInverted(!RobotMap.left2.getInverted());
-		// RobotMap.left3.setInverted(!RobotMap.left3.getInverted());
-		// RobotMap.right1.setInverted(!RobotMap.right1.getInverted());
-		// RobotMap.right2.setInverted(!RobotMap.right2.getInverted());
-		// RobotMap.right3.setInverted(!RobotMap.right3.getInverted());
 		reversed = !reversed;
-
 	}
 
 	public void resetEncoders() {

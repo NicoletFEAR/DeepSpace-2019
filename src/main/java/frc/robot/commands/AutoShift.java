@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
+/* Copyright (c) 2019 FIRST. All Rights Reserved.                             */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
@@ -11,16 +11,12 @@ import com.ctre.phoenix.motorcontrol.SensorCollection;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 
 public class AutoShift extends Command {
   public AutoShift() {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
     requires(Robot.shifter);
-
   }
 
   SensorCollection sensorLeft;
@@ -30,17 +26,14 @@ public class AutoShift extends Command {
   @Override
   protected void initialize() {
     sensorLeft = RobotMap.left1.getSensorCollection();
- //   sensorRight = RobotMap.right1.getSensorCollection();
+    // sensorRight = RobotMap.right1.getSensorCollection();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    // shifting
     double averageVelocity = (Math.abs(sensorLeft.getQuadratureVelocity()));
       //  + Math.abs(sensorRight.getQuadratureVelocity())) / 2;
-
-    SmartDashboard.putNumber("averageVelocity", averageVelocity);
 
     if (!(Robot.oi.xbox1.getStartButton()) && !(Robot.oi.xbox1.getAButton())) { // check the driver isn't holding down the low gear button
       if (averageVelocity < RobotMap.SHIFT_DOWN_THRESHOLD) { // if not in low, switch to low
@@ -61,6 +54,7 @@ public class AutoShift extends Command {
         Robot.shifter.shiftup();
     }
 
+    Robot.driveTrain.averageVelocity = averageVelocity;
   }
 
   // Make this return true when this Command no longer needs to run execute()

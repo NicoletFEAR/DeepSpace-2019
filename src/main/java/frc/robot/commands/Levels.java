@@ -12,17 +12,14 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 
 /**
- *
+ * Use arm encoders to reposition arm to a set encoder value
  */
 public class Levels extends Command {
-
     public Levels() {
-        // Use requires() here to declare subsystem dependencies
         requires(Robot.arm);
         this.setInterruptible(true);
     }
@@ -36,13 +33,11 @@ public class Levels extends Command {
     protected void execute() {
         if (Robot.arm.armIsManual) {
         //if (true) {
-
             // if (Robot.driveTrain.isReversed()) {
             //     Robot.arm.manualControl(-(Robot.oi.getXbox2().getY(Hand.kLeft)));
             // } else {
                 Robot.arm.manualControl(Robot.oi.getXbox2().getY(Hand.kLeft));
            // }
-
         } else {
             if (Math.abs(Robot.oi.getXbox2().getY(Hand.kLeft)) > 0.1){
             RobotMap.targetEncoderValue += (int) (50 * Robot.oi.getXbox2().getY(Hand.kLeft));
@@ -54,14 +49,10 @@ public class Levels extends Command {
             if (RobotMap.targetEncoderValue + RobotMap.offset < RobotMap.ARM_MIN_TICK_VAL)
                 RobotMap.targetEncoderValue = RobotMap.ARM_MIN_TICK_VAL - RobotMap.offset;
 
-            SmartDashboard.putNumber("Target Arm Encoder", RobotMap.targetEncoderValue);
-            SmartDashboard.putNumber("Arm Offset", RobotMap.offset);
-
             // if (Robot.driveTrain.isReversed())
             //     Robot.arm.rotateToPosition(-RobotMap.targetEncoderValue + RobotMap.offset);
             // else
                 Robot.arm.rotateToPosition(RobotMap.targetEncoderValue + RobotMap.offset);
-
         }
     }
 
@@ -77,5 +68,6 @@ public class Levels extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+        end();
     }
 }

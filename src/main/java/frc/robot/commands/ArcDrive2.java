@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
+/* Copyright (c) 2019 FIRST. All Rights Reserved.                             */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
@@ -9,12 +9,10 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 
 public class ArcDrive2 extends InstantCommand {
-
   double x;
   double y;
   double distOffset;
@@ -22,7 +20,6 @@ public class ArcDrive2 extends InstantCommand {
   int level;
 
   public ArcDrive2(int level) {
-
     super();
 
     // Uses input from the Android vision system to drive to targets and place game
@@ -34,25 +31,17 @@ public class ArcDrive2 extends InstantCommand {
     this.level = level;
 
     requires(Robot.driveTrain);
-
   }
 
   // Called once when the command executes
   @Override
   protected void initialize() {
-
     setDriving();
-
     setHeight();
-
-    if (Robot.doneArc) {
-      //operateMech();
-    }
-
   }
 
   public void setDriving() {
-    SmartDashboard.putNumber("DistOffset", distOffset);
+    // SmartDashboard.putNumber("DistOffset", distOffset);
 
     if (((y < distOffset + RobotMap.adjustmentAllowance) && (Math.abs(x) < RobotMap.adjustmentAllowance)) || Robot.isTargetNull) {
       Robot.doneArc = true;
@@ -60,7 +49,7 @@ public class ArcDrive2 extends InstantCommand {
       Robot.doneArc = false;
     }
 
-    SmartDashboard.putBoolean("DoneArc", Robot.doneArc);
+    // SmartDashboard.putBoolean("DoneArc", Robot.doneArc);
 
     double output = (y - distOffset) * RobotMap.y_multiplier;
     double turn = x * RobotMap.x_multiplier;
@@ -78,32 +67,10 @@ public class ArcDrive2 extends InstantCommand {
   }
 
   public void setHeight() {
-
     if (y < distOffset + 12) {
-      if (level == 9) {
-        Scheduler.getInstance().add(new MoveToLevel(10));
-      } else {
-        Scheduler.getInstance().add(new MoveToLevel(level));
-      } 
+      Scheduler.getInstance().add(new MoveToLevel(level));
     } else {
-      Scheduler.getInstance().add(new MoveToLevel(8));
-    }
-
-  }
-
-  public void operateMech() {
-    if (level == 1 || level == 2 || level == 3 || level == 7) { // if we want to shoot a cargo
-      new FlyWheelSetSpeed(0.3);
-    } else if (level == 4 || level == 5 || level == 6) { // we want to place a hatch
-      new GameMechClose();
-    } else if (level == 12) { // we want to get a hatch from the loading station
-      new GameMechOpen();
-    } else if (level == 9) { // we want to get a cargo from the loading station
-      new FlyWheelSetSpeed(-0.3);
-      // if (Robot.gameMech.getCargoLimitSwitch()) {
-      //   Robot.gameMech.pull();
-      // }
+      Scheduler.getInstance().add(new MoveToLevel(4));
     }
   }
-
 }

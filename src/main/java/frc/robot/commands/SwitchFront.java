@@ -5,7 +5,6 @@ import frc.robot.Robot;
 import frc.robot.RobotMap;
 
 public class SwitchFront extends InstantCommand {
-
 	public SwitchFront() {
         super();
     	requires(Robot.driveTrain);
@@ -17,14 +16,6 @@ public class SwitchFront extends InstantCommand {
     	//Flip direction of travel
         Robot.driveTrain.switchFront();
 
-        // if (Robot.cameraMode.equalsIgnoreCase("front")) {
-        //     Robot.mVisionServer.backCamera();
-        //     Robot.cameraMode = "back";
-        //   } else {
-        //     Robot.mVisionServer.frontCamera();
-        //     Robot.cameraMode = "front";
-        //   }
-
         if (Robot.driveTrain.isReversed()) {
             Robot.mVisionServer.frontCamera();
             Robot.cameraMode = "front";
@@ -33,9 +24,7 @@ public class SwitchFront extends InstantCommand {
             Robot.cameraMode = "back";
         }
 
-       // RobotMap.targetEncoderValue = -RobotMap.targetEncoderValue; // makes the arm stay at its current height when switching front
-
-    	//Flip left and right
-        //Robot.oi.switchJoystickIDs();
+        // Makes the arm stay at its current height when switching front
+        RobotMap.targetEncoderValue = -RobotMap.targetEncoderValue;
     }
 }

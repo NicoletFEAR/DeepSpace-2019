@@ -213,7 +213,7 @@ public class VisionServer extends CrashTrackingRunnable {
                 System.err.println("Issue accepting socket connection!");
             } finally {
                 try {
-                    Thread.sleep(100);
+                    Thread.sleep(50); // Was 100
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -237,7 +237,7 @@ public class VisionServer extends CrashTrackingRunnable {
                     mWantsAppRestart = false;
                 }
                 try {
-                    Thread.sleep(200);
+                    Thread.sleep(100); // Was 200
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

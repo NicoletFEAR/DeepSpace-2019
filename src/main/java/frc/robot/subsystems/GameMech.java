@@ -1,20 +1,14 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import  frc.robot.RobotMap;
-import frc.robot.commands.FlyWheelDrive;
+import frc.robot.RobotMap;
 
 public class GameMech extends Subsystem {
-	private final  DoubleSolenoid panelShooter = new DoubleSolenoid(RobotMap.gmForwardChannel, RobotMap.gmReverseChannel);
-	
+	private DoubleSolenoid panelShooter = new DoubleSolenoid(RobotMap.gmForwardChannel, RobotMap.gmReverseChannel);
+
 	public void initDefaultCommand() {
-		setDefaultCommand(new FlyWheelDrive());
-		//open();
 	}
 
 	public void open() {
@@ -32,30 +26,4 @@ public class GameMech extends Subsystem {
 			open();
 		}
 	}
-
-	public void spinFlyWheels(double speed){
-		RobotMap.flywheel1.set(ControlMode.PercentOutput, -speed);
-		RobotMap.flywheel2.set(ControlMode.PercentOutput, -speed);
-
-		// if (speed < 0 && getCargoLimitSwitch()) {
-		// 	pull();
-		// }
-	}
-
-	public double getFlywheel1Encoder(){
-		return RobotMap.flywheel1.getSelectedSensorPosition();
-	}
-
-	public double getFlywheel2Encoder(){
-		return RobotMap.flywheel2.getSelectedSensorPosition();
-	}
-	
-	// public boolean getCargoLimitSwitch(){
-	// 	boolean cargoIn = RobotMap.cargoIntakeLimitSwitch.get();
-	// 	//SmartDashboard.putBoolean("Cargo Limit Switch", cargoIn);
-	// 	return cargoIn;
-	// }
-    // Put methods for controlling this subsystem
-    // here. Call these from Commands.
-	// make sure the pistons are closed at first
 }

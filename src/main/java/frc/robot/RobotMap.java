@@ -5,8 +5,6 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
-import edu.wpi.first.wpilibj.DigitalInput;
-
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -14,8 +12,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
  * floating around.
  */
 public class RobotMap {
-
-	// DRIVE BASE:
+	// Drive Base:
 	public static TalonSRX left1;
 	public static TalonSRX left2;
 	public static TalonSRX left3;
@@ -31,16 +28,7 @@ public class RobotMap {
 
 	public static final double DRIVE_RAMP_RATE = 10; // 10 is recomended by our friends from 2015, need to test
 
-	// CARGO HATCH GAME MECH:
-	public static TalonSRX flywheel1;
-	public static TalonSRX flywheel2;
-
-//	public static DigitalInput cargoIntakeLimitSwitch; // intake limit switch
-	public static int CARGO_LIMIT_SWITCH_INPUT = 0;
-
-	public static final double FLYWHEEL_LIMITER = 0.75; // 775 motors
-
-	// ARM:
+	// Arm:
 	public static TalonSRX armMotor1;
 	public static TalonSRX armMotor2;
 
@@ -49,7 +37,7 @@ public class RobotMap {
 	public static double ARM_MOTOR_SLOW_FORWARDS = 1; // slow the faster motor to match the slower 
 	public static double ARM_MOTOR_SLOW_BACKWARDS = 1; // slow the faster motor to match the slower
 
-	// PID CONSTANTS:
+	// PID Constants:
 	public static double ERROR_CONSTANT_LEFT = 0.0;
 	public static double ERROR_CONSTANT_RIGHT = 0.0;
 	public static double WHEEL_RADIUS = 2.0; // Inches // UDB:2 // FCB:4
@@ -68,7 +56,7 @@ public class RobotMap {
 	public static final double PERFECT_ARC_RANGE = 2;
     public static final double TURN_SCALING = 0.6;
 
-	// ARM MOVEMENT CONSTANTS:
+	// Arm Movement Constants:
 	public static int maxChangeAmt = 100; // how much the arm moves by
 	public static int targetEncoderValue;
 	public static final int CargoShipDropPoint = 1350;
@@ -90,21 +78,17 @@ public class RobotMap {
 
 	public static double ARM_JOYSTICK_DEAD_ZONE = 0.05; // check
 
-	// VISION CONSTANTS:
+	// Vision Constants:
 	public static double angleConstant = 2400;
 	public static double distanceConstant = 1.5;
 	public static double x_val_constant = .95;
 	public static double visionXAllowance = 14;
 
-	// ARC DRIVE 2.0 CONSTANTS
+	// Arc Drive 2.0 Constants:
 	public static double y_multiplier = 0.03; // multiplies the target output by the Android vision to robot driving output
 	public static double x_multiplier = 0.03;
 	public static double adjustmentAllowance = 1.5;
 	public static double xMaxTurnSpeed = 0.25;
-
-	// // ultrasonic sensors
-	// public static AnalogInput ultraLeft;
-	// public static AnalogInput ultraRight;
 
 	public static int gmModuleNumber = 0; // GAME MECH
 	public static int gmForwardChannel = 3;
@@ -116,7 +100,7 @@ public class RobotMap {
 
 	public static int compressormodule = 0;
 
-	//distance offsets for arc + angle drive
+	// Distance offsets for arc + angle drive
 	public static double cargo1Dist = 45;
 	public static double cargo2Dist = 38;
 	public static double cargo3Dist = 45;
@@ -138,8 +122,8 @@ public class RobotMap {
 		left3 = new TalonSRX(17);
 		left3.setNeutralMode(NeutralMode.Brake);
 
-		// Set how fast of a rate the robot will accelerate Do not remove or you
-		// get a fabulous prize of a Flipping robot - 2015
+		// Set how fast of a rate the robot will accelerate DO NOT remove or you
+		// get a fabulous prize of a flipping robot - 2015
 		left1.configClosedloopRamp(DRIVE_RAMP_RATE);
 		left2.configClosedloopRamp(DRIVE_RAMP_RATE);
 		left3.configClosedloopRamp(DRIVE_RAMP_RATE);
@@ -157,8 +141,8 @@ public class RobotMap {
 		right3 = new TalonSRX(18);
 		right3.setNeutralMode(NeutralMode.Brake);
 
-		// Set how fast of a rate the robot will accelerate Do not remove or you
-		// get a fabulous prize of a Flipping robot - 2015
+		// Set how fast of a rate the robot will accelerate DO NOT remove or you
+		// get a fabulous prize of a flipping robot - 2015
 		right1.configClosedloopRamp(DRIVE_RAMP_RATE);
 		right2.configClosedloopRamp(DRIVE_RAMP_RATE);
 		right3.configClosedloopRamp(DRIVE_RAMP_RATE);
@@ -168,16 +152,6 @@ public class RobotMap {
 		right3.setInverted(true);
 		right2.follow(right1);
 		right3.follow(right1);
-
-		flywheel1 = new TalonSRX(25); // cargo handlers
-		flywheel2 = new TalonSRX(26);
-
-		flywheel1.setInverted(false); // two flywheels must be opposite to intake and shoot cargo
-		flywheel2.setInverted(true);
-		flywheel1.setNeutralMode(NeutralMode.Coast);
-		flywheel2.setNeutralMode(NeutralMode.Coast);
-
-	//	cargoIntakeLimitSwitch = new DigitalInput(CARGO_LIMIT_SWITCH_INPUT);
 
 		// next 2 need to be switched back to 21/22,
 		// using them for PID testing
@@ -190,11 +164,6 @@ public class RobotMap {
 		armMotor2 = new TalonSRX(22); // SHOULD BE 22
 		armMotor2.setNeutralMode(NeutralMode.Brake);
 		armMotor2.setInverted(true);
-		// armMotor2.setInverted(InvertType.FollowMaster);
-		// armMotor2.setInverted(false);
-
-		// ultraRight = new AnalogInput(3);
-		// ultraLeft = new AnalogInput(2);
 	}
 
 	public static double getDistanceOffset(int level) {
@@ -219,7 +188,6 @@ public class RobotMap {
 				return 40;
 			default:
 				return 40;
-
 		}
 	}
 }

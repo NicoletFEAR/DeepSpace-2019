@@ -2,13 +2,10 @@ package frc.robot;
 
 import java.util.List;
 
-import com.kauailabs.navx.frc.AHRS;
-
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -31,7 +28,6 @@ import se.vidstige.jadb.JadbDevice;
  * project.
  */
 public class Robot extends TimedRobot {
-
     Command autonomousCommand;
     Command disabledCommand;
 
@@ -44,6 +40,7 @@ public class Robot extends TimedRobot {
     public static double angle_val_target = 0.0;
     public static boolean isTargetNull = true;
     public static boolean doneArc = false;
+    public static String talonMode = "brake";
 
     public static OI oi;
     public static DriveTrain driveTrain;
@@ -84,9 +81,6 @@ public class Robot extends TimedRobot {
         mVisionServer = VisionServer.getInstance();
         mVisionServer.frontCamera();
 
-        // String[] args = {};
-        // mVisionServer.main(args);
-
         mVisionServer.addVisionUpdateReceiver(VisionProcessor.getInstance());
 
         driveTrain = new DriveTrain();
@@ -105,9 +99,6 @@ public class Robot extends TimedRobot {
 
         front = CameraServer.getInstance().startAutomaticCapture("FRONT", 0);
         back = CameraServer.getInstance().startAutomaticCapture("BACK", 1);
-
-       // front.setConnectionStrategy(edu.wpi.cscore.VideoSource.ConnectionStrategy.kKeepOpen);
-       // back.setConnectionStrategy(edu.wpi.cscore.VideoSource.ConnectionStrategy.kKeepOpen);
 
         // arduinoLEDInterface = new ArduinoInterface(7);
         // arduinoCameraInterface = new ArduinoInterface(6);
@@ -140,23 +131,6 @@ public class Robot extends TimedRobot {
     @Override
     public void disabledPeriodic() {
         Scheduler.getInstance().run();
-
-        // VisionUpdate update = new VisionUpdate();
-        // for (int i = 0; i < update.getTargets().size(); i++) {
-        // TargetInfo target = update.getTargets().get(i);
-        // System.out.println("Target: " + target.getY() + ", " + target.getZ());
-        // }
-
-        // System.out.print(update.getTargets());
-        // update.targets; // PROBLEM HERE !!!!!!!!!!!!!!
-        // boolean b = (targets_list != null);
-        // System.out.println(b);
-        /*
-         * if (update.targets != null) { //TargetInfo target_Info = targets_list.get(0);
-         * TargetInfo target_Info = update.targets.get(0); // Double Y_val =
-         * targets_list.get(0).getY(); System.out.println(Y_val); }
-         */
-
     }
 
     @Override
@@ -168,34 +142,21 @@ public class Robot extends TimedRobot {
             autonomousCommand.start();
         teleopInit();
         
-        
 		RobotMap.flywheel1.setSelectedSensorPosition(0,0,10);
 		RobotMap.flywheel2.setSelectedSensorPosition(0,0,10); 
 
         shifter.shiftdown();
 
         Robot.driveTrain.resetEncoders();
-      //  double velocityRight = Robot.driveTrain.getRightEncoderVelocity();
-        double velocityLeft = Robot.driveTrain.getLeftEncoderVelocity();
-       // SmartDashboard.putNumber("velR", velocityRight);
-        SmartDashboard.putNumber("velL", velocityLeft);
-        SmartDashboard.putNumber("Left Encoder: ", Robot.driveTrain.getLeftEncoderPosition());
-      //  SmartDashboard.putNumber("Right Encoder: ", Robot.driveTrain.getRightEncoderPosition());
     }
 
     @Override
-
     public void autonomousPeriodic() {
         teleopPeriodic();
-        // double distanceLeft = RobotMap.ultraLeft.getAverageVoltage() * 300 / 293 * 1000 / 25.4;
-        // SmartDashboard.putNumber("Distance from left ultrasonic (inches)", distanceLeft);
-        // double distanceRight = RobotMap.ultraRight.getAverageVoltage() * 300 / 293 * 1000 / 25.4;
-        // SmartDashboard.putNumber("Distance from right ultrasonic (inches)", distanceRight);
     }
 
     @Override
-    public void teleopInit() {
-        
+    public void teleopInit() {   
     }
 
     /**
@@ -204,19 +165,6 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
-        /*
-         * VisionUpdate update = new VisionUpdate();
-         * //System.out.print(update.getTargets()); List<TargetInfo> targets_list =
-         * update.getTargets(); // PROBLEM HERE !!!!!!!!!!!!!! if (targets_list != null)
-         * { TargetInfo target_Info = targets_list.get(0); Double Y_val =
-         * targets_list.get(0).getY(); System.out.println(Y_val); }
-         */
-
-        // double distanceLeft = RobotMap.ultraLeft.getAverageVoltage() * 300 / 293 * 1000 / 25.4;
-        // SmartDashboard.putNumber("Distance from left ultrasonic (inches)", distanceLeft);
-        // double distanceRight = RobotMap.ultraRight.getAverageVoltage() * 300 / 293 * 1000 / 25.4;
-        // SmartDashboard.putNumber("Distance from right ultrasonic (inches)", distanceRight);
-
     }
 
     @Override
@@ -225,37 +173,53 @@ public class Robot extends TimedRobot {
         processor.onLoop(System.currentTimeMillis());
         
         SmartDashboard.putBoolean("Target found: ", !isTargetNull);
+        SmartDashboard.putString("Camera Mode: ", cameraMode);
+        SmartDashboard.putBoolean("Switch Front: ", Robot.driveTrain.isReversed());
+        SmartDashboard.putNumber("Pressure: ", Robot.pressureSensor.getPressure());
+        SmartDashboard.putString("Talon Mode: ", talonMode);
+    }
 
-        if (DEBUG_TIME)
-        {
-            SmartDashboard.putString("Camera Mode: ", cameraMode);
-            SmartDashboard.putBoolean("Switch Front", Robot.driveTrain.isReversed());
+    @Override
+    public void testInit() {
+        autonomousInit();
+    }
 
-            SmartDashboard.putNumber("Arm1 Encoder Value", arm.getArm1Encoder());
-            SmartDashboard.putNumber("Arm2 Encoder Value", arm.getArm2Encoder());
+    @Override
+    public void testPeriodic() {
+        // double distanceLeft = RobotMap.ultraLeft.getAverageVoltage() * 300 / 293 * 1000 / 25.4;
+        // SmartDashboard.putNumber("Distance from left ultrasonic (inches): ", distanceLeft);
+        // double distanceRight = RobotMap.ultraRight.getAverageVoltage() * 300 / 293 * 1000 / 25.4;
+        // SmartDashboard.putNumber("Distance from right ultrasonic (inches): ", distanceRight);
 
-            SmartDashboard.putNumber("y_val_target: ", y_val_target);
-            SmartDashboard.putNumber("z_val_target: ", z_val_target);
-            SmartDashboard.putNumber("x_val_target: ", x_val_target);
-            SmartDashboard.putNumber("angle_val_target: ", angle_val_target);
+        SmartDashboard.putNumber("Arm1 Encoder Value: ", arm.getArm1Encoder());
+        SmartDashboard.putNumber("Arm2 Encoder Value: ", arm.getArm2Encoder());
 
-        //    double velocityRight = Robot.driveTrain.getRightEncoderVelocity();
-        //    double velocityLeft = Robot.driveTrain.getLeftEncoderVelocity();
-        //    SmartDashboard.putNumber("velR", velocityRight);
-        //    SmartDashboard.putNumber("velL", velocityLeft);
+        SmartDashboard.putNumber("y_val_target: ", y_val_target);
+        SmartDashboard.putNumber("z_val_target: ", z_val_target);
+        SmartDashboard.putNumber("x_val_target: ", x_val_target);
+        SmartDashboard.putNumber("angle_val_target: ", angle_val_target);
 
-           SmartDashboard.putNumber("Right Encoder: ", Robot.driveTrain.getRightEncoderPosition());
-            SmartDashboard.putNumber("Left Encoder: ", Robot.driveTrain.getLeftEncoderPosition());
+        // SmartDashboard.putNumber("velR: ", Robot.driveTrain.getRightEncoderVelocity());
+        // SmartDashboard.putNumber("velL: ", Robot.driveTrain.getLeftEncoderVelocity());
 
-            SmartDashboard.putNumber("ArmySpeedyBoi", arm.getSpeed());
-            
-            SmartDashboard.putNumber("Vol_armMotor1", RobotMap.armMotor1.getMotorOutputVoltage());
-            SmartDashboard.putNumber("Vol_armMotor2", RobotMap.armMotor2.getMotorOutputVoltage());
-            SmartDashboard.putNumber("Vol_left1", RobotMap.left1.getMotorOutputVoltage());
-            SmartDashboard.putNumber("Vol_right1", RobotMap.right1.getMotorOutputVoltage());
-            SmartDashboard.putNumber("Vol_flywheel1", RobotMap.flywheel1.getMotorOutputVoltage());
-            SmartDashboard.putBoolean("armIsManual",Robot.arm.armIsManual);
-        }
+        SmartDashboard.putNumber("Average Velocity: ", Robot.driveTrain.averageVelocity);
 
+        SmartDashboard.putNumber("Right Encoder: ", Robot.driveTrain.getRightEncoderPosition());
+        SmartDashboard.putNumber("Left Encoder: ", Robot.driveTrain.getLeftEncoderPosition());
+
+        SmartDashboard.putNumber("ArmySpeedyBoi: ", arm.getSpeed());
+        
+        SmartDashboard.putNumber("Vol_armMotor1: ", RobotMap.armMotor1.getMotorOutputVoltage());
+        SmartDashboard.putNumber("Vol_armMotor2: ", RobotMap.armMotor2.getMotorOutputVoltage());
+        SmartDashboard.putNumber("Vol_left1: ", RobotMap.left1.getMotorOutputVoltage());
+        SmartDashboard.putNumber("Vol_right1: ", RobotMap.right1.getMotorOutputVoltage());
+        SmartDashboard.putNumber("Vol_flywheel1: ", RobotMap.flywheel1.getMotorOutputVoltage());
+        SmartDashboard.putBoolean("armIsManual: ",Robot.arm.armIsManual);
+        SmartDashboard.putNumber("LastArmTarget: ", Robot.arm.getLastEncoderTarget());
+
+        SmartDashboard.putNumber("Target Arm Encoder", RobotMap.targetEncoderValue);
+        SmartDashboard.putNumber("Arm Offset", RobotMap.offset);
+
+        teleopPeriodic();
     }
 }

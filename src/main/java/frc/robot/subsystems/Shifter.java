@@ -1,16 +1,15 @@
 package frc.robot.subsystems;
-// import  frc.robot.commands.*;
 import  frc.robot.RobotMap;
 import frc.robot.commands.AutoShift;
+
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- *
+ * Subsystem handling drivetrain shifting
  */
 public class Shifter extends Subsystem {
-	public final DoubleSolenoid shifty = new DoubleSolenoid(RobotMap.shiftForwardChannel, RobotMap.shiftReverseChannel);
+	public DoubleSolenoid shifty = new DoubleSolenoid(RobotMap.shiftForwardChannel, RobotMap.shiftReverseChannel);
 
 	public void shiftup() {
 		shifty.set(DoubleSolenoid.Value.kReverse);
