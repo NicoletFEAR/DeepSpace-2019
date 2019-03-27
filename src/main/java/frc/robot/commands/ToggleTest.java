@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------*/
-/* Copyright (c) 2019 FIRST. All Rights Reserved.                             */
+/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
@@ -11,15 +11,15 @@ import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
 
 /**
- * Switches arm between manual and auto PID mode
+ * Command that toggles ShuffleBoard debug info
  */
-public class ToggleArmPID extends InstantCommand {
-  public ToggleArmPID() {
+public class ToggleTest extends InstantCommand {
+  public ToggleTest() {
   }
 
   // Called once when the command executes
   @Override
   protected void initialize() {
-    Robot.arm.armIsManual = !Robot.arm.armIsManual;
+    Robot.DEBUG_TIME = !Robot.DEBUG_TIME;
   }
 }

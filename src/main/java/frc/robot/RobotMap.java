@@ -82,11 +82,11 @@ public class RobotMap {
 	public static double angleConstant = 2400;
 	public static double distanceConstant = 1.5;
 	public static double x_val_constant = .95;
-	public static double visionXAllowance = 14;
+	public static double visionXAllowance = 18;
 
 	// Arc Drive 2.0 Constants:
-	public static double y_multiplier = 0.03; // multiplies the target output by the Android vision to robot driving output
-	public static double x_multiplier = 0.03;
+	public static double y_multiplier = 0.005; // multiplies the target output by the Android vision to robot driving output
+	public static double x_multiplier = 0.025;
 	public static double adjustmentAllowance = 1.5;
 	public static double xMaxTurnSpeed = 0.25;
 
@@ -99,19 +99,10 @@ public class RobotMap {
 	public static int shiftReverseChannel = 7;
 
 	public static int compressormodule = 0;
-
-	// Distance offsets for arc + angle drive
-	public static double cargo1Dist = 45;
-	public static double cargo2Dist = 38;
-	public static double cargo3Dist = 45;
-	public static double hatch1Dist = 38;
-	public static double hatch2Dist = 34;
-	public static double loadingStationHatchDist = 38;
-	public static double loadingStationCargoDist = 38;
-	public static double cargoShipCargoDist = 35;
-	public static double cargoShipHatchDist = 38;
 	
 	public static double speedMultiplier = 1;
+
+	public static final double distOffset = 24;
 
 	public static void init() {
 		targetEncoderValue = 0;
@@ -164,31 +155,6 @@ public class RobotMap {
 		armMotor2 = new TalonSRX(22); // SHOULD BE 22
 		armMotor2.setNeutralMode(NeutralMode.Brake);
 		armMotor2.setInverted(true);
-	}
-
-	public static double getDistanceOffset(int level) {
-		switch (level) {
-			case 1:
-				return cargo1Dist;
-			case 2:
-				return cargo2Dist;
-			case 3:
-				return cargo3Dist;
-			case 4:
-				return hatch1Dist;
-			case 5:
-				return hatch2Dist;
-			case 7:
-				return cargoShipCargoDist;
-			case 8:
-				return loadingStationCargoDist;
-			case 12:
-				return loadingStationHatchDist;
-			case 9:
-				return 40;
-			default:
-				return 40;
-		}
 	}
 
 	public static void setTalonMode(String mode)

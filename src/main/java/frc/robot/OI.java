@@ -20,6 +20,7 @@ import frc.robot.commands.SwitchFront;
 import frc.robot.commands.ToggleArmPID;
 import frc.robot.commands.ToggleGameMech;
 import frc.robot.commands.ToggleTalonMode;
+import frc.robot.commands.ToggleTest;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -85,8 +86,9 @@ public class OI {
         xbox1X.whenPressed(new SwitchFront());
         xbox1Y.whenPressed(new MoveToLevel(5));
         xbox1Back.whenPressed(new ToggleTalonMode());
-        xbox1RBumper.whileHeld(new ArcDrive2(3)); // Auto Hatch
+        xbox1RBumper.whileHeld(new ArcDrive2()); // Auto Hatch
         xbox1RBumper.whenReleased(new SetTalonMode("brake"));
+        xbox1LBumper.whenPressed(new ToggleTest());
 
         // Mech Controller Command Mapping
 
@@ -102,8 +104,8 @@ public class OI {
         xbox2B.whenPressed(new ToggleGameMech()); // Hatch Mech Control
         xbox2X.whenPressed(new MoveToLevel(1)); // Should be LS Cargo, instead Cargo Level 1
         xbox2Y.whenPressed(new MoveToLevel(3)); // Should be Hatch Height
-        xbox2RBumper.whileHeld(new ArcDrive2(3)); // Auto Hatch
-        xbox2RBumper.whenReleased(new SetTalonMode("brake"));
+        xbox2RBumper.whileHeld(new ArcDrive2()); // Auto Hatch
+        // xbox2RBumper.whenReleased(new SetTalonMode("brake"));
         xbox2Start.whenPressed(new MoveToLevel(4)); // Move straight up
         xbox2Back.whenPressed(new ToggleArmPID());
     }

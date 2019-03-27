@@ -20,7 +20,6 @@ public class MoveToLevel extends InstantCommand {
   public MoveToLevel(int level) {
     super();
     this.level = level;
-    requires(Robot.arm);
   }
 
   // Called once when the command executes

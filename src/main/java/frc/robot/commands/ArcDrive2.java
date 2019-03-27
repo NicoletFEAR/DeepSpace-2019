@@ -9,26 +9,20 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 
 public class ArcDrive2 extends InstantCommand {
-  double x;
-  double y;
-  double distOffset;
-
+  // Uses input from the Android vision system to drive to targets and place game
+  // pieces
+  double x = Robot.x_val_target;
+  double y = Robot.y_val_target;
+  double distOffset = RobotMap.distOffset;
   int level;
 
-  public ArcDrive2(int desiredLevel) {
-    super();
+  public ArcDrive2() {
     requires(Robot.driveTrain);
-
-    // Uses input from the Android vision system to drive to targets and place game
-    // pieces
-    x = Robot.x_val_target;
-    y = Robot.y_val_target;
-    distOffset = RobotMap.getDistanceOffset(desiredLevel);
-    level = desiredLevel;
   }
 
   // Called once when the command executes
@@ -40,18 +34,21 @@ public class ArcDrive2 extends InstantCommand {
   }
 
   public void setDriving() {
-    // SmartDashboard.putNumber("DistOffset", distOffset);
-
-    if (((y < distOffset + RobotMap.adjustmentAllowance) && (Math.abs(x) < RobotMap.adjustmentAllowance)) || Robot.isTargetNull) {
+    y = Robot.y_val_target;
+    x = Robot.x_val_target;
+    if (((y < (distOffset + RobotMap.adjustmentAllowance)) && (Math.abs(x) < RobotMap.adjustmentAllowance)) || Robot.isTargetNull) {
       Robot.doneArc = true;
     } else {
       Robot.doneArc = false;
     }
 
-    // SmartDashboard.putBoolean("DoneArc", Robot.doneArc);
+    SmartDashboard.putBoolean("DoneArc", Robot.doneArc);
 
     double output = (y - distOffset) * RobotMap.y_multiplier;
-    double turn = x * RobotMap.x_multiplier;
+    if (!(y < (distOffset + RobotMap.adjustmentAllowance))) {
+      output += .15;
+    }
+    double turn = (x * RobotMap.x_multiplier) / (1 + y * .01);
 
     if (turn > RobotMap.xMaxTurnSpeed)
       turn = RobotMap.xMaxTurnSpeed;

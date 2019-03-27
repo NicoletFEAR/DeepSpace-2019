@@ -33,11 +33,11 @@ public class Levels extends Command {
     protected void execute() {
         if (Robot.arm.armIsManual) {
         //if (true) {
-            // if (Robot.driveTrain.isReversed()) {
-            //     Robot.arm.manualControl(-(Robot.oi.getXbox2().getY(Hand.kLeft)));
-            // } else {
+            if (Robot.driveTrain.isReversed()) {
+                Robot.arm.manualControl(-(Robot.oi.getXbox2().getY(Hand.kLeft)));
+            } else {
                 Robot.arm.manualControl(Robot.oi.getXbox2().getY(Hand.kLeft));
-           // }
+           }
         } else {
             if (Math.abs(Robot.oi.getXbox2().getY(Hand.kLeft)) > 0.1){
             RobotMap.targetEncoderValue += (int) (50 * Robot.oi.getXbox2().getY(Hand.kLeft));
@@ -49,9 +49,9 @@ public class Levels extends Command {
             if (RobotMap.targetEncoderValue + RobotMap.offset < RobotMap.ARM_MIN_TICK_VAL)
                 RobotMap.targetEncoderValue = RobotMap.ARM_MIN_TICK_VAL - RobotMap.offset;
 
-            // if (Robot.driveTrain.isReversed())
-            //     Robot.arm.rotateToPosition(-RobotMap.targetEncoderValue + RobotMap.offset);
-            // else
+            if (Robot.driveTrain.isReversed())
+                Robot.arm.rotateToPosition(-RobotMap.targetEncoderValue + RobotMap.offset);
+            else
                 Robot.arm.rotateToPosition(RobotMap.targetEncoderValue + RobotMap.offset);
         }
     }
