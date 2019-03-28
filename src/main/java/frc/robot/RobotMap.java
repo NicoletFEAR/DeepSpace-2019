@@ -59,10 +59,10 @@ public class RobotMap {
 	// Arm Movement Constants:
 	public static int maxChangeAmt = 100; // how much the arm moves by
 	public static int targetEncoderValue;
-	public static final int CargoShipDropPoint = 1350;
+	public static final int CargoShipDropPoint = -383;
 	public static final int CargoLoadingStation = -1350; //-1200;
-	public static final int HatchHeightFront = 2335;
-	public static final int HatchHeightBack = 2255;
+	public static final int HatchHeightFront = -2335;
+	public static final int HatchHeightBack = -2255;
 	public static final int StraightUp = 0;
 	public static final int BackToClimb = 1100;
 	// P: increases proportional to error
@@ -127,9 +127,9 @@ public class RobotMap {
 		left2.follow(left1);
 		left3.follow(left1);
 
-		right1 = new TalonSRX(14);
+		right1 = new TalonSRX(16);
 		right1.setNeutralMode(NeutralMode.Brake);
-		right2 = new TalonSRX(16);
+		right2 = new TalonSRX(14);
 		right2.setNeutralMode(NeutralMode.Brake);
 		right3 = new TalonSRX(18);
 		right3.setNeutralMode(NeutralMode.Brake);
