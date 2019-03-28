@@ -36,7 +36,6 @@ public class MoveToLevel extends InstantCommand {
       } else {
         RobotMap.targetEncoderValue = RobotMap.HatchHeightFront;
       }
-     
     } else if (level == 4) {
       RobotMap.targetEncoderValue = RobotMap.StraightUp;
     } else if (level == 5) {

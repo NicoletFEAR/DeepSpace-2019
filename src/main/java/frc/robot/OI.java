@@ -15,8 +15,10 @@ import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.ArcDrive2;
 import frc.robot.commands.MoveToLevel;
+import frc.robot.commands.SetTalonMode;
 import frc.robot.commands.SwitchFront;
 import frc.robot.commands.ToggleArmPID;
+import frc.robot.commands.ToggleDebug;
 import frc.robot.commands.ToggleGameMech;
 import frc.robot.commands.ToggleTalonMode;
 
@@ -80,7 +82,11 @@ public class OI {
         // Drive Controller Command Mapping
 
         xbox1X.whenPressed(new SwitchFront());
+        xbox1Y.whenPressed(new MoveToLevel(5));
         xbox1Back.whenPressed(new ToggleTalonMode());
+        xbox1RBumper.whileHeld(new ArcDrive2());
+        xbox1RBumper.whenReleased(new SetTalonMode("brake"));
+        xbox1LBumper.whenPressed(new ToggleDebug());
 
         // Mech Controller Command Mapping
 
@@ -96,7 +102,8 @@ public class OI {
         xbox2B.whenPressed(new ToggleGameMech()); // Hatch Mech Control
         xbox2X.whenPressed(new MoveToLevel(1)); // Should be LS Cargo, instead Cargo Level 1
         xbox2Y.whenPressed(new MoveToLevel(3)); // Should be Hatch Height
-        xbox2RBumper.whenPressed(new ArcDrive2(3)); // Auto Hatch
+        xbox2RBumper.whileHeld(new ArcDrive2()); // Auto Hatch
+        xbox2RBumper.whenReleased(new SetTalonMode("brake"));
         xbox2LBumper.whenPressed(new MoveToLevel(4)); // Move straight up
         xbox2Back.whenPressed(new ToggleArmPID());
     }

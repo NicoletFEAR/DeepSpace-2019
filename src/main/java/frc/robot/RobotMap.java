@@ -61,8 +61,8 @@ public class RobotMap {
 	public static int targetEncoderValue;
 	public static final int CargoShipDropPoint = 1350;
 	public static final int CargoLoadingStation = -1350; //-1200;
-	public static final int HatchHeightFront = 2435;
-	public static final int HatchHeightBack = 2355;
+	public static final int HatchHeightFront = 2335;
+	public static final int HatchHeightBack = 2255;
 	public static final int StraightUp = 0;
 	public static final int BackToClimb = 1100;
 	// P: increases proportional to error
@@ -86,8 +86,8 @@ public class RobotMap {
 	public static double visionXAllowance = 14;
 
 	// Arc Drive 2.0 Constants:
-	public static double y_multiplier = 0.03; // multiplies the target output by the Android vision to robot driving output
-	public static double x_multiplier = 0.03;
+	public static double y_multiplier = 0.005; // multiplies the target output by the Android vision to robot driving output
+	public static double x_multiplier = 0.025;
 	public static double adjustmentAllowance = 1.5;
 	public static double xMaxTurnSpeed = 0.25;
 
@@ -102,23 +102,15 @@ public class RobotMap {
 	public static int compressormodule = 0;
 
 	// Distance offsets for arc + angle drive
-	public static double cargo1Dist = 45;
-	public static double cargo2Dist = 38;
-	public static double cargo3Dist = 45;
-	public static double hatch1Dist = 38;
-	public static double hatch2Dist = 34;
-	public static double loadingStationHatchDist = 38;
-	public static double loadingStationCargoDist = 38;
-	public static double cargoShipCargoDist = 35;
-	public static double cargoShipHatchDist = 38;
+	public static double distOffset = 24;
 	
 	public static double speedMultiplier = 1;
 
 	public static void init() {
 		targetEncoderValue = 0;
-		left1 = new TalonSRX(15);
+		left1 = new TalonSRX(13);
 		left1.setNeutralMode(NeutralMode.Brake);
-		left2 = new TalonSRX(13);
+		left2 = new TalonSRX(15);
 		left2.setNeutralMode(NeutralMode.Brake);
 		left3 = new TalonSRX(17);
 		left3.setNeutralMode(NeutralMode.Brake);
@@ -135,9 +127,9 @@ public class RobotMap {
 		left2.follow(left1);
 		left3.follow(left1);
 
-		right1 = new TalonSRX(16);
+		right1 = new TalonSRX(14);
 		right1.setNeutralMode(NeutralMode.Brake);
-		right2 = new TalonSRX(14);
+		right2 = new TalonSRX(16);
 		right2.setNeutralMode(NeutralMode.Brake);
 		right3 = new TalonSRX(18);
 		right3.setNeutralMode(NeutralMode.Brake);
@@ -167,28 +159,23 @@ public class RobotMap {
 		armMotor2.setInverted(true);
 	}
 
-	public static double getDistanceOffset(int level) {
-		switch (level) {
-			case 1:
-				return cargo1Dist;
-			case 2:
-				return cargo2Dist;
-			case 3:
-				return cargo3Dist;
-			case 4:
-				return hatch1Dist;
-			case 5:
-				return hatch2Dist;
-			case 7:
-				return cargoShipCargoDist;
-			case 8:
-				return loadingStationCargoDist;
-			case 12:
-				return loadingStationHatchDist;
-			case 9:
-				return 40;
-			default:
-				return 40;
+	public static void setTalonMode(String mode) {
+		if (mode.equalsIgnoreCase("coast")) {
+			RobotMap.left1.setNeutralMode(NeutralMode.Coast);
+			RobotMap.right1.setNeutralMode(NeutralMode.Coast);
+			RobotMap.left2.setNeutralMode(NeutralMode.Coast);
+			RobotMap.right2.setNeutralMode(NeutralMode.Coast);
+			RobotMap.left3.setNeutralMode(NeutralMode.Coast);
+			RobotMap.right3.setNeutralMode(NeutralMode.Coast);
+			Robot.talonMode = "coast";
+		} else if (mode.equalsIgnoreCase("brake")) {
+			RobotMap.left1.setNeutralMode(NeutralMode.Brake);
+			RobotMap.right1.setNeutralMode(NeutralMode.Brake);
+			RobotMap.left2.setNeutralMode(NeutralMode.Brake);
+			RobotMap.right2.setNeutralMode(NeutralMode.Brake);
+			RobotMap.left3.setNeutralMode(NeutralMode.Brake);
+			RobotMap.right3.setNeutralMode(NeutralMode.Brake);
+			Robot.talonMode = "brake";
 		}
 	}
 }

@@ -15,7 +15,6 @@ import frc.robot.Robot;
  */
 public class ToggleArmPID extends InstantCommand {
   public ToggleArmPID() {
-    requires(Robot.arm);
   }
 
   // Called once when the command executes

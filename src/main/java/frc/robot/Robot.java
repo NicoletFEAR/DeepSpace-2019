@@ -67,9 +67,9 @@ public class Robot extends TimedRobot {
     public static VisionProcessor processor;
     public static boolean xPressed = false;
 
-    public static final double versionNumber = 1.1;
+    public static final double versionNumber = 1.2;
     
-    public static final boolean DEBUG_TIME = false;
+    public static boolean DEBUG_TIME = false;
 
     /**
      * This function is run when the robot is first started up and should be used
@@ -118,6 +118,7 @@ public class Robot extends TimedRobot {
         RobotMap.ARM_MIN_TICK_VAL = -2750;
 
         SmartDashboard.putNumber("Version Number: ", versionNumber);
+        SmartDashboard.putBoolean("Active: ", false);
     }
 
     /**
@@ -175,43 +176,35 @@ public class Robot extends TimedRobot {
         SmartDashboard.putBoolean("Switch Front: ", Robot.driveTrain.isReversed());
         SmartDashboard.putNumber("Pressure: ", Robot.pressureSensor.getPressure());
         SmartDashboard.putString("Talon Mode: ", talonMode);
-    }
 
-    @Override
-    public void testInit() {
-        autonomousInit();
-    }
+        if (DEBUG_TIME) {
+            SmartDashboard.putNumber("Arm1 Encoder Value: ", arm.getArm1Encoder());
+            SmartDashboard.putNumber("Arm2 Encoder Value: ", arm.getArm2Encoder());
 
-    @Override
-    public void testPeriodic() {
-        SmartDashboard.putNumber("Arm1 Encoder Value: ", arm.getArm1Encoder());
-        SmartDashboard.putNumber("Arm2 Encoder Value: ", arm.getArm2Encoder());
+            SmartDashboard.putNumber("y_val_target: ", y_val_target);
+            SmartDashboard.putNumber("z_val_target: ", z_val_target);
+            SmartDashboard.putNumber("x_val_target: ", x_val_target);
+            SmartDashboard.putNumber("angle_val_target: ", angle_val_target);
 
-        SmartDashboard.putNumber("y_val_target: ", y_val_target);
-        SmartDashboard.putNumber("z_val_target: ", z_val_target);
-        SmartDashboard.putNumber("x_val_target: ", x_val_target);
-        SmartDashboard.putNumber("angle_val_target: ", angle_val_target);
+            // SmartDashboard.putNumber("velR: ", Robot.driveTrain.getRightEncoderVelocity());
+            // SmartDashboard.putNumber("velL: ", Robot.driveTrain.getLeftEncoderVelocity());
 
-        // SmartDashboard.putNumber("velR: ", Robot.driveTrain.getRightEncoderVelocity());
-        // SmartDashboard.putNumber("velL: ", Robot.driveTrain.getLeftEncoderVelocity());
+            SmartDashboard.putNumber("Average Velocity: ", Robot.driveTrain.averageVelocity);
 
-        SmartDashboard.putNumber("Average Velocity: ", Robot.driveTrain.averageVelocity);
+            SmartDashboard.putNumber("Right Encoder: ", Robot.driveTrain.getRightEncoderPosition());
+            SmartDashboard.putNumber("Left Encoder: ", Robot.driveTrain.getLeftEncoderPosition());
 
-        SmartDashboard.putNumber("Right Encoder: ", Robot.driveTrain.getRightEncoderPosition());
-        SmartDashboard.putNumber("Left Encoder: ", Robot.driveTrain.getLeftEncoderPosition());
+            SmartDashboard.putNumber("ArmySpeedyBoi: ", arm.getSpeed());
+            
+            SmartDashboard.putNumber("Vol_armMotor1: ", RobotMap.armMotor1.getMotorOutputVoltage());
+            SmartDashboard.putNumber("Vol_armMotor2: ", RobotMap.armMotor2.getMotorOutputVoltage());
+            SmartDashboard.putNumber("Vol_left1: ", RobotMap.left1.getMotorOutputVoltage());
+            SmartDashboard.putNumber("Vol_right1: ", RobotMap.right1.getMotorOutputVoltage());
+            SmartDashboard.putBoolean("armIsManual: ",Robot.arm.armIsManual);
+            SmartDashboard.putNumber("LastArmTarget: ", Robot.arm.getLastEncoderTarget());
 
-        SmartDashboard.putNumber("ArmySpeedyBoi: ", arm.getSpeed());
-        
-        SmartDashboard.putNumber("Vol_armMotor1: ", RobotMap.armMotor1.getMotorOutputVoltage());
-        SmartDashboard.putNumber("Vol_armMotor2: ", RobotMap.armMotor2.getMotorOutputVoltage());
-        SmartDashboard.putNumber("Vol_left1: ", RobotMap.left1.getMotorOutputVoltage());
-        SmartDashboard.putNumber("Vol_right1: ", RobotMap.right1.getMotorOutputVoltage());
-        SmartDashboard.putBoolean("armIsManual: ",Robot.arm.armIsManual);
-        SmartDashboard.putNumber("LastArmTarget: ", Robot.arm.getLastEncoderTarget());
-
-        SmartDashboard.putNumber("Target Arm Encoder", RobotMap.targetEncoderValue);
-        SmartDashboard.putNumber("Arm Offset", RobotMap.offset);
-
-        teleopPeriodic();
+            SmartDashboard.putNumber("Target Arm Encoder", RobotMap.targetEncoderValue);
+            SmartDashboard.putNumber("Arm Offset", RobotMap.offset);
+        }
     }
 }
