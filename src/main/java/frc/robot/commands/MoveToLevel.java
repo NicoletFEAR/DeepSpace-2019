@@ -30,7 +30,12 @@ public class MoveToLevel extends InstantCommand {
     } else if (level == 2) {
       RobotMap.targetEncoderValue = RobotMap.CargoShipDropPoint;
     } else if (level == 3) {
-      RobotMap.targetEncoderValue = RobotMap.HatchHeight;
+      if (Robot.driveTrain.isReversed()) {
+        RobotMap.targetEncoderValue = RobotMap.HatchHeightBack;
+      } else {
+        RobotMap.targetEncoderValue = RobotMap.HatchHeightFront;
+      }
+     
     } else if (level == 4) {
       RobotMap.targetEncoderValue = RobotMap.StraightUp;
     } else if (level == 5) {
