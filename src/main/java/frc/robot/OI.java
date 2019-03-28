@@ -97,7 +97,7 @@ public class OI {
         xbox2X.whenPressed(new MoveToLevel(1)); // Should be LS Cargo, instead Cargo Level 1
         xbox2Y.whenPressed(new MoveToLevel(3)); // Should be Hatch Height
         xbox2RBumper.whenPressed(new ArcDrive2(3)); // Auto Hatch
-        xbox2Start.whenPressed(new MoveToLevel(4)); // Move straight up
+        xbox2LBumper.whenPressed(new MoveToLevel(4)); // Move straight up
         xbox2Back.whenPressed(new ToggleArmPID());
     }
 

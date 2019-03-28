@@ -32,7 +32,7 @@ public class RobotMap {
 	public static TalonSRX armMotor1;
 	public static TalonSRX armMotor2;
 
-	public static final double ARM_LIMITER = 0.4; // not 775 motors
+	public static final double ARM_LIMITER = 0.7; // not 775 motors
 
 	public static double ARM_MOTOR_SLOW_FORWARDS = 1; // slow the faster motor to match the slower 
 	public static double ARM_MOTOR_SLOW_BACKWARDS = 1; // slow the faster motor to match the slower
@@ -61,7 +61,8 @@ public class RobotMap {
 	public static int targetEncoderValue;
 	public static final int CargoShipDropPoint = 1350;
 	public static final int CargoLoadingStation = -1350; //-1200;
-	public static final int HatchHeight = 2700;
+	public static final int HatchHeightFront = 2435;
+	public static final int HatchHeightBack = 2355;
 	public static final int StraightUp = 0;
 	public static final int BackToClimb = 1100;
 	// P: increases proportional to error
