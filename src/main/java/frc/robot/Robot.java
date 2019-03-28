@@ -41,6 +41,7 @@ public class Robot extends TimedRobot {
     public static boolean isTargetNull = true;
     public static boolean doneArc = false;
     public static String talonMode = "brake";
+    public static String hatchMechState = "grab";
 
     public static OI oi;
     public static DriveTrain driveTrain;
@@ -67,7 +68,7 @@ public class Robot extends TimedRobot {
     public static VisionProcessor processor;
     public static boolean xPressed = false;
 
-    public static final double versionNumber = 1.3;
+    public static final double versionNumber = 1.4;
     
     public static boolean DEBUG_TIME = false;
 
@@ -176,6 +177,7 @@ public class Robot extends TimedRobot {
         SmartDashboard.putBoolean("Switch Front: ", Robot.driveTrain.isReversed());
         SmartDashboard.putNumber("Pressure: ", Robot.pressureSensor.getPressure());
         SmartDashboard.putString("Talon Mode: ", talonMode);
+        SmartDashboard.putString("Hatch Mech State: ", hatchMechState);
 
         if (DEBUG_TIME) {
             SmartDashboard.putNumber("Arm1 Encoder Value: ", arm.getArm1Encoder());
