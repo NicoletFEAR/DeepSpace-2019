@@ -68,7 +68,7 @@ public class Robot extends TimedRobot {
     public static VisionProcessor processor;
     public static boolean xPressed = false;
 
-    public static final double versionNumber = 1.4;
+    public static final double versionNumber = 2;
     
     public static boolean DEBUG_TIME = false;
 
@@ -87,7 +87,7 @@ public class Robot extends TimedRobot {
         driveTrain = new DriveTrain();
 
         gameMech = new GameMech();
-        gameMech.pull();
+        //gameMech.pull();
 
         arm = new Arm();
 
