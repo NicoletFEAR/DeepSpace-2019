@@ -68,7 +68,7 @@ public class Robot extends TimedRobot {
     public static VisionProcessor processor;
     public static boolean xPressed = false;
 
-    public static final double versionNumber = 2;
+    public static final double versionNumber = 2.1;
     
     public static boolean DEBUG_TIME = false;
 
@@ -99,7 +99,9 @@ public class Robot extends TimedRobot {
         compressorOAir = new CompressAir();
 
         front = CameraServer.getInstance().startAutomaticCapture("FRONT", 0);
+        front.setFPS(20);
         back = CameraServer.getInstance().startAutomaticCapture("BACK", 1);
+        back.setFPS(20);
 
         // arduinoLEDInterface = new ArduinoInterface(7);
         // arduinoCameraInterface = new ArduinoInterface(6);
