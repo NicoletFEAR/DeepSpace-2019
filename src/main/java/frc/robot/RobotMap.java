@@ -62,7 +62,7 @@ public class RobotMap {
 	public static final int CargoShipDropPoint = -383;
 	public static final int CargoLoadingStation = -1350; //-1200;
 	public static final int HatchHeightFront = -2335;
-	public static final int HatchHeightBack = -2255;
+	public static final int HatchHeightBack = -2335;
 	public static final int StraightUp = 0;
 	public static final int BackToClimb = 1100;
 	// P: increases proportional to error
