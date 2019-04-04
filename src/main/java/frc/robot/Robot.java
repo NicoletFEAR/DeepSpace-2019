@@ -68,7 +68,7 @@ public class Robot extends TimedRobot {
     public static VisionProcessor processor;
     public static boolean xPressed = false;
 
-    public static final double versionNumber = 2.1;
+    public static final double versionNumber = 3.1;
     
     public static boolean DEBUG_TIME = false;
 
