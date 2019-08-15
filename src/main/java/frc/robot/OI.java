@@ -13,11 +13,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.robot.commands.ArcDrive2;
-import frc.robot.commands.SetTalonMode;
-import frc.robot.commands.SwitchFront;
-import frc.robot.commands.ToggleDebug;
-import frc.robot.commands.ToggleTalonMode;
+import frc.robot.commands.*;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -83,6 +79,10 @@ public class OI {
         xbox1RBumper.whileHeld(new ArcDrive2());
         xbox1RBumper.whenReleased(new SetTalonMode("brake"));
         xbox1LBumper.whenPressed(new ToggleDebug());
+
+        //Pathfinder
+        xbox1Y.whenPressed(new PathfinderRun());
+        xbox1B.whenPressed(new OpenLoopDrive()); // will interrupt PathfinderRun
 
         // Mech Controller Command Mapping
 
