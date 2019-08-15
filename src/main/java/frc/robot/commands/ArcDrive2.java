@@ -68,9 +68,7 @@ public class ArcDrive2 extends InstantCommand {
 
   public void setHeight() {
     if (y < distOffset + 12) {
-      Scheduler.getInstance().add(new MoveToLevel(level));
     } else {
-      Scheduler.getInstance().add(new MoveToLevel(4));
     }
   }
 }

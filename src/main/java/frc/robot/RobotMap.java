@@ -28,14 +28,6 @@ public class RobotMap {
 
 	public static final double DRIVE_RAMP_RATE = 10; // 10 is recomended by our friends from 2015, need to test
 
-	// Arm:
-	public static TalonSRX armMotor1;
-	public static TalonSRX armMotor2;
-
-	public static final double ARM_LIMITER = 0.7; // not 775 motors
-
-	public static double ARM_MOTOR_SLOW_FORWARDS = 1; // slow the faster motor to match the slower 
-	public static double ARM_MOTOR_SLOW_BACKWARDS = 1; // slow the faster motor to match the slower
 
 	// PID Constants:
 	public static double ERROR_CONSTANT_LEFT = 0.0;
@@ -56,28 +48,6 @@ public class RobotMap {
 	public static final double PERFECT_ARC_RANGE = 2;
     public static final double TURN_SCALING = 0.8; // was 0.6
 
-	// Arm Movement Constants:
-	public static int maxChangeAmt = 100; // how much the arm moves by
-	public static int targetEncoderValue;
-	public static final int CargoShipDropPoint = 383;
-	public static final int CargoLoadingStation = -1350; //-1200;
-	public static final int HatchHeightFront = -2335;
-	public static final int HatchHeightBack = -2335;
-	public static final int StraightUp = 0;
-	public static final int BackToClimb = 0;
-	// P: increases proportional to error
-	public static final double ARM_kP = 0.002; // please raise
-	// I: sum of error over time, helps arm get to final pos 
-	public static final double ARM_kI = 0.0001; // 
-	// D: slows arm down when it's too fast
-	public static final double ARM_kD = 0.00005; // please raise
-	public static double ARM_TICKS_PER_REVOLUTION = 4096.0; // Needs to be updated on final bot!!!!!!!!!!!!!!!!!!!!!!!!
-	public static int ARM_MAX_TICK_VAL = 2750;
-	public static int ARM_MIN_TICK_VAL = -2750;
-	public static int offset = 0;
-	public static double ARM_DEAD_ZONE = 1; // check
-
-	public static double ARM_JOYSTICK_DEAD_ZONE = 0.05; // check
 
 	// Vision Constants:
 	public static double angleConstant = 2400;
@@ -107,7 +77,6 @@ public class RobotMap {
 	public static double speedMultiplier = 1;
 
 	public static void init() {
-		targetEncoderValue = 0;
 		left1 = new TalonSRX(13);
 		left1.setNeutralMode(NeutralMode.Brake);
 		left2 = new TalonSRX(15);
@@ -148,15 +117,7 @@ public class RobotMap {
 
 		// next 2 need to be switched back to 21/22,
 		// using them for PID testing
-		armMotor1 = new TalonSRX(24);
-		armMotor1.setNeutralMode(NeutralMode.Brake);
-		armMotor1.setInverted(false);
-		armMotor1.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 10); // new frame ever X miliseconds
-		armMotor1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
-		armMotor1.setSelectedSensorPosition(0);
-		armMotor2 = new TalonSRX(22); // SHOULD BE 22
-		armMotor2.setNeutralMode(NeutralMode.Brake);
-		armMotor2.setInverted(true);
+	
 	}
 
 	public static void setTalonMode(String mode) {

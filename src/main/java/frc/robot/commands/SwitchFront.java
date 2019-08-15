@@ -27,7 +27,5 @@ public class SwitchFront extends InstantCommand {
             SmartDashboard.putBoolean("Active: ", false);
         }
 
-        // Makes the arm stay at its current height when switching front
-        RobotMap.targetEncoderValue = -RobotMap.targetEncoderValue;
     }
 }
