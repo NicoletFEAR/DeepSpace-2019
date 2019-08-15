@@ -13,6 +13,10 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
  */
 public class RobotMap {
 	// Drive Base:
+
+	public static double wheel_diameter = 0.19; // in metres
+	public static double max_velocity = 10; // in metres 
+
 	public static TalonSRX left1;
 	public static TalonSRX left2;
 	public static TalonSRX left3;
