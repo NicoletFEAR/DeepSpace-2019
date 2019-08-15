@@ -54,7 +54,7 @@ public class RobotMap {
 	public static final double TURN_kD = 0.001;
 	public static final double TURN_ERROR_CONSTANT = 2; // degrees the turn can be off
 	public static final double PERFECT_ARC_RANGE = 2;
-    public static final double TURN_SCALING = 0.6;
+    public static final double TURN_SCALING = 0.8; // was 0.6
 
 	// Arm Movement Constants:
 	public static int maxChangeAmt = 100; // how much the arm moves by

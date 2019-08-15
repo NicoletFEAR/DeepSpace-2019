@@ -10,10 +10,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.loops.VisionProcessor;
-import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.CompressAir;
 import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.GameMech;
 import frc.robot.subsystems.PressureSensor;
 import frc.robot.subsystems.Shifter;
 import frc.robot.vision.VisionServer;
@@ -45,8 +43,6 @@ public class Robot extends TimedRobot {
 
     public static OI oi;
     public static DriveTrain driveTrain;
-    public static GameMech gameMech;
-    public static Arm arm;
     public static PressureSensor pressureSensor;
     public static Shifter shifter;
     public static UsbCamera front;
@@ -68,7 +64,7 @@ public class Robot extends TimedRobot {
     public static VisionProcessor processor;
     public static boolean xPressed = false;
 
-    public static final double versionNumber = 3.1;
+    public static final double versionNumber = 3.2;
     
     public static boolean DEBUG_TIME = false;
 
@@ -86,10 +82,6 @@ public class Robot extends TimedRobot {
 
         driveTrain = new DriveTrain();
 
-        gameMech = new GameMech();
-        //gameMech.pull();
-
-        arm = new Arm();
 
         pressureSensor = new PressureSensor();
 
@@ -182,8 +174,7 @@ public class Robot extends TimedRobot {
         SmartDashboard.putString("Hatch Mech State: ", hatchMechState);
 
         if (DEBUG_TIME) {
-            SmartDashboard.putNumber("Arm1 Encoder Value: ", arm.getArm1Encoder());
-            SmartDashboard.putNumber("Arm2 Encoder Value: ", arm.getArm2Encoder());
+            
 
             SmartDashboard.putNumber("y_val_target: ", y_val_target);
             SmartDashboard.putNumber("z_val_target: ", z_val_target);
@@ -198,14 +189,12 @@ public class Robot extends TimedRobot {
             SmartDashboard.putNumber("Right Encoder: ", Robot.driveTrain.getRightEncoderPosition());
             SmartDashboard.putNumber("Left Encoder: ", Robot.driveTrain.getLeftEncoderPosition());
 
-            SmartDashboard.putNumber("ArmySpeedyBoi: ", arm.getSpeed());
             
             SmartDashboard.putNumber("Vol_armMotor1: ", RobotMap.armMotor1.getMotorOutputVoltage());
             SmartDashboard.putNumber("Vol_armMotor2: ", RobotMap.armMotor2.getMotorOutputVoltage());
             SmartDashboard.putNumber("Vol_left1: ", RobotMap.left1.getMotorOutputVoltage());
             SmartDashboard.putNumber("Vol_right1: ", RobotMap.right1.getMotorOutputVoltage());
-            SmartDashboard.putBoolean("armIsManual: ",Robot.arm.armIsManual);
-            SmartDashboard.putNumber("LastArmTarget: ", Robot.arm.getLastEncoderTarget());
+            
 
             SmartDashboard.putNumber("Target Arm Encoder", RobotMap.targetEncoderValue);
             SmartDashboard.putNumber("Arm Offset", RobotMap.offset);
