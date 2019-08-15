@@ -36,17 +36,17 @@ public class OI {
     private Button xbox1B;
     private Button xbox1A;
 
-    private XboxController xbox2; // the game mech controller // input 1 on driver station
-    private Button xbox2LeftStick;
-    private Button xbox2RightStick;
-    private Button xbox2LBumper;
-    private Button xbox2RBumper;
-    private Button xbox2Start;
-    private Button xbox2Back;
-    private Button xbox2X;
-    private Button xbox2Y;
-    private Button xbox2B;
-    private Button xbox2A;
+    // private XboxController xbox2; // the game mech controller // input 1 on driver station
+    // private Button xbox2LeftStick;
+    // private Button xbox2RightStick;
+    // private Button xbox2LBumper;
+    // private Button xbox2RBumper;
+    // private Button xbox2Start;
+    // private Button xbox2Back;
+    // private Button xbox2X;
+    // private Button xbox2Y;
+    // private Button xbox2B;
+    // private Button xbox2A;
 
     public OI() {
         // create our buttons
@@ -63,18 +63,18 @@ public class OI {
         xbox1LeftStick = new JoystickButton(xbox1, 9);
         xbox1RightStick = new JoystickButton(xbox1, 10);
 
-        xbox2 = new XboxController(1);
+        // xbox2 = new XboxController(1);
 
-        xbox2A = new JoystickButton(xbox2, 1);
-        xbox2B = new JoystickButton(xbox2, 2);
-        xbox2X = new JoystickButton(xbox2, 3);
-        xbox2Y = new JoystickButton(xbox2, 4);
-        xbox2LBumper = new JoystickButton(xbox2, 5);
-        xbox2RBumper = new JoystickButton(xbox2, 6);
-        xbox2Back = new JoystickButton(xbox2, 7);
-        xbox2Start = new JoystickButton(xbox2, 8);
-        xbox2LeftStick = new JoystickButton(xbox2, 9);
-        xbox2RightStick = new JoystickButton(xbox2, 10);
+        // xbox2A = new JoystickButton(xbox2, 1);
+        // xbox2B = new JoystickButton(xbox2, 2);
+        // xbox2X = new JoystickButton(xbox2, 3);
+        // xbox2Y = new JoystickButton(xbox2, 4);
+        // xbox2LBumper = new JoystickButton(xbox2, 5);
+        // xbox2RBumper = new JoystickButton(xbox2, 6);
+        // xbox2Back = new JoystickButton(xbox2, 7);
+        // xbox2Start = new JoystickButton(xbox2, 8);
+        // xbox2LeftStick = new JoystickButton(xbox2, 9);
+        // xbox2RightStick = new JoystickButton(xbox2, 10);
 
         // Drive Controller Command Mapping
 
@@ -94,7 +94,7 @@ public class OI {
         // xbox2LBumper.whenPressed(new DecrementCap());
         // xbox2Start.whenPressed(new ToggleCompressor());
 
-        xbox2RBumper.whileHeld(new ArcDrive2()); // Auto Hatch
+        // xbox2RBumper.whileHeld(new ArcDrive2()); // Auto Hatch
         
     }
 
@@ -102,7 +102,7 @@ public class OI {
         return xbox1;
     }
 
-    public XboxController getXbox2() {
-        return xbox2;
-    }
+    // public XboxController getXbox2() {
+    //     return xbox2;
+    // }
 }
