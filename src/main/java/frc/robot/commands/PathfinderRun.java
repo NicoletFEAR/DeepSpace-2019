@@ -10,6 +10,7 @@ package frc.robot.commands;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 import jaci.pathfinder.Pathfinder;
@@ -25,6 +26,8 @@ public class PathfinderRun extends Command {
 
     EncoderFollower left;
     EncoderFollower right;
+    Trajectory trajectory;
+    int i;
 
     public PathfinderRun() {
         requires(Robot.driveTrain);
@@ -34,6 +37,9 @@ public class PathfinderRun extends Command {
     protected void initialize() {
 
         Robot.driveTrain.navX.reset();
+        Robot.shifter.isOnPath = true;
+
+        i = 0;
 
         Waypoint[] points = new Waypoint[] {
             new Waypoint(-4, -1, Pathfinder.d2r(-45)),      // Waypoint @ x=-4, y=-1, exit angle=-45 degrees
@@ -42,9 +48,9 @@ public class PathfinderRun extends Command {
         };
         
         Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, 0.05, 1.7, 2.0, 60.0);
-        Trajectory trajectory = Pathfinder.generate(points, config);
+        trajectory = Pathfinder.generate(points, config);
       
-        TankModifier modifier = new TankModifier(trajectory).modify(0.5);
+        TankModifier modifier = new TankModifier(trajectory).modify(0.53);
       
       
         left = new EncoderFollower(modifier.getLeftTrajectory());
@@ -67,7 +73,8 @@ public class PathfinderRun extends Command {
         right.configureEncoder(RobotMap.right1.getSelectedSensorPosition(), 7610, RobotMap.wheel_diameter);
         right.configurePIDVA(1.0, 0.0, 0.0, 1 / RobotMap.max_velocity, 0);
 
-
+        //prints:
+        SmartDashboard.putNumber("traj leng", trajectory.length());
 
     }
 
@@ -91,24 +98,41 @@ public class PathfinderRun extends Command {
 
         RobotMap.left1.set(ControlMode.PercentOutput, (LOutput + turn));
         RobotMap.right1.set(ControlMode.PercentOutput,(ROutput - turn));
+
+        i++;
+
+        // prints:
+        SmartDashboard.putNumber("traj step", i);
+        SmartDashboard.putNumber("gyro head", gyro_heading);
+        SmartDashboard.putNumber("gyro want", desired_heading);
+        SmartDashboard.putNumber("turn", turn);
+        SmartDashboard.putNumber("LOutput", LOutput);
+        SmartDashboard.putNumber("ROutput", ROutput);
+
      }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
+        if (i >= trajectory.length()) {
+            Robot.shifter.isOnPath = false;
+            return true;
+        }
         return false;
     }
 
     // Called once after isFinished returns true
     @Override
     protected void end() {
-    	Robot.driveTrain.stop();
+        Robot.driveTrain.stop();
+        Robot.shifter.isOnPath = false;
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     @Override
     protected void interrupted() {
+        Robot.shifter.isOnPath = false;
     	end();
     }
 }

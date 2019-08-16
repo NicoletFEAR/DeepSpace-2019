@@ -27,6 +27,7 @@ public class AutoShift extends Command {
   protected void initialize() {
     sensorLeft = RobotMap.left1.getSensorCollection();
     sensorRight = RobotMap.right1.getSensorCollection();
+    Robot.shifter.isOnPath = false;
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -35,6 +36,7 @@ public class AutoShift extends Command {
     double averageVelocity = (Math.abs(sensorLeft.getQuadratureVelocity())
         + Math.abs(sensorRight.getQuadratureVelocity())) / 2;
 
+    if (!(Robot.shifter.isOnPath)) {
     if (!(Robot.oi.xbox1.getStartButton()) && !(Robot.oi.xbox1.getAButton())) { // check the driver isn't holding down the low gear button
       if (averageVelocity < RobotMap.SHIFT_DOWN_THRESHOLD) { // if not in low, switch to low
         if (Robot.shifter.shifty.get() != DoubleSolenoid.Value.kForward) {
@@ -53,6 +55,11 @@ public class AutoShift extends Command {
       if (Robot.shifter.shifty.get() != DoubleSolenoid.Value.kReverse)
         Robot.shifter.shiftup();
     }
+  } else {
+    if (Robot.shifter.shifty.get() != DoubleSolenoid.Value.kForward) {
+      Robot.shifter.shiftdown();
+    }
+  }
 
     Robot.driveTrain.averageVelocity = averageVelocity;
   }

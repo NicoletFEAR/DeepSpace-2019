@@ -169,6 +169,8 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("Pressure: ", Robot.pressureSensor.getPressure());
         SmartDashboard.putString("Talon Mode: ", talonMode);
         SmartDashboard.putString("Hatch Mech State: ", hatchMechState);
+        SmartDashboard.putBoolean("isOnPath", shifter.isOnPath);
+
 
         if (DEBUG_TIME) {
             

@@ -15,7 +15,7 @@ public class RobotMap {
 	// Drive Base:
 
 	public static double wheel_diameter = 0.19; // in metres
-	public static double max_velocity = 10; // in metres 
+	public static double max_velocity = 1.1; // in metres/s
 
 	public static TalonSRX left1;
 	public static TalonSRX left2;
