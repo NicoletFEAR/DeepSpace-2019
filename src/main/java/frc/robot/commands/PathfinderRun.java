@@ -6,22 +6,25 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot.commands;
+
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
+import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
-
 import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.Trajectory;
 import jaci.pathfinder.Waypoint;
-import jaci.pathfinder.modifiers.TankModifier;
 import jaci.pathfinder.followers.EncoderFollower;
-
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.GenericHID;
+import jaci.pathfinder.modifiers.TankModifier;
 
 /**
- *  Command creating and following a Path using Pathfinder
+ * Command creating and following a Path using Pathfinder
  */
 public class PathfinderRun extends Command {
+
+    EncoderFollower left;
+    EncoderFollower right;
 
     public PathfinderRun() {
         requires(Robot.driveTrain);
@@ -29,6 +32,8 @@ public class PathfinderRun extends Command {
 
     @Override
     protected void initialize() {
+
+        Robot.driveTrain.navX.reset();
 
         Waypoint[] points = new Waypoint[] {
             new Waypoint(-4, -1, Pathfinder.d2r(-45)),      // Waypoint @ x=-4, y=-1, exit angle=-45 degrees
@@ -42,8 +47,8 @@ public class PathfinderRun extends Command {
         TankModifier modifier = new TankModifier(trajectory).modify(0.5);
       
       
-        EncoderFollower left = new EncoderFollower(modifier.getLeftTrajectory());
-        EncoderFollower right = new EncoderFollower(modifier.getRightTrajectory());
+        left = new EncoderFollower(modifier.getLeftTrajectory());
+        right = new EncoderFollower(modifier.getRightTrajectory());
       
         // Encoder Position is the current, cumulative position of your encoder. If you're using an SRX, this will be the
         // 'getEncPosition' function.
@@ -67,26 +72,25 @@ public class PathfinderRun extends Command {
     }
 
     @Override
-    protected void execute() {   	
-    	double outputLeft = left.calculate(encoder_position); // inside control loop
+    protected void execute() {
 
-  double LOutput = left.calculate(encoder_position_left);
-double ROutput = right.calculate(encoder_position_right);
+        double LOutput = left.calculate((int)(Robot.driveTrain.getLeftEncoderPosition()));
+        double ROutput = right.calculate((int)(Robot.driveTrain.getRightEncoderPosition()));
 
-double gyro_heading = ... your gyro code here ...    // Assuming the gyro is giving a value in degrees
-double desired_heading = Pathfinder.r2d(left.getHeading());  // Should also be in degrees
+        double gyro_heading = Robot.driveTrain.navX.getAngle();    // Assuming the gyro is giving a value in degrees
+        double desired_heading = Pathfinder.r2d(left.getHeading());  // Should also be in degrees
 
-// This allows the angle difference to respect 'wrapping', where 360 and 0 are the same value
-double angleDifference = Pathfinder.boundHalfDegrees(desired_heading - gyro_heading);
-angleDifference = angleDifference % 360.0;
-if (Math.abs(angleDifference) > 180.0) {
-  angleDiff = (angleDifference > 0) ? angleDifference - 360 : angleDiff + 360;
-} 
+        // This allows the angle difference to respect 'wrapping', where 360 and 0 are the same value
+        double angleDifference = Pathfinder.boundHalfDegrees(desired_heading - gyro_heading);
+        angleDifference = angleDifference % 360.0;
+        if (Math.abs(angleDifference) > 180.0) {
+            angleDifference = (angleDifference > 0) ? angleDifference - 360 : angleDifference + 360;
+        }
 
-double turn = 0.8 * (-1.0/80.0) * angleDifference;
+        double turn = 0.8 * (-1.0/80.0) * angleDifference;
 
-RobotMap.left1.set(ControlMode.PercentOutput, (LOutput + turn));
-RobotMap.right1.set(ControlMode.PercentOutput,(ROutput - turn));
+        RobotMap.left1.set(ControlMode.PercentOutput, (LOutput + turn));
+        RobotMap.right1.set(ControlMode.PercentOutput,(ROutput - turn));
      }
 
     // Make this return true when this Command no longer needs to run execute()

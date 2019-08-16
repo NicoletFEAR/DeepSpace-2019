@@ -4,6 +4,7 @@ import java.util.List;
 
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -68,6 +69,8 @@ public class Robot extends TimedRobot {
     
     public static boolean DEBUG_TIME = false;
 
+    public AnalogGyro roboRIOgyro;
+
     /**
      * This function is run when the robot is first started up and should be used
      * for any initialization code.
@@ -82,6 +85,7 @@ public class Robot extends TimedRobot {
 
         driveTrain = new DriveTrain();
 
+        roboRIOgyro = new AnalogGyro(channel)
 
         pressureSensor = new PressureSensor();
 

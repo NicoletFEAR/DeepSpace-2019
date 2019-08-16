@@ -11,14 +11,11 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.SensorCollection;
+import com.kauailabs.navx.frc.AHRS;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.commands.OpenLoopDrive;
 
@@ -44,6 +41,9 @@ public class DriveTrain extends Subsystem {
 	public double previousDesiredAngle = 0.0;
 	public double previousDesiredDistance = 0.0;
 
+	// navx
+	public AHRS navX;
+
 	// Setup our timed drive
 	private double currentTime = 0.0;
 	private double endTime = 0.0;
@@ -51,6 +51,13 @@ public class DriveTrain extends Subsystem {
 	@Override
 	public void initDefaultCommand() {
 		setDefaultCommand(new OpenLoopDrive());
+	}
+
+	public DriveTrain() {
+
+		navX = new AHRS(SPI.Port.kMXP); // makes the new navX
+    	navX.reset(); // resets navX
+
 	}
 
 	 // Tank drive
