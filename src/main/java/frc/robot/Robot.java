@@ -85,8 +85,6 @@ public class Robot extends TimedRobot {
 
         driveTrain = new DriveTrain();
 
-        roboRIOgyro = new AnalogGyro(channel)
-
         pressureSensor = new PressureSensor();
 
         shifter = new Shifter();
