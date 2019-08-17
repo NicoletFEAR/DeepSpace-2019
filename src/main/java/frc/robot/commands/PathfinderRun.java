@@ -24,10 +24,15 @@ import jaci.pathfinder.modifiers.TankModifier;
  */
 public class PathfinderRun extends Command {
 
+
+    double LOutput;
+    double ROutput;
+    
     EncoderFollower left;
     EncoderFollower right;
     Trajectory trajectory;
     int i;
+    Trajectory.Segment counterSegment;
 
     public PathfinderRun() {
         requires(Robot.driveTrain);
@@ -38,6 +43,7 @@ public class PathfinderRun extends Command {
 
         Robot.driveTrain.navX.reset();
         Robot.shifter.isOnPath = true;
+        Robot.driveTrain.resetEncoders();
 
         i = 0;
 
@@ -47,7 +53,7 @@ public class PathfinderRun extends Command {
             new Waypoint(0, 0, 0)                           // Waypoint @ x=0, y=0,   exit angle=0 radians
         };
         
-        Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, 0.05, 1.7, 2.0, 60.0);
+        Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, 0.02, RobotMap.max_velocity, 2.0, 60.0);
         trajectory = Pathfinder.generate(points, config);
       
         TankModifier modifier = new TankModifier(trajectory).modify(0.53);
@@ -68,10 +74,10 @@ public class PathfinderRun extends Command {
         // The fourth argument is the velocity ratio. This is 1 over the maximum velocity you provided in the 
         //      trajectory configuration (it translates m/s to a -1 to 1 scale that your motors can read)
         // The fifth argument is your acceleration gain. Tweak this if you want to get to a higher or lower speed quicker
-        left.configurePIDVA(1.0, 0.0, 0.0, 1 / RobotMap.max_velocity, 0);
+        left.configurePIDVA(0.3, 0.0, 0.0, 1 / RobotMap.max_velocity, 0);
 
         right.configureEncoder(RobotMap.right1.getSelectedSensorPosition(), 7610, RobotMap.wheel_diameter);
-        right.configurePIDVA(1.0, 0.0, 0.0, 1 / RobotMap.max_velocity, 0);
+        right.configurePIDVA(0.3, 0.0, 0.0, 1 / RobotMap.max_velocity, 0);
 
         //prints:
         SmartDashboard.putNumber("traj leng", trajectory.length());
@@ -81,8 +87,8 @@ public class PathfinderRun extends Command {
     @Override
     protected void execute() {
 
-        double LOutput = left.calculate((int)(Robot.driveTrain.getLeftEncoderPosition()));
-        double ROutput = right.calculate((int)(Robot.driveTrain.getRightEncoderPosition()));
+        LOutput = left.calculate(-((int)(Robot.driveTrain.getLeftEncoderPosition())));
+        ROutput = right.calculate((int)(Robot.driveTrain.getRightEncoderPosition()));
 
         double gyro_heading = Robot.driveTrain.navX.getAngle();    // Assuming the gyro is giving a value in degrees
         double desired_heading = Pathfinder.r2d(left.getHeading());  // Should also be in degrees
@@ -96,10 +102,12 @@ public class PathfinderRun extends Command {
 
         double turn = 0.8 * (-1.0/80.0) * angleDifference;
 
-        RobotMap.left1.set(ControlMode.PercentOutput, (LOutput + turn));
+        RobotMap.left1.set(ControlMode.PercentOutput, -(LOutput + turn));
         RobotMap.right1.set(ControlMode.PercentOutput,(ROutput - turn));
 
         i++;
+        counterSegment = left.getSegment();
+        // can print seg details
 
         // prints:
         SmartDashboard.putNumber("traj step", i);
@@ -109,13 +117,20 @@ public class PathfinderRun extends Command {
         SmartDashboard.putNumber("LOutput", LOutput);
         SmartDashboard.putNumber("ROutput", ROutput);
 
+
      }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
+        
+        /* 
         if (i >= trajectory.length()) {
             Robot.shifter.isOnPath = false;
+            return true;
+        }
+        */
+        if (LOutput == 0 && ROutput == 0) {
             return true;
         }
         return false;

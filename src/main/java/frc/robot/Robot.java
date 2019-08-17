@@ -169,7 +169,12 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("Pressure: ", Robot.pressureSensor.getPressure());
         SmartDashboard.putString("Talon Mode: ", talonMode);
         SmartDashboard.putString("Hatch Mech State: ", hatchMechState);
+
+        // PATHFINDER
         SmartDashboard.putBoolean("isOnPath", shifter.isOnPath);
+        SmartDashboard.putNumber("-L_Enc", -(Robot.driveTrain.getLeftEncoderPosition()));
+        SmartDashboard.putNumber("R_Enc", Robot.driveTrain.getRightEncoderPosition());
+
 
 
         if (DEBUG_TIME) {
