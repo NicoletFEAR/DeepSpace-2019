@@ -48,9 +48,9 @@ public class PathfinderRun extends Command {
         i = 0;
 
         Waypoint[] points = new Waypoint[] {
-            new Waypoint(-2, 0, Pathfinder.d2r(0)),      // Waypoint @ x=-4, y=-1, exit angle=-45 degrees
-            new Waypoint(-1, 0, Pathfinder.d2r(-20)),                        // Waypoint @ x=-2, y=-2, exit angle=0 radians
-            new Waypoint(0, 0, Pathfinder.d2r(20))                           // Waypoint @ x=0, y=0,   exit angle=0 radians
+            new Waypoint(0, 0, Pathfinder.d2r(90)),      // Waypoint @ x=-4, y=-1, exit angle=-45 degrees
+            new Waypoint(0, 1, Pathfinder.d2r(90)),                        // Waypoint @ x=-2, y=-2, exit angle=0 radians
+            new Waypoint(0, 2, Pathfinder.d2r(90))                           // Waypoint @ x=0, y=0,   exit angle=0 radians
         };
         
         Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_FAST, 0.02, RobotMap.max_velocity, 2.0, 60.0);
@@ -87,10 +87,10 @@ public class PathfinderRun extends Command {
     @Override
     protected void execute() {
 
-        LOutput = left.calculate(-((int)(Robot.driveTrain.getLeftEncoderPosition())));
-        ROutput = right.calculate((int)(Robot.driveTrain.getRightEncoderPosition()));
+        LOutput = left.calculate(((int)(Robot.driveTrain.getRightEncoderPosition())));
+        ROutput = right.calculate((int)(Robot.driveTrain.getLeftEncoderPosition()));
 
-        double gyro_heading = -Robot.driveTrain.navX.getAngle();    // Assuming the gyro is giving a value in degrees
+        double gyro_heading = Robot.driveTrain.navX.getAngle();    // Assuming the gyro is giving a value in degrees
         double desired_heading = Pathfinder.r2d(left.getHeading());  // Should also be in degrees
 
         // This allows the angle difference to respect 'wrapping', where 360 and 0 are the same value
@@ -100,10 +100,18 @@ public class PathfinderRun extends Command {
             angleDifference = (angleDifference > 0) ? angleDifference - 360 : angleDifference + 360;
         }
 
-        double turn = 0.8 * (-1.0/80.0) * angleDifference;
+        double turn = 0.8 * (1.0/80.0) * angleDifference;
 
-        RobotMap.left1.set(ControlMode.PercentOutput, -(LOutput + turn));
-        RobotMap.right1.set(ControlMode.PercentOutput,(ROutput - turn));
+        double LFinal = LOutput + turn;
+        double RFinal = ROutput - turn;
+
+        while (Math.abs(LFinal) > 1 || Math.abs(RFinal) > 1) {
+            LFinal *= 0.95;
+            RFinal *= 0.95;
+        }
+
+        RobotMap.left1.set(ControlMode.PercentOutput, LFinal);
+        RobotMap.right1.set(ControlMode.PercentOutput, RFinal);
 
         i++;
         //counterSegment = left.getSegment();
@@ -120,6 +128,8 @@ public class PathfinderRun extends Command {
         SmartDashboard.putNumber("turn", turn);
         SmartDashboard.putNumber("LOutput", LOutput);
         SmartDashboard.putNumber("ROutput", ROutput);
+        SmartDashboard.putNumber("LFInal", LFinal);
+        SmartDashboard.putNumber("RFInal", RFinal);
 
 
      }

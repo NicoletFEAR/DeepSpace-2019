@@ -172,10 +172,8 @@ public class Robot extends TimedRobot {
 
         // PATHFINDER
         SmartDashboard.putBoolean("isOnPath", shifter.isOnPath);
-        SmartDashboard.putNumber("-L_Enc", -(Robot.driveTrain.getLeftEncoderPosition()));
         SmartDashboard.putNumber("R_Enc", Robot.driveTrain.getRightEncoderPosition());
-
-
+        SmartDashboard.putNumber("L_Enc", Robot.driveTrain.getLeftEncoderPosition());
 
         if (DEBUG_TIME) {
             

@@ -81,11 +81,11 @@ public class RobotMap {
 	public static double speedMultiplier = 1;
 
 	public static void init() {
-		left1 = new TalonSRX(13);
+		left1 = new TalonSRX(16);
 		left1.setNeutralMode(NeutralMode.Brake);
-		left2 = new TalonSRX(15);
+		left2 = new TalonSRX(14);
 		left2.setNeutralMode(NeutralMode.Brake);
-		left3 = new TalonSRX(17);
+		left3 = new TalonSRX(18);
 		left3.setNeutralMode(NeutralMode.Brake);
 
 		// Set how fast of a rate the robot will accelerate DO NOT remove or you
@@ -100,11 +100,11 @@ public class RobotMap {
 		left2.follow(left1);
 		left3.follow(left1);
 
-		right1 = new TalonSRX(16);
+		right1 = new TalonSRX(13);
 		right1.setNeutralMode(NeutralMode.Brake);
-		right2 = new TalonSRX(14);
+		right2 = new TalonSRX(15);
 		right2.setNeutralMode(NeutralMode.Brake);
-		right3 = new TalonSRX(18);
+		right3 = new TalonSRX(17);
 		right3.setNeutralMode(NeutralMode.Brake);
 
 		// Set how fast of a rate the robot will accelerate DO NOT remove or you
@@ -113,11 +113,12 @@ public class RobotMap {
 		right2.configClosedloopRamp(DRIVE_RAMP_RATE);
 		right3.configClosedloopRamp(DRIVE_RAMP_RATE);
 
-		right1.setInverted(true);
-		right2.setInverted(true);
-		right3.setInverted(true);
+		right1.setInverted(false);
+		right2.setInverted(false);
+		right3.setInverted(false);
 		right2.follow(right1);
 		right3.follow(right1);
+
 
 		// next 2 need to be switched back to 21/22,
 		// using them for PID testing

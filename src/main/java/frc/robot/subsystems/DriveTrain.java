@@ -80,17 +80,17 @@ public class DriveTrain extends Subsystem {
 	public void ArcadeDrive(double robotOutput, double turnAmount) {
 		if (!reversed) {
 			// SmartDashboard.putNumber("turnamount", turnAmount);
-			RobotMap.left1.set(ControlMode.PercentOutput, (-robotOutput) + turnAmount);
-			RobotMap.right1.set(ControlMode.PercentOutput, robotOutput + turnAmount);
+			RobotMap.left1.set(ControlMode.PercentOutput, robotOutput + turnAmount);
+			RobotMap.right1.set(ControlMode.PercentOutput, robotOutput - turnAmount);
 		} else {
-			RobotMap.left1.set(ControlMode.PercentOutput, (robotOutput) + turnAmount);
-			RobotMap.right1.set(ControlMode.PercentOutput, -robotOutput + turnAmount);
+			RobotMap.left1.set(ControlMode.PercentOutput, -(robotOutput) - turnAmount);
+			RobotMap.right1.set(ControlMode.PercentOutput, -(robotOutput) + turnAmount);
 		}
 	}
 
 	public void RacingDrive(double robotOutput, double turnAmount) {
-		double outputLeft = -robotOutput + turnAmount;
-		double outputRight = robotOutput + turnAmount;
+		double outputLeft = robotOutput + turnAmount;
+		double outputRight = robotOutput - turnAmount;
 		double max = outputLeft < outputRight ? outputRight : outputLeft;
 		double multiplier;
 
@@ -104,8 +104,8 @@ public class DriveTrain extends Subsystem {
 
 		if (reversed) {
 			double temp = outputLeft;
-			outputLeft = outputRight;
-			outputRight = temp;
+			outputLeft = -outputRight;
+			outputRight = -temp;
 		}
 
 		RobotMap.left1.set(ControlMode.PercentOutput, outputLeft * RobotMap.speedMultiplier);
@@ -181,7 +181,7 @@ public class DriveTrain extends Subsystem {
 	}
 
 	public double getLeftEncoderVelocity() {
-		return -RobotMap.left1.getSelectedSensorVelocity(0);
+		return RobotMap.left1.getSelectedSensorVelocity(0);
 	}
 
 	public double getRightEncoderVelocity() {
