@@ -28,6 +28,11 @@ public class PathfinderRun extends Command {
     double LOutput;
     double ROutput;
 
+    double LFinal;
+    double RFinal;
+
+    double turn;
+
     EncoderFollower left;
     EncoderFollower right;
     Trajectory trajectory;
@@ -48,9 +53,9 @@ public class PathfinderRun extends Command {
         i = 0;
 
         Waypoint[] points = new Waypoint[] {
-            new Waypoint(0, 0, Pathfinder.d2r(90)),      // Waypoint @ x=-4, y=-1, exit angle=-45 degrees
-            new Waypoint(0, 1, Pathfinder.d2r(90)),                        // Waypoint @ x=-2, y=-2, exit angle=0 radians
-            new Waypoint(0, 2, Pathfinder.d2r(90))                           // Waypoint @ x=0, y=0,   exit angle=0 radians
+            new Waypoint(0, 0, Pathfinder.d2r(0)),      // Waypoint @ x=-4, y=-1, exit angle=-45 degrees
+            new Waypoint(1, 1, Pathfinder.d2r(20)),                        // Waypoint @ x=-2, y=-2, exit angle=0 radians
+            new Waypoint(2, 1.5, Pathfinder.d2r(0))
         };
         
         Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_FAST, 0.02, RobotMap.max_velocity, 2.0, 60.0);
@@ -74,10 +79,10 @@ public class PathfinderRun extends Command {
         // The fourth argument is the velocity ratio. This is 1 over the maximum velocity you provided in the 
         //      trajectory configuration (it translates m/s to a -1 to 1 scale that your motors can read)
         // The fifth argument is your acceleration gain. Tweak this if you want to get to a higher or lower speed quicker
-        left.configurePIDVA(0.1, 0.0, 0.0, 1 / RobotMap.max_velocity, 0);
+        left.configurePIDVA(0.05, 0.0, 0.0, 1 / RobotMap.max_velocity, 0);
 
         right.configureEncoder(RobotMap.right1.getSelectedSensorPosition(), 7610, RobotMap.wheel_diameter);
-        right.configurePIDVA(0.1, 0.0, 0.0, 1 / RobotMap.max_velocity, 0);
+        right.configurePIDVA(0.05, 0.0, 0.0, 1 / RobotMap.max_velocity, 0);
 
         //prints:
         SmartDashboard.putNumber("traj leng", trajectory.length());
@@ -100,10 +105,10 @@ public class PathfinderRun extends Command {
             angleDifference = (angleDifference > 0) ? angleDifference - 360 : angleDifference + 360;
         }
 
-        double turn = 0.8 * (1.0/80.0) * angleDifference;
+        turn = (0.8 * (1.0/80.0) * angleDifference) * 2.1;
 
-        double LFinal = LOutput + turn;
-        double RFinal = ROutput - turn;
+        LFinal = LOutput + turn;
+        RFinal = ROutput - turn;
 
         while (Math.abs(LFinal) > 1 || Math.abs(RFinal) > 1) {
             LFinal *= 0.95;
@@ -144,7 +149,8 @@ public class PathfinderRun extends Command {
             return true;
         }
         */
-        if (LOutput == 0 && ROutput == 0) {
+        if (Math.abs(turn) <= 0.15 && LOutput == 0 && ROutput == 0 ) {
+            System.out.println("fin path");
             return true;
         }
         return false;
