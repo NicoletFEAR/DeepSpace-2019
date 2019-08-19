@@ -33,33 +33,56 @@ public class AutoShift extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+
     double averageVelocity = (Math.abs(sensorLeft.getQuadratureVelocity())
         + Math.abs(sensorRight.getQuadratureVelocity())) / 2;
 
-    if (!(Robot.shifter.isOnPath)) {
-    if (!(Robot.oi.xbox1.getStartButton()) && !(Robot.oi.xbox1.getAButton())) { // check the driver isn't holding down the low gear button
-      if (averageVelocity < RobotMap.SHIFT_DOWN_THRESHOLD) { // if not in low, switch to low
+    if (Robot.shifter.isPlayingShift) { // PLAYBACK ************************
+      if (!(Robot.shifter.isLowGearButton) && !(Robot.shifter.isHighGearButton)) { // check the driver isn't holding down
+                                                                                  // the low gear button
+        if (averageVelocity < RobotMap.SHIFT_DOWN_THRESHOLD) { // if not in low, switch to low
+          if (Robot.shifter.shifty.get() != DoubleSolenoid.Value.kForward) {
+            Robot.shifter.shiftdown();
+          }
+        } else if (averageVelocity > RobotMap.SHIFT_UP_THRESHOLD) { // if in low, switch to high
+          if (Robot.shifter.shifty.get() == DoubleSolenoid.Value.kForward) {
+            Robot.shifter.shiftup();
+          }
+        }
+      } else if (Robot.shifter.isLowGearButton) {
         if (Robot.shifter.shifty.get() != DoubleSolenoid.Value.kForward) {
           Robot.shifter.shiftdown();
         }
-      } else if (averageVelocity > RobotMap.SHIFT_UP_THRESHOLD) { // if in low, switch to high
-        if (Robot.shifter.shifty.get() == DoubleSolenoid.Value.kForward) {
+      } else {
+        if (Robot.shifter.shifty.get() != DoubleSolenoid.Value.kReverse)
           Robot.shifter.shiftup();
-        }
       }
-    } else if (Robot.oi.xbox1.getStartButton()) {
+    } else if (!(Robot.shifter.isOnPath)) { // NOMRAL *********************
+      if (!(Robot.oi.xbox1.getStartButton()) && !(Robot.oi.xbox1.getAButton())) { // check the driver isn't holding down
+                                                                                  // the low gear button
+        if (averageVelocity < RobotMap.SHIFT_DOWN_THRESHOLD) { // if not in low, switch to low
+          if (Robot.shifter.shifty.get() != DoubleSolenoid.Value.kForward) {
+            Robot.shifter.shiftdown();
+          }
+        } else if (averageVelocity > RobotMap.SHIFT_UP_THRESHOLD) { // if in low, switch to high
+          if (Robot.shifter.shifty.get() == DoubleSolenoid.Value.kForward) {
+            Robot.shifter.shiftup();
+          }
+        }
+      } else if (Robot.oi.xbox1.getStartButton()) {
+        if (Robot.shifter.shifty.get() != DoubleSolenoid.Value.kForward) {
+          Robot.shifter.shiftdown();
+        }
+      } else {
+        if (Robot.shifter.shifty.get() != DoubleSolenoid.Value.kReverse)
+          Robot.shifter.shiftup();
+      }
+
+    } else { // PATHFINDER stay in LOW GEAR *********************
       if (Robot.shifter.shifty.get() != DoubleSolenoid.Value.kForward) {
         Robot.shifter.shiftdown();
       }
-    } else {
-      if (Robot.shifter.shifty.get() != DoubleSolenoid.Value.kReverse)
-        Robot.shifter.shiftup();
     }
-  } else {
-    if (Robot.shifter.shifty.get() != DoubleSolenoid.Value.kForward) {
-      Robot.shifter.shiftdown();
-    }
-  }
 
     Robot.driveTrain.averageVelocity = averageVelocity;
   }

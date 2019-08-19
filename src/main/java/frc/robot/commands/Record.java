@@ -147,30 +147,17 @@ public class Record extends Command {
       
       writer.append("" + thisLine[0]); // FIRST DOUBLE IN LINE MUST NOT HAVE COMMA BEFORE IT
 
-      writer.append("," + val2);
-      writer.append("," + val3);
-      writer.append("," + val4);
-
-      // barrel motors
-      writer.append("," + storage.robot.getBarrelMotorLeft().get());
-      writer.append("," + storage.robot.getBarrelMotorRight().get());
-
-      // fork motors
-      writer.append("," + storage.robot.getLeftForkLeft().get());
-      writer.append("," + storage.robot.getLeftForkRight().get());
-      writer.append("," + storage.robot.getRightForkLeft().get());
-      writer.append("," + storage.robot.getRightForkRight().get());
+      for (int q = 1; q < 27; q++) {
+              writer.append("," + thisLine[q]); // MIDDLE LINES SEPARATED BY COMMA
+      }
       /*
        * THE LAST ENTRY OF THINGS YOU RECORD NEEDS TO HAVE A DELIMITER CONCATENATED TO
        * THE STRING AT THE END. OTHERWISE GIVES NOSUCHELEMENTEXCEPTION
        */
-
-      // this records a true/false value from a piston
-      writer.append("," + storage.robot.getToteClamp().isExtended() + "\n");
-
+      writer.append("," + thisLine[27] + "\n");
       /*
        * CAREFUL. KEEP THE LAST THING YOU RECORD BETWEEN THESE TWO COMMENTS AS A
-       * REMINDER TO APPEND THE DELIMITER
+       * REMINDER TO APPEND THE DELIMITER - 2220 wrote that not me
        */
     }
   }

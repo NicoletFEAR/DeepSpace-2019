@@ -11,7 +11,10 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Shifter extends Subsystem {
 	public DoubleSolenoid shifty = new DoubleSolenoid(RobotMap.shiftForwardChannel, RobotMap.shiftReverseChannel);
 	public boolean isOnPath;
-
+	
+	public boolean isPlayingShift = false;
+	public boolean isHighGearButton = false;
+	public boolean isLowGearButton = false;
 
 	public void shiftup() {
 		shifty.set(DoubleSolenoid.Value.kReverse);

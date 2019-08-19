@@ -7,24 +7,19 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.Robot;
-import frc.robot.RobotMap;
-import frc.robot.subsystems.DriveTrain;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.SPI;
-import com.ctre.phoenix.motorcontrol.ControlMode;
+import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.Robot;
+import frc.robot.RobotMap;
 
 public class Playback extends Command {
 
   double thisLine[] = new double[28];
   int currentLine = 0;
-  boolean playing = false;
+  public boolean playing = false;
 
   Scanner scanner;
   long startTime;
@@ -52,6 +47,7 @@ public class Playback extends Command {
       end(); // if there is no file, stop playing
     }
 
+    Robot.shifter.isPlayingShift = true;
     playing = true;
 
   }
@@ -62,7 +58,11 @@ public class Playback extends Command {
 
     if (!Robot.isAutonomous || scanner == null) { end(); } // stop if robot moves into teleop
 
-    // read the line of the file using
+    // read the line of the file using scanner
+    loadLine();
+
+    // play back the line of that file
+    playLine();
 
     currentLine++;
 
@@ -71,7 +71,11 @@ public class Playback extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    if (scanner.hasNextDouble() && currentLine >= 2) {
+      return false;
+    } else {
+    return true;
+    }
   }
 
   // Called once after isFinished returns true
@@ -85,13 +89,13 @@ public class Playback extends Command {
 			scanner.close();
     }
     playing = false;
+    Robot.shifter.isPlayingShift = false;
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    playing = false;
     end();
   }
 
@@ -107,6 +111,60 @@ public class Playback extends Command {
 		
 		//lets set start time to the current time you begin autonomous
 		startTime = System.currentTimeMillis();
+  }
+
+  void loadLine() {
+    for (int y = 0; y < 28; y++) {
+
+      if (!scanner.hasNextDouble()) { end(); } //if there is nothing more to read, stop
+
+      try {
+        thisLine[y] = scanner.nextDouble();
+      } catch (Exception e) {
+        System.out.println("couldn't get next double");
+        end(); // though the if statement above should prevent this from ever happening, this is here just in case
+      }
+    }
+  }
+
+  void playLine() {
+    // use thisLine[] to change motor and piston outputs (or whatever you want to do with recording)
+    // refer to Record.java to figure out which position in the array corresponds to what:
+    /* current layout:
+    XBOX1 (0-13)
+      joysticks 0-3
+        0 = left x, 1 = left y
+        2 = right x, 3 = right y
+      4 = left trigger
+      5 = right trigger
+      6 = left bumper
+      7 = right bumper
+      coloured buttons 8-11
+        8 = x
+        9 = y
+        10 = a
+        11 = b
+      12 = start
+      13 = back
+    */
+
+    // DRIVE:
+    Robot.driveTrain.RacingDrive(thisLine[5]-thisLine[4], thisLine[0] * RobotMap.TURN_SCALING);
+    if (thisLine[8] == 1.0) { // x button on click
+      Command switchFront = new SwitchFront();
+      switchFront.start();
+    }
+
+    if (thisLine[13] != 0.0) {
+      Robot.shifter.isLowGearButton = true;
+    } else { Robot.shifter.isLowGearButton = false; }
+
+    if (thisLine[10] != 0.0) {
+      Robot.shifter.isHighGearButton = true;
+    } else { Robot.shifter.isHighGearButton = false; }
+
+
+
   }
 
 }
