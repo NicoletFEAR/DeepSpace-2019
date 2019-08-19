@@ -9,11 +9,16 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.RobotMap;
 import frc.robot.subsystems.DriveTrain;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.SPI;
+import com.ctre.phoenix.motorcontrol.ControlMode;
 
 public class Playback extends Command {
 
@@ -41,7 +46,11 @@ public class Playback extends Command {
   @Override
   protected void initialize() {
 
-    // get the file
+    // get the file, quit command if no file
+    try { setupScanner(); } catch (FileNotFoundException e) {
+      System.out.println("could not play, no file found");
+      end(); // if there is no file, stop playing
+    }
 
     playing = true;
 
@@ -51,7 +60,11 @@ public class Playback extends Command {
   @Override
   protected void execute() {
 
-    // read the line of the file using currentLine
+    if (!Robot.isAutonomous || scanner == null) { end(); } // stop if robot moves into teleop
+
+    // read the line of the file using
+
+    currentLine++;
 
   }
 
@@ -64,6 +77,14 @@ public class Playback extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    // stop all the motors
+    Robot.driveTrain.stop();
+    // INSERT STOPS HERE
+
+    if (scanner != null){
+			scanner.close();
+    }
+    playing = false;
   }
 
   // Called when another command which requires one or more of the same
@@ -73,4 +94,19 @@ public class Playback extends Command {
     playing = false;
     end();
   }
+
+  // insert new methods here: **************************************************************
+
+  void setupScanner() throws FileNotFoundException {
+    //create a scanner to read the file created during BTMacroRecord
+		//scanner is able to read out the doubles recorded into recordedAuto.csv (as of 2015)
+		scanner = new Scanner(new File(RobotMap.autoFileLocName));
+		
+		//let scanner know that the numbers are separated by a comma or a newline, as it is a .csv file
+		scanner.useDelimiter(",|\\n");
+		
+		//lets set start time to the current time you begin autonomous
+		startTime = System.currentTimeMillis();
+  }
+
 }

@@ -31,6 +31,8 @@ public class Robot extends TimedRobot {
     Command autonomousCommand;
     Command disabledCommand;
 
+    public static boolean isAutonomous = false;
+
     public static DriverStation.Alliance alliance;
     public static String allianceColorVal = "";
     public static String teamSwitchSide = "";
@@ -70,7 +72,6 @@ public class Robot extends TimedRobot {
     
     public static boolean DEBUG_TIME = false;
 
-    public AnalogGyro roboRIOgyro;
 
     /**
      * This function is run when the robot is first started up and should be used
@@ -120,6 +121,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void disabledInit() {
+        isAutonomous = false;
     }
 
     @Override
@@ -135,7 +137,8 @@ public class Robot extends TimedRobot {
         if (autonomousCommand != null)
             autonomousCommand.start();
         teleopInit();
-        
+
+        isAutonomous = true;
 
         shifter.shiftdown();
 
@@ -152,6 +155,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopInit() {   
+        isAutonomous = false;
     }
 
     /**
