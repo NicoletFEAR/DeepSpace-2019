@@ -94,7 +94,7 @@ public class OI {
         xbox1B.whenPressed(new OpenLoopDrive()); // will interrupt PathfinderRun
 
         // Record
-        xbox1Start.whenPressed(new Record());
+        xbox1Back.whenPressed(new Record());
 
         // Mech Controller Command Mapping
 

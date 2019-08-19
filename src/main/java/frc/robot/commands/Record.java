@@ -52,7 +52,7 @@ public class Record extends Command {
 
     try { writeLine(); } catch (IOException e) {}
 
-    if (Robot.oi.getXbox1().getStartButton() && currentLine >= 50) { // if you pressed the record button again (after 1s sdelay so it doesn't instantly end)
+    if (Robot.oi.getXbox1().getBackButton() && currentLine >= 50) { // if you pressed the record button again (after 1s sdelay so it doesn't instantly end)
       end();
     }
 
