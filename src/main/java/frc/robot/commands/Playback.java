@@ -155,7 +155,7 @@ public class Playback extends Command {
       switchFront.start();
     }
 
-    if (thisLine[13] != 0.0) {
+    if (thisLine[12] != 0.0) {
       Robot.shifter.isLowGearButton = true;
     } else { Robot.shifter.isLowGearButton = false; }
 
