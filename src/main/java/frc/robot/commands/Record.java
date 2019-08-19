@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 
-
+// loosely based off of 2220 Blue Twilight 2015 code
 // https://github.com/DennisMelamed/FRC-Play-Record-Macro/blob/master/FRC2220-Play-Record-Macro-DM/src/BTMacroRecord.java
 
 public class Record extends Command {
@@ -120,15 +120,15 @@ public class Record extends Command {
       thisLine[5] = Robot.oi.getXbox1().getTriggerAxis(GenericHID.Hand.kRight);
       //bumpers:
       thisLine[6] = (thisLine[6] == 0) ? (Robot.oi.getXbox1().getBumper(GenericHID.Hand.kLeft) ? 1.0 : 0.0) : (Robot.oi.getXbox1().getBumper(GenericHID.Hand.kLeft) ? 2.0 : 0.0) ; 
-      thisLine[7] = (thisLine[6] == 0) ? (Robot.oi.getXbox1().getBumper(GenericHID.Hand.kRight) ? 1.0 : 0.0) : (Robot.oi.getXbox1().getBumper(GenericHID.Hand.kRight) ? 2.0 : 0.0) ;
+      thisLine[7] = (thisLine[7] == 0) ? (Robot.oi.getXbox1().getBumper(GenericHID.Hand.kRight) ? 1.0 : 0.0) : (Robot.oi.getXbox1().getBumper(GenericHID.Hand.kRight) ? 2.0 : 0.0) ;
       //coloured buttons:
-      thisLine[8] = 0.0; // X
-      thisLine[9] = 0.0; // Y
-      thisLine[10] = 0.0; // A
-      thisLine[11] = 0.0; // B
+      thisLine[8] = (thisLine[8] == 0) ? (Robot.oi.getXbox1().getXButton() ? 1.0 : 0.0) : (Robot.oi.getXbox1().getXButton() ? 2.0 : 0.0) ; // X
+      thisLine[9] = (thisLine[9] == 0) ? (Robot.oi.getXbox1().getYButton() ? 1.0 : 0.0) : (Robot.oi.getXbox1().getYButton() ? 2.0 : 0.0) ; // Y
+      thisLine[10] = (thisLine[10] == 0) ? (Robot.oi.getXbox1().getAButton() ? 1.0 : 0.0) : (Robot.oi.getXbox1().getAButton() ? 2.0 : 0.0) ; // A
+      thisLine[11] = (thisLine[11] == 0) ? (Robot.oi.getXbox1().getBButton() ? 1.0 : 0.0) : (Robot.oi.getXbox1().getBButton() ? 2.0 : 0.0) ; // B
       //middle small buttons:
-      thisLine[12] = 0.0;
-      thisLine[13] = 0.0;
+      thisLine[12] = (thisLine[12] == 0) ? (Robot.oi.getXbox1().getStartButton() ? 1.0 : 0.0) : (Robot.oi.getXbox1().getStartButton() ? 2.0 : 0.0) ;
+      thisLine[13] = (thisLine[13] == 0) ? (Robot.oi.getXbox1().getBackButton() ? 1.0 : 0.0) : (Robot.oi.getXbox1().getBackButton() ? 2.0 : 0.0) ;
       // XBOX2 *******************************************************
       thisLine[14]= 0.0;
       thisLine[15] = 0.0;
