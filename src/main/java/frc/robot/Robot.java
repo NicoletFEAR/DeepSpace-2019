@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.Playback;
 import frc.robot.loops.VisionProcessor;
 import frc.robot.subsystems.CompressAir;
 import frc.robot.subsystems.DriveTrain;
@@ -139,6 +140,9 @@ public class Robot extends TimedRobot {
         shifter.shiftdown();
 
         Robot.driveTrain.resetEncoders();
+
+        Playback playback = new Playback();
+
     }
 
     @Override

@@ -12,8 +12,11 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
  * floating around.
  */
 public class RobotMap {
+	
+	// Recorded Auto:
+	public static final String autoFileLocName = new String("/home/lvuser/recordedAuto" + "AutoName" + ".csv");
+	
 	// Drive Base:
-
 	public static double wheel_diameter = 0.19; // in metres
 	public static double max_velocity = 1.1; // in metres/s
 
