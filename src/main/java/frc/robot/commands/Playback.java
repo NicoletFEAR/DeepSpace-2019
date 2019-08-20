@@ -12,6 +12,7 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 
@@ -42,15 +43,17 @@ public class Playback extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    playing = true;
+    SmartDashboard.putBoolean("playing", playing);
+
     System.out.println("in Playback Init");
     // get the file, quit command if no file
-    try { setupScanner(); } catch (FileNotFoundException e) {
+    try { setupScanner(); } catch (Exception e) {
       System.out.println("could not play, no file found");
       end(); // if there is no file, stop playing
     }
 
     Robot.shifter.isPlayingShift = true;
-    playing = true;
 
   }
 
@@ -58,7 +61,7 @@ public class Playback extends Command {
   @Override
   protected void execute() {
 
-    if (!Robot.isAutonomous || scanner == null) { end(); } // stop if robot moves into teleop
+    if (scanner == null) { end(); } // stop if robot moves into teleop
 
     // read the line of the file using scanner
     loadLine();
@@ -73,7 +76,7 @@ public class Playback extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    if (scanner.hasNextDouble() && currentLine >= 2) {
+    if (scanner.hasNextDouble()) {
       return false;
     } else {
     return true;
@@ -87,11 +90,15 @@ public class Playback extends Command {
     Robot.driveTrain.stop();
     // INSERT STOPS HERE
 
+    playing = false;
+    SmartDashboard.putBoolean("playing", playing);
+
     if (scanner != null){
 			scanner.close();
     }
     playing = false;
     Robot.shifter.isPlayingShift = false;
+    
   }
 
   // Called when another command which requires one or more of the same
@@ -103,7 +110,7 @@ public class Playback extends Command {
 
   // insert new methods here: **************************************************************
 
-  void setupScanner() throws FileNotFoundException {
+  void setupScanner() throws Exception { //FileNotFoundException
     //create a scanner to read the file created during BTMacroRecord
 		//scanner is able to read out the doubles recorded into recordedAuto.csv (as of 2015)
 		scanner = new Scanner(new File(RobotMap.autoFileLocName + Robot.autoName + ".csv"));

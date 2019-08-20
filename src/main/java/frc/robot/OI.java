@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.ArcDrive2;
 import frc.robot.commands.OpenLoopDrive;
 import frc.robot.commands.PathfinderRun;
+import frc.robot.commands.Playback;
 import frc.robot.commands.Record;
 import frc.robot.commands.SetTalonMode;
 import frc.robot.commands.SwitchFront;
@@ -90,10 +91,10 @@ public class OI {
         // Drive Controller Command Mapping
 
         xbox1X.whenPressed(new SwitchFront());
-        xbox1Back.whenPressed(new ToggleTalonMode());
+        //xbox1Back.whenPressed(new ToggleTalonMode());
         //xbox1RBumper.whileHeld(new ArcDrive2());
         //xbox1RBumper.whenReleased(new SetTalonMode("brake"));
-        xbox1LBumper.whenPressed(new ToggleDebug());
+        //xbox1LBumper.whenPressed(new ToggleDebug());
 
         //Pathfinder
         xbox1Y.whenPressed(new PathfinderRun());
@@ -101,7 +102,8 @@ public class OI {
 
         // Record
         xbox1Back.whenPressed(new Record());
-        
+        xbox1LBumper.whenPressed(new Playback());
+
 
         // Mech Controller Command Mapping
 

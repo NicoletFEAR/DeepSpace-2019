@@ -64,10 +64,10 @@ public class Record extends Command {
 
     }
 
-    if (Robot.oi.getXbox1().getBackButton() && currentLine >= 50) { // if you pressed the record button again (after 1s sdelay so it doesn't instantly end)
+    //if (Robot.oi.getXbox1().getBackButton() && currentLine >= 50) { // if you pressed the record button again (after 1s sdelay so it doesn't instantly end)
       
       //end();
-    }
+    //}
     System.out.println("current Line: " + currentLine);
 
     currentLine++;
@@ -171,20 +171,33 @@ public class Record extends Command {
       thisLine[26] = 0.0;
       thisLine[27] = 0.0;
       
+      /*
       writer.append("" + thisLine[0]); // FIRST DOUBLE IN LINE MUST NOT HAVE COMMA BEFORE IT
 
       for (int q = 1; q < 27; q++) {
               writer.append("," + thisLine[q]); // MIDDLE LINES SEPARATED BY COMMA
       }
-      /*
+      
        * THE LAST ENTRY OF THINGS YOU RECORD NEEDS TO HAVE A DELIMITER CONCATENATED TO
        * THE STRING AT THE END. OTHERWISE GIVES NOSUCHELEMENTEXCEPTION
-       */
+       
       writer.append("," + thisLine[27] + "\n");
-      /*
+      
        * CAREFUL. KEEP THE LAST THING YOU RECORD BETWEEN THESE TWO COMMENTS AS A
        * REMINDER TO APPEND THE DELIMITER - 2220 wrote that not me
-       */
+       
+      */
+      
+      writer.append("" + thisLine[0] + "," + thisLine[1] + "," + thisLine[2]
+       + "," + thisLine[3] + "," + thisLine[4] + "," + thisLine[5]
+       + "," + thisLine[6] + "," + thisLine[7] + "," + thisLine[8]
+       + "," + thisLine[9] + "," + thisLine[10] + "," + thisLine[11] 
+       + "," + thisLine[12] + "," + thisLine[13] + "," + thisLine[14] 
+       + "," + thisLine[15] + "," + thisLine[16] + "," + thisLine[17] 
+       + "," + thisLine[18] + "," + thisLine[18] + "," + thisLine[20] 
+       + "," + thisLine[21] + "," + thisLine[22] + "," + thisLine[23] 
+       + "," + thisLine[24] + "," + thisLine[25] + "," + thisLine[26]
+       + "," + thisLine[27] + "\n");
     }
   }
 

@@ -139,7 +139,7 @@ public class Robot extends TimedRobot {
         if (disabledCommand != null)
             disabledCommand.cancel();
 
-        autonomousCommand = new Playback();
+        autonomousCommand = null;
 
         if (autonomousCommand != null)
             autonomousCommand.start();
