@@ -25,7 +25,9 @@ public class Playback extends Command {
   long startTime;
 
   boolean onTime = true;
-	double nextDouble;
+  double nextDouble;
+  
+  Command switchsFront;
 
   public Playback() {
     // Use requires() here to declare subsystem dependencies
@@ -151,8 +153,8 @@ public class Playback extends Command {
     // DRIVE:
     Robot.driveTrain.RacingDrive(thisLine[5]-thisLine[4], thisLine[0] * RobotMap.TURN_SCALING);
     if (thisLine[8] == 1.0) { // x button on click
-      Command switchFront = new SwitchFront();
-      switchFront.start();
+      switchsFront = new SwitchFront();
+      switchsFront.start();
     }
 
     if (thisLine[12] != 0.0) {

@@ -31,6 +31,7 @@ import se.vidstige.jadb.JadbDevice;
 public class Robot extends TimedRobot {
     Command autonomousCommand;
     Command disabledCommand;
+    Command nothingTest;
 
     public static boolean isAutonomous = false;
 
@@ -110,8 +111,6 @@ public class Robot extends TimedRobot {
 
         oi = new OI();
 
-
-
         SmartDashboard.putNumber("Version Number: ", versionNumber);
         SmartDashboard.putBoolean("Active: ", false);
     }
@@ -137,7 +136,7 @@ public class Robot extends TimedRobot {
             disabledCommand.cancel();
 
         autonomousCommand = new Playback();
-        
+
         if (autonomousCommand != null)
             autonomousCommand.start();
         teleopInit();
