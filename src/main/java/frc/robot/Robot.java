@@ -32,6 +32,7 @@ public class Robot extends TimedRobot {
     Command autonomousCommand;
     Command disabledCommand;
     Command nothingTest;
+    public static String autoName = "testAuto";
 
     public static boolean isAutonomous = false;
 
@@ -81,6 +82,9 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotInit() {
+
+        SmartDashboard.putString("autoName", autoName);
+
         RobotMap.init();
         mVisionServer = VisionServer.getInstance();
         mVisionServer.frontCamera();
@@ -146,6 +150,8 @@ public class Robot extends TimedRobot {
         shifter.shiftdown();
 
         Robot.driveTrain.resetEncoders();
+
+        SmartDashboard.putString("autoName", autoName);
 
         //Playback playback = new Playback();
     }

@@ -85,7 +85,7 @@ public class Record extends Command {
 
   // makes the java FileWriter that puts data in the file
   public void makeFileWriter() throws IOException {
-    writer = new FileWriter(RobotMap.autoFileLocName);
+    writer = new FileWriter(RobotMap.autoFileLocName + Robot.autoName + ".csv");
   }
 
   // this method closes the writer and makes sure that all the data you recorded
