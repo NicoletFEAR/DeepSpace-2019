@@ -42,7 +42,7 @@ public class Playback extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-
+    System.out.println("in Playback Init");
     // get the file, quit command if no file
     try { setupScanner(); } catch (FileNotFoundException e) {
       System.out.println("could not play, no file found");

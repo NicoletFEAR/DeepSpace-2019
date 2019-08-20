@@ -179,6 +179,7 @@ public class Robot extends TimedRobot {
         processor = (VisionProcessor) mVisionServer.receivers.get(0);
         processor.onLoop(System.currentTimeMillis());
         
+        /*
         SmartDashboard.putBoolean("Target found: ", !isTargetNull);
         SmartDashboard.putString("Camera Mode: ", cameraMode);
         SmartDashboard.putBoolean("Switch Front: ", Robot.driveTrain.isReversed());
@@ -190,6 +191,7 @@ public class Robot extends TimedRobot {
         SmartDashboard.putBoolean("isOnPath", shifter.isOnPath);
         SmartDashboard.putNumber("R_Enc", Robot.driveTrain.getRightEncoderPosition());
         SmartDashboard.putNumber("L_Enc", Robot.driveTrain.getLeftEncoderPosition());
+        */
 
         if (DEBUG_TIME) {
             

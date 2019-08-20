@@ -11,6 +11,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
@@ -35,6 +36,8 @@ public class Record extends Command {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     // can't depend on driveTrain because you have to drive with OpenLoopDrive to record!
+    System.out.println("inside Record constructor");
+
   }
 
   // Called just before this Command runs the first time
@@ -42,19 +45,30 @@ public class Record extends Command {
   protected void initialize() {
     startTime = System.currentTimeMillis();
     currentLine = 0;
-    try { makeFileWriter(); } catch (IOException e) { end(); }
+    try { makeFileWriter(); } catch (IOException e) { end();     System.out.println("inside init IOException");
+  }
     isRecording = true;
+    System.out.println("inside Record init");
+
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
 
-    try { writeLine(); } catch (IOException e) {}
+    System.out.println("inside execute");
+
+    try { writeLine(); } catch (IOException e) 
+    {
+      System.out.println("inside IOExceptionWriteLine");
+
+    }
 
     if (Robot.oi.getXbox1().getBackButton() && currentLine >= 50) { // if you pressed the record button again (after 1s sdelay so it doesn't instantly end)
-      end();
+      
+      //end();
     }
+    System.out.println("current Line: " + currentLine);
 
     currentLine++;
   }
@@ -63,6 +77,10 @@ public class Record extends Command {
   @Override
   protected boolean isFinished() {
     // detect if record button pressed a second time to stop
+    if (Robot.oi.getXbox1().getBumper(Hand.kRight) && currentLine >= 50) { // if you pressed the record button again (after 1s sdelay so it doesn't instantly end)
+      System.out.println("finished!");
+      return true;
+    }
     return false;
   }
 
@@ -70,8 +88,12 @@ public class Record extends Command {
   @Override
   protected void end(){
     // tidy up and end
-    try { endRecording(); } catch (IOException e) {}
+    try { endRecording(); } catch (IOException e) {
+      System.out.println("inside end() Record IOException");
+    }
     isRecording = false;
+    System.out.println("end() of Record");
+
   }
 
   // Called when another command which requires one or more of the same
@@ -86,6 +108,7 @@ public class Record extends Command {
   // makes the java FileWriter that puts data in the file
   public void makeFileWriter() throws IOException {
     writer = new FileWriter(RobotMap.autoFileLocName + Robot.autoName + ".csv");
+    System.out.println("inside makeFileWriter");
   }
 
   // this method closes the writer and makes sure that all the data you recorded
@@ -100,6 +123,9 @@ public class Record extends Command {
 
   public void writeLine() throws IOException {
     if (writer != null) {
+
+      System.out.println("inside writeLine success");
+
       // start each "frame" with the elapsed time since we started recording<
       // writer.append("" + (System.currentTimeMillis() - startTime)); (>code from other team)
 

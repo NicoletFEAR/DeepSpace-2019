@@ -23,6 +23,8 @@ import frc.robot.commands.ToggleDebug;
 import frc.robot.commands.ToggleTalonMode;
 import java.io.IOException;
 
+import javax.swing.plaf.basic.BasicSplitPaneUI.KeyboardEndHandler;
+
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -40,6 +42,8 @@ public class OI {
     private Button xbox1Y;
     private Button xbox1B;
     private Button xbox1A;
+
+    private KeyboardEndHandler keyboard;
 
     // private XboxController xbox2; // the game mech controller // input 1 on driver station
     // private Button xbox2LeftStick;
@@ -68,6 +72,8 @@ public class OI {
         xbox1LeftStick = new JoystickButton(xbox1, 9);
         xbox1RightStick = new JoystickButton(xbox1, 10);
 
+        
+
         // xbox2 = new XboxController(1);
 
         // xbox2A = new JoystickButton(xbox2, 1);
@@ -85,8 +91,8 @@ public class OI {
 
         xbox1X.whenPressed(new SwitchFront());
         xbox1Back.whenPressed(new ToggleTalonMode());
-        xbox1RBumper.whileHeld(new ArcDrive2());
-        xbox1RBumper.whenReleased(new SetTalonMode("brake"));
+        //xbox1RBumper.whileHeld(new ArcDrive2());
+        //xbox1RBumper.whenReleased(new SetTalonMode("brake"));
         xbox1LBumper.whenPressed(new ToggleDebug());
 
         //Pathfinder
@@ -95,6 +101,7 @@ public class OI {
 
         // Record
         xbox1Back.whenPressed(new Record());
+        
 
         // Mech Controller Command Mapping
 
