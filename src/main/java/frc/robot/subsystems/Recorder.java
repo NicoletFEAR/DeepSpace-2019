@@ -5,26 +5,20 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.command.InstantCommand;
+import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
  * Add your docs here.
  */
-public class Record extends InstantCommand {
-  /**
-   * Add your docs here.
-   */
-  public Record() {
-    super();
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
-  }
+public class Recorder extends Subsystem {
+  // Put methods for controlling this subsystem
+  // here. Call these from Commands.
 
-  // Called once when the command executes
   @Override
-  protected void initialize() {
+  public void initDefaultCommand() {
+    // Set the default command for a subsystem here.
+    // setDefaultCommand(new MySpecialCommand());
   }
-
 }

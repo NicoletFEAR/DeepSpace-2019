@@ -4,19 +4,14 @@ import java.util.List;
 
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.command.StartCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.Playback;
 import frc.robot.loops.VisionProcessor;
-import frc.robot.subsystems.CompressAir;
-import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.PressureSensor;
-import frc.robot.subsystems.Shifter;
+import frc.robot.subsystems.*;
 import frc.robot.vision.VisionServer;
 import se.vidstige.jadb.JadbConnection;
 import se.vidstige.jadb.JadbDevice;
@@ -58,6 +53,11 @@ public class Robot extends TimedRobot {
     public static UsbCamera front;
     public static UsbCamera back;
     public static CompressAir compressorOAir;
+    public static Player player;
+    public static Recorder recorder;
+
+    public static Notifier recorderNotifier = null;
+    public static Notifier playerNotifier = null;
     // public static ArduinoInterface arduinoLEDInterface;
     // public static ArduinoInterface arduinoCameraInterface;
 
@@ -108,6 +108,10 @@ public class Robot extends TimedRobot {
         shifter.shiftdown();
         
         compressorOAir = new CompressAir();
+
+        
+
+        
 
         front = CameraServer.getInstance().startAutomaticCapture("FRONT", 0);
         front.setFPS(20);
@@ -189,7 +193,12 @@ public class Robot extends TimedRobot {
         // ADD IF STATEMENT HERE???
         processor = (VisionProcessor) mVisionServer.receivers.get(0);
         processor.onLoop(System.currentTimeMillis());
-        
+
+        if (true) {
+            recorderNotifier.startPeriodic(0.03);     
+        }
+       
+
         /*
         if (new_m_period != this.m_period) {
             Robot.
