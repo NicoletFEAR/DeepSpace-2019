@@ -35,10 +35,6 @@ public class Playback extends Command {
     requires(Robot.driveTrain);
   }
 
-  public Playback(String autoName) {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
-  }
 
   // Called just before this Command runs the first time
   @Override
@@ -119,7 +115,7 @@ public class Playback extends Command {
 		scanner.useDelimiter(",|\\n");
 		
 		//lets set start time to the current time you begin autonomous
-		startTime = System.currentTimeMillis();
+		//startTime = System.currentTimeMillis();
   }
 
   void loadLine() {
