@@ -29,14 +29,16 @@ public class Record extends Command {
 
   public boolean isRecording;
 
-  double thisLine[] = new double[28];
+  // double thisLine[] = new double[28];
+  double thisLine[] = new double[14];
+
 
 
   public Record(){
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     // can't depend on driveTrain because you have to drive with OpenLoopDrive to record!
-    System.out.println("inside Record constructor");
+    // System.out.println("inside Record constructor");
 
   }
 
@@ -48,7 +50,8 @@ public class Record extends Command {
     try { makeFileWriter(); } catch (IOException e) { end();     System.out.println("inside init IOException");
   }
     isRecording = true;
-    System.out.println("inside Record init");
+    //System.out.println("inside Record init");
+    Robot.new_m_period = RobotMap.longPeriod;
 
   }
 
@@ -56,11 +59,11 @@ public class Record extends Command {
   @Override
   protected void execute() {
 
-    System.out.println("inside execute");
+    //System.out.println("inside execute");
 
     try { writeLine(); } catch (IOException e) 
     {
-      System.out.println("inside IOExceptionWriteLine");
+      System.out.println("IOException WriteLine");
 
     }
 
@@ -68,7 +71,7 @@ public class Record extends Command {
       
       //end();
     //}
-    System.out.println("current Line: " + currentLine);
+    // System.out.println("current Line: " + currentLine);
 
     currentLine++;
   }
@@ -92,7 +95,9 @@ public class Record extends Command {
       System.out.println("inside end() Record IOException");
     }
     isRecording = false;
-    System.out.println("end() of Record");
+    // System.out.println("end() of Record");
+    Robot.new_m_period = RobotMap.normalPeriod;
+
 
   }
 
@@ -108,7 +113,7 @@ public class Record extends Command {
   // makes the java FileWriter that puts data in the file
   public void makeFileWriter() throws IOException {
     writer = new FileWriter(RobotMap.autoFileLocName + Robot.autoName + ".csv");
-    System.out.println("inside makeFileWriter");
+    // System.out.println("inside makeFileWriter");
   }
 
   // this method closes the writer and makes sure that all the data you recorded
@@ -124,7 +129,7 @@ public class Record extends Command {
   public void writeLine() throws IOException {
     if (writer != null) {
 
-      System.out.println("inside writeLine success");
+      // System.out.println("inside writeLine success");
 
       // start each "frame" with the elapsed time since we started recording<
       // writer.append("" + (System.currentTimeMillis() - startTime)); (>code from other team)
@@ -155,6 +160,7 @@ public class Record extends Command {
       //middle small buttons:
       thisLine[12] = (thisLine[12] == 0) ? (Robot.oi.getXbox1().getStartButton() ? 1.0 : 0.0) : (Robot.oi.getXbox1().getStartButton() ? 2.0 : 0.0) ;
       thisLine[13] = (thisLine[13] == 0) ? (Robot.oi.getXbox1().getBackButton() ? 1.0 : 0.0) : (Robot.oi.getXbox1().getBackButton() ? 2.0 : 0.0) ;
+      /*
       // XBOX2 *******************************************************
       thisLine[14]= 0.0;
       thisLine[15] = 0.0;
@@ -170,6 +176,7 @@ public class Record extends Command {
       thisLine[25] = 0.0;
       thisLine[26] = 0.0;
       thisLine[27] = 0.0;
+      */
       
       /*
       writer.append("" + thisLine[0]); // FIRST DOUBLE IN LINE MUST NOT HAVE COMMA BEFORE IT
@@ -188,6 +195,7 @@ public class Record extends Command {
        
       */
       
+      /* // two controllers
       writer.append("" + thisLine[0] + "," + thisLine[1] + "," + thisLine[2]
        + "," + thisLine[3] + "," + thisLine[4] + "," + thisLine[5]
        + "," + thisLine[6] + "," + thisLine[7] + "," + thisLine[8]
@@ -198,6 +206,13 @@ public class Record extends Command {
        + "," + thisLine[21] + "," + thisLine[22] + "," + thisLine[23] 
        + "," + thisLine[24] + "," + thisLine[25] + "," + thisLine[26]
        + "," + thisLine[27] + "\n");
+       */
+
+      writer.append("" + thisLine[0] + "," + thisLine[1] + "," + thisLine[2]
+      + "," + thisLine[3] + "," + thisLine[4] + "," + thisLine[5]
+      + "," + thisLine[6] + "," + thisLine[7] + "," + thisLine[8]
+      + "," + thisLine[9] + "," + thisLine[10] + "," + thisLine[11] 
+      + "," + thisLine[12] + "," + thisLine[13] + "\n");
     }
   }
 

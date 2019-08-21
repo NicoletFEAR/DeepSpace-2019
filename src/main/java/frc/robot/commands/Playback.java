@@ -18,7 +18,9 @@ import frc.robot.RobotMap;
 
 public class Playback extends Command {
 
-  double thisLine[] = new double[28];
+  double thisLine[] = new double[14];
+  // double thisLine[] = new double[28]; // two controllers
+
   int currentLine = 0;
   public boolean playing = false;
 
@@ -39,10 +41,12 @@ public class Playback extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    playing = true;
-    SmartDashboard.putBoolean("playing", playing);
+    Robot.new_m_period = RobotMap.longPeriod;
 
-    System.out.println("in Playback Init");
+    playing = true;
+    //SmartDashboard.putBoolean("playing", playing);
+
+    // System.out.println("in Playback Init");
     // get the file, quit command if no file
     try { setupScanner(); } catch (Exception e) {
       System.out.println("could not play, no file found");
@@ -57,7 +61,7 @@ public class Playback extends Command {
   @Override
   protected void execute() {
 
-    if (scanner == null) { end(); } // stop if robot moves into teleop
+    if (scanner == null) { end(); } // stop if 
 
     // read the line of the file using scanner
     loadLine();
@@ -87,13 +91,16 @@ public class Playback extends Command {
     // INSERT STOPS HERE
 
     playing = false;
-    SmartDashboard.putBoolean("playing", playing);
+    // SmartDashboard.putBoolean("playing", playing);
 
     if (scanner != null){
 			scanner.close();
     }
     playing = false;
     Robot.shifter.isPlayingShift = false;
+
+    Robot.new_m_period = RobotMap.normalPeriod;
+
     
   }
 
@@ -119,9 +126,11 @@ public class Playback extends Command {
   }
 
   void loadLine() {
-    for (int y = 0; y < 28; y++) {
+    // for (int y = 0; y < 28; y++) {
+    for (int y = 0; y < 14; y++) {
 
-      if (!scanner.hasNextDouble()) { end(); } //if there is nothing more to read, stop
+
+      // if (!scanner.hasNextDouble()) { end(); } //if there is nothing more to read, stop
 
       try {
         thisLine[y] = scanner.nextDouble();

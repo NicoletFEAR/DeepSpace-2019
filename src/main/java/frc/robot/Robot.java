@@ -32,6 +32,9 @@ public class Robot extends TimedRobot {
     Command autonomousCommand;
     Command disabledCommand;
     Command nothingTest;
+
+    public static double new_m_period = 0.02;
+
     public static String autoName = "testAuto";
 
     public static boolean isAutonomous = false;
@@ -82,6 +85,12 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotInit() {
+
+        // 
+        this.m_period = 0.02;        
+        System.out.println(" m_period is ");
+        System.out.println(getPeriod());
+
 
         SmartDashboard.putString("autoName", autoName);
 
@@ -182,6 +191,16 @@ public class Robot extends TimedRobot {
         processor.onLoop(System.currentTimeMillis());
         
         /*
+        if (new_m_period != this.m_period) {
+            Robot.
+            TimedRobot.getInstance().setPeriod(0.02);
+            setPeriod(new_m_period);
+            System.out.println(" m_period is ");
+            System.out.println(this.m_period);
+        }
+        */
+
+        /*
         SmartDashboard.putBoolean("Target found: ", !isTargetNull);
         SmartDashboard.putString("Camera Mode: ", cameraMode);
         SmartDashboard.putBoolean("Switch Front: ", Robot.driveTrain.isReversed());
@@ -214,7 +233,7 @@ public class Robot extends TimedRobot {
             
             SmartDashboard.putNumber("Vol_left1: ", RobotMap.left1.getMotorOutputVoltage());
             SmartDashboard.putNumber("Vol_right1: ", RobotMap.right1.getMotorOutputVoltage());
-            
+                        
 
         }
     }

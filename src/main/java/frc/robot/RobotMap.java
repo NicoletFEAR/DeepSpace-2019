@@ -16,6 +16,8 @@ public class RobotMap {
 	// Recorded Auto:
 	//public static String autoFileLocName = new String("/home/lvuser/recordedAuto" + "AutoName" + ".csv");
 	public static String autoFileLocName = new String("/home/lvuser/recordedAuto");
+	public static double normalPeriod = 0.02;
+	public static double longPeriod = 0.035;
 	
 	// Drive Base:
 	public static double wheel_diameter = 0.19; // in metres
