@@ -175,7 +175,9 @@ public class Robot extends TimedRobot {
     }
 
     @Override
-    public void robotPeriodic() { // Always runs, good for printing
+    public void robotPeriodic() { // Always runs, good for printing - be carefull not to slow down too much
+
+        // ADD IF STATEMENT HERE???
         processor = (VisionProcessor) mVisionServer.receivers.get(0);
         processor.onLoop(System.currentTimeMillis());
         

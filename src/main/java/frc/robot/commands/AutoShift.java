@@ -22,6 +22,8 @@ public class AutoShift extends Command {
   SensorCollection sensorLeft;
   SensorCollection sensorRight;
 
+  double averageVelocity;
+
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
@@ -34,7 +36,7 @@ public class AutoShift extends Command {
   @Override
   protected void execute() {
 
-    double averageVelocity = (Math.abs(sensorLeft.getQuadratureVelocity())
+    averageVelocity = (Math.abs(sensorLeft.getQuadratureVelocity())
         + Math.abs(sensorRight.getQuadratureVelocity())) / 2;
 
     if (Robot.shifter.isPlayingShift) { // PLAYBACK ************************

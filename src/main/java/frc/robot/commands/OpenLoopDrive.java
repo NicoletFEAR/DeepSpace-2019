@@ -17,6 +17,11 @@ import edu.wpi.first.wpilibj.GenericHID;
  */
 public class OpenLoopDrive extends Command {
 
+    double forwardValue = 0;
+    double reverseValue = 0;
+    double turnAmount = 0;
+    double robotOutput = 0;
+
     public OpenLoopDrive() {
         requires(Robot.driveTrain);
     }
@@ -27,13 +32,13 @@ public class OpenLoopDrive extends Command {
 
     @Override
     protected void execute() {    	
-    	double forwardValue = Robot.oi.getXbox1().getTriggerAxis(GenericHID.Hand.kRight);   	
-    	double reverseValue = Robot.oi.getXbox1().getTriggerAxis(GenericHID.Hand.kLeft);
-    	double turnAmount = Robot.oi.getXbox1().getX(GenericHID.Hand.kLeft);
+    	forwardValue = Robot.oi.getXbox1().getTriggerAxis(GenericHID.Hand.kRight);   	
+    	reverseValue = Robot.oi.getXbox1().getTriggerAxis(GenericHID.Hand.kLeft);
+    	turnAmount = Robot.oi.getXbox1().getX(GenericHID.Hand.kLeft);
     
     	//Calculate an Arcade drive speed by taking forward speed and subtracting it by reverse speed
     	//So Cool! :D
-    	double robotOutput = forwardValue - reverseValue;
+    	robotOutput = forwardValue - reverseValue;
     	Robot.driveTrain.RacingDrive(robotOutput, turnAmount * RobotMap.TURN_SCALING);
      }
 
