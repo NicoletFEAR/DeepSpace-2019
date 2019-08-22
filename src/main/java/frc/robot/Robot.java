@@ -186,9 +186,6 @@ public class Robot extends TimedRobot {
         processor = (VisionProcessor) mVisionServer.receivers.get(0);
         processor.onLoop(System.currentTimeMillis());
 
-        if (true) {
-            recorderNotifier.startPeriodic(0.03);     
-        }
        
 
         /*
