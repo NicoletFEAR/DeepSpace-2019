@@ -29,7 +29,7 @@ public class RobotMap {
 	public static final double DRIVE_RAMP_RATE = 10; // 10 is recomended by our friends from 2015, need to test
 
 	// Arm:
-	public static TalonSRX armMotor1;
+	//public static TalonSRX armMotor1; dead temporarily
 	public static TalonSRX armMotor2;
 
 	public static final double ARM_LIMITER = 0.7; // not 775 motors
@@ -148,15 +148,19 @@ public class RobotMap {
 
 		// next 2 need to be switched back to 21/22,
 		// using them for PID testing
+		/* // motor 1 temporarily gearbox dead
 		armMotor1 = new TalonSRX(24);
 		armMotor1.setNeutralMode(NeutralMode.Brake);
 		armMotor1.setInverted(false);
 		armMotor1.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 10); // new frame ever X miliseconds
 		armMotor1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
 		armMotor1.setSelectedSensorPosition(0);
+		*/
 		armMotor2 = new TalonSRX(22); // SHOULD BE 22
 		armMotor2.setNeutralMode(NeutralMode.Brake);
 		armMotor2.setInverted(true);
+		armMotor2.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
+		armMotor2.setSelectedSensorPosition(0);
 	}
 
 	public static void setTalonMode(String mode) {

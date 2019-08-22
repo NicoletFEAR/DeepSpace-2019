@@ -113,7 +113,7 @@ public class Robot extends TimedRobot {
 
         oi = new OI();
 
-        RobotMap.armMotor1.setSelectedSensorPosition(0);
+        // RobotMap.armMotor1.setSelectedSensorPosition(0); // temporarliy dead
         RobotMap.armMotor2.setSelectedSensorPosition(0);
         RobotMap.targetEncoderValue = 0;
         RobotMap.offset = 0;
@@ -174,15 +174,17 @@ public class Robot extends TimedRobot {
         processor = (VisionProcessor) mVisionServer.receivers.get(0);
         processor.onLoop(System.currentTimeMillis());
         
+        /*
         SmartDashboard.putBoolean("Target found: ", !isTargetNull);
         SmartDashboard.putString("Camera Mode: ", cameraMode);
         SmartDashboard.putBoolean("Switch Front: ", Robot.driveTrain.isReversed());
         SmartDashboard.putNumber("Pressure: ", Robot.pressureSensor.getPressure());
         SmartDashboard.putString("Talon Mode: ", talonMode);
         SmartDashboard.putString("Hatch Mech State: ", hatchMechState);
+        */
 
         if (DEBUG_TIME) {
-            SmartDashboard.putNumber("Arm1 Encoder Value: ", arm.getArm1Encoder());
+            // SmartDashboard.putNumber("Arm1 Encoder Value: ", arm.getArm1Encoder());
             SmartDashboard.putNumber("Arm2 Encoder Value: ", arm.getArm2Encoder());
 
             SmartDashboard.putNumber("y_val_target: ", y_val_target);
@@ -200,7 +202,7 @@ public class Robot extends TimedRobot {
 
             SmartDashboard.putNumber("ArmySpeedyBoi: ", arm.getSpeed());
             
-            SmartDashboard.putNumber("Vol_armMotor1: ", RobotMap.armMotor1.getMotorOutputVoltage());
+            //SmartDashboard.putNumber("Vol_armMotor1: ", RobotMap.armMotor1.getMotorOutputVoltage());
             SmartDashboard.putNumber("Vol_armMotor2: ", RobotMap.armMotor2.getMotorOutputVoltage());
             SmartDashboard.putNumber("Vol_left1: ", RobotMap.left1.getMotorOutputVoltage());
             SmartDashboard.putNumber("Vol_right1: ", RobotMap.right1.getMotorOutputVoltage());

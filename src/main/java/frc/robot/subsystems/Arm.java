@@ -40,7 +40,7 @@ public class Arm extends Subsystem {
             previousDesiredTargetEncoderValue = desiredTargetEncoderValue;
         }
 
-        encoderPosition = getArm1Encoder();
+        encoderPosition = getArm2Encoder();
 
         error = desiredTargetEncoderValue - encoderPosition;
         integral += error * .02;
@@ -69,7 +69,7 @@ public class Arm extends Subsystem {
             speed = -RobotMap.ARM_LIMITER;
         }
 
-        RobotMap.armMotor1.set(ControlMode.PercentOutput, speed);
+        // RobotMap.armMotor1.set(ControlMode.PercentOutput, speed);
 
         if (speed < 0) {
             RobotMap.armMotor2.set(ControlMode.PercentOutput, speed * RobotMap.ARM_MOTOR_SLOW_BACKWARDS);
@@ -81,7 +81,7 @@ public class Arm extends Subsystem {
     }
 
     public void rotateNoPID(double desiredTargetEncoderValue) {
-        encoderPosition = getArm1Encoder();
+        encoderPosition = getArm2Encoder();
         error = desiredTargetEncoderValue - encoderPosition;
 
         if (error > 200) {
@@ -96,7 +96,7 @@ public class Arm extends Subsystem {
             speed = 0.0;
         }
 
-        RobotMap.armMotor1.set(ControlMode.PercentOutput, speed);
+        //RobotMap.armMotor1.set(ControlMode.PercentOutput, speed);
         if (speed < 0) {
             RobotMap.armMotor2.set(ControlMode.PercentOutput, speed * RobotMap.ARM_MOTOR_SLOW_BACKWARDS);
         } else {
@@ -105,7 +105,7 @@ public class Arm extends Subsystem {
     }
 
     public void manualControl(double joystickInput) {
-        RobotMap.armMotor1.set(ControlMode.PercentOutput, joystickInput);
+        //RobotMap.armMotor1.set(ControlMode.PercentOutput, joystickInput);
         RobotMap.armMotor2.set(ControlMode.PercentOutput, joystickInput);
         if (joystickInput < 0) {
             RobotMap.armMotor2.set(ControlMode.PercentOutput, joystickInput * RobotMap.ARM_MOTOR_SLOW_BACKWARDS);
@@ -116,12 +116,13 @@ public class Arm extends Subsystem {
 
     // Negative because encoder happens to be the other way
     public double getArm1Encoder() {
-        return RobotMap.armMotor1.getSelectedSensorPosition();
+        //return RobotMap.armMotor1.getSelectedSensorPosition();
+        return -RobotMap.armMotor2.getSelectedSensorPosition();
     }
 
     // Negative because encoder happens to be the other way
     public double getArm2Encoder() {
-        return RobotMap.armMotor2.getSelectedSensorPosition();
+        return -RobotMap.armMotor2.getSelectedSensorPosition();
     }
 
     public double getSpeed() {
