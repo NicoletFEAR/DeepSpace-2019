@@ -59,12 +59,17 @@ public class Player extends Subsystem {
 		//startTime = System.currentTimeMillis();
   }
 
-  public void loadLine() {
+  public void loadLine() throws IllegalStateException{
     // for (int y = 0; y < 28; y++) {
     for (int y = 0; y < 14; y++) {
 
-
-      if (!scanner.hasNextDouble()) { endPlaying(); } //if there is nothing more to read, stop
+      try {
+        if (!scanner.hasNextDouble()) {
+           endPlaying(); 
+          } //if there is nothing more to read, stop
+      } catch (IllegalStateException cept) {
+        System.out.println(cept);
+      }
 
       try {
         thisLine[y] = scanner.nextDouble();

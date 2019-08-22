@@ -47,7 +47,9 @@ public class Playback extends InstantCommand {
 
     Robot.playerNotifier = new Notifier(() -> {
       // get the file, quit command if no file
-      if (Robot.player.scanner == null) { Robot.player.endPlaying(); } // stop if 
+      if (Robot.player.scanner == null) {
+         Robot.player.endPlaying(); 
+      } // stop if 
 
       // read the line of the file using scanner
       Robot.player.loadLine();
