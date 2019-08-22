@@ -51,7 +51,9 @@ public class Player extends Subsystem {
 		scanner = new Scanner(new File(RobotMap.autoFileLocName + Robot.autoName + ".csv"));
 		
 		//let scanner know that the numbers are separated by a comma or a newline, as it is a .csv file
-		scanner.useDelimiter(",|\\n");
+    scanner.useDelimiter(",|\\n");
+    
+    playing = true;
 		
 		//lets set start time to the current time you begin autonomous
 		//startTime = System.currentTimeMillis();

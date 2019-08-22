@@ -28,8 +28,6 @@ public class Robot extends TimedRobot {
     Command disabledCommand;
     Command nothingTest;
 
-    public static double new_m_period = 0.02;
-
     public static String autoName = "testAuto";
 
     public static boolean isAutonomous = false;
@@ -85,12 +83,6 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotInit() {
-
-        // 
-        this.m_period = 0.02;        
-        System.out.println(" m_period is ");
-        System.out.println(getPeriod());
-
 
         SmartDashboard.putString("autoName", autoName);
 
@@ -198,16 +190,6 @@ public class Robot extends TimedRobot {
             recorderNotifier.startPeriodic(0.03);     
         }
        
-
-        /*
-        if (new_m_period != this.m_period) {
-            Robot.
-            TimedRobot.getInstance().setPeriod(0.02);
-            setPeriod(new_m_period);
-            System.out.println(" m_period is ");
-            System.out.println(this.m_period);
-        }
-        */
 
         /*
         SmartDashboard.putBoolean("Target found: ", !isTargetNull);

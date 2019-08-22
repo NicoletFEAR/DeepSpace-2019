@@ -27,7 +27,6 @@ public class Playback extends InstantCommand {
   // Called once when the command executes
   @Override
   protected void initialize() {
-    
 
     // Robot.playerNotifier.startPeriodic(0.03);
 

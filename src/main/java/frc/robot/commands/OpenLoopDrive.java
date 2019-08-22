@@ -28,6 +28,7 @@ public class OpenLoopDrive extends Command {
 
     @Override
     protected void initialize() {
+        Robot.player.endPlaying();
     }
 
     @Override
@@ -38,8 +39,10 @@ public class OpenLoopDrive extends Command {
     
     	//Calculate an Arcade drive speed by taking forward speed and subtracting it by reverse speed
     	//So Cool! :D
-    	robotOutput = forwardValue - reverseValue;
-    	Robot.driveTrain.RacingDrive(robotOutput, turnAmount * RobotMap.TURN_SCALING);
+        robotOutput = forwardValue - reverseValue;
+        if (!Robot.player.playing) {
+        Robot.driveTrain.RacingDrive(robotOutput, turnAmount * RobotMap.TURN_SCALING);
+        }
      }
 
     // Make this return true when this Command no longer needs to run execute()
