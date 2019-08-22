@@ -125,8 +125,10 @@ public class Player extends Subsystem {
     }
     Robot.shifter.isPlayingShift = false;
     
+    if (Robot.playerNotifier != null) {
     Robot.playerNotifier.stop();
     Robot.playerNotifier = null;
+    }
 
   }
 
