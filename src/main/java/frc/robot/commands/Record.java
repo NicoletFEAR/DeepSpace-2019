@@ -61,6 +61,9 @@ public class Record extends InstantCommand {
 
     Robot.recorderNotifier.startSingle(0.005);
 
+    while (!Robot.recorder.isRecording) {
+    }
+
     Robot.recorderNotifier = new Notifier(() -> {
 
       try {

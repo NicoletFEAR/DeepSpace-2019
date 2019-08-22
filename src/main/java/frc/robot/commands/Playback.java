@@ -34,17 +34,20 @@ public class Playback extends InstantCommand {
       // get the file, quit command if no file
       try { Robot.player.setupScanner(); } catch (Exception e) {
         System.out.println("could not play, no file found");
-        end();
+        Robot.player.endPlaying();
       }
     });
 
-    Robot.playerNotifier.startSingle(0.005);
+    Robot.playerNotifier.startSingle(0.0);
 
+    while (!Robot.player.playing) {
+    }
+    
     Robot.shifter.isPlayingShift = true;
 
     Robot.playerNotifier = new Notifier(() -> {
       // get the file, quit command if no file
-      if (Robot.player.scanner == null) { end(); } // stop if 
+      if (Robot.player.scanner == null) { Robot.player.endPlaying(); } // stop if 
 
       // read the line of the file using scanner
       Robot.player.loadLine();
@@ -54,6 +57,7 @@ public class Playback extends InstantCommand {
     });
 
     Robot.playerNotifier.startPeriodic(0.03);
+    
 
   }
 
