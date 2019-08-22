@@ -8,7 +8,7 @@ import frc.robot.RobotMap;
 public class SwitchFront extends InstantCommand {
 	public SwitchFront() {
         super();
-    	requires(Robot.driveTrain);
+    	//requires(Robot.driveTrain);
     }
 
     // Called just before this Command runs the first time
