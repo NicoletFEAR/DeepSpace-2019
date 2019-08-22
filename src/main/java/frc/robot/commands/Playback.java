@@ -40,11 +40,16 @@ public class Playback extends InstantCommand {
 
     Robot.playerNotifier.startSingle(0.0);
 
+    /*
     while (!Robot.player.playing) {
     }
+    */
+    
+    /*
     
     Robot.shifter.isPlayingShift = true;
 
+    
     Robot.playerNotifier = new Notifier(() -> {
       // get the file, quit command if no file
       if (Robot.player.scanner == null) {
@@ -59,7 +64,7 @@ public class Playback extends InstantCommand {
     });
 
     Robot.playerNotifier.startPeriodic(0.03);
-    
+    */
 
   }
 

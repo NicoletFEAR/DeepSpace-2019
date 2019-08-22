@@ -7,13 +7,13 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.command.Subsystem;
 import java.io.FileWriter;
 import java.io.IOException;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.Notifier;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 
@@ -47,7 +47,34 @@ public class Recorder extends Subsystem {
   public void makeFileWriter() throws IOException {
     writer = new FileWriter(RobotMap.autoFileLocName + Robot.autoName + ".csv");
 
+    Robot.recorder.isRecording = true;
     // System.out.println("inside makeFileWriter");
+
+    Robot.recorderNotifier = new Notifier(() -> {
+
+      try {
+        Robot.recorder.writeLine();
+      } catch (IOException e) {
+        System.out.println("IOException WriteLine");
+      }
+      Robot.recorder.currentLine++;
+
+      if (Robot.oi.getXbox1().getBumper(Hand.kRight) && Robot.recorder.currentLine >= 50) { // if you pressed the record
+                                                                                            // button again (after 1s
+                                                                                            // delay so it doesn't
+                                                                                            // instantly end)
+        System.out.println("finished!");
+        try {
+          Robot.recorder.endRecording();
+        } catch (Exception excep) {
+          System.out.println("exceptio endRecording()");
+        }
+      }
+
+    });
+
+    Robot.recorderNotifier.startPeriodic(0.03);
+
   }
 
   // this method closes the writer and makes sure that all the data you recorded

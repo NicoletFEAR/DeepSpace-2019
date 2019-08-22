@@ -10,6 +10,7 @@ package frc.robot.subsystems;
 import java.io.File;
 import java.util.Scanner;
 
+import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Robot;
@@ -56,7 +57,24 @@ public class Player extends Subsystem {
     playing = true;
 		
 		//lets set start time to the current time you begin autonomous
-		//startTime = System.currentTimeMillis();
+    //startTime = System.currentTimeMillis();
+    Robot.shifter.isPlayingShift = true;
+
+    Robot.playerNotifier = new Notifier(() -> {
+      // get the file, quit command if no file
+      if (Robot.player.scanner == null) {
+         Robot.player.endPlaying(); 
+      } // stop if 
+
+      // read the line of the file using scanner
+      Robot.player.loadLine();
+
+      // play back the line of that file
+      Robot.player.playLine();
+    });
+
+    Robot.playerNotifier.startPeriodic(0.03);
+
   }
 
   public void loadLine() throws IllegalStateException{

@@ -54,13 +54,14 @@ public class Record extends InstantCommand {
         System.out.println("inside Record IOException");
       }
 
-      Robot.recorder.isRecording = true;
+      
       // System.out.println("inside Record init");
 
     });
 
-    Robot.recorderNotifier.startSingle(0.005);
+    Robot.recorderNotifier.startSingle(0.0);
 
+    /*
     while (!Robot.recorder.isRecording) {
     }
 
@@ -88,6 +89,7 @@ public class Record extends InstantCommand {
     });
 
     Robot.recorderNotifier.startPeriodic(0.03);
+    */
 
   }
 
