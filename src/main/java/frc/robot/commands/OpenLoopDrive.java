@@ -28,7 +28,9 @@ public class OpenLoopDrive extends Command {
 
     @Override
     protected void initialize() {
-        Robot.player.endPlaying();
+        if (Robot.playerNotifier != null) {
+            Robot.player.endPlaying();
+        }
     }
 
     @Override

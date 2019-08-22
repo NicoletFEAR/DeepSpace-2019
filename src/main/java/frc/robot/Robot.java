@@ -100,6 +100,8 @@ public class Robot extends TimedRobot {
         shifter.shiftdown();
         
         compressorOAir = new CompressAir();
+        player = new Player();
+        recorder = new Recorder();
 
         
 
