@@ -117,12 +117,12 @@ public class Arm extends Subsystem {
     // Negative because encoder happens to be the other way
     public double getArm1Encoder() {
         //return RobotMap.armMotor1.getSelectedSensorPosition();
-        return -RobotMap.armMotor2.getSelectedSensorPosition();
+        return RobotMap.armMotor2.getSelectedSensorPosition();
     }
 
     // Negative because encoder happens to be the other way
     public double getArm2Encoder() {
-        return -RobotMap.armMotor2.getSelectedSensorPosition();
+        return RobotMap.armMotor2.getSelectedSensorPosition();
     }
 
     public double getSpeed() {

@@ -66,11 +66,11 @@ public class RobotMap {
 	public static final int StraightUp = 0;
 	public static final int BackToClimb = 0;
 	// P: increases proportional to error
-	public static final double ARM_kP = 0.002; // please raise
+	public static final double ARM_kP = 0.0015; // please raise
 	// I: sum of error over time, helps arm get to final pos 
 	public static final double ARM_kI = 0.0001; // 
 	// D: slows arm down when it's too fast
-	public static final double ARM_kD = 0.00005; // please raise
+	public static final double ARM_kD = 0.000005; // please raise
 	public static double ARM_TICKS_PER_REVOLUTION = 4096.0; // Needs to be updated on final bot!!!!!!!!!!!!!!!!!!!!!!!!
 	public static int ARM_MAX_TICK_VAL = 2750;
 	public static int ARM_MIN_TICK_VAL = -2750;
