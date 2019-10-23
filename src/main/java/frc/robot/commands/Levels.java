@@ -33,9 +33,9 @@ public class Levels extends Command {
     protected void execute() {
         if (Robot.arm.armIsManual) {
             if (Robot.driveTrain.isReversed()) {
-                Robot.arm.manualControl(-(Robot.oi.getXbox2().getY(Hand.kLeft)));
+                Robot.arm.manualControl((Robot.oi.getXbox2().getY(Hand.kLeft)));
             } else {
-                Robot.arm.manualControl(Robot.oi.getXbox2().getY(Hand.kLeft));
+                Robot.arm.manualControl(-Robot.oi.getXbox2().getY(Hand.kLeft));
             }
         } else {
             if (Math.abs(Robot.oi.getXbox2().getY(Hand.kLeft)) > 0.1){

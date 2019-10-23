@@ -34,8 +34,8 @@ public class RobotMap {
 
 	public static final double ARM_LIMITER = 0.7; // not 775 motors
 
-	public static double ARM_MOTOR_SLOW_FORWARDS = 1; // slow the faster motor to match the slower 
-	public static double ARM_MOTOR_SLOW_BACKWARDS = 1; // slow the faster motor to match the slower
+	public static double ARM_MOTOR_SLOW_FORWARDS = .875; // slow the faster motor to match the slower 
+	public static double ARM_MOTOR_SLOW_BACKWARDS = 0.92; // slow the faster motor to match the slower
 
 	// PID Constants:
 	public static double ERROR_CONSTANT_LEFT = 0.0;

@@ -34,7 +34,7 @@
           },
           "3,0": {
             "size": [
-              1,
+              2,
               1
             ],
             "content": {
@@ -692,6 +692,17 @@
               "_source0": "network_table:///LiveWindow/GameMech",
               "_title": "GameMech"
             }
+          },
+          "2,4": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Basic Subsystem",
+              "_source0": "network_table:///LiveWindow/Shifter",
+              "_title": "Shifter"
+            }
           }
         }
       }
@@ -738,19 +749,6 @@
               "imageHeight": -1
             }
           },
-          "7,0": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Boolean Box",
-              "_source0": "network_table:///SmartDashboard/Switch Front",
-              "_title": "Front Switched:",
-              "Colors/Color when true": "#7CFC00FF",
-              "Colors/Color when false": "#8B0000FF"
-            }
-          },
           "1,0": {
             "size": [
               1,
@@ -795,57 +793,6 @@
               "_title": "Camera Mode:"
             }
           },
-          "5,5": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///LiveWindow/Ungrouped/AnalogInput[0]/Value",
-              "_title": "Detected Pressure:"
-            }
-          },
-          "3,0": {
-            "size": [
-              3,
-              1
-            ],
-            "content": {
-              "_type": "Simple Dial",
-              "_source0": "network_table:///LiveWindow/Ungrouped/AnalogInput[0]/Value",
-              "_title": "Detected Pressure:",
-              "Range/Min": 0.0,
-              "Range/Max": 100.0,
-              "Visuals/Show value": true
-            }
-          },
-          "0,1": {
-            "size": [
-              1,
-              3
-            ],
-            "content": {
-              "_type": "Boolean Box",
-              "_source0": "network_table:///SmartDashboard/Switch Front",
-              "_title": "Active:",
-              "Colors/Color when true": "#7CFC00FF",
-              "Colors/Color when false": "#8B0000FF"
-            }
-          },
-          "9,1": {
-            "size": [
-              1,
-              3
-            ],
-            "content": {
-              "_type": "Boolean Box",
-              "_source0": "network_table:///SmartDashboard/Switch Front",
-              "_title": "Active:",
-              "Colors/Color when true": "#8B0000FF",
-              "Colors/Color when false": "#7CFC00FF"
-            }
-          },
           "5,1": {
             "size": [
               4,
@@ -876,6 +823,59 @@
               "_title": "/SmartDashboard/DoneArc",
               "Colors/Color when true": "#7CFC00FF",
               "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "3,0": {
+            "size": [
+              3,
+              1
+            ],
+            "content": {
+              "_type": "Simple Dial",
+              "_source0": "network_table:///SmartDashboard/Pressure: ",
+              "_title": "Pressure: ",
+              "Range/Min": 0.0,
+              "Range/Max": 110.0,
+              "Visuals/Show value": true
+            }
+          },
+          "7,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Switch Front: ",
+              "_title": "/SmartDashboard/Switch Front: ",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "9,1": {
+            "size": [
+              1,
+              3
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Switch Front: ",
+              "_title": "/SmartDashboard/Switch Front: ",
+              "Colors/Color when true": "#00FFFFFF",
+              "Colors/Color when false": "#333333FF"
+            }
+          },
+          "0,1": {
+            "size": [
+              1,
+              3
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Switch Front: ",
+              "_title": "/SmartDashboard/Switch Front: ",
+              "Colors/Color when true": "#666666FF",
+              "Colors/Color when false": "#47F5AEFF"
             }
           }
         }
@@ -1096,6 +1096,6 @@
     "x": -8.0,
     "y": 0.0,
     "width": 1548.0,
-    "height": 629.5999755859375
+    "height": 830.4000244140625
   }
 }
