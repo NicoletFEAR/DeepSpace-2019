@@ -17,15 +17,5 @@ public class SwitchFront extends InstantCommand {
     	//Flip direction of travel
         Robot.driveTrain.switchFront();
 
-        if (Robot.driveTrain.isReversed()) {
-            Robot.mVisionServer.frontCamera();
-            Robot.cameraMode = "front";
-            SmartDashboard.putBoolean("Active: ", true);
-        } else {
-            Robot.mVisionServer.backCamera();
-            Robot.cameraMode = "back";
-            SmartDashboard.putBoolean("Active: ", false);
-        }
-
     }
 }

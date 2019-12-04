@@ -10,9 +10,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.loops.VisionProcessor;
 import frc.robot.subsystems.*;
-import frc.robot.vision.VisionServer;
 import se.vidstige.jadb.JadbConnection;
 import se.vidstige.jadb.JadbDevice;
 
@@ -61,15 +59,6 @@ public class Robot extends TimedRobot {
 
     public boolean compressorRunning = true;
 
-    private static JadbConnection m_jadb = null;
-    private static List<JadbDevice> m_devices = null;
-    private static JadbDevice m_currentDevice = null;
-    private static int m_nextLocalHostPort = 3800;
-
-    public static String cameraMode = "back";
-
-    public static VisionServer mVisionServer;
-    public static VisionProcessor processor;
     public static boolean xPressed = false;
 
     public static final double versionNumber = 3.2;
@@ -87,10 +76,6 @@ public class Robot extends TimedRobot {
         SmartDashboard.putString("autoName", autoName);
 
         RobotMap.init();
-        mVisionServer = VisionServer.getInstance();
-        mVisionServer.frontCamera();
-
-        mVisionServer.addVisionUpdateReceiver(VisionProcessor.getInstance());
 
         driveTrain = new DriveTrain();
 
@@ -103,18 +88,6 @@ public class Robot extends TimedRobot {
         player = new Player();
         recorder = new Recorder();
 
-        
-
-        
-
-        front = CameraServer.getInstance().startAutomaticCapture("FRONT", 0);
-        front.setFPS(20);
-        back = CameraServer.getInstance().startAutomaticCapture("BACK", 1);
-        back.setFPS(20);
-
-        // arduinoLEDInterface = new ArduinoInterface(7);
-        // arduinoCameraInterface = new ArduinoInterface(6);
-
         // OI must be constructed after subsystems. If the OI creates Commands
         // (which it very likely will), subsystems are not guaranteed to be
         // constructed yet. Thus, their requires() statements may grab null
@@ -123,7 +96,6 @@ public class Robot extends TimedRobot {
         oi = new OI();
 
         SmartDashboard.putNumber("Version Number: ", versionNumber);
-        SmartDashboard.putBoolean("Active: ", false);
     }
 
     /**
@@ -142,7 +114,6 @@ public class Robot extends TimedRobot {
 
     @Override
     public void autonomousInit() {
-        mVisionServer.backCamera();
         if (disabledCommand != null)
             disabledCommand.cancel();
 
@@ -183,48 +154,5 @@ public class Robot extends TimedRobot {
 
     @Override
     public void robotPeriodic() { // Always runs, good for printing - be carefull not to slow down too much
-
-        // ADD IF STATEMENT HERE???
-        processor = (VisionProcessor) mVisionServer.receivers.get(0);
-        processor.onLoop(System.currentTimeMillis());
-
-       
-
-        /*
-        SmartDashboard.putBoolean("Target found: ", !isTargetNull);
-        SmartDashboard.putString("Camera Mode: ", cameraMode);
-        SmartDashboard.putBoolean("Switch Front: ", Robot.driveTrain.isReversed());
-        SmartDashboard.putNumber("Pressure: ", Robot.pressureSensor.getPressure());
-        SmartDashboard.putString("Talon Mode: ", talonMode);
-        SmartDashboard.putString("Hatch Mech State: ", hatchMechState);
-
-        // PATHFINDER
-        SmartDashboard.putBoolean("isOnPath", shifter.isOnPath);
-        SmartDashboard.putNumber("R_Enc", Robot.driveTrain.getRightEncoderPosition());
-        SmartDashboard.putNumber("L_Enc", Robot.driveTrain.getLeftEncoderPosition());
-        */
-
-        if (DEBUG_TIME) {
-            
-
-            SmartDashboard.putNumber("y_val_target: ", y_val_target);
-            SmartDashboard.putNumber("z_val_target: ", z_val_target);
-            SmartDashboard.putNumber("x_val_target: ", x_val_target);
-            SmartDashboard.putNumber("angle_val_target: ", angle_val_target);
-
-            // SmartDashboard.putNumber("velR: ", Robot.driveTrain.getRightEncoderVelocity());
-            // SmartDashboard.putNumber("velL: ", Robot.driveTrain.getLeftEncoderVelocity());
-
-            SmartDashboard.putNumber("Average Velocity: ", Robot.driveTrain.averageVelocity);
-
-            SmartDashboard.putNumber("Right Encoder: ", Robot.driveTrain.getRightEncoderPosition());
-            SmartDashboard.putNumber("Left Encoder: ", Robot.driveTrain.getLeftEncoderPosition());
-
-            
-            SmartDashboard.putNumber("Vol_left1: ", RobotMap.left1.getMotorOutputVoltage());
-            SmartDashboard.putNumber("Vol_right1: ", RobotMap.right1.getMotorOutputVoltage());
-                        
-
-        }
     }
 }
